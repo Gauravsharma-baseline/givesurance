@@ -9,127 +9,124 @@
 					die();
 					
 			}else{
-				
-			   $dom = new DOMDocument;
-				$dom->loadHTML($response);
-				foreach($dom->getElementsByTagName('table') as $node)
-				{
-					$array[] = $dom->saveHTML($node);
-				}
-				
-				
-				$Carrier_Information= $array[6];
-				$Operation_Classification=$array[8];
-				$Operation_Classification1=$array[7];
-				$Carrier_Operation=$array[11];
-				$Cargo_Carried=$array[15];
-				echo '<pre>';
-				print_r(strip_tags($Operation_Classification1));
-				echo '<pre>';
-				
-				
-				
-				$DOM = new DOMDocument();
-				$DOM->loadHTML($Carrier_Information);
-				$Header = $DOM->getElementsByTagName('th');
-				$Detail = $DOM->getElementsByTagName('td');
+				   $dom = new DOMDocument;
+					$dom->loadHTML($response);
+					foreach($dom->getElementsByTagName('table') as $node)
+					{
+						$array[] = $dom->saveHTML($node);
+					}
+					
+					$Carrier_Information= $array[6];
+					$Operation_Classification=$array[7];
+					$Carrier_Operation=$array[11];
+					$Cargo_Carried=$array[15];
+					
+					$Operation_Classification_main=array();
+					$Carrier_Operation_main=array();
+					$Cargo_Carried_main=array();
+					
+					
+					$DOM = new DOMDocument();
+					$DOM->loadHTML($Carrier_Information);
+					$Header = $DOM->getElementsByTagName('th');
+					$Detail = $DOM->getElementsByTagName('td');
+					foreach($Header as $NodeHeader) 
+					{
+						$aDataTableHeaderHTML[] = trim($NodeHeader->textContent);
+					}
+					 
+					foreach($Detail as $NodeDetail)  
+					{
+						$aDataTableDetailHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+					}
+					
+					 $carrier  =$aDataTableDetailHTML[0];
+					 $operating_status  =$aDataTableDetailHTML[1];
+					 $legal_name  =$aDataTableDetailHTML[2];
+					 $dba_name  =$aDataTableDetailHTML[3];
+					 $physical_address  =$aDataTableDetailHTML[4];
+					 $phone  =$aDataTableDetailHTML[5];
+					 $mailing_address  =$aDataTableDetailHTML[7];
+					 $usdot_number  =$aDataTableDetailHTML[8];
+					 $mc_mx_ff_nmumber =$aDataTableDetailHTML[9];
+					 $state_carrier_ID_Number  =$aDataTableDetailHTML[10];
+					 $duns_Number  =$aDataTableDetailHTML[11];
+					 $power_units  =$aDataTableDetailHTML[12];
+					 $drivers  =$aDataTableDetailHTML[13];
+					 $MCS_150_Form_Date  =$aDataTableDetailHTML[14];
+					 $MCS_150_Mileage_year  =$aDataTableDetailHTML[15];
+					 $o_c  = $aDataTableDetailHTML[17];
+					 
+					
+					 
+					
+					/*******************************************Operation_Classification start*****************************/
+					$DOM = new DOMDocument();
+					$DOM->loadHTML($Operation_Classification);
+					$Operation_Classificationhead = $DOM->getElementsByTagName('th');
+					$DetailOperationClassification = $DOM->getElementsByTagName('td');
+					 
+					foreach($DetailOperationClassification as $NodeDetail)
+					{
+						$DetailOperation_ClassificationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+					}
+					
+					foreach($DetailOperation_ClassificationHTML as $key=>$nDetailOperation_ClassificationHTML){
+						if($nDetailOperation_ClassificationHTML=='X'){
+						
+						 array_push($Operation_Classification_main,$DetailOperation_ClassificationHTML[$key+1]);
+					   }
+					} 
+					
+					
+					
+					/* echo '<pre>';
+					print_r($Operation_Classification_main); 
+					echo '<pre>'; */
+					/*******************************************Carrier_Operation*************************************/
+					$DOM = new DOMDocument();
+					$DOM->loadHTML($Carrier_Operation);
+					$DetailCarrier_Operation = $DOM->getElementsByTagName('td');
+					foreach($DetailCarrier_Operation as $NodeDetail)
+					{
+						$DetailCarrier_OperationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+					}
+					foreach($DetailCarrier_OperationHTML as $key=>$nDetailCarrier_OperationHTML){
+						if($nDetailCarrier_OperationHTML =='X'){
+						
+						 array_push($Carrier_Operation_main,$DetailCarrier_OperationHTML[$key+1]);
+					   }
+					}
+					/* echo '<pre>';
+					print_r($Carrier_Operation_main); 
+					echo '<pre>'; */
+					
+					
+					
+					/*******************************************Cargo_Carried*************************************/
+					$DOM = new DOMDocument();
+					$DOM->loadHTML($Cargo_Carried);
+					
+					$DetailCargo_Carried = $DOM->getElementsByTagName('td');
 
-				
-				foreach($Header as $NodeHeader) //#Get header name of the table
-				{
-					$aDataTableHeaderHTML[] = trim($NodeHeader->textContent);
-				}
-				 
-				foreach($Detail as $NodeDetail)  //#Get data name of the table
-				{
-					$aDataTableDetailHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
-				}
-				
-				
-				
-				
-			echo '**********************main start***************************';
-				 $carrier  =$aDataTableDetailHTML[0];
-				
-				 $operating_status  =$aDataTableDetailHTML[1];
-				
-				 $legal_name  =$aDataTableDetailHTML[2];
-
-				 $dba_name  =$aDataTableDetailHTML[3];
-				 
-				 $physical_address  =$aDataTableDetailHTML[4];
-				 
-				 $phone  =$aDataTableDetailHTML[5];
-				 
-				 $mailing_address  =$aDataTableDetailHTML[7];
-				 
-				 $usdot_number  =$aDataTableDetailHTML[8];
-				 
-				 $mc_mx_ff_nmumber =$aDataTableDetailHTML[9];
-				 
-				 $state_carrier_ID_Number  =$aDataTableDetailHTML[10];
-				 
-				 $duns_Number  =$aDataTableDetailHTML[11];
-				 
-				 $power_units  =$aDataTableDetailHTML[12];
-				 
-				 $drivers  =$aDataTableDetailHTML[13];
-				 
-				 $MCS_150_Form_Date  =$aDataTableDetailHTML[14];
-				 
-				 $MCS_150_Mileage_year  =$aDataTableDetailHTML[15];
-				 
-				 $o_c  = $aDataTableDetailHTML[17];
-				echo '******************main end*******************************'; 
-				
-				$DOM = new DOMDocument();
-				$DOM->loadHTML($Operation_Classification);
-				$Operation_Classificationhead = $DOM->getElementsByTagName('th');
-				$DetailOperationClassification = $DOM->getElementsByTagName('td');
-
-				
-				foreach($Operation_Classificationhead as $NodeHeader) //#Get header name of the table
-				{
-					$OperationClassificationHeaderHTML[] = trim($NodeHeader->textContent);
-				}
-				 
-				foreach($DetailOperationClassification as $NodeDetail)  //#Get data name of the table
-				{
-					$DetailOperation_ClassificationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
-				}
-				
-				
-				/* 
-				echo '<pre>';
-				print_r($DetailOperation_ClassificationHTML); 
-				echo '<pre>';
-				  */
-				$oc1['oc1']=array($DetailOperation_ClassificationHTML[0].$DetailOperation_ClassificationHTML[1],$DetailOperation_ClassificationHTML[2].$DetailOperation_ClassificationHTML[3],$DetailOperation_ClassificationHTML[4].$DetailOperation_ClassificationHTML[5],$DetailOperation_ClassificationHTML[6].$DetailOperation_ClassificationHTML[6]);
-				echo '<pre>';
-				
-				print_r($oc1); 
-				echo '<pre>';
-				
-				$DOM = new DOMDocument();
-				$DOM->loadHTML($Carrier_Operation);
-				$Carrier_OperationHead = $DOM->getElementsByTagName('th');
-				$CarrierOperationData = $DOM->getElementsByTagName('td');
-
-				
-				foreach($Carrier_OperationHead as $NodeHeader) //#Get header name of the table
-				{
-					$CarrierOperationDataHeaderHTML[] = trim($NodeHeader->textContent);
-				}
-				 
-				foreach($CarrierOperationData as $NodeDetail)  //#Get data name of the table
-				{
-					$DetailCarrierOperationDataHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
-				}
-				
-				echo '<pre>';
-				
-				print_r($DetailCarrierOperationDataHTML); 
-				echo '<pre>';
+					
+					 
+					foreach($DetailCargo_Carried as $NodeDetail)  //#Get data name of the table
+					{
+						$DetailCargo_CarriedHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+					}
+					foreach($DetailCargo_CarriedHTML as $key=>$nDetailCargo_CarriedHTML){
+						if($nDetailCargo_CarriedHTML =='X'){
+						
+						 array_push($Cargo_Carried_main,$DetailCargo_CarriedHTML[$key+1]);
+					   }
+					} 
+					
+					return $saferData[]= array('carrier'=>$carrier,'operating_status'=>$operating_status, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'phone'=>$phone,'mailing_address'=>$mailing_address,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
+					
+					
+					
+					
 			}
 		}
 	}
