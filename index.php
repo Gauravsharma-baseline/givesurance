@@ -9,7 +9,7 @@ if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
 	}else{
 	echo '<pre>';
 	print_r($response);
-	echo '<pre>';
+	echo '</pre>';
 	}
 }
 
