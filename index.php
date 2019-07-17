@@ -12,6 +12,12 @@ if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
 	echo '<pre>';
 	}
 }
+
+ 
+if(ISSET($_GET['u']) && !empty($_GET['u'])){
+ $email=$_GET['u'];
+	
+}
 ?>
 
 
@@ -50,6 +56,7 @@ if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
 					<span class="req-input valid" >
 						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Input your post title."> </span>
 						<input type="text" data-min-length="6" placeholder="Enter Dot Number" name='odtNumber' >
+						<input type="hidden" data-min-length="6" name='customerEmail' value='<?php echo $email ;?>'>
 					</span>
 				</div>
 				<div class="row submit-row">
