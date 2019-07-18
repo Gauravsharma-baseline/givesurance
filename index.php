@@ -9,7 +9,7 @@ if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
 	}else{
 	echo '<pre>';
 	print_r($response);
-	echo '</pre>';
+	echo '<pre>';
 	}
 }
 
@@ -18,6 +18,39 @@ if(ISSET($_GET['u']) && !empty($_GET['u'])){
  $email=$_GET['u'];
 	
 }
+
+$trelloLists = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/lists/5d2901e0207a1126d1d915ea/cards?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957');
+ 
+foreach($trelloLists as $trallolist){
+	$check = explode("_",$trallolist['name']);
+	if($check[2]==$email){
+		$card_id=$trallolist['id'];
+} 
+}
+
+	
+
+
+$getcustomefiledData = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/boards/5d28c82085d34435e9d1869f/customFields?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957');
+
+foreach($getcustomefiledData as $key => $value){
+
+if($value['name'] == 'Phone Number')
+{
+$customFieldId = $value ['id'];
+
+}
+
+if($value['name']=='Drivers')
+{
+ $customFieldId=$value ['id'];
+}
+
+}
+
+
+
+
 ?>
 
 
