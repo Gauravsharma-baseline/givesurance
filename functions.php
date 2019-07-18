@@ -42,10 +42,11 @@
 					
 					 $carrier  =$aDataTableDetailHTML[0];
 					 $operating_status  =$aDataTableDetailHTML[1];
-					 $legal_name  =$aDataTableDetailHTML[2];
-					 $dba_name  =$aDataTableDetailHTML[3];
-					 $physical_address  =$aDataTableDetailHTML[4];
-					 $phone  =$aDataTableDetailHTML[5];
+					 $Out_of_Service_date=$aDataTableDetailHTML[2];
+					 $legal_name  =$aDataTableDetailHTML[3];
+					 $dba_name  =$aDataTableDetailHTML[4];
+					 $physical_address  =$aDataTableDetailHTML[5];
+					 $phone  =$aDataTableDetailHTML[6];
 					 $mailing_address  =$aDataTableDetailHTML[7];
 					 $usdot_number  =$aDataTableDetailHTML[8];
 					 $mc_mx_ff_nmumber =$aDataTableDetailHTML[9];
