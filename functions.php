@@ -113,7 +113,6 @@
 					$DOM->loadHTML($Cargo_Carried);
 					
 					$DetailCargo_Carried = $DOM->getElementsByTagName('td');
-
 					
 					 
 					foreach($DetailCargo_Carried as $NodeDetail)  //#Get data name of the table
@@ -153,7 +152,6 @@
 		  
 		  ),
 		));
-
 		$response = curl_exec($curl);
 		$err = curl_error($curl);
 		curl_close($curl);
@@ -180,12 +178,9 @@
 			
 		  ),
 		));
-
 		$response = curl_exec($curl);
 		$err = curl_error($curl);
-
 		curl_close($curl);
-
 		if ($err) {
 		  echo "cURL Error #:" . $err;
 		} else {
@@ -206,13 +201,10 @@
         'Accept: application/json'
 		  ),
 		));
-
 		$response = curl_exec($curl);
 		
 		$err = curl_error($curl);
-
 		curl_close($curl);
-
 		if ($err) {
 		  echo "cURL Error #:" . $err;
 		} else {
@@ -225,45 +217,29 @@
 		
 		 
 	}
-	function updateTrelloCardCustomFields(){
+	function updateTrelloCardCustomFields($url,$data){
 			$curl = curl_init();
-
 			curl_setopt_array($curl, array(
-			  CURLOPT_URL => "https://api.trello.com/1/cards/5d2eeb6b09c81e82efbeb067/customField/5d2ee9df85dde90f89ec9038/item?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957'",
+			  CURLOPT_URL => $url,
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
-			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 30,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "PUT",
-			  CURLOPT_POSTFIELDS => "{\r\n   \"value\": { \"text\": \"Hello, world!\" } ,\r\n  \t\r\n  \r\n  \"key\": \"1164815231d570ac9de8d17de3ec7715\",\r\n  \"token\": \"ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957\"\r\n}",
+			  CURLOPT_POSTFIELDS => $data,
 			  CURLOPT_HTTPHEADER => array(
 				"cache-control: no-cache",
-				"content-type: application/json",
-				"postman-token: 81b294c8-d2b9-af35-13b8-e0dbe089bfa2"
+				"content-type: application/json"
 			  ),
 			));
-
 			$response = curl_exec($curl);
 			$err = curl_error($curl);
-
 			curl_close($curl);
-
 			if ($err) {
-			  echo "cURL Error #:" . $err;
+			  return $err;
 			} else {
-			  echo $response;
+			 return $response;
 			}
-
-
-
-
 	}
-
-
-
-
-
 		
 }
 ?>
