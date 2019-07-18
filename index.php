@@ -1,55 +1,207 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);
 include('functions.php');
+ $trelloListId	= '5d2901e0207a1126d1d915ea' ;
+$trelloApiKey	= '1164815231d570ac9de8d17de3ec7715' ;
+   $trelloToken	= 'ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957' ;
 $handleFunctionsObject = new handleFunctions;
 if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
 	$response=$handleFunctionsObject->getDataFromSafer($_POST['odtNumber']);
 	if($response==0){
 		$message='The record matching USDOT Number = '.$_POST['odtNumber'].' is INACTIVE in the SAFER database';	
 	}else{
-	echo '<pre>';
-	print_r($response);
-	echo '<pre>';
+	
+	$getcustomefiledData = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/boards/5d28c82085d34435e9d1869f/customFields?key='.$trelloApiKey.'&token='.$trelloToken.'');
+	
+	
+	foreach($getcustomefiledData as $key => $value){
+		if($value['name'] == 'Phone Number')
+		{
+			if(!empty($response['phone'])){
+			
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['phone'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'DUNS Number')
+		{
+			
+			if(!empty($response['duns_Number'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['duns_Number'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'MC/MX/FF Number(s)')
+		{
+			
+			if(!empty($response['mc_mx_ff_nmumber'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['mc_mx_ff_nmumber'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'State Carrier ID Number')
+		{
+			
+			if(!empty($response['state_carrier_ID_Number'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['state_carrier_ID_Number'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'Cargo Carried')
+		{
+			
+			if(!empty($response['Cargo_Carried'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['Cargo_Carried'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'MCS-150 Form Mileage')
+		{
+			
+			if(!empty($response['MCS_150_Mileage_year'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['MCS_150_Mileage_year'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'MCS-150 Form Date')
+		{
+			
+			if(!empty($response['MCS_150_Mileage_year'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['MCS_150_Mileage_year'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'Power Units')
+		{
+			
+			if(!empty($response['power_units'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['power_units'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'Operation Classification')
+		{
+			
+			if(!empty($response['Operation_Classification'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['Operation_Classification'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'Drivers')
+		{
+			
+			if(!empty($response['drivers'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['drivers'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'Safer Phone')
+		{
+			
+			if(!empty($response['MCS_150_Mileage_year'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['MCS_150_Mileage_year'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		if($value['name'] == 'DBA Name')
+		{
+			
+			if(!empty($response['dba_name'])){
+			$url='https://api.trello.com/1/cards/'.$_POST['cardId'].'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
+			$data='{
+			  "value": {"text": "'.$response['dba_name'].'"},
+			  "key": "'.$trelloApiKey.'",
+			  "token": "'.$trelloToken.'"
+			}';
+
+			$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
+			}
+		}
+		$message='Thanks for submitting Dot Number.';
+		
+	}
 	}
 }
-
  
 if(ISSET($_GET['u']) && !empty($_GET['u'])){
  $email=$_GET['u'];
-	
-}
+	$trelloLists = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/lists/'.$trelloListId.'/cards?key='.$trelloApiKey.'&token='.$trelloToken.'');
+	 
+	foreach($trelloLists as $trallolist){
+		$check = explode("_",$trallolist['name']);
+		if($check[2]==$email){
+			$card_id=$trallolist['id'];
+	} 
+	}			
 
-$trelloLists = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/lists/5d2901e0207a1126d1d915ea/cards?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957');
- 
-foreach($trelloLists as $trallolist){
-	$check = explode("_",$trallolist['name']);
-	if($check[2]==$email){
-		$card_id=$trallolist['id'];
-} 
-}
 
 	
-
-
-$getcustomefiledData = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/boards/5d28c82085d34435e9d1869f/customFields?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957');
-
-foreach($getcustomefiledData as $key => $value){
-
-if($value['name'] == 'Phone Number')
-{
-$customFieldId = $value ['id'];
-
-}
-
-if($value['name']=='Drivers')
-{
- $customFieldId=$value ['id'];
-}
-
-}
-
-
-
 
 ?>
 
@@ -88,8 +240,9 @@ if($value['name']=='Drivers')
 				<div class="row">
 					<span class="req-input valid" >
 						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Input your post title."> </span>
-						<input type="text" data-min-length="6" placeholder="Enter Dot Number" name='odtNumber' >
-						<input type="hidden" data-min-length="6" name='customerEmail' value='<?php echo $email ;?>'>
+						<input type="text"  placeholder="Enter Dot Number" name='odtNumber' >
+						<input type="hidden"  name='customerEmail' value='<?php echo $email ;?>'>
+						<input type="hidden" name='cardId' value='<?php echo $card_id ;?>'>
 					</span>
 				</div>
 				<div class="row submit-row">
@@ -103,3 +256,5 @@ if($value['name']=='Drivers')
 </div>
 </div>
 </div>
+<?php }
+?>
