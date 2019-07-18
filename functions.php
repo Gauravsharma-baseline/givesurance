@@ -1,8 +1,12 @@
 <?php
    class handleFunctions {
-      /* Member functions */
+	   
+    /*  $trelloListId	= '5d2901e0207a1126d1d915ea' ;
+     $trelloApiKey	= '1164815231d570ac9de8d17de3ec7715' ;
+     $trelloToken	= 'ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957' ; */
+	
     function getDataFromSafer($odt){
-		$response=$this->saferSeachsaferSeach($odt);
+		$response=$this->saferSearch($odt);
 		if($response){
 			if(strpos(strip_tags($response), 'INACTIVE in the SAFER database.') !== false) {
 					return 0;
@@ -132,7 +136,7 @@
 		}
 	}
 	
-	function saferSeachsaferSeach($odt){
+	function saferSearch($odt){
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => "https://safer.fmcsa.dot.gov/query.asp?query_type=queryCarrierSnapshot&query_param=USDOT&query_string=".$odt."",
@@ -190,23 +194,21 @@
 		
 		
 	}
-	function getTrelloData(){
+	function getTrelloData($url){
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => "https://api.trello.com/1/boards/5d28c82085d34435e9d1869f/cards?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957",
+		  CURLOPT_URL =>$url,
 		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => "",
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 30,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => "GET",
 		  CURLOPT_HTTPHEADER => array(
-			"cache-control: no-cache",
-			"postman-token: eee3193f-a04d-5977-9169-bdef9abe1d16"
+			'Content-Type: application/json',
+        'Accept: application/json'
 		  ),
 		));
 
 		$response = curl_exec($curl);
+		
 		$err = curl_error($curl);
 
 		curl_close($curl);
@@ -214,10 +216,54 @@
 		if ($err) {
 		  echo "cURL Error #:" . $err;
 		} else {
-		  echo $response;
+			
+		 $response;
+		 
+		return $data = json_decode($response, true);
+		
 		}
 		
-		
+		 
 	}
+	function updateTrelloCardCustomFields(){
+			$curl = curl_init();
+
+			curl_setopt_array($curl, array(
+			  CURLOPT_URL => "https://api.trello.com/1/cards/5d2eeb6b09c81e82efbeb067/customField/5d2ee9df85dde90f89ec9038/item?key=1164815231d570ac9de8d17de3ec7715&token=ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957'",
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => "",
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 30,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => "PUT",
+			  CURLOPT_POSTFIELDS => "{\r\n   \"value\": { \"text\": \"Hello, world!\" } ,\r\n  \t\r\n  \r\n  \"key\": \"1164815231d570ac9de8d17de3ec7715\",\r\n  \"token\": \"ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957\"\r\n}",
+			  CURLOPT_HTTPHEADER => array(
+				"cache-control: no-cache",
+				"content-type: application/json",
+				"postman-token: 81b294c8-d2b9-af35-13b8-e0dbe089bfa2"
+			  ),
+			));
+
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+
+			curl_close($curl);
+
+			if ($err) {
+			  echo "cURL Error #:" . $err;
+			} else {
+			  echo $response;
+			}
+
+
+
+
+	}
+
+
+
+
+
+		
 }
 ?>
