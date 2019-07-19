@@ -264,6 +264,45 @@
 			 }
 			}
 	}
+	
+	
+	function zoho_auth($url,$method,$data){
+		$ch = curl_init('https://accounts.zoho.com/oauth/v2/'.$url);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		if($method == "POST"){
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);	
+		}
+		$response = curl_exec($ch);
+		 echo $response;
+		return json_decode($response,true);
+		curl_close($ch); 
+	}
+	function zoho_curl($url,$method,$data,$access_token){
+		$ch = curl_init('https://www.zohoapis.com/crm/v2/'.$url);
+		//curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		if($method == "POST"){
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);	
+		}
+
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Zoho-oauthtoken '.$access_token));
+		echo $response = curl_exec($ch);
+		
+		$err = curl_error($curl);
+			curl_close($curl);
+			if ($err) {
+			  return $err;
+			} else {
+			return json_decode($response,true);
+			}
+	}
 		
 }
 ?>
