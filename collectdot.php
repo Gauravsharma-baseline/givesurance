@@ -5,17 +5,58 @@ $zoho_client_id='1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH';
 $zoho_client_secret='88c42ac4b05a8e341731956a233d89cb0399e7f3cb';
 $old_access_token = file_get_contents("access_token.txt");
 $refresh_token = file_get_contents("refresh_token.txt");
-//https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.contacts.ALL&client_id=1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH&response_type=code&access_type=offline&redirect_uri=http://localhost/givesurance/givesurance/collectdot.php
+//https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.contacts.ALL&client_id=1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH&response_type=code&access_type=offline&redirect_uri=https://givesurance.herokuapp.com/collectdot.php
  
 $handleFunctionsObject = new handleFunctions;
-if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber'])){
+if(ISSET($_POST['queryCarrierSnapshot']) && !empty($_POST['odtNumber']) && !empty($_POST['contactId'])){
 	$response=$handleFunctionsObject->getDataFromSafer($_POST['odtNumber']);
 	if($response==0){
 		$message='The record matching USDOT Number = '.$_POST['odtNumber'].' is INACTIVE in the SAFER database';	
 	}else{
-		 echo '<pre>';
+		/*   echo '<pre>';
 		print_r($response);
-		echo '</pre>'; 
+		echo '</pre>';  */
+		if(!empty($response['MCS_150_Form_Date']) &&  $response['MCS_150_Form_Date']!='None' ){
+		 $MCS_150_Form_Date=date("Y-m-d", strtotime($response['MCS_150_Form_Date']));
+		}else{
+			$MCS_150_Form_Date='';
+		}
+		
+		if(!empty($response['Out_of_Service_date']) &&  $response['Out_of_Service_date']!='None' ){
+		 $Out_of_Service_date=date("Y-m-d", strtotime($response['Out_of_Service_date']));
+		}else{
+			$Out_of_Service_date='';
+		}	
+			 $url = "Contacts/".$_POST['contactId'];
+			 $data = '{
+			"data": [{
+			"Entity_Type": "'.$response['Entity_Type'].'",
+            "Operating_Status": "'.$response[''].'", 
+            "Drivers":  "'.$response['drivers'].'", 
+            "Carrier_Operation":  "'.$response['Carrier_Operation'].'", 
+            "Power_Units":  "'.$response['power_units'].'", 
+            "DBA_Name":  "'.$response['dba_name'].'", 
+            "DUNS_Number":  "'.$response['duns_Number'].'", 
+            "Garaging_Street":  "'.$response['physical_address'].'", 
+            "DOT":  "'.$response['usdot_number'].'", 
+            "Out_of_Service_Date":  "'.$Out_of_Service_date.'", 
+            "Safer_Phone":  "'.$response['phone'].'", 
+            "MC_MX_FF_Number_s":  "'.$response['mc_mx_ff_nmumber'].'", 
+            "Operation_Classification":  "'.$response['Operation_Classification'].'", 
+            "Cargo_Carried":  "'.$response['Cargo_Carried'].'", 
+            "MCS_150_FormDate":  "'.$MCS_150_Form_Date.'", 
+            "Operating_Status":  "'.$response['operating_status'].'", 
+            "MCS_150_Form_Mileage":  "'.$response['MCS_150_Mileage_year'].'", 
+            "State_Carrier_ID_Number":  "'.$response['state_carrier_ID_Number'].'", 
+            "Mailing_Street":  "'.$response['mailing_address'].'", 
+            "Company_Name":  "'.$response['legal_name'].'" 
+			}]}'; 
+			
+			$response=  $handleFunctionsObject->zoho_curl($url,"PUT",$data,$old_access_token);
+			/* echo '<pre>';
+			print_R($response);
+			echo '</pre>'; */
+			$message='Thanks for submitting Dot Number.';
 		
 	}
 }
@@ -32,13 +73,9 @@ file_put_contents("refresh_token.txt", $get_token['refresh_token']);
  
 if(ISSET($_GET['u']) && !empty($_GET['u'])){
   $email=$_GET['u'];
-	echo $url = "Contacts/search?email= ".$email."";
-$data = "";
-$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
-echo '<pre>';
-	print_r($check_token_valid);
-	echo '</pre>';
-
+	 $url = "Contacts/search?email=".$email."";
+	$data = "";
+	$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 if($check_token_valid['code'] == "INVALID_TOKEN"){
 	$url = "token";
 	$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
@@ -49,14 +86,19 @@ if($check_token_valid['code'] == "INVALID_TOKEN"){
 	if(isset($get_new_token['refresh_token'])){
 		file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
 	}
-	file_put_contents("auth_result.txt",json_encode($get_new_token));
+	$old_access_token = file_get_contents("access_token.txt");
+	$url = "Contacts/search?email=".$email."";
+	$data = "";
+	$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 } else{
-	$token = file_get_contents("access_token.txt");
-	echo '<pre>';
+
+	/* echo '<pre>';
 	print_r($check_token_valid);
-	echo '</pre>';
+	echo '</pre>'; */
+	  $contactId=$check_token_valid['data'][0]['id'];
 }
 ?>
+
 
 
 
@@ -95,7 +137,7 @@ if($check_token_valid['code'] == "INVALID_TOKEN"){
 						<span class="input-status" data-toggle="tooltip" data-placement="top" title="Input your post title."> </span>
 						<input type="text"  placeholder="Enter Dot Number" name='odtNumber' >
 						<input type="hidden"  name='customerEmail' value='<?php echo $email ;?>'>
-						<input type="hidden" name='cardId' value='<?php echo $card_id ;?>'>
+						<input type="hidden" name='contactId' value='<?php echo $contactId ;?>'>
 					</span>
 				</div>
 				<div class="row submit-row">
