@@ -44,14 +44,35 @@
 						$aDataTableDetailHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
 					}
 					
-					 $carrier  =$aDataTableDetailHTML[0];
+					if (strpos($aDataTableDetailHTML[0], '    ') !== false) {
+						$Entity_Type=trim(preg_replace('/\s+/', '', $aDataTableDetailHTML[0]));
+
+						}else{
+							$Entity_Type =$aDataTableDetailHTML[0];
+						}
+					
+					 
 					 $operating_status  =$aDataTableDetailHTML[1];
 					 $Out_of_Service_date=$aDataTableDetailHTML[2];
 					 $legal_name  =$aDataTableDetailHTML[3];
 					 $dba_name  =$aDataTableDetailHTML[4];
-					 $physical_address  =$aDataTableDetailHTML[5];
+					 
+					if (strpos($aDataTableDetailHTML[5], '    ') !== false) {
+						$physical_address=trim(preg_replace('/\s+/', ' ', $aDataTableDetailHTML[5]));
+
+						}else{
+							$physical_address  =$aDataTableDetailHTML[5];
+						}
+					 
+					 if (strpos($aDataTableDetailHTML[7], '    ') !== false) {
+						$mailing_address=trim(preg_replace('/\s+/', ' ', $aDataTableDetailHTML[7]));
+
+						}else{
+							$mailing_address  =$aDataTableDetailHTML[7];
+						}
+					 
 					 $phone  =$aDataTableDetailHTML[6];
-					 $mailing_address  =$aDataTableDetailHTML[7];
+					
 					 $usdot_number  =$aDataTableDetailHTML[8];
 					 $mc_mx_ff_nmumber =$aDataTableDetailHTML[9];
 					 $state_carrier_ID_Number  =$aDataTableDetailHTML[10];
@@ -126,7 +147,7 @@
 					   }
 					} 
 					
-					return $saferData[]= array('carrier'=>$carrier,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'phone'=>$phone,'mailing_address'=>$mailing_address,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
+					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'phone'=>$phone,'mailing_address'=>$mailing_address,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
 					
 					
 					
@@ -237,7 +258,10 @@
 			if ($err) {
 			  return $err;
 			} else {
-			 return $response;
+			$d=json_decode($response, true);
+			 if(empty($d['id'])){
+				return $d ;
+			 }
 			}
 	}
 		
