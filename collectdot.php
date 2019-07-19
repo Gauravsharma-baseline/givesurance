@@ -91,7 +91,8 @@ if($check_token_valid['code'] == "INVALID_TOKEN" || $check_token_valid['code'] =
 	$url = "Contacts/search?email=".$email."";
 	$data = "";
 	$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
-	 $contactId=$check_token_valid['data'][0]['id'];
+	print_r($check_token_valid);
+	echo  $contactId=$check_token_valid['data'][0]['id'];
 } else{
 
 	/* echo '<pre>';
