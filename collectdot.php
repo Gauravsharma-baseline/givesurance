@@ -23,7 +23,7 @@ if(ISSET($_GET['code']))
 {
 $code = $_GET['code'];
 $url = "token";
-$data = array("code"=>$code,"redirect_uri"=>"http://localhost/givesurance/givesurance/collectdot.php","client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"authorization_code");
+$data = array("code"=>$code,"redirect_uri"=>"https://givesurance.herokuapp.com/collectdot.php","client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"authorization_code");
 $get_token = $handleFunctionsObject->zoho_auth($url,"POST",$data);
 file_put_contents("access_token.txt", $get_token['access_token']); 
 file_put_contents("refresh_token.txt", $get_token['refresh_token']); 
