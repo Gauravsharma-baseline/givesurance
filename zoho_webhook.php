@@ -1,8 +1,9 @@
 <?php
 $data = file_get_contents("php://input");
-file_put_contents('zoho1.txt',$data)  ;
-file_put_contents('zoho.txt',$_REQUEST)  ;
-file_put_contents('zoho.txt',$_POST)  ;
-file_put_contents('test.txt','gjfhef');
+file_put_contents('zohoinput.txt',$data)  ;
+file_put_contents('zohorequest.txt',$_REQUEST)  ;
+file_put_contents('zohopost.txt',$_POST)  ;
+
+//$contact_id=file_get_contents(''zoho.txt');
 
 ?>
