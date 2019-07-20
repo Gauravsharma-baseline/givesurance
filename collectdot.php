@@ -3,9 +3,8 @@ error_reporting(E_ERROR | E_PARSE);
 include('functions.php');
 $zoho_client_id='1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH';
 $zoho_client_secret='88c42ac4b05a8e341731956a233d89cb0399e7f3cb';
-echo $old_access_token = file_get_contents("access_token.txt");
-echo '<br>';
-echo $refresh_token = file_get_contents("refresh_token.txt");
+ $old_access_token = file_get_contents("access_token.txt");
+$refresh_token = file_get_contents("refresh_token.txt");
 //https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.contacts.ALL&client_id=1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH&response_type=code&access_type=offline&redirect_uri=https://givesurance.herokuapp.com/collectdot.php
  
 $handleFunctionsObject = new handleFunctions;
@@ -77,7 +76,7 @@ if(ISSET($_GET['u']) && !empty($_GET['u'])){
 	 $url = "Contacts/search?email=".$email."";
 	$data = "";
 	$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
-	echo $check_token_valid['code'];
+	 $check_token_valid['code'];
 if($check_token_valid['code'] == "INVALID_TOKEN" || $check_token_valid['code'] == "AUTHENTICATION_FAILURE"){
 	$url = "token";
 	$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
@@ -92,10 +91,9 @@ if($check_token_valid['code'] == "INVALID_TOKEN" || $check_token_valid['code'] =
 	$url = "Contacts/search?email=".$email."";
 	$data = "";
 	$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
-	print_r($check_token_valid);
-	echo  $contactId=$check_token_valid['data'][0]['id'];
+	
+	  $contactId=$check_token_valid['data'][0]['id'];
 } else{
-
 	/* echo '<pre>';
 	print_r($check_token_valid);
 	echo '</pre>'; */
