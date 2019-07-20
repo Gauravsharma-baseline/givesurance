@@ -4,7 +4,7 @@ include('functions.php');
 $zoho_client_id='1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH';
 $zoho_client_secret='88c42ac4b05a8e341731956a233d89cb0399e7f3cb';
 echo $old_access_token = file_get_contents("access_token.txt");
-echo '<br>'
+echo '<br>';
 echo $refresh_token = file_get_contents("refresh_token.txt");
 //https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.modules.contacts.ALL&client_id=1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH&response_type=code&access_type=offline&redirect_uri=https://givesurance.herokuapp.com/collectdot.php
  
