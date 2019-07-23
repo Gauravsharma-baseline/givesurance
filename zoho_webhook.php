@@ -11,12 +11,11 @@ $old_access_token = file_get_contents("access_token.txt");
 $refresh_token = file_get_contents("refresh_token.txt");
 
 $handleFunctionsObject = new handleFunctions;
-/* $data = file_get_contents("php://input");
+ $data = file_get_contents("php://input");
 file_put_contents('zohoinput.txt',$data)  ; 
 
-*/
 $get_string=file_get_contents('zohoinput.txt');
-parse_str($get_string, $get_array);
+parse_str($data, $get_array);
 
 
 if($get_array['dot']){
