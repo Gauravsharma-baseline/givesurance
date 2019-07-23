@@ -13,7 +13,7 @@
 					die();
 					
 			}else{
-				   $dom = new DOMDocument;
+					$dom = new DOMDocument;
 					$dom->loadHTML($response);
 					foreach($dom->getElementsByTagName('table') as $node)
 					{
@@ -276,7 +276,7 @@
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);	
 		}
-		  $response = curl_exec($ch);
+		echo $response = curl_exec($ch);
 		  
 		return json_decode($response,true);
 		curl_close($ch); 
@@ -299,9 +299,9 @@
 		
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Zoho-oauthtoken '.$access_token));
-		    $response = curl_exec($ch);
-		 $err = curl_error($curl);
-			curl_close($curl);
+		  $response = curl_exec($ch);
+		 $err = curl_error($ch);
+			curl_close($ch);
 			if ($err) {
 			  return $err;
 			} else {
