@@ -11,59 +11,20 @@ $old_access_token = file_get_contents("access_token.txt");
 $refresh_token = file_get_contents("refresh_token.txt");
 
 $handleFunctionsObject = new handleFunctions;
-$data = file_get_contents("php://input");
-file_put_contents('zohoinput.txt',$data)  ;
+ $data = file_get_contents("php://input");
+file_put_contents('zohoinput.txt',$data)  ; 
 $get_string=file_get_contents('zohoinput.txt');
 parse_str($get_string, $get_array);
-if(!empty($get_array['email'])){
- $email=$get_array['email'];
-	$trelloLists = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/lists/'.$trelloListId.'/cards?key='.$trelloApiKey.'&token='.$trelloToken.'');
-	foreach($trelloLists as $trallolist){
-		
-		$check = explode("_",$trallolist['name']);
-		
-		if($check[2] == $email){
-			 $card_id = $trallolist['id'];
-		}  
-	}
-	if(!empty($card_id)){
-		
-		$getcustomefiledData = $handleFunctionsObject->getTrelloData('https://api.trello.com/1/boards/'.$trelloboard.'/customFields?key='.$trelloApiKey.'&token='.$trelloToken.'');
-		
-		
-		foreach($getcustomefiledData as $key => $value){
-			
-			if($value['name'] == 'ZohoContactUrl')
-			{
-				
-				 $contact_url='https://crm.zoho.com/crm/org693143281/tab/Contacts/'.$get_array['ContactId'];
-				$url='https://api.trello.com/1/cards/'.$card_id.'/customField/'.$value ['id'].'/item?key='.$trelloApiKey.'&token='.$trelloToken.'';
-				$data='{
-				  "value": {"text": "'.$contact_url.'"},
-				  "key": "'.$trelloApiKey.'",
-				  "token": "'.$trelloToken.'"
-				}';
-				$getcustomefiledData = $handleFunctionsObject->updateTrelloCardCustomFields($url,$data);
-				
-			}
-		}
-	}
-	
-}	
 
-
-
-
- 
 
 if($get_array['dot']){
 	$response=$handleFunctionsObject->getDataFromSafer($get_array['dot']);
 	if($response==0){
-		$message='The record matching USDOT Number = '.$get_array['dot'].' is INACTIVE in the SAFER database';	
+		//echo $message='The record matching USDOT Number = '.$get_array['dot'].' is INACTIVE in the SAFER database';	
 	}else{
-		/*   echo '<pre>';
+		  /*  echo '<pre>';
 		print_r($response);
-		echo '</pre>';  */
+		echo '</pre>'; */  
 		if(!empty($response['MCS_150_Form_Date']) &&  $response['MCS_150_Form_Date']!='None' ){
 		 $MCS_150_Form_Date=date("Y-m-d", strtotime($response['MCS_150_Form_Date']));
 		}else{
@@ -79,7 +40,6 @@ if($get_array['dot']){
 			 $data = '{
 			"data": [{
 			"Entity_Type": "'.$response['Entity_Type'].'",
-            "Operating_Status": "'.$response[''].'", 
             "Drivers":  "'.$response['drivers'].'", 
             "Carrier_Operation":  "'.$response['Carrier_Operation'].'", 
             "Power_Units":  "'.$response['power_units'].'", 
@@ -100,8 +60,8 @@ if($get_array['dot']){
             "Company_Name":  "'.$response['legal_name'].'" 
 			}]}'; 
 			
-			$response=  $handleFunctionsObject->zoho_curl($url,"PUT",$data,$old_access_token);
-			if($response['code'] == "INVALID_TOKEN" || $response['code'] == "AUTHENTICATION_FAILURE"){
+			$response =  $handleFunctionsObject->zoho_curl($url,"PUT",$data,$old_access_token);
+			if(isset($response['code'])&& $response['code'] == "INVALID_TOKEN" || $response['code'] == "AUTHENTICATION_FAILURE"){
 				$url = "token";
 				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
 				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
