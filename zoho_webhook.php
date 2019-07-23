@@ -15,7 +15,7 @@ $handleFunctionsObject = new handleFunctions;
 file_put_contents('zohoinput.txt',$data)  ; 
 */
 $get_string=file_get_contents('zohoinput.txt');
-parse_str($data, $get_array);
+parse_str($get_string, $get_array);
 print_R($get_array);
 
 if($get_array['dot']){
