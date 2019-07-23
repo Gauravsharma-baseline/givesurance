@@ -276,7 +276,7 @@
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);	
 		}
-		echo $response = curl_exec($ch);
+		$response = curl_exec($ch);
 		  
 		return json_decode($response,true);
 		curl_close($ch); 
