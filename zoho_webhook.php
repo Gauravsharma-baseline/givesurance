@@ -4,19 +4,15 @@ include('functions.php');
 $trelloApiKey	= '1164815231d570ac9de8d17de3ec7715' ;
 $trelloToken	= 'ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957' ;
 $trelloboard	= '5d28c82085d34435e9d1869f' ;
-
 $zoho_client_id='1000.G5ADCREZLWKQ37764DHC3ZZXAW4VEH';
 $zoho_client_secret='88c42ac4b05a8e341731956a233d89cb0399e7f3cb';
 $old_access_token = file_get_contents("access_token.txt");
 $refresh_token = file_get_contents("refresh_token.txt");
-
 $handleFunctionsObject = new handleFunctions;
-/* $data = file_get_contents("php://input");
+$data = file_get_contents("php://input");
 file_put_contents('zohoinput.txt',$data)  ; 
-*/
 $get_string=file_get_contents('zohoinput.txt');
 parse_str($get_string, $get_array);
-print_R($get_array);
 
 if($get_array['dot']){
 	$response=$handleFunctionsObject->getDataFromSafer($get_array['dot']);
@@ -38,8 +34,8 @@ if($get_array['dot']){
 		}else{
 			$Out_of_Service_date='';
 		}	
-			$url = "Contacts/".$get_array['ContactId'];
-			 $data = '{
+			$contacturl = "Contacts/".$get_array['ContactId'];
+			 $Contactdata = '{
 			"data": [{
 			"Entity_Type": "'.$response['Entity_Type'].'",
             "Drivers":  "'.$response['drivers'].'", 
@@ -62,7 +58,7 @@ if($get_array['dot']){
             "Company_Name":  "'.$response['legal_name'].'" 
 			}]}'; 
 			
-			$response =  $handleFunctionsObject->zoho_curl($url,"PUT",$data,$old_access_token);
+			$response =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if(isset($response['code'])&& $response['code'] == "INVALID_TOKEN" || $response['code'] == "AUTHENTICATION_FAILURE"){
 				$url = "token";
 				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
@@ -74,12 +70,12 @@ if($get_array['dot']){
 					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
 				}
 				$old_access_token = file_get_contents("access_token.txt");
-				$response=  $handleFunctionsObject->zoho_curl($url,"PUT",$data,$old_access_token);
+				
+				$response=  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			}
 			
 			
 		
 	}
 }
-
 ?>
