@@ -13,6 +13,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 $handleFunctionsObject = new handleFunctions;
  $data = file_get_contents("php://input");
 file_put_contents('zohoinput.txt',$data)  ; 
+
+/*
 $get_string=file_get_contents('zohoinput.txt');
 parse_str($get_string, $get_array);
 
@@ -24,7 +26,7 @@ if($get_array['dot']){
 	}else{
 		  /*  echo '<pre>';
 		print_r($response);
-		echo '</pre>'; */  
+		echo '</pre>';  
 		if(!empty($response['MCS_150_Form_Date']) &&  $response['MCS_150_Form_Date']!='None' ){
 		 $MCS_150_Form_Date=date("Y-m-d", strtotime($response['MCS_150_Form_Date']));
 		}else{
@@ -79,5 +81,5 @@ if($get_array['dot']){
 		
 	}
 }
-
+*/
 ?>
