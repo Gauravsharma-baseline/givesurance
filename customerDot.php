@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="style2.css" rel="stylesheet" type="text/css">
 
 <title>Customer with DOt</title>
@@ -66,7 +66,7 @@
 </form>
 
 <!-- jQuery --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- jQuery easing plugin --> 
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
 <script src="script.js" type="text/javascript"></script> 
