@@ -7,8 +7,9 @@
 	
     function getDataFromSafer($odt){
 		$response=$this->saferSearch($odt);
+	
 		if($response){
-			if(strpos(strip_tags($response), 'INACTIVE in the SAFER database.') !== false) {
+			if(strpos(strip_tags($response), 'Record Not Found') !== false) {
 					return 0;
 					die();
 					
@@ -147,7 +148,22 @@
 					   }
 					} 
 					
-					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'phone'=>$phone,'mailing_address'=>$mailing_address,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
+					$zipcode_Physical = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $physical_address, $zipcode_physical_zip);
+					$pZip=preg_replace("/[^0-9]/", "", $zipcode_physical_zip[0] );
+					$p_state=preg_replace('/[0-9]+/', '', $zipcode_physical_zip[0]);
+					 $zipcode_mailing = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $mailing_address, $zipcode_mailing_zip);
+					
+					 $mZip=preg_replace("/[^0-9]/", "", $zipcode_mailing_zip[0] );
+					   $m_state=preg_replace('/[0-9]+/', '', $zipcode_mailing_zip[0]);
+					 $street_address_p=explode(',',$physical_address);
+					 $street_address_p=$street_address_p[0];
+					  $street_address_m=explode(',',$mailing_address);
+					 $street_address_m=$street_address_m[0];
+					 
+					
+					 
+					
+					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'physical_zip'=>$pZip,'mailing_zip'=>$mZip,'p_street_address'=>$street_address_p,'m_street_address'=>$street_address_m,'phone'=>$phone,'mailing_address'=>$mailing_address,'p_state'=>$p_state,'m_state'=>$m_state,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
 					
 					
 					
