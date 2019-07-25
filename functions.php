@@ -305,7 +305,8 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		if($method == "POST"){
 			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);	
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);			
 		}
 		if($method == "PUT" ){
 			curl_setopt($ch, CURLOPT_POST, 1);

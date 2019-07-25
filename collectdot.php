@@ -68,7 +68,7 @@ $data = array("code"=>$code,"redirect_uri"=>"https://givesurance.herokuapp.com/c
 $get_token = $handleFunctionsObject->zoho_auth($url,"POST",$data);
 file_put_contents("access_token.txt", $get_token['access_token']); 
 file_put_contents("refresh_token.txt", $get_token['refresh_token']); 
- $old_access_token = file_get_contents("access_token.txt");
+ echo $old_access_token = file_get_contents("access_token.txt");
 }
  
 if(ISSET($_GET['u']) && !empty($_GET['u'])){
@@ -104,7 +104,7 @@ if($check_token_valid['code'] == "INVALID_TOKEN" || $check_token_valid['code'] =
 
 
 
-<link href="style.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
