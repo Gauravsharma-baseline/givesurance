@@ -42,7 +42,7 @@ display: none;
 }
 /*inputs*/
 #msform input, #msform textarea, #msform select {
-padding: 15px;
+padding: 7px;
 border: 1px solid #ccc;
 border-radius: 3px;
 margin-bottom: 10px;
@@ -69,10 +69,13 @@ box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
 /*headings*/
 .fs-title {
-font-size: 15px;
-text-transform: uppercase;
-color: #2C3E50;
-margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    background-color: #C3CFDB;
+    clear: left;
+    padding: 13px 0;
 }
 .fs-subtitle {
 font-weight: normal;
@@ -158,6 +161,10 @@ h1{
 	 padding: 1px 2px 2px 2px;
 } 
 
+#dtVehiclesTable_length input, #dtVehiclesTable_length textarea, #dtVehiclesTable_length select {
+    width: 13%;
+    margin: 0 2px 0 1px;
+}
 /* .previous_next_buttons {
     margin-top: 43%;
 } */
@@ -187,15 +194,15 @@ input[type='radio'] {
 }
 
 .radio input.checkType {
-    width: 14% !important;
+    width: 16% !important;
 }
 .radio label {
     display: inline-block;
-    width: 0%;
+    width: 80%;
 }
 .radio {
     width: 100%;
-    display: inline-block;
+    display: inline-block !important;
     text-align: left;
 }
 .form-holder input[type="radio"] {
@@ -204,13 +211,67 @@ input[type='radio'] {
 .form-holder.w-100 {
     text-align: left;
 }
-.main_form {
-    display: flex;
+.seventh .table>thead>tr>td,.eigth .table>thead>tr>td {
+    vertical-align: middle !important;
 }
-
-.main_form .form-holder input[type="radio"] {
-    width: 14%!important;
-    display: inline-block;
+button#add_vehicles,button#edit_vehicles,button#add_drivers,button#edit_drivers,button#voilation_add,button#delete_voilation {
+    font-size: 15px;
+    padding: 4px 15px;
+    border: none;
+    border-radius: 3px;
+}
+div#dtVehiclesTable_filter label {
+    text-align: right;
+    float: right;
+    width: 100%;
+}
+#dtVehiclesTable_filter input, #dtVehiclesTable_filter textarea, #dtVehiclesTable_filter select {
+    width: 35%;
+   
+}
+.dataTables_filter {
+    width: 50%;
+    text-align: right;
+    float: right;
+}
+.dataTables_filter label {
+    /* text-align: right; */
+    float: right;
+    width: 100%;
+}
+#dtDriverTable_filter input, #dtDriverTable_filter textarea, #dtDriverTable_filter select {
+   
+    width: auto;
+    
+}
+#dtDriverTable_length input, #dtDriverTable_length textarea, #dtDriverTable_length select {
+    width: auto;
+  
+}
+.previous_next_buttons {
+    clear: both;
+    /* margin: 27px 0; */
+    display: block;
+}
+div#dtDriverTable_filter input {
+    width: 35%;
+}
+#dtVehiclesTable_filter, div#dtDriverTable_filter  {
+    width: 50%;
+}
+div#dtVehiclesTable_length {
+    width: 50%;
+}
+div#dtVehiclesTable_length label {
+    width: 50%;
+}
+div#dtVehiclesTable_length label {
+    width: 100%;
+    float: left;
+    text-align: left;
+}
+div#dtVehiclesTable_length #msform select {
+    width: 39%;
 }
 @media screen and (max-width: 540px) {
     .radio {
@@ -230,4 +291,7 @@ input[type='radio'] {
 }
 input.checkType {
     float: left;
+}
+.confirmation_div{
+    border-top: 1px dashed #000;
 }

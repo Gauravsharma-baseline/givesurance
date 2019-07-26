@@ -94,6 +94,122 @@ $(".previous_Underwriting").click(function(){
 		
 });
 
+$(".phoneli").click(function(){
+	$("#progressbar li").removeClass("active");
+	$(".phoneli").addClass("active");
+	$("fieldset").hide();
+	$(".first").show(); 
+		
+});
+
+
+$(".dotLi").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".dotLi").addClass("active");
+	$("fieldset").hide();
+	$(".second").show(); 
+	}	
+});
+$(".physicalLi").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".physicalLi").addClass("active");
+	$("fieldset").hide();
+	$(".third").show(); 
+	}
+		
+});
+$(".mailingLi").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".mailingLi").addClass("active");
+	$("fieldset").hide();
+	$(".fourth").show(); 
+	}
+});
+$(".insuranceLi").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".insuranceLi").addClass("active");
+	$("fieldset").hide();
+	$(".fifth").show(); 
+	}	
+});
+$(".generalLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".generalLI").addClass("active");
+	$("fieldset").hide();
+	$(".sixth").show(); 
+	}	
+});
+$(".vehiclesLI").click(function(){
+	$("#progressbar li").removeClass("active");
+	$(".vehiclesLI").addClass("active");
+	$("fieldset").hide();
+	$(".seventh").show(); 
+		
+});
+$(".driversLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".driversLI").addClass("active");
+	$("fieldset").hide();
+	$(".eigth").show(); 
+	}	
+});
+$(".violationsLI").click(function(){
+	$("#progressbar li").removeClass("active");
+	$(".violationsLI").addClass("active");
+	$("fieldset").hide();
+	$(".ninth").show(); 
+		
+});
+$(".underwritingLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".underwritingLI").addClass("active");
+	$("fieldset").hide();
+	$(".tenth").show(); 
+	}	
+});
+
 
 
 $(".checkType").click(function(){
@@ -115,12 +231,16 @@ $(".phone_number_next").click(function(event ){
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
 	$(".phoneNumber").removeClass('is-invalid');
+	
+	$("body").css("cursor", "progress");
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({getZohoContact: "success", phone_number: phone}),
             success:function(result){
+				
+				$("body").css("cursor", "default");
 				if(result==0){
 					event.preventDefault();
 					$(".phoneNumber").addClass('is-invalid');
@@ -146,12 +266,17 @@ $(".dot_number_next").click(function(event ){
 		$(".searchedNumber").addClass('is-invalid');
 	}else{
 	$(".searchedNumber").removeClass('is-invalid');
+	$("body").css("cursor", "progress");
+	
+   
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({getSaferData: "success", searchedNumber: searchedNumber,checkType:checkType,contactId:contactId}),
             success:function(result){
+				
+				$("body").css("cursor", "default");
               if(result==0){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
@@ -350,4 +475,10 @@ $(".submit").click(function(){
 	return false;
 })
 
+
+
 });
+$(document).ready( function () {
+    $('#dtVehiclesTable').DataTable();
+	$('#dtDriverTable').DataTable();
+} );
