@@ -27,9 +27,13 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 				
 				 if(!empty($check_token_valid['data'][0]['id'])){
-				    $contactId=$check_token_valid['data'][0]['id'];
-					$dot=$check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
-					$response=array('contactId'=>$contactId,'Dot'=>$dot);
+				    $contactId = $check_token_valid['data'][0]['id'];
+					$dot = $check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
+					$mc	=	$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
+					$url = "Contacts/$contactId";
+					$data = "";
+					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
+					$response	=	array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0]);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -41,7 +45,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 				    $contactId=$contactresponse['data'][0]['details']['id'];
-					$response=array('contactId'=>$contactId,'Dot'=>'');
+				   
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'');
 					}else{
 						 $response=0;
 					}  
@@ -50,7 +55,11 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			 	if(!empty($check_token_valid['data'][0]['id'])){
 				    $contactId=$check_token_valid['data'][0]['id'];
 					$dot=$check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
-					$response=array('contactId'=>$contactId,'Dot'=>$dot);
+					$mc=$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
+					$url = "Contacts/$contactId";
+					$data = "";
+					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
+					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0]);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -62,7 +71,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 						   $contactId=$contactresponse['data'][0]['details']['id'];
-					$response=array('contactId'=>$contactId,'Dot'=>'');
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'');
 					}else{
 						$response=0;
 					}  
@@ -82,7 +91,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "USDOT_associated_with_the_insured_s_business":  "'.$_POST['searchedNumber'].'" 
             
 			}]}'; 
 			
@@ -96,115 +105,129 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		}
 	}
 	if(ISSET($_POST['physical_address']) && $_POST['physical_address']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
+		 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Home_Address":  "'.$_POST['physicaladdress'].'" 
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+		
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}
 	}
 	if(ISSET($_POST['mailing_address']) && $_POST['mailing_address']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
+		$contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Mailing_Address":  "'.$_POST['mailingaddress'].'" ,
+            "ZIP_Code_Two":  "'.$_POST['mailing_Postal'].'" ,
+            "State_Two":  "'.$_POST['mailing_state'].'" ,
+            "City_Two":  "'.$_POST['mailing_city'].'" ,
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+		
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}
 	}
 	if(ISSET($_POST['safer_data_next']) && $_POST['safer_data_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
-			 $Contactdata = '{
+		 $contacturl = "Contacts/".$_POST['contactId'];
+			/*  $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Mailing_Address":  "'.$_POST['mailingaddress'].'" ,
+            "ZIP_Code_Two":  "'.$_POST['mailingaddress'].'" ,
+            "State_Two":  "'.$_POST['mailing_state'].'" ,
+            "City_Two":  "'.$_POST['mailing_city'].'" ,
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+		
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} */
+		 
+		 echo json_encode($_POST);
+		 
 	}
 	if(ISSET($_POST['general_data_next']) && $_POST['general_data_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/* echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Agent_Code":  "'.$form_data['agent_code'].'" ,
+            "Policy_Effective_Date":  "'.$form_data['Policy_Effective'].'" ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Are_any_listed_vehicles_used_to_haul_steel":  " " ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
+            "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
+            "USDOT_Assigned_to":  "'.$form_data['USDOT_Assigned_to'].'" ,
+            "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
+            "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
+            "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
+            "Last_Name1":  "'.$form_data['Financial_First_name'].'" ,
+            "First_Name_Two":  "'.$form_data['Financial_Middle_name'].'" ,
+            "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
+            "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
+             "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
+            "Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
+            "Is_it_OK_if_I_continue":  "'.$form_data['OK_if_I_continue'].'" 
+            
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} 
 	}
 
 	if(ISSET($_POST['vehicles_data_next']) && $_POST['vehicles_data_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/* echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Agent_Code":  "'.$form_data['agent_code'].'" ,
+            "Policy_Effective_Date":  "'.$form_data['Policy_Effective'].'" ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Are_any_listed_vehicles_used_to_haul_steel":  "'.$form_data['mailing_city'].'" ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
+            "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
+            "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
+            "USDOT_Assigned_to":  "'.$form_data['USDOT_Assigned_to'].'" ,
+            "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
+            "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
+            "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
+            "Last_Name1":  "'.$form_data['Financial_First_name'].'" ,
+            "First_Name_Two":  "'.$form_data['Financial_Middle_name'].'" ,
+            "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
+            "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
+            "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
+            "Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
+            "Is_it_OK_if_I_continue":  "'.$form_data['OK_if_I_continue'].'" ,
+            //"Insured_s_Phone":  "'.$form_data['Is_it_OK_if_I_continue'].'" 
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+		
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} 
 	}
 
 	if(ISSET($_POST['drivers_data_next']) && $_POST['drivers_data_next']=='success'){

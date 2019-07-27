@@ -1,9 +1,14 @@
+ <?php
+include('functions.php');
+$handleFunctionsObject = new handleFunctions;
+?>
 <html>
 <head>
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="css/style2.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <title>Customer with DOt</title>
 </head>
@@ -45,6 +50,8 @@
 <label for="z">MC</label>
 </div>
 <input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
+<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
+<input type="hidden" name="mc" placeholder="Enter DOT Number" class="mc" />
 <input type="button" name="previous" class="previous_doT action-button" value="Previous" />
 <input type="button" name="next" class="action-button dot_number_next" value="Next" />
 </fieldset>
@@ -259,25 +266,26 @@
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>Agent Code:</label>				
-					 <select><option selected="selected" value="77743">77743 (GIVESURANCE INS SVCS)</option>
-				 </select>
+					 <select id='agent_code' name='agent_code'><option selected="selected" value="77743 (GIVESURANCE INS SVCS)">77743 (GIVESURANCE INS SVCS)</option>
+					</select>
 					</div>
 
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-				   <label>Policy Effective Date:</label><input type="date" class="form-control" value="<?php echo date('y-m-d');?>">
+				   <label>Policy Effective Date:</label>
+					<input type="text" class="form-control datepicker" value="<?php echo date('Y-m-d');?>" id='Policy_Effective' name='Policy_Effective'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Is the customer currently insured with Progressive Commercial Auto?</label>
 					 <div class='radio'>
-						<input type="radio" name="q">
+						<input type="radio" name="customer_Progressive_Commercial" class='customer_Progressive_Commercial'  value='Yes'>
 						<label>Yes</label>
 						</div>
 						 <div class='radio'>
-						<input type="radio" name="q" checked>
+						<input type="radio" name="customer_Progressive_Commercial" checked class='customer_Progressive_Commercial'  value='No'>
 						<label>No</label>
 						</div>
 					</div>	
@@ -288,10 +296,20 @@
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					<label>Business Type</label>
-					
-					<select class="form-control">
-						  <option value="none">--None--</option>
-						  
+					<?php
+					$response=$handleFunctionsObject->businessCategories();
+					?>
+					<select class="form-control" id='Business_type' name='Business_type'>
+						<?php foreach($response as $business){
+					if($business['category']!=''){
+					?>
+						  <option value="<?php $business['category'];?>"><?php echo $business['category'];?></option>
+						 <?php 
+					} else{
+						echo '<option value="other">other</option>';
+					}
+					} 
+					?>
 						</select>
 					
 					</div>	
@@ -301,13 +319,13 @@
 						<label>Does the insured ever transport passengers for hire?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="w">
+						 <input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>
 						   
-						<input type="radio" name="w" >
-						<label>NO</label>
+						<input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' value='No'>
+						<label>No</label>
 						</div>
 					</div>	
 				</div>		
@@ -320,50 +338,59 @@
 					  <label>Structure:</label>
 						<div class='radio'>
 						
-						 <input type="radio" name="Structure">
+						 <input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Individual/Sole Proprietor' checked>
 						 <label>Individual/Sole Proprietor</label>
 						 </div>
 						 <div class='radio'>
 						 
-						<input type="radio" name="Structure" >
+						<input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Partnership'>
 						<label>Partnership</label>
 						</div>
 						 <div class='radio'>
 						 
-						<input type="radio" name="Structure" >
+						<input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Corporation or LLC'>
 						<label>Corporation or LLC</label>
 						</div>
 					</div>	
 				</div>			
-				<div class="form-row">		
+				<div class="form-row" id='is_DBA'>		
 				   <div class="form-holder w-100">
 					<label>Do you have a DBA?</label>
 					<div class='radio'>
 					
-					<input type="radio" name="DBA">
+					<input type="radio" name="have_DBA" class='have_DBA'  value='Yes' checked>
 					<label>Yes</label>
 					</div>
 					<div class='radio'>
 					
-						<input type="radio" name="DBA" >
-						<label>NO</label>
+						<input type="radio" name="have_DBA" class='have_DBA' value='No'>
+						<label>No</label>
 					</div>
 					</div>
 				</div>
+				<div class="form-row" id='DBA_NAME_DIV'>	
+					<div class="form-holder w-100">
+					<label>DBA</label>
+					<input type="text" class="form-control dot"  name='DBA_NAME' >  
+					</div>
+				</div>
+
+
+
 			</div>
-			<div class='main_field_div'>	
+			<div class='main_field_div' id='US_Department_of_Transportation'>	
 				 <h2 class="fs-title">US Department of Transportation (USDOT) Registration</h2>
 				<div class="form-row">	
 					<div class="form-holder w-100">
 					
 					<label>USDOT# associated with the insured's business  :  </label>
-					<input type="text" class="form-control" name="firstname" value="3298365" readonly/>  
+					<input type="text" class="form-control dot"  name='USDOT_associated' value="3298365" readonly/>  
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>USDOT Assigned to: </label>
-						<input type="text" class="form-control" name="firstname" value="HAUL OF DUTY INC 120 E STREET RD APT G1-1 WARMINSTER, PA 18974" readonly/>  
+						<input type="text" class="form-control mailing_address" id='USDOT_Assigned_to' value="HAUL OF DUTY INC 120 E STREET RD APT G1-1 WARMINSTER, PA 18974" readonly/ name='USDOT_Assigned_to'>  
 					</div>
 				</div>
 				<div class="form-row">
@@ -371,13 +398,13 @@
 					<label>Does the information assigned to this USDOT# match the insured's business?</label>	
 					<div class='radio'>
 					
-					<input type="radio" name="Does" checked>
+					<input type="radio" name="is_match_USDOT" checked class='is_match_USDOT'  value='Yes'>
 					<label>Yes</label>	
 					</div>
 					<div class='radio'>
 					
-					<input type="radio" name="Does" >
-					<label>NO</label>	
+					<input type="radio" name="is_match_USDOT" class='is_match_USDOT'  value='No'>
+					<label>No</label>	
 					</div>
 					</div>
 				</div>
@@ -387,17 +414,17 @@
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>First Name:</label>
-							<input type="text" class="form-control" name="firstname" placeholder="First Name..">
+							<input type="text" class="form-control" name="Insured_first_name" placeholder="First Name.." id='Insured_first_name'>
 						<label>Middle Initial:</label>
-							<input type="text" class="form-control" name="middleinitial" placeholder="Middle Initial:..">
+							<input type="text" class="form-control" name="Insured_Middle_name" placeholder="Middle Initial:.." id='Insured_Middle_name'>
 						<label>Last Name:</label>
-							<input type="text" class="form-control" name="lastname" placeholder="Last Name:.">
+							<input type="text" class="form-control" name="Insured_Last_name" placeholder="Last Name:." id='Insured_Last_name'>
 						</div>	
 				</div>	
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 						<label>Suffix:</label>
-						<select class="form-control">
+						<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
 						  <option value="none">--None--</option>
 						  <option value="jr">jr</option>
 						  <option value="Sr">Sr</option>
@@ -411,50 +438,84 @@
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="date" class="form-control" name="dob">
+					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('Y-m-d');?>'>
 					<label>Designate Spouse as a Named Insured?</label>
 					<div class='radio'>
-						<input type="radio" name="Spouse" ><label>Yes</label>
+						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" ><label>No</label>
+						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
 			</div>
 			</div>
 			<div class='col-md-6 right'>
+				<div class='main_field_div' id='Spouse_Information_div'>
+				<h2 class="fs-title">Spouse Information</h2>
+				<div class="form-row">
+					<div class="form-holder w-100">
+						<label>First Name:</label>
+							<input type="text" class="form-control" name="Spouse_first_name" placeholder="First Name.." id='Spouse_first_name'>
+						<label>Middle Initial:</label>
+							<input type="text" class="form-control" name="Spouse_Middle_name" placeholder="Middle Initial:.." id='Spouse_Middle_name'>
+						<label>Last Name:</label>
+							<input type="text" class="form-control" name="Spouse_Last_name" placeholder="Last Name:." id='Spouse_Last_name'>
+						</div>	
+				</div>	
+				<div class="form-row">
+					<div class="form-holder w-100 ">
+						<label>Suffix:</label>
+						<select class="form-control" id='Spouse_Suffix' name='Spouse_Suffix'>
+						  <option value="none">--None--</option>
+						  <option value="jr">jr</option>
+						  <option value="Sr">Sr</option>
+						  <option value="|">|</option>
+						  <option value="||">||</option>
+						  <option value="|||">|||</option>
+						  <option value="|V">|V</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100 ">
+					<label>Date of Birth:</label>
+					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' <?php echo date('Y-m-d');?>>
+					
+					</div>
+				</div>
+			</div>
 				<div class='main_field_div'>
 				 <h2 class='fs-title'>Contact Information</h2>
 				 <h3 class='fs-subtitle' ></h3>
 				 <div class="form-row">
 					<div class="form-holder w-100">
 					<label>Insured's Phone:</label>
-						<input type="text" class="form-control" name="mobile">
+						<input type="text" class="form-control" name="Contact_Insured_phone" id='Contact_Insured_phone'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">				
 						<label>E-mail Address:</label>
-						<input type="email" class="form-control" name="email">
+						<input type="email" class="form-control" name="Contact_Insured_email" id='Contact_Insured_email'>
 					</div>
 				</div>	
 				<div class="form-row">
 					<div class="form-holder w-100">		
 					<label>Mailing Address:</label>
-						<input type="text" class="form-control" name="emailaddress" placeholder=" 1331 BRIARWOOD BLVD " >
+						<input type="text" class="form-control" name="Contact_Insured_Mailing" placeholder="" id='Contact_Insured_Mailing'>
 						</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">					
 					<label>City:</label>
-						<input type="text" class="form-control" name="city" placeholder="GOSHEN" >
+						<input type="text" class="form-control" name="Contact_Insured_City" placeholder=""  id='Contact_Insured_City' >
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					<label>State:</label>
-					<select class="form-control">
+					<select class="form-control"  id='Contact_Insured_State' name='Contact_Insured_State'>
   				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
 				<option value="AZ">Arizona</option>
@@ -514,7 +575,7 @@
 			<div class="form-row">
 					<div class="form-holder w-100">	
 			<label>ZIP Code:</label>
-			<input type="text" class="form-control" name="zipcode" placeholder="46526-0000" >
+			<input type="text" class="form-control" name="Contact_Insured_ZIP_code" placeholder="46526-0000"  id='Contact_Insured_ZIP_code'>
 				</div>
 			</div>
 			</div>
@@ -525,24 +586,24 @@
 				  <div class="form-holder w-100">
 				 		
 				<label>First Name:</label>
-				<input type="text" class="form-control" name="firstname" placeholder="First Name..">
+				<input type="text" class="form-control" name="Financial_First_name" placeholder="First Name.." id='Financial_First_name'>
 			</div>
 			</div>	
 			<div class="form-row">
 				  <div class="form-holder w-100">
 				<label>Middle Initial:</label>
-				<input type="text" class="form-control" name="middleinitial" placeholder="Middle Initial:..">
+				<input type="text" class="form-control" name="Financial_Middle_name" placeholder="Middle Initial:.."id='Financial_Middle_name'>
 			</div>
 			</div>		
 			<div class="form-row">
 				  <div class="form-holder w-100">	
-				<label>Last Name:</label><input type="text" class="form-control" name="lastname" placeholder="Last Name:.">
+				<label>Last Name:</label><input type="text" class="form-control" name="Financial_Last_name" placeholder="Last Name:."id='Financial_Last_name'>
 			</div>
 			</div>	
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 				<label>Suffix:</label>
-					<select class="form-control">
+					<select class="form-control" id='Financial_Suffix' name='Financial_Suffix'>
 						<option value="none">--None--</option>
 						<option value="jr">jr</option>
 						<option value="Sr">Sr</option>
@@ -553,27 +614,42 @@
 					</select>
 				</div>
 			</div>
+
+			<div class="form-row" id='is_Involved_daily_operation'>	
+				<div class="form-holder w-100 ">
+				<label>Involved in the daily operation of the business?</label>
+					<div class='radio'>
+						<input type="radio" name="is_Involved_daily_operation" class='is_Involved_daily_operation' value='Yes' checked>
+						<label>Yes</label>
+					</div>
+					<div class='radio'>
+						<input type="radio" name="is_Involved_daily_operation" class='is_Involved_daily_operation' value='No'><label>No</label>
+					</div>
+				
+				</div>
+			</div>
+
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 				<label>Date of Birth:</label>
-				<input type="date" class="form-control" name="dob" value="<?php echo date("y-m-d");?>">
+				<input type="text" class="form-control datepicker" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob'>
 				</div>
 			</div>	
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
-					<label>Home Address:</label><input type="text" class="form-control" name="homeddress">
+					<label>Home Address:</label><input type="text" class="form-control" name="Financial_Home_address" id='Financial_Home_address'>
 				</div>
 			</div>				
 			<div class="form-row">	
 				<div class="form-holder w-100 ">		
 				<label>City:</label>
-					<input type="text" class="form-control" name="coumpanycity" >
+					<input type="text" class="form-control" name="Financial_City" id='Financial_City'>
 					</div>
 			</div>	
 			<div class="form-row">	
 				<div class="form-holder w-100 ">	
 				<label>State:</label>
-					<select class="form-control">
+					<select class="form-control" id='Financial_State' name='Financial_State'>
 					<option value="AL">Alabama</option>
 					<option value="AK">Alaska</option>
 					<option value="AZ">Arizona</option>
@@ -633,13 +709,13 @@
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 			<label>ZIP Code:</label>
-			<input type="text" class="form-control" name="zipcode"  >
+			<input type="text" class="form-control" name="Financial_zipcode" id='Financial_zipcode' >
 				</div>
 			</div>
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 					<label>Social Security Number:</label>
-					<input type="text" class="form-control" name="social_security_number"  >
+					<input type="text" class="form-control" name="social_security_number"  id='Financial_social_security_number' >
 				</div>
 				</div>
 			</div>	
@@ -649,13 +725,13 @@
 				<div class="form-holder w-100 ">
 					<label>Is it OK if I continue?:</label>
 					<div class='radio'>
-						<input type="radio" name="Spouse"><label>Yes (most accurate quote</label>
+						<input type="radio" name="OK_if_I_continue" class='OK_if_I_continue' value='Yes (most accurate quote)'checked><label>Yes(most accurate quote)</label>
 					</div>
 					<div class='radio'>
-						<input type="radio" name="Spouse"><label>Yes, but do not order credit (approximate quote)</label>
+						<input type="radio" name="OK_if_I_continue" class='OK_if_I_continue' value='Yes, but do not order credit (approximate quote)'><label>Yes, but do not order credit (approximate quote)</label>
 					</div>
 					<div class='radio'>
-						<input type="radio" name="Spouse"><label>No, do not continue</label>
+						<input type="radio" name="OK_if_I_continue" class='OK_if_I_continue' value='No, do not continue'><label>No, do not continue</label>
 					</div>
 				</div>
 		</div>
@@ -672,7 +748,7 @@
 			<thead>
 			<tr>
 				  <td class="td-padding">Vehicle</td>
-				  <td class="td-padding"><button id='add_vehicles'>Add</button></td>
+				  <td class="td-padding"><button id='add_vehicles'type='button' data-toggle="modal" data-target="#vehiles_add_modal">Add</button></td>
 				  <td class="text-center td-padding">Year Make Model</td>
 				  <td class="text-right">VIN</td>
 				  <td class="text-right">Category</td>
@@ -683,20 +759,7 @@
 				</tr>
 			</thead>
 			  <tbody>
-				<tr>
-				  <td class="td-padding">1</td>
-				  <td class="td-padding"><button id='edit_vehicles'>Edit</button></td>
-				  <td class="text-center td-padding">2005 Volvo Vnl</td>
-				  <td class="text-center td-padding">4V4NC9GHX5N394067l</td>
-				  <td class="text-center td-padding">Truck - Truck Tractor</td>
-				  <td class="text-center td-padding">Unlimited</td>
-				  <td class="text-center td-padding">$15,000</td>
-				  <td class="text-center td-padding">No</td>
-				  <td class="text-right">
-					<button class="btn" id="delete_vehicle" >Delete</button>
-					
-				  </td>
-				</tr>
+				
 				
 			  </tbody>
 		</table>
@@ -728,23 +791,6 @@
 				</tr>
 			</thead>
 			  <tbody>
-				<tr>
-				  <td class="td-padding">1</td>
-				  <td class="td-padding"><button id='edit_drivers'>Edit</button></td>
-				  <td class="text-center td-padding">Erron Williamson </td>
-				   <td class="text-center td-padding">34</td>
-				  <td class="text-center td-padding">12/18/1984</td>
-				  <td class="text-center td-padding">***5226</td>
-				  <td class="text-center td-padding">TX</td>
-				  <td class="text-center td-padding">No</td>
-				  <td class="text-center td-padding">0</td>
-				  
-				  <td class="text-right">
-					<button class="btn" id="delete_driver" >Delete</button>
-					
-				  </td>
-				</tr>
-				
 			  </tbody>
 		</table>
 		
@@ -806,7 +852,7 @@
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='date' value='<?php echo date('Y/m/d');?>' placeholder='__/__/____/'>				
+				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker'>				
 					</td>
 				  <td class="td-padding"><button id='delete_voilation'>Delete</button></td>
 				</tbody> 
@@ -953,13 +999,13 @@
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Effective Date:</label>
-						<input type="date" class="form-control" name="dob" value="<?php echo date("y-m-d");?>" class='current_policy_Effective'>
+						<input type="text" class="form-control datepicker" name="dob" value="<?php echo date("y-m-d");?>" class='current_policy_Effective'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Expiration Date:</label>
-						<input type="date" class="form-control" name="dob" value="<?php echo date("y-m-d");?>" class='current_policy_Expiration'>
+						<input type="text" class="form-control datepicker" name="dob" value="<?php echo date("y-m-d");?>" class='current_policy_Expiration'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -1224,6 +1270,7 @@
 <!-- jQuery --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
 <!-- jQuery easing plugin --> 
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
@@ -1233,3 +1280,83 @@
 
 </body>
 </html>
+<div id="vehiles_add_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New vehicle</h4>
+      </div>
+      <div class="modal-body">
+		<div class="row">
+		<div class="col-xs-12">
+		  <div class="well">
+			  <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+				  <div class="form-group">
+					  <label for="username" class="control-label">Type</label>
+					<?php 
+						$response_vehicles= $handleFunctionsObject->vehicle_type();
+						foreach($response_vehicles as $responsedata){?>
+					 <div class='radio'>
+						<input type="radio" name="vahicle_type" class="vahicle_type" 
+							data_id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
+						<label><?php echo $responsedata['category_type'];?></label>
+					</div>
+					<?php }
+						?>
+					  
+					<div class="form-group">
+					  <label for="VIN" class="control-label">VIN</label>
+					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="VIN" class="control-label">Category</label>
+					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
+						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
+							foreach($response_vehicles_cat as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
+						<?php }
+						?>
+					</select>
+					</div>
+					<div class="form-group">
+					  <label for="VIN" class="control-label">Year</label>
+					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
+						<?php $response_vehicles_year= $handleFunctionsObject->Vehicleyears();					
+							foreach($response_vehicles_year as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['year'];?></option>
+						<?php }
+						?>
+					</select>
+					</div>
+					<div class="form-group">
+					  <label for="VIN" class="control-label">Make</label>
+					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
+						<?php $response_vehicles_Model= $handleFunctionsObject->VehicleModel();					
+							foreach($response_vehicles_Model as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
+						<?php }
+						?>
+					</select>
+					</div>
+				 
+				 
+				  <button type="submit" class="btn btn-success btn-block">Add</button>
+				 
+			  </form>
+		  </div>
+		</div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>

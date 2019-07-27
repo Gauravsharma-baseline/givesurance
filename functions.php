@@ -5,6 +5,83 @@
      $trelloApiKey	= '1164815231d570ac9de8d17de3ec7715' ;
      $trelloToken	= 'ceb1f6872aac2666dd8a92332305e2ade498f18ad27f829a5cec641d925d9957' ; */
 	
+	function pgConnect(){
+		$con = pg_connect ("host=ec2-54-243-47-196.compute-1.amazonaws.com dbname=da75gbsng1e37m user=ikheqtaxeqwazi password=800c91378dbd23c1752ef5722ad7c40a4f727966939b44d58361184792659ebd");
+		if($con) {
+		return $con;
+		} else {
+			return 0;
+		}	
+		
+		
+	}
+	 function businessCategories(){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.bussinesstype";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	function vehicle_type(){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.vehicle";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+
+		pg_close($conn);
+		return $response;
+				
+	} 
+	function VehicleCategory($id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.category where vehicale_id=$id";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+
+		pg_close($conn);
+		return $response;
+				
+	} 
+	function Vehicleyears(){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.year ";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+
+		pg_close($conn);
+		return $response;
+				
+	} 
+	function VehicleMake(){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.make ";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+
+		pg_close($conn);
+		return $response;
+				
+	} 
+
+
     function getDataFromSafer($odt){
 		$response=$this->saferSearch($odt);
 	

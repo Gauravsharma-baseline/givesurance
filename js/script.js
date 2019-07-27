@@ -104,8 +104,8 @@ $(".phoneli").click(function(){
 
 
 $(".dotLi").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var phoneNumber=$(".phoneNumber").val();
+	if(phoneNumber==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -117,8 +117,8 @@ $(".dotLi").click(function(){
 	}	
 });
 $(".physicalLi").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -131,8 +131,8 @@ $(".physicalLi").click(function(){
 		
 });
 $(".mailingLi").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -144,8 +144,8 @@ $(".mailingLi").click(function(){
 	}
 });
 $(".insuranceLi").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -157,8 +157,8 @@ $(".insuranceLi").click(function(){
 	}	
 });
 $(".generalLI").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -170,15 +170,20 @@ $(".generalLI").click(function(){
 	}	
 });
 $(".vehiclesLI").click(function(){
+var contactId=$(".contactId").val();
+	if(contactId==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
 	$("#progressbar li").removeClass("active");
 	$(".vehiclesLI").addClass("active");
 	$("fieldset").hide();
 	$(".seventh").show(); 
-		
+	}	
 });
 $(".driversLI").click(function(){
-	var phone=$(".phoneNumber").val();
-	if(phone==''){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
@@ -214,11 +219,14 @@ $(".underwritingLI").click(function(){
 
 $(".checkType").click(function(){
 	var d= $(this).val();
+	var dot= $(".dot").val();
+	var mc= $(".mc").val();
 	if(d==1){
 		$(".searchedNumber").attr("placeholder", "Enter DOT Number");
-	}else{
+		$(".searchedNumber").val(dot);
+	}else if(d==2){
 		$(".searchedNumber").attr("placeholder", "Enter MC Number");
-		$(".searchedNumber").val(" ");
+		$(".searchedNumber").val(mc);
 	}
 
 		
@@ -248,10 +256,63 @@ $(".phone_number_next").click(function(event ){
 				else{
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
+				$(".mc").val(result.MC);
+				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
 					$(".dotLi").addClass("active");
 					$(".second").show(); 
 					$(".first").hide();
+				var conatctData=result.contactId;
+				
+				if(conatctData!=''){
+					
+				driversdata=result.conatctData.Drivers1;
+				Vehiclesdata=result.conatctData.Vehicles;
+					
+				var drivertable=$('#dtDriverTable').DataTable();
+				var Vehiclestable=$('#dtVehiclesTable').DataTable();
+					if(driversdata!=''){
+					$.each(driversdata, function(index, element) {
+						drivertable.row.add(
+							[
+							index,
+							"<button id='edit_drivers' data-id='"+element.id+"'>Edit</button>",
+							element.Name1,
+							element.Age,
+							element.DOB_Three,
+							element.License_Number,
+							element.License_State,
+							element.SR22,
+							element.Points,
+							"<button class='btn' id='delete_driver' data-id='"+element.id+"'>Delete</button>"
+							]
+						).draw();
+
+					});	
+					}
+					if(Vehiclesdata!=''){
+					$.each(Vehiclesdata, function(index, element) {
+						Vehiclestable.row.add(
+							[
+							index,
+							"<button id='edit_vehicles' data-id='"+element.id+"'>Edit</button>",
+							element.Year_Make_Model,
+							element.VIN,
+							element.Category,
+							element.Radius,
+							element.Value,
+							element.Loss_Payee,
+							"<button class='btn' id='delete_vehicle' data-id='"+element.id+"'>Delete</button>"
+							]
+						).draw();
+
+					});	
+					}
+
+
+
+
+				}	
 			}
            }
          });
@@ -259,6 +320,7 @@ $(".phone_number_next").click(function(event ){
 });
 $(".dot_number_next").click(function(event ){
 	var checkType=$(".checkType").val();
+	var check_id_dot_already= $(".dot").val();
 	var searchedNumber=$(".searchedNumber").val();
 	var contactId=$(".contactId").val();
 	if(searchedNumber==''){
@@ -317,12 +379,21 @@ $(".dot_number_next").click(function(event ){
 });
 
 $(".physical_address_next").click(function(event ){
-	var contactId=$(".contactId").val();
+	var contactId = $(".contactId").val();
+	var physical_street = $(".physical_street").val();
+	var physicaladdress = $(".physical_address").val();		
+	var physical_state = $(".physical_state").val();		
+	var physical_Postal= $(".physical_Postal").val();
+	var physical_street1= $(".physical_street1").val();
+	var physical_city= $(".physical_city").val();
+					
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({physical_address: "success",contactId:contactId}),
+		   
+		   
+           data: ({physical_address: "success",contactId:contactId,physical_street:physical_street,physicaladdress:physicaladdress,physical_state:physical_state,physical_street1:physical_street1,physical_city:physical_city,physical_Postal:physical_Postal}),
             success:function(result){
 					$(".physicalLi").removeClass("active");
 					$(".mailingLi").addClass("active");
@@ -334,12 +405,21 @@ $(".physical_address_next").click(function(event ){
          });
 });
 $(".mailing_address_next").click(function(event ){
-	var contactId=$(".contactId").val();
+	var contactId = $(".contactId").val();
+	var mailingaddress = $(".mailing_address").val();
+	var mailing_street =	$(".mailing_street").val();			
+	var mailing_street1 =	$(".mailing_street1").val();			
+	var mailing_state =	$(".mailing_state").val();			
+	var mailing_Postal =	$(".mailing_Postal").val();		
+	var mailing_city =	$(".mailing_city").val();		
+					
+					
+					
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({mailing_address: "success",contactId:contactId}),
+           data: ({mailing_address: "success",contactId:contactId,mailingaddress:mailingaddress,mailing_street:mailing_street,mailing_street1:mailing_street1,mailing_state:mailing_state,mailing_Postal:mailing_Postal,mailing_city:mailing_city}),
             success:function(result){
 					$(".mailingLi").removeClass("active");
 					$(".insuranceLi").addClass("active");
@@ -370,11 +450,13 @@ $(".safer_data_next").click(function(event ){
 });
 $(".general_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
+	var dataform=	$('.sixth').find('select, textarea, input').serialize();
+console.log(dataform);
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({general_data_next: "success",contactId:contactId}),
+           data: ({general_data_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
 					$(".generalLI").removeClass("active");
 					$(".vehiclesLI").addClass("active");
@@ -463,7 +545,6 @@ $(".previous").click(function(){
 	previous_fs = $(this).parent().prev();
 	
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-	
 	previous_fs.show(); 
 	current_fs.hide();
 	
@@ -479,6 +560,6 @@ $(".submit").click(function(){
 
 });
 $(document).ready( function () {
-    $('#dtVehiclesTable').DataTable();
-	$('#dtDriverTable').DataTable();
+    $( ".datepicker" ).datepicker();
+ 
 } );
