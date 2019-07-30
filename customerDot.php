@@ -20,7 +20,8 @@ $handleFunctionsObject = new handleFunctions;
 <!-- progressbar -->
 <ul id="progressbar">
 <li class="phoneli active">Phone Number </li>
-<li class='dotLi'>DOT & MC</li>
+<li class='dotLi'>DOT</li>
+<li class='MCLi'>MC</li>
 <li  class='physicalLi'>Verify Phyical Address</li>
 <li class='mailingLi'>Verify Mailing Address</li>
 <li class='insuranceLi'>Verify Insurance Data</li>
@@ -29,33 +30,32 @@ $handleFunctionsObject = new handleFunctions;
 <li class='driversLI'>Drivers</li>
 <li class='violationsLI'>Violations</li>
 <li class='underwritingLI'>Underwriting</li>
+<li class='pdfLI'>Additional PDF</li>
 </ul>
 <!-- fieldsets -->
-<fieldset class='first'>
-<h2 class="fs-title">Enter Phone Number</h2>
-<h3 class="fs-subtitle"></h3>
-<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' />
-<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
-<input type="button" name="next" class="action-button phone_number_next" value="Next" />
-</fieldset>
-<fieldset class='second'>
-<h2 class="fs-title">Enter DOT & MC</h2>
-<h3 class="fs-subtitle"></h3>
- <div class="radio">
- <input type="radio" name="selectType" placeholder="DOT" value='1' class='checkType' checked='checked'/> 
-<label for="y">DOT</label>
- </div>
- <div class="radio">
- <input type="radio" name="selectType" placeholder="MC" value='2' class='checkType'/>
-<label for="z">MC</label>
-</div>
-<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
-<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
-<input type="hidden" name="mc" placeholder="Enter DOT Number" class="mc" />
-<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
-<input type="button" name="next" class="action-button dot_number_next" value="Next" />
-</fieldset>
-<fieldset class='third'>
+	<fieldset class='first'>
+	<h2 class="fs-title">Enter Phone Number</h2>
+	<h3 class="fs-subtitle"></h3>
+		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' />
+		<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
+		<input type="button" name="next" class="action-button phone_number_next" value="Next" />
+	</fieldset>
+	<fieldset class='second'>
+		<h2 class="fs-title">Enter DOT</h2>
+		<h3 class="fs-subtitle"></h3>
+		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
+		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
+		<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
+		<input type="button" name="next" class="action-button dot_number_next" value="Next" />
+	</fieldset>
+	<fieldset class='first_2'>
+		<h2 class="fs-title">Enter MC</h2>
+		<h3 class="fs-subtitle"></h3>
+		<input type="text" name="searchedNumber" placeholder="Enter MC Number" class="mc" />
+		<input type="button" name="previous" class="previous_first_2 action-button" value="Previous" />
+		<input type="button" name="next" class="action-button first_2_next" value="Next" />
+	</fieldset>
+	<fieldset class='third'>
 <h2 class="fs-title">Is this your Physcial Address</h2>
 <h3 class="fs-subtitle"></h3>
 <div class='main_form'>
@@ -1268,7 +1268,7 @@ $handleFunctionsObject = new handleFunctions;
 </form>
 
 <!-- jQuery --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
@@ -1285,11 +1285,12 @@ $handleFunctionsObject = new handleFunctions;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add New Driver</h4>
       </div>
+	  
       <div class="modal-body">
+	  <form id="Add_new_Driver_form" method="POST" action="#" novalidate="novalidate">
 		<div class="row">
 		<div class="col-xs-12">
 		  <div class="well">
-			<form id="loginForm" method="POST" action="#" novalidate="novalidate">
 					<div class="form-group">
 					  <label for="username" class="control-label">First Name</label>
 						<input type="text" class="form-control" name="new_driver_first" id='new_driver_first'>
@@ -1318,7 +1319,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>Married</label>
 					</div>
 					 <div class='radio'>
-						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" checked >
 						<label>Single</label>
 					</div>
 					
@@ -1404,46 +1405,200 @@ $handleFunctionsObject = new handleFunctions;
 							<div class="form-group">
 								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
 								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
-										<option selected="selected" value=""></option>
-										<option value="N">No</option>
-										<option value="Y">Yes</option>
+										<option selected="selected" value="No">No</option>
+										<option value="Yes">Yes</option>
 
-									</select>
+								</select>
 					
 							</div>
 							
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
 								<div class='radio'>
-									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" >
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" value='Yes'>
 									<label>Yes</label>
 								</div>
 								 <div class='radio'>
-									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" >
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" checked value='No'>
 									<label>No</label>
 								</div>
 					
 							</div>
-				 
-				 
-				 
-				  <button type="submit" class="btn btn-success btn-block">Add</button>
-				 
-			  </form>
-		  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" id='new_drive_add_button'>Add</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
-       
-      </div>
-	  </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    
-
-	</div>
+		</form>
 	</div>
 	</div>
 </div>
+
+
+<div id="Driver_Edit_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Driver</h4>
+      </div>
+	  
+      <div class="modal-body">
+	  <form id="Edit_Driver_form" method="POST" action="#" novalidate="novalidate">
+		<div class="row">
+		<div class="col-xs-12">
+		  <div class="well">
+					<div class="form-group">
+					  <label for="username" class="control-label">First Name</label>
+						<input type="text" class="form-control" name="new_driver_first" id='new_driver_first'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Middle Initial</label>
+						<input type="text" class="form-control" name="new_driver_middle" id='new_driver_middle'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Last Name</label>
+						<input type="text" class="form-control" name="new_driver_last" id='new_driver_last'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Date of Birth/Age</label>
+						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Marital Status</label>
+					
+					 <div class='radio'>
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<label>Married</label>
+					</div>
+					 <div class='radio'>
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" checked >
+						<label>Single</label>
+					</div>
+					
+					  </div>
+					<div class="form-group">
+					  <label for="username" class="control-label">License State</label>
+					  <select name='new_driver_license_state' class='form-control'>
+						<option value="AL">Alabama</option>
+										<option value="AK">Alaska</option>
+										<option value="AZ">Arizona</option>
+										<option value="AR">Arkansas</option>
+										<option value="CA">California</option>
+										<option value="CO">Colorado</option>
+										<option value="CT">Connecticut</option>
+										<option value="DE">Delaware</option>
+										<option value="FL">Florida</option>
+										<option value="GA">Georgia</option>
+										<option value="HI">Hawaii</option>
+										<option value="ID">Idaho</option>
+										<option value="IL">Illinois</option>
+										<option selected="selected" value="IN">Indiana</option>
+										<option value="IT">International</option>
+										<option value="IA">Iowa</option>
+										<option value="KS">Kansas</option>
+										<option value="KY">Kentucky</option>
+										<option value="LA">Louisiana</option>
+										<option value="ME">Maine</option>
+										<option value="MD">Maryland</option>
+										<option value="MA">Massachusetts</option>
+										<option value="MI">Michigan</option>
+										<option value="MN">Minnesota</option>
+										<option value="MS">Mississippi</option>
+										<option value="MO">Missouri</option>
+										<option value="MT">Montana</option>
+										<option value="NE">Nebraska</option>
+										<option value="NV">Nevada</option>
+										<option value="NH">New Hampshire</option>
+										<option value="NJ">New Jersey</option>
+										<option value="NM">New Mexico</option>
+										<option value="NY">New York</option>
+										<option value="NC">North Carolina</option>
+										<option value="ND">North Dakota</option>
+										<option value="OH">Ohio</option>
+										<option value="OK">Oklahoma</option>
+										<option value="OR">Oregon</option>
+										<option value="PA">Pennsylvania</option>
+										<option value="PR">Puerto Rico</option>
+										<option value="RI">Rhode Island</option>
+										<option value="SC">South Carolina</option>
+										<option value="SD">South Dakota</option>
+										<option value="TN">Tennessee</option>
+										<option value="TX">Texas</option>
+										<option value="UT">Utah</option>
+										<option value="VT">Vermont</option>
+										<option value="VI">Virgin Islands</option>
+										<option value="VA">Virginia</option>
+										<option value="WA">Washington</option>
+										<option value="DC">Washington DC</option>
+										<option value="WV">West Virginia</option>
+										<option value="WI">Wisconsin</option>
+										<option value="WY">Wyoming</option>
+										<option value="AB">Alberta</option>
+										<option value="BC">British Columbia</option>
+										<option value="MB">Manitoba</option>
+										<option value="NB">New Brunswick</option>
+										<option value="NL">Newfoundland</option>
+										<option value="NT">Northwest Territories</option>
+										<option value="NS">Nova Scotia</option>
+										<option value="ON">Ontario</option>
+										<option value="PE">Prince Edward Island</option>
+										<option value="QC">Quebec</option>
+										<option value="SK">Saskatchewan</option>
+										<option value="YT">Yukon Territory</option>
+
+									</select>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">License Number</label>
+								<input type="text" class="form-control" name="new_driver_licence" id='new_driver_licence'>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
+								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
+										<option selected="selected" value="No">No</option>
+										<option value="Yes">Yes</option>
+
+								</select>
+					
+							</div>
+							
+							<div class="form-group">
+								<label for="username" class="control-label">Is an SR22 required?</label>
+								<div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" value='Yes'>
+									<label>Yes</label>
+								</div>
+								 <div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" checked value='No'>
+									<label>No</label>
+								</div>
+					
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" id='new_drive_add_button'>Add</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+		</form>
+	</div>
+	</div>
+</div>
+
 
 <div id="vehiles_add_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -1500,8 +1655,8 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group">
 					  <label for="VIN" class="control-label">Make</label>
 					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
-						<?php $response_vehicles_Model= $handleFunctionsObject->VehicleModel();					
-							foreach($response_vehicles_Model as $responsedata){?>	
+						<?php $response_vehicles_Make = $handleFunctionsObject->VehicleMake();					
+							foreach($response_vehicles_Make as $responsedata){?>	
 							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
 						<?php }
 						?>
@@ -1524,7 +1679,7 @@ $handleFunctionsObject = new handleFunctions;
   
 </div>
 </div>
-</div>
+
 
 
 </body>

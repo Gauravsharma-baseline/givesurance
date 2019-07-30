@@ -69,7 +69,7 @@
 	} 
 	function VehicleMake(){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.make ";	
+		$query = "SELECT * FROM public.make WHERE category_id=27";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
 		$response=array();	
 		while ($row = pg_fetch_assoc($rs)) {
@@ -152,8 +152,9 @@
 					 $phone  =$aDataTableDetailHTML[6];
 					
 					 $usdot_number  =$aDataTableDetailHTML[8];
-					 $mc_mx_ff_nmumber =$aDataTableDetailHTML[9];
-					 $state_carrier_ID_Number  =$aDataTableDetailHTML[10];
+					 $mc_mx_ff_nmumberr = explode("MC-",trim(preg_replace('/\s\s+/', ' ', $aDataTableDetailHTML[10])));
+					 $mc_mx_ff_nmumber = $mc_mx_ff_nmumberr[1];
+					 $state_carrier_ID_Number  = $aDataTableDetailHTML[9];
 					 $duns_Number  =$aDataTableDetailHTML[11];
 					 $power_units  =$aDataTableDetailHTML[12];
 					 $drivers  =$aDataTableDetailHTML[13];

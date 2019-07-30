@@ -82,7 +82,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			echo json_encode($response);
 	}
  
-	if(ISSET($_POST['getSaferData']) && $_POST['getSaferData']=='success' &&  $_POST['checkType']=='1'){
+	if(ISSET($_POST['getSaferData']) && $_POST['getSaferData']=='success'){
 		@$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
 		if($response==0){
 			echo 0;	
@@ -103,6 +103,24 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 			
 		}
+	}
+	if(ISSET($_POST['getMcData']) && $_POST['getMcData']=='success'){
+		/* $contacturl = "Contacts/".$_POST['contactId'];
+			 $Contactdata = '{
+			"data": [{
+            "Mailing_Address":  "'.$_POST['mailingaddress'].'" ,
+            "ZIP_Code_Two":  "'.$_POST['mailing_Postal'].'" ,
+            "State_Two":  "'.$_POST['mailing_state'].'" ,
+            "City_Two":  "'.$_POST['mailing_city'].'" ,
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+		
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} */
+			echo json_encode($_POST);
 	}
 	if(ISSET($_POST['physical_address']) && $_POST['physical_address']=='success'){
 		 $contacturl = "Contacts/".$_POST['contactId'];
@@ -273,5 +291,88 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		} */
 		echo json_encode($_POST);
+	}
+	
+	if(ISSET($_POST['violations_data_next']) && $_POST['violations_data_next']=='success'){
+		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
+		if($response==0){
+			echo 0;	
+		}else{
+			/* echo '<pre>';
+			print_r($response);
+			echo '</pre>'; 
+			$contacturl = "Contacts/".$_POST['contactId'];
+			
+			 $Contactdata = '{
+			"data": [{
+            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			echo json_encode($response);
+			
+		} */
+		echo json_encode($_POST);
+	}
+	
+	if(ISSET($_POST['new_drive_add']) && $_POST['new_drive_add']=='success'){
+		parse_str($_POST['dataform'], $form_data);
+		$contacturl = "Contacts/".$_POST['contactId'];
+		 $data = "";
+		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+		$driversData = $contactdata['data'][0]['Drivers1'];
+		$drivername = $form_data['new_driver_first']. ' '.$form_data['new_driver_middle'].' '.$form_data['new_driver_last'];
+		$driverDOb=date("Y-m-d", strtotime($form_data['new_driver_dob']));
+		$age = (date('Y') - date('Y',strtotime($driverDOb)));
+		
+		$new_array=array(
+		"License_Number"=>$form_data['new_driver_licence'],"SR22"=>$form_data['new_driver_SR22'],"Name1"=>$drivername,"Age"=>"".$age."","DOB_Three"=>$driverDOb,"License_State"=>$form_data['new_driver_license_state'],"Points"=>"0"
+		) ;
+		$driversData[]=$new_array;
+			$dd=json_encode($driversData);
+			  $Contactdata = '{
+			"data": [{
+           "Drivers1":'.$dd.'
+            
+			}]}';
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token); 
+			if($zohoResponse['data'][0]['code']=='SUCCESS'){
+				$id=$zohoResponse['data'][0]['details']['id'];
+				$new_array['driverId'] = $id;
+			echo json_encode($new_array);
+			}else{
+				echo 0;
+			}
+	}
+	
+	if(ISSET($_POST['get_driver_data']) && $_POST['get_driver_data']=='success'){
+		
+		/* $contacturl = "Contacts/".$_POST['contactId'];
+		 $data = "";
+		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+		$driversData = $contactdata['data'][0]['Drivers1'];
+		$drivername = $form_data['new_driver_first']. ' '.$form_data['new_driver_middle'].' '.$form_data['new_driver_last'];
+		$driverDOb=date("Y-m-d", strtotime($form_data['new_driver_dob']));
+		$age = (date('Y') - date('Y',strtotime($driverDOb)));
+		
+		$new_array=array(
+		"License_Number"=>$form_data['new_driver_licence'],"SR22"=>$form_data['new_driver_SR22'],"Name1"=>$drivername,"Age"=>"".$age."","DOB_Three"=>$driverDOb,"License_State"=>$form_data['new_driver_license_state'],"Points"=>"0"
+		) ;
+		$driversData[]=$new_array;
+			$dd=json_encode($driversData);
+			  $Contactdata = '{
+			"data": [{
+           "Drivers1":'.$dd.'
+            
+			}]}';
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token); 
+			if($zohoResponse['data'][0]['code']=='SUCCESS'){
+				$id=$zohoResponse['data'][0]['details']['id'];
+				$new_array['driverId'] = $id;
+			echo json_encode($new_array);
+			}else{
+				echo 0;
+			} */
 	}
 

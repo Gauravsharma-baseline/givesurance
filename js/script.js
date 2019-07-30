@@ -1,35 +1,5 @@
-$(function() {
-
-//jQuery time
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
-/* 
- $(".next").click(function(){
-	if(animating) return false;
-	animating = true;
+$(document).ready( function () {
 	
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-	next_fs.show(); 
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			scale = 1 - (1 - now) * 0.2;
-			left = (now * 50)+"%";
-			opacity = 1 - now;
-			current_fs.css({'transform': 'scale('+scale+')'});
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-}); */   
 $(".previous_doT").click(function(){
 	$(".dotLi").removeClass("active");
 	$(".phoneli").addClass("active");
@@ -37,10 +7,20 @@ $(".previous_doT").click(function(){
 	$(".second").hide();
 		
 });
-$(".previous_physical").click(function(){
-	$(".physicalLi").removeClass("active");
+$(".previous_first_2").click(function(){
+	$(".MCLi").removeClass("active");
 	$(".dotLi").addClass("active");
 	$(".second").show(); 
+	$(".first_2").hide();
+		
+});
+
+
+
+$(".previous_physical").click(function(){
+	$(".physicalLi").removeClass("active");
+	$(".MCLi").addClass("active");
+	$(".first_2").show(); 
 	$(".third").hide();
 		
 });
@@ -116,6 +96,21 @@ $(".dotLi").click(function(){
 	$(".second").show(); 
 	}	
 });
+
+$(".MCLi").click(function(){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".MCLi").addClass("active");
+	$("fieldset").hide();
+	$(".first_2").show(); 
+	}	
+});
+
 $(".physicalLi").click(function(){
 	var contactId=$(".contactId").val();
 	if(contactId==''){
@@ -217,23 +212,10 @@ $(".underwritingLI").click(function(){
 
 
 
-$(".checkType").click(function(){
-	var d= $(this).val();
-	var dot= $(".dot").val();
-	var mc= $(".mc").val();
-	if(d==1){
-		$(".searchedNumber").attr("placeholder", "Enter DOT Number");
-		$(".searchedNumber").val(dot);
-	}else if(d==2){
-		$(".searchedNumber").attr("placeholder", "Enter MC Number");
-		$(".searchedNumber").val(mc);
-	}
 
-		
-});
-
-$(".phone_number_next").click(function(event ){
+$(document).on("click", ".phone_number_next", function(event){
 	var phone=$(".phoneNumber").val();
+	
 	if(phone==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
@@ -257,7 +239,6 @@ $(".phone_number_next").click(function(event ){
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
 				$(".mc").val(result.MC);
-				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
 					$(".dotLi").addClass("active");
 					$(".second").show(); 
@@ -284,7 +265,7 @@ $(".phone_number_next").click(function(event ){
 						drivertable.row.add(
 							[
 							index,
-							"<button id='edit_drivers' data-id='"+element.id+"'>Edit</button>",
+							"<button class='edit_drivers' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							element.Age,
 							element.DOB_Three,
@@ -292,7 +273,7 @@ $(".phone_number_next").click(function(event ){
 							element.License_State,
 							element.SR22,
 							element.Points,
-							"<button class='btn' id='delete_driver' data-id='"+element.id+"'>Delete</button>"
+							"<button class='btn' class='delete_driver' data-id='"+element.id+"'>Delete</button>"
 							]
 						).draw();
 
@@ -351,6 +332,7 @@ $(".dot_number_next").click(function(event ){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
 				}else{
+					$(".mc").val(result.mc_mx_ff_nmumber);
 					$(".mailing_address").val(result.mailing_address);
 					$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
@@ -374,10 +356,11 @@ $(".dot_number_next").click(function(event ){
 					$(".Carrier_Operation").val(result.Carrier_Operation);
 					$(".Cargo_Carried").val(result.Cargo_Carried);
 					$(".dotLi").removeClass("active");
-					$(".physicalLi").addClass("active");
+					$(".MCLi").addClass("active");
 					$(".second").hide();
-					$(".third").show(); 
-								 
+					$(".first_2").show(); 
+					//$(".physicalLi").addClass("active");
+							 
 				} 
            }
          });
@@ -385,6 +368,35 @@ $(".dot_number_next").click(function(event ){
 	 
 	}
 });
+$(".first_2_next").click(function(event ){
+	//var checkType=$(".checkType").val();
+	//var check_id_dot_already= $(".dot").val();
+	var mc=$(".mc").val();
+	var contactId=$(".contactId").val();
+	
+	$("body").css("cursor", "progress");
+	
+   
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({getMcData: "success", mc: mc,contactId:contactId}),
+            success:function(result){
+				$("body").css("cursor", "default");
+					$(".MCLi").removeClass("active");
+					$(".physicalLi").addClass("active");
+					$(".first_2").hide();
+					$(".third").show(); 
+					
+				}
+		 });
+	
+});
+
+
+
+
 
 $(".physical_address_next").click(function(event ){
 	var contactId = $(".contactId").val();
@@ -459,7 +471,6 @@ $(".safer_data_next").click(function(event ){
 $(".general_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var dataform=	$('.sixth').find('select, textarea, input').serialize();
-console.log(dataform);
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -563,11 +574,101 @@ $(".previous").click(function(){
 $(".submit").click(function(){
 	return false;
 })
+$(document).on("click", "#new_drive_add_button", function(event){
+	
+	var d=0;
+	if($("#new_driver_first").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#new_driver_first").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#new_driver_first").removeClass('is-invalid');
+	}
+	if($("#new_driver_last").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#new_driver_last").addClass('is-invalid');
+	}else{
+		d=1;
+		$("#new_driver_last").removeClass('is-invalid');
+	}
+	if($("#new_driver_dob").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#new_driver_dob").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#new_driver_dob").removeClass('is-invalid');
+	}
+	
+	if($("#new_driver_licence").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#new_driver_licence").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#new_driver_licence").removeClass('is-invalid');
+	}
+	if(d==1){
+		var dataform=	$('#Add_new_Driver_form').serialize();
+		var contactId=$(".contactId").val();
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({new_drive_add: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				if(result!==0){
+					 $('#Driver_add_modal').modal('toggle');
+					var i=$('#dtDriverTable tr:last').find('td:first').html();
+					var index= parseInt(i)+parseInt(1);
+					var Vehiclestable=$('#dtDriverTable').DataTable();
+						Vehiclestable.row.add(
+							[
+							index,
+							"<button class='edit_drivers' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+							result.Name1,
+							result.Age,
+							result.DOB_Three,
+							result.License_Number,
+							result.License_State,
+							result.SR22,
+							result.Points,
+							"<button class='delete_driver btn' data-id='"+result.driverId+"'>Delete</button>"
+							]
+						).draw();
+					}			 
+				}
+           
+         });
+	}
 
-
-
+	
 });
-$(document).ready( function () {
-    $( ".datepicker" ).datepicker();
+
+$(document).on("click", ".edit_drivers", function(event){
+var driverId=$(this).data("id");
+var contactId=$(".contactId").val();
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({get_driver_data: "success",contactId:contactId,driverId:driverId}),
+            success:function(result){
+				
+			}
+		})	
+}); 
+
+
+
+
+    $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd',
+	});
  
 } );

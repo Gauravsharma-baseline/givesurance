@@ -89,14 +89,14 @@ margin-bottom: 30px;
 overflow: hidden;
 /*CSS counters to number the steps*/
 counter-reset: step;
-margin-left: 13%;
+margin-left: 10%;
 }
 #progressbar li {
 list-style-type: none;
 color: white;
 text-transform: uppercase;
 font-size: 9px;
-width:8.7%;
+width:7.5%;
 float: left;
 position: relative;
 }
