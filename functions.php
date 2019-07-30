@@ -54,32 +54,61 @@
 		return $response;
 				
 	} 
-	function Vehicleyears(){
+	function Vehicleyears($cat){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.year ";	
+		$query = "SELECT * FROM public.year where category_id=$cat";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
 		$response=array();	
 		while ($row = pg_fetch_assoc($rs)) {
 		 $response[]=$row;
 		}
-
+		}else{
+		$response=0	;
+			
+		}
 		pg_close($conn);
 		return $response;
 				
 	} 
-	function VehicleMake(){
+	function VehicleMake($vehicle_cat){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.make WHERE category_id=27";	
+		$query = "SELECT * FROM public.make WHERE category_id=$vehicle_cat";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
 		$response=array();	
 		while ($row = pg_fetch_assoc($rs)) {
 		 $response[]=$row;
 		}
-
+		}else{
+		$response=0	;
+			
+		}
 		pg_close($conn);
 		return $response;
 				
-	} 
+	}
+
+	function VehicleModel($vehicle_cat,$year,$vehicle_make){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.model WHERE category_id=$vehicle_cat AND year_id=$year AND make_id=$vehicle_make";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+				
+	} 	
 
 
     function getDataFromSafer($odt){

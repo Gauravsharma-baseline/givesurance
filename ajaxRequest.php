@@ -375,4 +375,80 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				echo 0;
 			} */
 	}
+	
+	if(ISSET($_POST['get_make']) && $_POST['get_make']=='success'){
+		$response_vehicles_Make=$handleFunctionsObject->VehicleMake($_POST['vehicle_cat']);
+		
+		if($response_vehicles_Make!=0){ ?>
+			<option value=""></option>
+						<?php					
+							foreach($response_vehicles_Make as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
+						<?php }
+						?>
+					
+		<?php }else{?>
+			
+							
+				<option value="N/A">N/A</option>
+						
+					
+		<?php }
+	}
+	if(ISSET($_POST['get_vehicle_category']) && $_POST['get_vehicle_category']=='success'){
+		$response_vehicles_cat=$handleFunctionsObject->VehicleCategory($_POST['vehicle_type']);
+		if($response_vehicles_cat!=0){?>
+			<option value=""></option>
+						<?php 					
+							foreach($response_vehicles_cat as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
+						<?php }
+						?>
+					
+			<?php 
+		}else{?>
+		<option value="N/A">N/A</option>
+			
+		<?php }
+	}
+	
+	if(ISSET($_POST['get_year']) && $_POST['get_year']=='success'){
+		$category=$_POST['vehicle_cat'];
+		
+		$response_vehicles_year=$handleFunctionsObject->Vehicleyears($category);
+		if($response_vehicles_year!=0){?>
+			<option value=""></option>
+						<?php 					
+							foreach($response_vehicles_year as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>" 
+							<?php if(ISSET($_POST['vehicle_year']) && $_POST['vehicle_year']!='' && $_POST['vehicle_year']==$responsedata['id']){echo 'selected';} ?>><?php echo $responsedata['year'];?></option>
+						<?php }
+						?>
+					
+			<?php 
+		}else{?>
+		<option value="N/A">N/A</option>
+			
+		<?php }
+	}
+	
+	if(ISSET($_POST['get_vehicle_model']) && $_POST['get_vehicle_model']=='success'){
+		$vehicle_make=$_POST['vehicle_make'];
+		$year = $_POST['vehicle_year'];
+		$vehicle_cat=$_POST['vehicle_cat'];
+		$response_vehicles_year=$handleFunctionsObject->VehicleModel($vehicle_cat,$year,$vehicle_make);
+		if($response_vehicles_year!=0){?>
+			<option value=""></option>
+						<?php 					
+							foreach($response_vehicles_year as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['model_name'];?></option>
+						<?php }
+						?>
+					
+			<?php 
+		}else{?>
+		<option value="N/A">N/A</option>
+			
+		<?php }
+	}
 

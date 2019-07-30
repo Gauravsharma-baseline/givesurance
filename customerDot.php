@@ -9,7 +9,14 @@ $handleFunctionsObject = new handleFunctions;
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+<!-- jQuery --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
+<!-- jQuery easing plugin --> 
+<script src="js/jquery.easing.min.js" type="text/javascript"></script> 
+<script src="js/script.js" type="text/javascript"></script> 
 <title>Customer with DOt</title>
 </head>
 <body>
@@ -1267,14 +1274,7 @@ $handleFunctionsObject = new handleFunctions;
 
 </form>
 
-<!-- jQuery --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
-<!-- jQuery easing plugin --> 
-<script src="js/jquery.easing.min.js" type="text/javascript"></script> 
-<script src="js/script.js" type="text/javascript"></script> 
+
 
 <div id="Driver_add_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -1620,8 +1620,8 @@ $handleFunctionsObject = new handleFunctions;
 						$response_vehicles= $handleFunctionsObject->vehicle_type();
 						foreach($response_vehicles as $responsedata){?>
 					 <div class='radio'>
-						<input type="radio" name="vahicle_type" class="vahicle_type" 
-							data_id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
+						<input type="radio" name="vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>'
+							data-id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
 						<label><?php echo $responsedata['category_type'];?></label>
 					</div>
 					<?php }
@@ -1634,7 +1634,8 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					  <label for="VIN" class="control-label">Category</label>
-					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<option value=""></option>
 						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
 							foreach($response_vehicles_cat as $responsedata){?>	
 							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
@@ -1643,23 +1644,24 @@ $handleFunctionsObject = new handleFunctions;
 					</select>
 					</div>
 					<div class="form-group">
-					  <label for="VIN" class="control-label">Year</label>
-					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
-						<?php $response_vehicles_year= $handleFunctionsObject->Vehicleyears();					
-							foreach($response_vehicles_year as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['year'];?></option>
-						<?php }
-						?>
+					<label for="VIN" class="control-label">Year</label>
+					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+						
 					</select>
 					</div>
 					<div class="form-group">
 					  <label for="VIN" class="control-label">Make</label>
-					<select name="C2VehicleDetails" id="C2VehicleDetails" class="form-control vehShortDropDownList ctrl-short-left all a">
-						<?php $response_vehicles_Make = $handleFunctionsObject->VehicleMake();					
-							foreach($response_vehicles_Make as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
-						<?php }
-						?>
+					<select name="C2VehicleDetails" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+					
+					</select>
+					</div>
+					<div class="form-group">
+					  <label for="VIN" class="control-label">Model</label>
+					<select name="C2VehicleDetails" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+						
 					</select>
 					</div>
 				 
