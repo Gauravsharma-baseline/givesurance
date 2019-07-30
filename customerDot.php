@@ -1325,7 +1325,7 @@ $handleFunctionsObject = new handleFunctions;
 					  </div>
 					<div class="form-group">
 					  <label for="username" class="control-label">License State</label>
-					  <select name='new_driver_license _state' class='form-control'>
+					  <select name='new_driver_license_state' class='form-control'>
 						<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -1398,7 +1398,7 @@ $handleFunctionsObject = new handleFunctions;
 							</div>
 							<div class="form-group">
 								<label for="username" class="control-label">License Number</label>
-								<input type="text" class="form-control datepicker" name="new_driver_licence" id='new_driver_licence'>
+								<input type="text" class="form-control" name="new_driver_licence" id='new_driver_licence'>
 					
 							</div>
 							<div class="form-group">
@@ -1411,16 +1411,7 @@ $handleFunctionsObject = new handleFunctions;
 									</select>
 					
 							</div>
-							<div class="form-group">
-								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
-								<select name="new_driver_commercial" id="new_driver_commercial" class='form-control'>
-										<option selected="selected" value=""></option>
-										<option value="N">No</option>
-										<option value="Y">Yes</option>
-
-									</select>
-					
-							</div>
+							
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
 								<div class='radio'>

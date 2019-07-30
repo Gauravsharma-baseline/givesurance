@@ -295,3 +295,7 @@ input.checkType {
 .confirmation_div{
     border-top: 1px dashed #000;
 }
+.modal-body{
+    height: 350px;
+    overflow-y: auto;
+}
