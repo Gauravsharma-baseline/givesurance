@@ -748,7 +748,7 @@ $handleFunctionsObject = new handleFunctions;
 			<thead>
 			<tr>
 				  <td class="td-padding">Vehicle</td>
-				  <td class="td-padding"><button id='add_vehicles'type='button' data-toggle="modal" data-target="#vehiles_add_modal">Add</button></td>
+				  <td class="td-padding"><button id='add_vehicles' type='button' data-toggle="modal" data-target="#vehiles_add_modal">Add</button></td>
 				  <td class="text-center td-padding">Year Make Model</td>
 				  <td class="text-right">VIN</td>
 				  <td class="text-right">Category</td>
@@ -779,7 +779,7 @@ $handleFunctionsObject = new handleFunctions;
 			<thead>
 			<tr>
 				  <td class="td-padding">Drivers</td>
-				  <td class="td-padding"><button id='add_drivers'>Add</button></td>
+				  <td class="td-padding"><button id='add_drivers' type='button' data-toggle="modal" data-target="#Driver_add_modal">Add</button></td>
 				  <td class="text-center td-padding">Name</td>
 				  <td class="text-right">Age</td>
 				  <td class="text-right">Date Of Birth</td>
@@ -1276,10 +1276,184 @@ $handleFunctionsObject = new handleFunctions;
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
 <script src="js/script.js" type="text/javascript"></script> 
 
+<div id="Driver_add_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Driver</h4>
+      </div>
+      <div class="modal-body">
+		<div class="row">
+		<div class="col-xs-12">
+		  <div class="well">
+			<form id="loginForm" method="POST" action="#" novalidate="novalidate">
+					<div class="form-group">
+					  <label for="username" class="control-label">First Name</label>
+						<input type="text" class="form-control" name="new_driver_first" id='new_driver_first'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Middle Initial</label>
+						<input type="text" class="form-control" name="new_driver_middle" id='new_driver_middle'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Last Name</label>
+						<input type="text" class="form-control" name="new_driver_last" id='new_driver_last'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Date of Birth/Age</label>
+						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'>
+					
+					</div>
+					<div class="form-group">
+					  <label for="username" class="control-label">Marital Status</label>
+					
+					 <div class='radio'>
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<label>Married</label>
+					</div>
+					 <div class='radio'>
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<label>Single</label>
+					</div>
+					
+					  </div>
+					<div class="form-group">
+					  <label for="username" class="control-label">License State</label>
+					  <select name='new_driver_license _state' class='form-control'>
+						<option value="AL">Alabama</option>
+										<option value="AK">Alaska</option>
+										<option value="AZ">Arizona</option>
+										<option value="AR">Arkansas</option>
+										<option value="CA">California</option>
+										<option value="CO">Colorado</option>
+										<option value="CT">Connecticut</option>
+										<option value="DE">Delaware</option>
+										<option value="FL">Florida</option>
+										<option value="GA">Georgia</option>
+										<option value="HI">Hawaii</option>
+										<option value="ID">Idaho</option>
+										<option value="IL">Illinois</option>
+										<option selected="selected" value="IN">Indiana</option>
+										<option value="IT">International</option>
+										<option value="IA">Iowa</option>
+										<option value="KS">Kansas</option>
+										<option value="KY">Kentucky</option>
+										<option value="LA">Louisiana</option>
+										<option value="ME">Maine</option>
+										<option value="MD">Maryland</option>
+										<option value="MA">Massachusetts</option>
+										<option value="MI">Michigan</option>
+										<option value="MN">Minnesota</option>
+										<option value="MS">Mississippi</option>
+										<option value="MO">Missouri</option>
+										<option value="MT">Montana</option>
+										<option value="NE">Nebraska</option>
+										<option value="NV">Nevada</option>
+										<option value="NH">New Hampshire</option>
+										<option value="NJ">New Jersey</option>
+										<option value="NM">New Mexico</option>
+										<option value="NY">New York</option>
+										<option value="NC">North Carolina</option>
+										<option value="ND">North Dakota</option>
+										<option value="OH">Ohio</option>
+										<option value="OK">Oklahoma</option>
+										<option value="OR">Oregon</option>
+										<option value="PA">Pennsylvania</option>
+										<option value="PR">Puerto Rico</option>
+										<option value="RI">Rhode Island</option>
+										<option value="SC">South Carolina</option>
+										<option value="SD">South Dakota</option>
+										<option value="TN">Tennessee</option>
+										<option value="TX">Texas</option>
+										<option value="UT">Utah</option>
+										<option value="VT">Vermont</option>
+										<option value="VI">Virgin Islands</option>
+										<option value="VA">Virginia</option>
+										<option value="WA">Washington</option>
+										<option value="DC">Washington DC</option>
+										<option value="WV">West Virginia</option>
+										<option value="WI">Wisconsin</option>
+										<option value="WY">Wyoming</option>
+										<option value="AB">Alberta</option>
+										<option value="BC">British Columbia</option>
+										<option value="MB">Manitoba</option>
+										<option value="NB">New Brunswick</option>
+										<option value="NL">Newfoundland</option>
+										<option value="NT">Northwest Territories</option>
+										<option value="NS">Nova Scotia</option>
+										<option value="ON">Ontario</option>
+										<option value="PE">Prince Edward Island</option>
+										<option value="QC">Quebec</option>
+										<option value="SK">Saskatchewan</option>
+										<option value="YT">Yukon Territory</option>
 
-</body>
-</html>
+									</select>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">License Number</label>
+								<input type="text" class="form-control datepicker" name="new_driver_licence" id='new_driver_licence'>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
+								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
+										<option selected="selected" value=""></option>
+										<option value="N">No</option>
+										<option value="Y">Yes</option>
+
+									</select>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
+								<select name="new_driver_commercial" id="new_driver_commercial" class='form-control'>
+										<option selected="selected" value=""></option>
+										<option value="N">No</option>
+										<option value="Y">Yes</option>
+
+									</select>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Is an SR22 required?</label>
+								<div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" >
+									<label>Yes</label>
+								</div>
+								 <div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" >
+									<label>No</label>
+								</div>
+					
+							</div>
+				 
+				 
+				 
+				  <button type="submit" class="btn btn-success btn-block">Add</button>
+				 
+			  </form>
+		  </div>
+		</div>
+       
+      </div>
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    
+
+	</div>
+	</div>
+	</div>
+</div>
+
 <div id="vehiles_add_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -1292,9 +1466,9 @@ $handleFunctionsObject = new handleFunctions;
       <div class="modal-body">
 		<div class="row">
 		<div class="col-xs-12">
-		  <div class="well">
-			  <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
-				  <div class="form-group">
+		 <div class='well'>
+			  <form id="loginForm" method="POST" action="#" novalidate="novalidate">
+					<div class="form-group">
 					  <label for="username" class="control-label">Type</label>
 					<?php 
 						$response_vehicles= $handleFunctionsObject->vehicle_type();
@@ -1306,7 +1480,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<?php }
 						?>
-					  
+					  </div>
 					<div class="form-group">
 					  <label for="VIN" class="control-label">VIN</label>
 					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
@@ -1347,16 +1521,20 @@ $handleFunctionsObject = new handleFunctions;
 				  <button type="submit" class="btn btn-success btn-block">Add</button>
 				 
 			  </form>
-		  </div>
+			</div>
 		</div>
-       
+       </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 
-  </div>
+  
 </div>
 </div>
 </div>
+
+
+</body>
+</html>

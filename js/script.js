@@ -268,6 +268,14 @@ $(".phone_number_next").click(function(event ){
 					
 				driversdata=result.conatctData.Drivers1;
 				Vehiclesdata=result.conatctData.Vehicles;
+				if ( $.fn.DataTable.isDataTable('#dtDriverTable') ) {
+					  $('#dtDriverTable').DataTable().destroy();
+					}
+					$('#dtDriverTable tbody').empty();	
+				if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
+					  $('#dtVehiclesTable').DataTable().destroy();
+					}
+					$('#dtVehiclesTable tbody').empty();		
 					
 				var drivertable=$('#dtDriverTable').DataTable();
 				var Vehiclestable=$('#dtVehiclesTable').DataTable();
