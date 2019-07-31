@@ -387,13 +387,13 @@ $refresh_token = file_get_contents("refresh_token.txt");
 						<?php }
 						?>
 					
-		<?php }else{?>
+		<?php }else{
 			
 							
-				<option value="N/A">N/A</option>
+				echo $response_vehicles_Make;
 						
 					
-		<?php }
+		 }
 	}
 	if(ISSET($_POST['get_vehicle_category']) && $_POST['get_vehicle_category']=='success'){
 		$response_vehicles_cat=$handleFunctionsObject->VehicleCategory($_POST['vehicle_type']);
@@ -436,19 +436,19 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		$vehicle_make=$_POST['vehicle_make'];
 		$year = $_POST['vehicle_year'];
 		$vehicle_cat=$_POST['vehicle_cat'];
-		$response_vehicles_year=$handleFunctionsObject->VehicleModel($vehicle_cat,$year,$vehicle_make);
-		if($response_vehicles_year!=0){?>
+		$response_vehicles_model=$handleFunctionsObject->VehicleModel($vehicle_cat,$year,$vehicle_make);
+		if($response_vehicles_model!=0){?>
 			<option value=""></option>
 						<?php 					
-							foreach($response_vehicles_year as $responsedata){?>	
+							foreach($response_vehicles_model as $responsedata){?>	
 							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['model_name'];?></option>
 						<?php }
 						?>
 					
 			<?php 
-		}else{?>
-		<option value="N/A">N/A</option>
+		}else{
+		echo $response_vehicles_model;
 			
-		<?php }
+		 }
 	}
 

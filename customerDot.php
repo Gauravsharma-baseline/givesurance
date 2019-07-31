@@ -310,14 +310,14 @@ $handleFunctionsObject = new handleFunctions;
 						<?php foreach($response as $business){
 					if($business['category']!=''){
 					?>
-						  <option value="<?php $business['category'];?>"><?php echo $business['category'];?></option>
+						  <option value="<?php $business['id'];?>"><?php echo $business['category'];?></option>
 						 <?php 
 					} else{
 						echo '<option value="other">other</option>';
 					}
 					} 
 					?>
-						</select>
+					</select>
 					
 					</div>	
 				</div>		
@@ -1609,11 +1609,12 @@ $handleFunctionsObject = new handleFunctions;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add New vehicle</h4>
       </div>
+	   <form id="loginForm" method="POST" action="#" novalidate="novalidate">
       <div class="modal-body">
 		<div class="row">
 		<div class="col-xs-12">
 		 <div class='well'>
-			  <form id="loginForm" method="POST" action="#" novalidate="novalidate">
+			 
 					<div class="form-group">
 					  <label for="username" class="control-label">Type</label>
 					<?php 
@@ -1650,34 +1651,40 @@ $handleFunctionsObject = new handleFunctions;
 						
 					</select>
 					</div>
-					<div class="form-group">
-					  <label for="VIN" class="control-label">Make</label>
-					<select name="C2VehicleDetails" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<div class="form-group make_div_select">
+					  <label for="make" class="control-label">Make</label>
+					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
 							<option value=""></option>
 					
 					</select>
 					</div>
-					<div class="form-group">
+					<div class="form-group make_div" style="display:none;" >
+					<label for='make' class='control-label'>Enter Make</label>
+					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					</div>
+					<div class="form-group model_div_select" >
 					  <label for="VIN" class="control-label">Model</label>
-					<select name="C2VehicleDetails" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
 							<option value=""></option>
 						
 					</select>
 					</div>
-				 
-				 
-				  <button type="submit" class="btn btn-success btn-block">Add</button>
-				 
-			  </form>
+					<div class="form-group model_div" style="display:none;" >
+					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					</div>
+					
+			  
 			</div>
 		</div>
        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-success ">Add</button>
       </div>
+	  </form>
     </div>
-
+	
   
 </div>
 </div>

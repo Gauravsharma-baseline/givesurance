@@ -19,37 +19,73 @@
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.bussinesstype";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-		$response=array();	
-		while ($row = pg_fetch_assoc($rs)) {
-		 $response[]=$row;
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			}
+		}else{
+		$response=0	;
+			
 		}
 
 		pg_close($conn);
 		return $response;
 		
 	} 
+	function businessSubCategories($id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.subcategory_businesswhere category_id=$id";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			}
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	
 	function vehicle_type(){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.vehicle";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-		$response=array();	
-		while ($row = pg_fetch_assoc($rs)) {
-		 $response[]=$row;
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			}
+		}else{
+		$response=0	;
+			
 		}
-
 		pg_close($conn);
 		return $response;
 				
 	} 
 	function VehicleCategory($id){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.category where vehicale_id=$id";	
+		$query = "SELECT * FROM public.category where vehicale_id=$id";
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-		$response=array();	
-		while ($row = pg_fetch_assoc($rs)) {
-		 $response[]=$row;
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			}
+		}else{
+		$response=0	;
+			
 		}
-
 		pg_close($conn);
 		return $response;
 				

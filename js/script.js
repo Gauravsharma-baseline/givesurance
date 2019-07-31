@@ -662,14 +662,28 @@ var contactId=$(".contactId").val();
 }); 
 $(document).on("change", "#C2VehicleDetails_year", function(event){
 var vehicle_cat=$("#C2VehicleDetails_category").val();
+	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+	$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
 	   data: ({get_make: "success",vehicle_cat:vehicle_cat}),
 		success:function(result){
+			if(result!=0){
 			$("#C2VehicleDetails_make").html(result);
 			$("#C2VehicleDetails_model").html('<option value=""></option>');
+				$(".make_div").hide();
+				$(".make_div_select").show();
+				$(".model_div").hide();
+				$(".model_div_select").show();
+				
 			
+			}else{
+				$(".make_div_select").hide();
+				$(".make_div").show();
+				$(".model_div_select").hide();
+				$(".model_div").show();
+			}
 			
 		}
 	})
@@ -677,6 +691,10 @@ var vehicle_cat=$("#C2VehicleDetails_category").val();
 
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
+		$("#C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
@@ -693,6 +711,10 @@ var vehicle_type=$(this).data("id");
 $(document).on("change", "#C2VehicleDetails_category", function(event){
 var vehicle_cat=$(this).val();
 var C2VehicleDetails_year=$("#C2VehicleDetails_year").val();
+			$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+			$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+			$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+
 if(C2VehicleDetails_year ==''){
 	$.ajax({
 		url:"ajaxRequest.php", 
@@ -718,15 +740,25 @@ if(C2VehicleDetails_year ==''){
 				type: "POST", 
 			   data: ({get_make: "success",vehicle_cat:vehicle_cat}),
 				success:function(result){
+					if(result!=0){
 					$("#C2VehicleDetails_make").html(result);
 					$("#C2VehicleDetails_model").html('<option value=""></option>');
+					$(".make_div").hide();
+					$(".make_div_select").show();
+					$(".model_div").hide();
+					$(".model_div_select").show();
+				}else{
+					$(".make_div_select").hide();
+					$(".make_div").show();
+					$(".model_div_select").hide();
+					$(".model_div").show();
+				}	
+					
 				}
 			})
 			
 		}
 	})
-	
-	
 	
 	
 }
@@ -736,16 +768,46 @@ $(document).on("change", "#C2VehicleDetails_make", function(event){
 var vehicle_make=$(this).val();
 var vehicle_year=$("#C2VehicleDetails_year").val();
 var vehicle_cat=$("#C2VehicleDetails_category").val();
+$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
 	   data: ({get_vehicle_model: "success",vehicle_cat:vehicle_cat,vehicle_year:vehicle_year,vehicle_make:vehicle_make,}),
 		success:function(result){
-		$("#C2VehicleDetails_model").html(result);
-		
+			if(result!=0){
+			$("#C2VehicleDetails_model").html(result);
+			$(".model_div_select").show();
+			$(".model_div").hide();
+			}else{
+				$(".model_div_select").hide();
+				$(".model_div").show();
+				
+			}
 		}
 	})
 });
+
+
+$(document).on("change", "#Business_type", function(event){
+var vehicle_type=$(this).data("id");
+		$("#C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+		$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+	$.ajax({
+		url:"ajaxRequest.php", 
+		type: "POST", 
+	   data: ({get_vehicle_category: "success",vehicle_type:vehicle_type}),
+		success:function(result){
+		$("#C2VehicleDetails_category").html(result);
+		$("#C2VehicleDetails_year").html('<option value=""></option>');
+		$("#C2VehicleDetails_make").html('<option value=""></option>');
+		$("#C2VehicleDetails_model").html('<option value=""></option>');
+		}
+	})
+});
+
 
 $( ".datepicker" ).datepicker({
             changeMonth: true,
