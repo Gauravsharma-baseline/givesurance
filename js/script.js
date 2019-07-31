@@ -40,8 +40,8 @@ $(".previous_Insurance").click(function(){
 });
 $(".previous_general").click(function(){
 	$(".generalLI ").removeClass("active");
-	$(".insuranceLi").addClass("active");
-	$(".fifth").show(); 
+	$(".MCLi").addClass("active");
+	$(".first_2").show(); 
 	$(".sixth").hide();
 		
 });
@@ -332,7 +332,7 @@ $(".dot_number_next").click(function(event ){
 				$(".searchedNumber").addClass('is-invalid'); 
 				}else{
 					$(".mc").val(result.mc_mx_ff_nmumber);
-					$(".mailing_address").val(result.mailing_address);
+					/* $(".mailing_address").val(result.mailing_address);
 					$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
 					$(".physical_address").val(result.physical_address);
@@ -353,7 +353,7 @@ $(".dot_number_next").click(function(event ){
 					$(".MCS_150_Mileage_year").val(result.MCS_150_Mileage_year);
 					$(".Operation_Classification").val(result.Operation_Classification);
 					$(".Carrier_Operation").val(result.Carrier_Operation);
-					$(".Cargo_Carried").val(result.Cargo_Carried);
+					$(".Cargo_Carried").val(result.Cargo_Carried); */
 					$(".dotLi").removeClass("active");
 					$(".MCLi").addClass("active");
 					$(".second").hide();
@@ -381,9 +381,9 @@ $(".first_2_next").click(function(event ){
             success:function(result){
 				$("body").css("cursor", "default");
 					$(".MCLi").removeClass("active");
-					$(".physicalLi").addClass("active");
+					$(".generalLI").addClass("active");
 					$(".first_2").hide();
-					$(".third").show(); 
+					$(".sixth").show(); 
 					
 				}
 		 });

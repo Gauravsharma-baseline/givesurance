@@ -29,9 +29,9 @@ $handleFunctionsObject = new handleFunctions;
 <li class="phoneli active">Phone Number </li>
 <li class='dotLi'>DOT</li>
 <li class='MCLi'>MC</li>
-<li  class='physicalLi'>Verify Phyical Address</li>
+<!--li  class='physicalLi'>Verify Phyical Address</li>
 <li class='mailingLi'>Verify Mailing Address</li>
-<li class='insuranceLi'>Verify Insurance Data</li>
+<li class='insuranceLi'>Verify Insurance Data</li-->
 <li class='generalLI'>General</li>
 <li class='vehiclesLI'>Vehicles</li>
 <li class='driversLI'>Drivers</li>
@@ -62,7 +62,7 @@ $handleFunctionsObject = new handleFunctions;
 		<input type="button" name="previous" class="previous_first_2 action-button" value="Previous" />
 		<input type="button" name="next" class="action-button first_2_next" value="Next" />
 	</fieldset>
-	<fieldset class='third'>
+	<!--fieldset class='third'>
 <h2 class="fs-title">Is this your Physcial Address</h2>
 <h3 class="fs-subtitle"></h3>
 <div class='main_form'>
@@ -263,7 +263,7 @@ $handleFunctionsObject = new handleFunctions;
 
 </div>
 
-</fieldset>
+</fieldset--->
 <fieldset class='sixth'>
 	<div class='row main_form'>
 		<div class='col-md-6 left'>
@@ -833,7 +833,7 @@ $handleFunctionsObject = new handleFunctions;
 <fieldset class='ninth'>
 <h2 class="fs-title">Voilations</h2>
 <div class='infoDiv'>Enter all accidents (both at fault and not at fault) and violations for the last 35 months. If date of accident or violation is unknown, please leave the date blank, our systems will reconcile.</div>
-<h3 class="fs-subtitle">Driver 1: ERRON WILLIAMSON</h3>
+<h3 class="fs-subtitle"></h3>
 	<div class='main_form'>
 	
 	<div class='row'>
@@ -1704,6 +1704,28 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group body_div_select" >
 					  <label for="Body" class="control-label">Body Style</label>
 					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body" class="form-control C2VehicleDetails_body">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					<div class="form-group body_div_select" >
+					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
+					<select name="C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" class="form-control C2VehicleDetails_GaragingZIPCode">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					
+					<div class="form-group body_div_select" >
+					  <label for="Radius" class="control-label">Radius (One Way)</label>
+					<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					<div class="form-group body_div_select" >
+					  <label for="Vehicle Sub-Type" class="control-label">Vehicle Sub-Type</label>
+					<select name="C2VehicleDetails_Vehicle_Sub-Type" id="C2VehicleDetails_Vehicle_Sub-Type" class="form-control C2VehicleDetails_Vehicle_Sub-Type">
 							<option value=""></option>
 						
 					</select>
