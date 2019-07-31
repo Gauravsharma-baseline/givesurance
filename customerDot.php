@@ -306,11 +306,12 @@ $handleFunctionsObject = new handleFunctions;
 					<?php
 					$response=$handleFunctionsObject->businessCategories();
 					?>
-					<select class="form-control" id='Business_type' name='Business_type'>
+					<select class="form-control" id='Business_types_select' name='Business_type'>
 						<?php foreach($response as $business){
+							
 					if($business['category']!=''){
 					?>
-						  <option value="<?php $business['id'];?>"><?php echo $business['category'];?></option>
+						  <option value="<?php echo $business['id'];?>"><?php echo $business['category'];?></option>
 						 <?php 
 					} else{
 						echo '<option value="other">other</option>';
@@ -320,7 +321,24 @@ $handleFunctionsObject = new handleFunctions;
 					</select>
 					
 					</div>	
-				</div>		
+				</div>	
+				<div class="form-row" id='business_sub_type' style="display:none;">
+					<div class="form-holder w-100">	
+					<label>Select Business Subcategory</label>
+				
+					<select class="form-control" id='Business_sub' name='Business_type_sub'>
+					
+					</select>
+					
+					</div>	
+				</div>
+				<div class="form-row" id='business_sub_type_enter' style="display:none;">
+					<div class="form-holder w-100">	
+					<label>Enter Business Subcategory</label>
+					<input type='text' name='enter_business_sub' class='enter_business_sub'>
+					</div>	
+				</div>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">			
 						<label>Does the insured ever transport passengers for hire?</label>
@@ -815,12 +833,12 @@ $handleFunctionsObject = new handleFunctions;
 	<div class='main_form'>
 	
 	<div class='row'>
-	<table class="table" >
+	<table class="table" id='Violation_Table'>
 			<thead>
 			<tr>
 				  <td class="td-padding">Accident/Violation:</td>
 				  <td class="text-center td-padding">Date</td>
-				  <td class="td-padding"><button id='voilation_add'>Add</button></td>
+				  <td class="td-padding"><button id='voilation_add' type='button'>Add</button></td>
 				</tr>
 			</thead>
 			 <tbody>
@@ -861,7 +879,7 @@ $handleFunctionsObject = new handleFunctions;
 				</td>
 				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker'>				
 					</td>
-				  <td class="td-padding"><button id='delete_voilation'>Delete</button></td>
+				  <td class="td-padding"></td>
 				</tbody> 
 				</table> 
 	
@@ -1445,7 +1463,7 @@ $handleFunctionsObject = new handleFunctions;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add New Driver</h4>
+        <h4 class="modal-title">Edit Driver</h4>
       </div>
 	  
       <div class="modal-body">
@@ -1455,40 +1473,40 @@ $handleFunctionsObject = new handleFunctions;
 		  <div class="well">
 					<div class="form-group">
 					  <label for="username" class="control-label">First Name</label>
-						<input type="text" class="form-control" name="new_driver_first" id='new_driver_first'>
+						<input type="text" class="form-control" name="edit_driver_first" id='edit_driver_first'>
 					
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Middle Initial</label>
-						<input type="text" class="form-control" name="new_driver_middle" id='new_driver_middle'>
+						<input type="text" class="form-control" name="edit_driver_middle" id='edit_driver_middle'>
 					
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Last Name</label>
-						<input type="text" class="form-control" name="new_driver_last" id='new_driver_last'>
+						<input type="text" class="form-control" name="edit_driver_last" id='edit_driver_last'>
 					
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Date of Birth/Age</label>
-						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'>
+						<input type="text" class="form-control datepicker" name="edit_driver_dob" id='edit_driver_dob'>
 					
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Marital Status</label>
 					
 					 <div class='radio'>
-						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status" value='Married'>
 						<label>Married</label>
 					</div>
 					 <div class='radio'>
-						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" checked >
+						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status" checked value='Single'>
 						<label>Single</label>
 					</div>
 					
 					  </div>
 					<div class="form-group">
 					  <label for="username" class="control-label">License State</label>
-					  <select name='new_driver_license_state' class='form-control'>
+					  <select name='edit_driver_license_state' class='form-control'>
 						<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -1561,12 +1579,12 @@ $handleFunctionsObject = new handleFunctions;
 							</div>
 							<div class="form-group">
 								<label for="username" class="control-label">License Number</label>
-								<input type="text" class="form-control" name="new_driver_licence" id='new_driver_licence'>
+								<input type="text" class="form-control" name="edit_driver_licence" id='edit_driver_licence'>
 					
 							</div>
 							<div class="form-group">
 								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
-								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
+								<select name="edit_driver_commercial" id="edit_driver_commercial" class='form-control'>
 										<option selected="selected" value="No">No</option>
 										<option value="Yes">Yes</option>
 
@@ -1577,11 +1595,11 @@ $handleFunctionsObject = new handleFunctions;
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
 								<div class='radio'>
-									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" value='Yes'>
+									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22" value='Yes'>
 									<label>Yes</label>
 								</div>
 								 <div class='radio'>
-									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" checked value='No'>
+									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22" checked value='No'>
 									<label>No</label>
 								</div>
 					
@@ -1642,6 +1660,12 @@ $handleFunctionsObject = new handleFunctions;
 							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
 						<?php }
 						?>
+					</select>
+					</div>
+					<div class="form-group" id='category_sub' style='display:none;'>
+					  <label for="VIN" class="control-label">Sub Category</label>
+					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory" class="form-control vehShortDropDownList ctrl-short-left all a">
+					
 					</select>
 					</div>
 					<div class="form-group">

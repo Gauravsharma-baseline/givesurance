@@ -451,4 +451,36 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		 }
 	}
+	
+	if(ISSET($_POST['get_business_sub']) && $_POST['get_business_sub']=='success'){
+		$businessSubCategories=$handleFunctionsObject->businessSubCategories($_POST['business_cat']);
+		
+		if($businessSubCategories!=0){ ?>
+			<option value=""></option>
+						<?php					
+							foreach($businessSubCategories as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['sub_category'];?></option>
+						<?php }
+						?>
+					
+		<?php }else{		
+				echo $businessSubCategories;
+		 }
+	} 
+	if(ISSET($_POST['get_vehicle_sub']) && $_POST['get_vehicle_sub']=='success'){
+		$VehicleSubCategory=$handleFunctionsObject->VehicleSubCategory($_POST['vehicle_cat']);
+		
+		if($VehicleSubCategory!=0){ ?>
+		
+			<option value=""></option>
+						<?php					
+							foreach($VehicleSubCategory as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['sub_category'];?></option>
+						<?php }
+						?>
+					
+		<?php }else{		
+				echo $VehicleSubCategory;
+		 }
+	} 
 

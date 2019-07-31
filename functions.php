@@ -36,7 +36,7 @@
 	} 
 	function businessSubCategories($id){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.subcategory_businesswhere category_id=$id";	
+		$query = "SELECT * FROM public.subcategory_business where category_id=$id";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
@@ -90,6 +90,26 @@
 		return $response;
 				
 	} 
+	function VehicleSubCategory($id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.subcategory_vehicle where category_id=$id";
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+				
+	}
+	
+	
 	function Vehicleyears($cat){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.year where category_id=$cat";	
