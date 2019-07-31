@@ -182,6 +182,24 @@
 		pg_close($conn);
 		return $response;
 				
+	} 
+	function VehicleBodyStyle($vehicle_cat,$year,$vehicle_make,$vehicle_model){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.body_style WHERE category_id=$vehicle_cat AND year_id=$year AND make_id=$vehicle_make AND model_id=$vehicle_model";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+				
 	} 	
 
 

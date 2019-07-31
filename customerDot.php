@@ -848,7 +848,7 @@ $handleFunctionsObject = new handleFunctions;
 			 <tbody>
 				<tr>
 				  <td class="td-padding">
-				  <select id='select_Accident_'>
+				  <select id='select_Accident_0'>
 					<option selected="selected" value=""></option>
 					<option value="AAF">AAF - At Fault Accident</option>
 					<option value="BOT">BOT - Open Bottle/Container</option>
@@ -882,7 +882,7 @@ $handleFunctionsObject = new handleFunctions;
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker' data-id='' id='Accident_date_'>				
+				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker'  id='Accident_date_0'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 
@@ -1701,6 +1701,13 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group model_div" style="display:none;" >
 					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
 					</div>
+					<div class="form-group body_div_select" >
+					  <label for="Body" class="control-label">Body Style</label>
+					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body" class="form-control C2VehicleDetails_body">
+							<option value=""></option>
+						
+					</select>
+					</div>
 					
 			  
 			</div>
@@ -1708,8 +1715,9 @@ $handleFunctionsObject = new handleFunctions;
        </div>
       </div>
       <div class="modal-footer">
+	  <button type="button" type='button'class="btn btn-success ">Add</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="button" class="btn btn-success ">Add</button>
+		
       </div>
 	  </form>
     </div>

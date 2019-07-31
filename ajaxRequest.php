@@ -474,6 +474,34 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		 }
 	}
 	
+	if(ISSET($_POST['get_vehicle_body']) && $_POST['get_vehicle_body']=='success'){
+		$vehicle_make=$_POST['vehicle_make'];
+		$year = $_POST['vehicle_year'];
+		$vehicle_cat=$_POST['vehicle_cat'];
+		$vehicle_model=$_POST['vehicle_model'];
+		$response_VehicleBodyStyle=$handleFunctionsObject->VehicleBodyStyle($vehicle_cat,$year,$vehicle_make,$vehicle_model);
+		if($response_VehicleBodyStyle!=0){?>
+			<option value=""></option>
+						<?php 					
+							foreach($response_VehicleBodyStyle as $responsedata){?>	
+							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['body_style'];?></option>
+						<?php }
+						?>
+					
+			<?php 
+		}else{?>
+		 <option value="N/A">N/A</option>
+			
+		 <?php }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	if(ISSET($_POST['get_business_sub']) && $_POST['get_business_sub']=='success'){
 		$businessSubCategories=$handleFunctionsObject->businessSubCategories($_POST['business_cat']);
 		

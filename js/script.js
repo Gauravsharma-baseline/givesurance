@@ -517,15 +517,21 @@ $(".drivers_data_next").click(function(event ){
          });
 });
 $(".violations_data_next").click(function(event ){
-	 $("#Violation_Table").find("tr").each(function () {
-			$('td', this).each(function () {  
-                        
-                        console.log($(this).text()); 
-							console.log('br');						
-                       
-             }); 
+	var voilationArray={};
+	var mainarray={};
+	 $("#Violation_Table tbody").find("tr").each(function (index, element) {
+		 console.log(index);
+		 var select_Accident= $("#select_Accident_"+index).val();
+		 var Accident_date=$("#Accident_date_"+index).val();
+		 
+		voilationArray['Accident']=	select_Accident;
+		voilationArray['Accident_date']=Accident_date;
+		mainarray[index]=voilationArray;
 			 
     }); 
+	console.log(voilationArray);
+	console.log(mainarray);
+	console.log(JSON.stringify(mainarray));
 	/* var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
@@ -875,6 +881,27 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 });
 
 
+$(document).on("change", "#C2VehicleDetails_model", function(event){
+var vehicle_model=$(this).val();
+var vehicle_year=$("#C2VehicleDetails_year").val();
+var vehicle_cat=$("#C2VehicleDetails_category").val();
+var vehicle_make=$("#C2VehicleDetails_make").val();
+$("#C2VehicleDetails_body").html('<option value="" selected>updating....</option>');
+
+	$.ajax({
+		url:"ajaxRequest.php", 
+		type: "POST", 
+	   data: ({get_vehicle_body: "success",vehicle_cat:vehicle_cat,vehicle_year:vehicle_year,vehicle_make:vehicle_make,vehicle_model:vehicle_model}),
+		success:function(result){
+			if(result!=0){
+			$("#C2VehicleDetails_body").html(result);
+			}
+		}
+	})
+});
+
+
+
 $(document).on("change", "#Business_types_select", function(event){
 var business_cat=$(this).val();
 	 $.ajax({
@@ -896,6 +923,13 @@ var business_cat=$(this).val();
 
 $(document).on("click", "#voilation_add", function(event){
 		var rowCount = $('#Violation_Table tbody tr').length;
+		/* if(rowCount==1){
+			if("#select_Accident_").val()==''){
+				
+			}else{
+				
+			}
+		}else{ */
          var tds = '<tr>';
              tds += "<td class='td-padding'><select id='select_Accident_"+rowCount+"'><option selected='selected' value=''></option>";
 			 tds += '<option value="AAF">AAF - At Fault Accident</option>';
