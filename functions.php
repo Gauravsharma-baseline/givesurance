@@ -146,6 +146,24 @@
 		return $response;
 				
 	}
+	function VehiclesubMake($vehicle_cat){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.make WHERE sub_category_id=$vehicle_cat";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+				
+	}
 
 	function VehicleModel($vehicle_cat,$year,$vehicle_make){
 		$conn = $this->pgConnect();

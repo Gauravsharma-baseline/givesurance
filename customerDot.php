@@ -469,14 +469,14 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'><label>No</label>
+						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
 					</div>
 					</div>
 				</div>
 			</div>
 			</div>
 			<div class='col-md-6 right'>
-				<div class='main_field_div' id='Spouse_Information_div'>
+				<div class='main_field_div' id='Spouse_Information_div' style='display:none'>
 				<h2 class="fs-title">Spouse Information</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
@@ -810,6 +810,10 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">Date Of Birth</td>
 				  <td class="text-right">License Number</td>
 				  <td class="text-right">License State</td>
+				  <td class="text-right">Years of Class A Exp</td>
+				  <td class="text-right">Date of Hire</td>
+				  <td class="text-right">Backup driver</td>
+				  <td class="text-right">Owner</td>
 				  <td class="text-right">SR22</td>
 				  <td class="text-right">Points</td>
 				  <td class="text-right"></td>
@@ -843,7 +847,8 @@ $handleFunctionsObject = new handleFunctions;
 			</thead>
 			 <tbody>
 				<tr>
-				  <td class="td-padding"><select>
+				  <td class="td-padding">
+				  <select id='select_Accident_'>
 					<option selected="selected" value=""></option>
 					<option value="AAF">AAF - At Fault Accident</option>
 					<option value="BOT">BOT - Open Bottle/Container</option>
@@ -877,7 +882,7 @@ $handleFunctionsObject = new handleFunctions;
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker'>				
+				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker' data-id='' id='Accident_date_'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 

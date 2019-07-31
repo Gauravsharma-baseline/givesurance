@@ -258,7 +258,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					$('#dtVehiclesTable tbody').empty();		
 					
-				var drivertable=$('#dtDriverTable').DataTable();
+				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}
+				);
 				var Vehiclestable=$('#dtVehiclesTable').DataTable();
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
@@ -271,7 +272,11 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.DOB_Three,
 							element.License_Number,
 							element.License_State,
+							element.License_State,
+							element.License_State,
+							element.License_State,
 							element.SR22,
+							element.Points,
 							element.Points,
 							"<button class='btn' class='delete_driver' data-id='"+element.id+"'>Delete</button>"
 							]
@@ -512,7 +517,16 @@ $(".drivers_data_next").click(function(event ){
          });
 });
 $(".violations_data_next").click(function(event ){
-	var contactId=$(".contactId").val();
+	 $("#Violation_Table").find("tr").each(function () {
+			$('td', this).each(function () {  
+                        
+                        console.log($(this).text()); 
+							console.log('br');						
+                       
+             }); 
+			 
+    }); 
+	/* var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -526,7 +540,7 @@ $(".violations_data_next").click(function(event ){
 								 
 				
            }
-         });
+         }); */
 });
 /* $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
@@ -653,12 +667,13 @@ var contactId=$(".contactId").val();
 }); 
 $(document).on("change", "#C2VehicleDetails_year", function(event){
 var vehicle_cat=$("#C2VehicleDetails_category").val();
+var vehicle_subcat=$("#C2VehicleDetails_subcategory").val();
 	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 	$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
-	   data: ({get_make: "success",vehicle_cat:vehicle_cat}),
+	   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 		success:function(result){
 			if(result!=0){
 			$("#C2VehicleDetails_make").html(result);
@@ -702,6 +717,7 @@ var vehicle_type=$(this).data("id");
 $(document).on("change", "#C2VehicleDetails_category", function(event){
 var vehicle_cat=$(this).val();
 var C2VehicleDetails_year=$("#C2VehicleDetails_year").val();
+var vehicle_subcat=$("#C2VehicleDetails_subcategory").val();
 			$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
@@ -742,7 +758,7 @@ var C2VehicleDetails_year=$("#C2VehicleDetails_year").val();
 									$.ajax({
 										url:"ajaxRequest.php", 
 										type: "POST", 
-									   data: ({get_make: "success",vehicle_cat:vehicle_cat}),
+									   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 										success:function(result){
 											if(result!=0){
 											$("#C2VehicleDetails_make").html(result);
@@ -802,7 +818,7 @@ var vehicle_cat=$("#C2VehicleDetails_category").val();
 				$.ajax({
 					url:"ajaxRequest.php", 
 					type: "POST", 
-				   data: ({get_make: "success",vehicle_cat:vehicle_cat}),
+				   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 					success:function(result){
 						if(result!=0){
 						$("#C2VehicleDetails_make").html(result);
@@ -879,9 +895,9 @@ var business_cat=$(this).val();
 
 
 $(document).on("click", "#voilation_add", function(event){
-		
+		var rowCount = $('#Violation_Table tbody tr').length;
          var tds = '<tr>';
-             tds += "<td class='td-padding'><select><option selected='selected' value=''></option>";
+             tds += "<td class='td-padding'><select id='select_Accident_"+rowCount+"'><option selected='selected' value=''></option>";
 			 tds += '<option value="AAF">AAF - At Fault Accident</option>';
 			 tds += '		<option value="BOT">BOT - Open Bottle/Container</option>';
 			 tds += '		<option value="CRD">CRD - Careless/Improper Op of Vehicle</option>';
@@ -914,9 +930,9 @@ $(document).on("click", "#voilation_add", function(event){
 			 tds += '		<option value="WSR">WSR - Wrong Side of Road</option>';
 			 tds += '	 </select>';
 			 tds += '	</td>';
-			 tds += "<td class='text-center td-padding'> <input type='text'  placeholder='' class='datepicker hasDatepicker'>"				
+			 tds += "<td class='text-center td-padding'> <input type='text'  placeholder='' class='datepicker' id='Accident_date_"+rowCount+"'>"				
 				 tds += "	</td>";
-				 tds += "  <td class='td-padding'><button class='delete_voilation btn'>Delete</button></td>'";
+				 tds += "  <td class='td-padding'><button class='delete_voilation btn' data-id="+rowCount+"'>Delete</button></td>'";
         
          tds += '</tr>';
          if ($('tbody', "#Violation_Table").length > 0) {
@@ -924,6 +940,12 @@ $(document).on("click", "#voilation_add", function(event){
          } else {
              $("#Violation_Table").append(tds);
          }
+		 $("#Violation_Table .datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd',
+		});
     
 });
 
@@ -970,10 +992,31 @@ var points = $(this).closest("tr").find('td:eq(8)').text();
 });
 
 
+
+
+$(document).on("click", ".Insured_Designate_Spouse", function(event){
+	var id = $(this).val();
+	if(id=='Yes'){
+		$("#Spouse_Information_div").show();
+	}else{
+		$("#Spouse_Information_div").hide();
+	}
+
+});
+
+
+
+
+
 $(".datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
             dateFormat: 'yy-mm-dd',
 	});
+
+
+
+
+
 } );
