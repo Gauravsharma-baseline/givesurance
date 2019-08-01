@@ -66,11 +66,35 @@ $(".previous_violations").click(function(){
 	$(".ninth").hide();
 		
 });
+
 $(".previous_Underwriting").click(function(){
 	$(".underwritingLI ").removeClass("active");
 	$(".violationsLI").addClass("active");
 	$(".ninth").show(); 
 	$(".tenth").hide();
+		
+});
+$(".previous_Coverage_Limit_Information").click(function(){
+	$(".pdfLI").removeClass("active");
+	$(".underwritingLI").addClass("active");
+	$(".tenth").show(); 
+	$(".eleventh").hide();
+		
+});
+$(".previous_OperationDescription").click(function(){
+	$(".CoverageLimitInformation").removeClass("active");
+	$(".CoverageLI").addClass("active");
+	$(".twelve").hide();
+	$(".eleventh").show(); 
+	
+		
+});
+
+$(".previous_InsuranceHistory").click(function(){
+	$(".CoverageLimitInformation").removeClass("active");
+	$(".underwritingLI").addClass("active");
+	$(".twelve").show(); 
+	$(".eleventh").hide();
 		
 });
 
@@ -210,6 +234,51 @@ $(".underwritingLI").click(function(){
 	}	
 });
 
+$(".CoverageLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".CoverageLI").addClass("active");
+	$("fieldset").hide();
+	$(".eleventh").show(); 
+	}	
+});
+
+$(".InsuranceHistory").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".InsuranceHistory").addClass("active");
+	$("fieldset").hide();
+	$(".thirteen").show(); 
+	}	
+});
+
+
+
+$(".OperationDescription").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".OperationDescription").addClass("active");
+	$("fieldset").hide();
+	$(".twelve").show(); 
+	}	
+});
+
+
 
 
 
@@ -263,22 +332,33 @@ $(document).on("click", ".phone_number_next", function(event){
 				var Vehiclestable=$('#dtVehiclesTable').DataTable();
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
+						var a=element.DOB_Age_MaritalStatus_Points_LicenceNo;
+					var d=a.split(',');
+					var dob=d[0];
+					var age=d[1];
+					var merital=d[2];
+					var points=d[3];
+					var licence=d[4];
+						
+						
 						drivertable.row.add(
 							[
 							index,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
-							element.Age,
-							element.DOB_Three,
-							element.License_Number,
+							age,
+							dob,
+							merital,
+							licence,
 							element.License_State,
+							element.Experience_Years,
+							element.Hire_Date,
 							element.License_State,
-							element.License_State,
-							element.License_State,
+							element.Back_up_Driver,
+							element.Owner_Driver,
 							element.SR22,
-							element.Points,
-							element.Points,
-							"<button class='btn' class='delete_driver' data-id='"+element.id+"'>Delete</button>"
+							points,
+							"<button class='delete_driver btn' data-id='"+element.id+"' type='button'>Delete</button>"
 							]
 						).draw();
 
@@ -286,11 +366,13 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					if(Vehiclesdata!=''){
 					$.each(Vehiclesdata, function(index, element) {
+						
+
 						Vehiclestable.row.add(
 							[
 							index,
-							"<button id='edit_vehicles' data-id='"+element.id+"'>Edit</button>",
-							element.Year_Make_Model,
+							"<button id='edit_vehicles' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#vehicle_Edit_modal'>Edit</button>",
+							element.Year_Make_Model1,
 							element.VIN,
 							element.Category,
 							element.Radius,
@@ -517,38 +599,39 @@ $(".drivers_data_next").click(function(event ){
          });
 });
 $(".violations_data_next").click(function(event ){
-	var voilationArray={};
-	var mainarray={};
+	
+	var mainarray=[];
 	 $("#Violation_Table tbody").find("tr").each(function (index, element) {
 		 console.log(index);
+		var voilationArray={};;
 		 var select_Accident= $("#select_Accident_"+index).val();
 		 var Accident_date=$("#Accident_date_"+index).val();
 		 
-		voilationArray['Accident']=	select_Accident;
-		voilationArray['Accident_date']=Accident_date;
-		mainarray[index]=voilationArray;
+		voilationArray.Accident=	select_Accident;
+		voilationArray.Accident_date=Accident_date;
+		mainarray.push(voilationArray); 
 			 
     }); 
-	console.log(voilationArray);
-	console.log(mainarray);
-	console.log(JSON.stringify(mainarray));
-	/* var contactId=$(".contactId").val();
+	
+		var voilationsdata=JSON.stringify(mainarray);
+
+	 var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({violations_data_next: "success",contactId:contactId}),
+           data: ({violations_data_next: "success",contactId:contactId,voilationsdata:voilationsdata}),
             success:function(result){
-					$(".violationsLI").removeClass("active");
+					 $(".violationsLI").removeClass("active");
 					$(".underwritingLI").addClass("active");
 					$(".ninth").hide();
 					$(".tenth").show(); 
 								 
 				
            }
-         }); */
+         }); 
 });
-/* $(".underwriting_data_next").click(function(event ){
+ $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
@@ -558,14 +641,81 @@ $(".violations_data_next").click(function(event ){
             success:function(result){
 					$(".violationsLI").removeClass("active");
 					$(".underwritingLI").addClass("active");
-					$(".eigth").hide();
-					$(".ninth").show(); 
+					$(".tenth").hide();
+					$(".eleventh").show();
 								 
 				
            }
          });
 });
- */
+ 
+$(".Coverage_Limit_Information_next").click(function(event ){
+	var contactId=$(".contactId").val();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({Coverage_Limit_Information: "success",contactId:contactId}),
+            success:function(result){
+				 $(".underwritingLI").removeClass("active");
+					$(".CoverageLI").addClass("active");
+					$(".eleventh").hide();
+					$(".twelve").show(); 
+								 
+				
+           }
+         });
+});
+//*************************************************** next code *********************************************************//
+$(".OperationDescription_next").click(function(event ){
+	var contactId=$(".contactId").val();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({OperationDescription: "success",contactId:contactId}),
+            success:function(result){
+				 $(".CoverageLI").removeClass("active");
+				
+					$(".OperationDescription").addClass("active");
+					$(".twelve").hide();
+					$(".thirteen").show(); 
+								 
+				
+           }
+         });
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+$(".InsuranceHistory_next").click(function(event ){
+	var contactId=$(".contactId").val();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({InsuranceHistory: "success",contactId:contactId}),
+            success:function(result){
+				 $(".OperationDescription").removeClass("active");
+				
+					$(".InsuranceHistory").addClass("active");
+					$(".thirteen").hide();
+					$(".fourteen").show(); 
+								 
+				
+           }
+         });
+});
+
+
+
+
+
 
 $(".previous").click(function(){
 	if(animating) return false;
@@ -621,6 +771,25 @@ $(document).on("click", "#new_drive_add_button", function(event){
 		d=1;
 		 $("#new_driver_licence").removeClass('is-invalid');
 	}
+	if($("#new_driver_Exp").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#new_driver_Exp").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#new_driver_Exp").removeClass('is-invalid');
+	}
+	if($("#new_driver_hire_date").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#new_driver_hire_date").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#new_driver_hire_date").removeClass('is-invalid');
+	}
+	
+	
+	
 	if(d==1){
 		var dataform=	$('#Add_new_Driver_form').serialize();
 		var contactId=$(".contactId").val();
@@ -631,6 +800,15 @@ $(document).on("click", "#new_drive_add_button", function(event){
            data: ({new_drive_add: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
 				if(result!==0){
+					var a=result.DOB_Age_MaritalStatus_Points_LicenceNo;
+					var d=a.split(',');
+					var dob=d[0];
+					var age=d[1];
+					var merital=d[2];
+					var points=d[3];
+					var licence=d[4];
+					
+					
 					 $('#Driver_add_modal').modal('toggle');
 					var i=$('#dtDriverTable tr:last').find('td:first').html();
 					var index= parseInt(i)+parseInt(1);
@@ -640,12 +818,17 @@ $(document).on("click", "#new_drive_add_button", function(event){
 							index,
 							"<button class='edit_drivers btn' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							result.Name1,
-							result.Age,
-							result.DOB_Three,
-							result.License_Number,
+							age,
+							dob,
+							merital,
+							licence,
 							result.License_State,
+							result.Experience_Years,
+							result.Hire_Date,
+							result.Back_up_Driver,
+							result.Owner_Driver,
 							result.SR22,
-							result.Points,
+							points,
 							"<button class='delete_driver btn' data-id='"+result.driverId+"'>Delete</button>"
 							]
 						).draw();
@@ -658,22 +841,10 @@ $(document).on("click", "#new_drive_add_button", function(event){
 	
 });
 
-$(document).on("click", ".edit_drivers", function(event){
-var driverId=$(this).data("id");
-var contactId=$(".contactId").val();
-	$.ajax({
-		url:"ajaxRequest.php", 
-		type: "POST", 
-	   dataType: 'json',
-	   data: ({get_driver_data: "success",contactId:contactId,driverId:driverId}),
-		success:function(result){
-			
-		}
-	})	
-}); 
+ 
 $(document).on("change", "#C2VehicleDetails_year", function(event){
-var vehicle_cat=$("#C2VehicleDetails_category").val();
-var vehicle_subcat=$("#C2VehicleDetails_subcategory").val();
+var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
+var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
 	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 	$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
@@ -721,9 +892,9 @@ var vehicle_type=$(this).data("id");
 });
 
 $(document).on("change", "#C2VehicleDetails_category", function(event){
-var vehicle_cat=$(this).val();
-var C2VehicleDetails_year=$("#C2VehicleDetails_year").val();
-var vehicle_subcat=$("#C2VehicleDetails_subcategory").val();
+var vehicle_cat=$(this).find(':selected').attr('data-id');
+var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
 			$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
@@ -798,9 +969,9 @@ var vehicle_subcat=$("#C2VehicleDetails_subcategory").val();
 
 
 $(document).on("change", "#C2VehicleDetails_subcategory", function(event){
-var vehicle_sub=$(this).val();
-var C2VehicleDetails_year=$("#C2VehicleDetails_year").val();
-var vehicle_cat=$("#C2VehicleDetails_category").val();
+var vehicle_sub=$(this).find(':selected').attr('data-id');
+var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
 	if(C2VehicleDetails_year ==''){
 		$.ajax({
 			url:"ajaxRequest.php", 
@@ -857,9 +1028,9 @@ var vehicle_cat=$("#C2VehicleDetails_category").val();
 
 
 $(document).on("change", "#C2VehicleDetails_make", function(event){
-var vehicle_make=$(this).val();
-var vehicle_year=$("#C2VehicleDetails_year").val();
-var vehicle_cat=$("#C2VehicleDetails_category").val();
+var vehicle_make=$(this).find(':selected').attr('data-id');
+var vehicle_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
 $("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 
 	$.ajax({
@@ -882,10 +1053,10 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 
 
 $(document).on("change", "#C2VehicleDetails_model", function(event){
-var vehicle_model=$(this).val();
-var vehicle_year=$("#C2VehicleDetails_year").val();
-var vehicle_cat=$("#C2VehicleDetails_category").val();
-var vehicle_make=$("#C2VehicleDetails_make").val();
+var vehicle_model=$(this).find(':selected').attr('data-id');
+var vehicle_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
+var vehicle_make=$("#C2VehicleDetails_make").find(':selected').attr('data-id');
 $("#C2VehicleDetails_body").html('<option value="" selected>updating....</option>');
 
 	$.ajax({
@@ -993,37 +1164,151 @@ $(document).on("click", ".edit_drivers", function(event){
 var id = $(this).attr("data-id") ;
 var name = $(this).closest("tr").find('td:eq(2)').text();
 var dob = $(this).closest("tr").find('td:eq(4)').text();
-var licence = $(this).closest("tr").find('td:eq(5)').text();
-var licence_state = $(this).closest("tr").find('td:eq(6)').text();
-var sr22 = $(this).closest("tr").find('td:eq(7)').text();
-var points = $(this).closest("tr").find('td:eq(8)').text();
+var marital = $(this).closest("tr").find('td:eq(5)').text();
+var licence = $(this).closest("tr").find('td:eq(6)').text();
+var licence_state = $(this).closest("tr").find('td:eq(7)').text();
+var exp = $(this).closest("tr").find('td:eq(8)').text();
+var hiredate = $(this).closest("tr").find('td:eq(9)').text();
+var backup_driver = $(this).closest("tr").find('td:eq(10)').text();
+var owner = $(this).closest("tr").find('td:eq(11)').text();
+var sr22 = $(this).closest("tr").find('td:eq(12)').text();
+var points = $(this).closest("tr").find('td:eq(13)').text();
  var n=name.split(' ');
 	$("#edit_driver_first").val(n[0]);
 	$("#edit_driver_middle").val(n[1]);
 	$("#edit_driver_last").val(n[2]);
 	$("#edit_driver_dob").val(dob);
 	$("#edit_driver_licence").val(licence);
-	$("#edit_driver_license_state").val(licence_state);
-	$("#edit_driver_commercial").val(n[2]);
-	$("#edit_driver_SR22").val(sr22);
+	$('#edit_driver_license_state [value=="AK"]').attr("selected", "selected");;
+	$("#edit_driver_commercial").val(n[2]).attr('selected', true);
+	$("."+marital).attr('checked', true);
+	$(".SR22_"+sr22).attr('checked', true);
+	$("#edit_driver_Exp").val(exp);
+	$("#edit_driver_hire_date").val(hiredate);
+	$("#edit_driver_points").val(points);
+	$("#edit_driver_Backup").val(backup_driver).prop('selected', true);
+	$("#edit_driver_Owner").val(owner).prop('selected', true);
+	$("#id_driver_to_update").val(id);
 	
-	
-	
-	 /* $.ajax({
-		url:"ajaxRequest.php", 
-		type: "POST", 
-	   data: ({get_business_sub: "success",business_cat:business_cat}),
-		success:function(result){
-			if(result!=0){
-			$("#Business_sub").html(result);
-			$("#business_sub_type").show();
-			}else{
-				$("#business_sub_type").hide();
-				$("#enter_business_sub").show();
-			}
-		}
-	})  */
+	 
 });
+
+
+$(document).on("click", "#update_driver_button", function(event){  /// update driver
+	
+	var d=0;
+	if($("#edit_driver_first").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#edit_driver_first").editClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#edit_driver_first").removeClass('is-invalid');
+	}
+	if($("#edit_driver_last").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#edit_driver_last").editClass('is-invalid');
+	}else{
+		d=1;
+		$("#edit_driver_last").removeClass('is-invalid');
+	}
+	if($("#edit_driver_dob").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#edit_driver_dob").editClass('is-invalid');
+	}else{
+		d=1;
+		 $("#edit_driver_dob").removeClass('is-invalid');
+	}
+	
+	if($("#edit_driver_licence").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#edit_driver_licence").editClass('is-invalid');
+	}else{
+		d=1;
+		 $("#edit_driver_licence").removeClass('is-invalid');
+	}
+	if($("#edit_driver_Exp").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#edit_driver_Exp").editClass('is-invalid');
+	}else{
+		d=1;
+		 $("#edit_driver_Exp").removeClass('is-invalid');
+	}
+	if($("#edit_driver_hire_date").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#edit_driver_hire_date").editClass('is-invalid');
+	}else{
+		d=1;
+		 $("#edit_driver_hire_date").removeClass('is-invalid');
+	}
+	
+	
+	
+	if(d==1){
+		var dataform=$('#Edit_Driver_form').serialize();
+		var contactId=$(".contactId").val();
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({update_driver: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				if(result!==0){
+					driversdata=result.Drivers1;
+					if ( $.fn.DataTable.isDataTable('#dtDriverTable') ) {
+					  $('#dtDriverTable').DataTable().destroy();
+					}
+					$('#dtDriverTable tbody').empty();
+					var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
+					if(driversdata!=''){
+					$.each(driversdata, function(index, element) {
+						var a=element.DOB_Age_MaritalStatus_Points_LicenceNo;
+					var d=a.split(',');
+					var dob=d[0];
+					var age=d[1];
+					var merital=d[2];
+					var points=d[3];
+					var licence=d[4];
+						
+						
+						drivertable.row.add(
+							[
+							index,
+							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+							element.Name1,
+							age,
+							dob,
+							merital,
+							licence,
+							element.License_State,
+							element.Experience_Years,
+							element.Hire_Date,
+							element.License_State,
+							element.Back_up_Driver,
+							element.Owner_Driver,
+							element.SR22,
+							points,
+							'<button class="delete_driver btn" data-id="'+element.id+'" type="button">Delete</button>'
+							]
+						).draw();
+
+					});	
+					}
+					}
+				$('#Driver_Edit_modal').modal('toggle');			 
+				}
+           
+         });
+	}
+
+	
+});
+
 
 
 
@@ -1037,6 +1322,141 @@ $(document).on("click", ".Insured_Designate_Spouse", function(event){
 	}
 
 });
+
+$(document).on("click", ".new_driver_SR22", function(event){
+	var id = $(this).val();
+	if(id=='Yes'){
+		$("#driver_case_no").show();
+	}else{
+		$("#driver_case_no").hide();
+	}
+
+});
+
+
+$(document).on("click", "#vehicles_add_button", function(event){
+	
+	var d=0;
+	if($("#C2VehicleDetails_category").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_category").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#C2VehicleDetails_category").removeClass('is-invalid');
+	}
+	if($("#C2VehicleDetails_year").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_year").addClass('is-invalid');
+	}else{
+		d=1;
+		$("#C2VehicleDetails_year").removeClass('is-invalid');
+	}
+	if($("#vehicle_Gross_weight").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#vehicle_Gross_weight").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#vehicle_Gross_weight").removeClass('is-invalid');
+	}
+	
+	if($("#vehicle_Longest_tip").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#vehicle_Longest_tip").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#vehicle_Longest_tip").removeClass('is-invalid');
+	}
+	if($("#vehicle_Destination_City").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#vehicle_Destination_City").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#vehicle_Destination_City").removeClass('is-invalid');
+	}
+	if($("#vehicle_VIN").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#vehicle_VIN").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#vehicle_VIN").removeClass('is-invalid');
+	}
+	if($("#C2VehicleDetails_make").val()=='' || $("#C2VehicleDetails_make_name").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_make").addClass('is-invalid');
+			$("#C2VehicleDetails_make_name").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#C2VehicleDetails_make").removeClass('is-invalid');
+		 $("#C2VehicleDetails_make_name").removeClass('is-invalid');
+	}
+	if($("#C2VehicleDetails_model").val()=='' || $("#C2VehicleDetails_model_name").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_model").addClass('is-invalid');
+			$("#C2VehicleDetails_model_name").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#C2VehicleDetails_model").removeClass('is-invalid');
+		 $("#C2VehicleDetails_model_name").removeClass('is-invalid');
+	}
+
+	if($("#C2VehicleDetails_Loss").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_Loss").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#C2VehicleDetails_Loss").removeClass('is-invalid');
+	}
+
+	
+	
+	
+	if(d==1){
+		var dataform=	$('#Add_new_vehicle').serialize();
+		var contactId=$(".contactId").val();
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({new_vehicle_add: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				console.log(result);
+				if(result!==0){
+					 $('#vehiles_add_modal').modal('toggle');
+					var i=$('#dtVehiclesTable tr:last').find('td:first').html();
+					var index= parseInt(i)+parseInt(1);
+					var Vehiclestable=$('#dtVehiclesTable').DataTable();
+						Vehiclestable.row.add(
+							[
+							index,
+							"<button class='edit_vehicles btn' data-id='"+result.vehicleId+"' type='button' data-toggle='modal' data-target='#vehicle_Edit_modal'>Edit</button>",
+							result.Year_Make_Model1,
+							result.VIN,
+							result.Category,
+							result.Radius,
+							result.Value,
+							result.Loss_Payee,
+							"<button class='delete_vehicle btn' data-id='"+result.vehicleId+"'>Delete</button>"
+							]
+						).draw();
+					} 		 
+				}
+         });
+	}
+
+	
+});
+
+
+
 
 
 

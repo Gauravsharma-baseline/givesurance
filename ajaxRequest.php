@@ -270,7 +270,18 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		} */
 		echo json_encode($_POST);
 	}
+	
+	
 	if(ISSET($_POST['violations_data_next']) && $_POST['violations_data_next']=='success'){
+		 parse_str($_POST['voilationsdata'], $form_data);
+		$contacturl = "Contacts/".$_POST['contactId'];
+		 $data = "";
+		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+		
+			echo json_encode($contactdata);
+			
+	}
+	if(ISSET($_POST['underwriting_data_next']) && $_POST['underwriting_data_next']=='success'){
 		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
 		if($response==0){
 			echo 0;	
@@ -293,7 +304,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		echo json_encode($_POST);
 	}
 	
-	if(ISSET($_POST['violations_data_next']) && $_POST['violations_data_next']=='success'){
+	if(ISSET($_POST['OperationDescription']) && $_POST['OperationDescription']=='success'){
 		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
 		if($response==0){
 			echo 0;	
@@ -315,6 +326,58 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		} */
 		echo json_encode($_POST);
 	}
+	
+	
+		if(ISSET($_POST['InsuranceHistory']) && $_POST['InsuranceHistory']=='success'){
+		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
+		if($response==0){
+			echo 0;	
+		}else{
+			/* echo '<pre>';
+			print_r($response);
+			echo '</pre>'; 
+			$contacturl = "Contacts/".$_POST['contactId'];
+			
+			 $Contactdata = '{
+			"data": [{
+            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			echo json_encode($response);
+			
+		} */
+		echo json_encode($_POST);
+	}
+	
+	if(ISSET($_POST['Coverage_Limit_Information']) && $_POST['Coverage_Limit_Information']=='success'){
+		
+		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
+		if($response==0){
+			echo 0;	
+		}else{
+			/* echo '<pre>';
+			print_r($response);
+			echo '</pre>'; 
+			$contacturl = "Contacts/".$_POST['contactId'];
+			
+			 $Contactdata = '{
+			"data": [{
+            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			echo json_encode($response);
+			
+		} */
+		echo json_encode($_POST);
+	}	
+
+
+
+
 	
 	if(ISSET($_POST['new_drive_add']) && $_POST['new_drive_add']=='success'){
 		parse_str($_POST['dataform'], $form_data);
@@ -324,10 +387,16 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		$driversData = $contactdata['data'][0]['Drivers1'];
 		$drivername = $form_data['new_driver_first']. ' '.$form_data['new_driver_middle'].' '.$form_data['new_driver_last'];
 		$driverDOb=date("Y-m-d", strtotime($form_data['new_driver_dob']));
+		$merital_status=$form_data['new_driver_marital_status'];
+		$new_driver_Exp=$form_data['new_driver_Exp'];
+		$Date_of_Hire=$form_data['new_driver_hire_date'];
+		$points=$form_data['new_driver_points'];
+		$Owner_Driver=$form_data['add_driver_Owner'];
+		$add_driver_Backup=$form_data['add_driver_Backup'];
 		$age = (date('Y') - date('Y',strtotime($driverDOb)));
-		
+		$DOB_Age_MaritalStatus_Points_LicenceNo=$driverDOb.','.$age .','.$merital_status.','.$points.','.$form_data['new_driver_licence'];
 		$new_array=array(
-		"License_Number"=>$form_data['new_driver_licence'],"SR22"=>$form_data['new_driver_SR22'],"Name1"=>$drivername,"Age"=>"".$age."","DOB_Three"=>$driverDOb,"License_State"=>$form_data['new_driver_license_state'],"Points"=>"0"
+		"DOB_Age_MaritalStatus_Points_LicenceNo"=>$DOB_Age_MaritalStatus_Points_LicenceNo,"SR22"=>$form_data['new_driver_SR22'],"Name1"=>$drivername,"Back_up_Driver"=>"".$add_driver_Backup."","Owner_Driver"=>$Owner_Driver,"License_State"=>$form_data['new_driver_license_state'],"Experience_Years"=>"".$new_driver_Exp."","Hire_Date"=>"".$Date_of_Hire.""
 		) ;
 		$driversData[]=$new_array;
 			$dd=json_encode($driversData);
@@ -346,20 +415,28 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}
 	}
 	
-	if(ISSET($_POST['get_driver_data']) && $_POST['get_driver_data']=='success'){
-		
-		/* $contacturl = "Contacts/".$_POST['contactId'];
+	if(ISSET($_POST['update_driver']) && $_POST['update_driver']=='success'){
+		parse_str($_POST['dataform'], $form_data);
+		$contacturl = "Contacts/".$_POST['contactId'];
 		 $data = "";
 		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
 		$driversData = $contactdata['data'][0]['Drivers1'];
-		$drivername = $form_data['new_driver_first']. ' '.$form_data['new_driver_middle'].' '.$form_data['new_driver_last'];
-		$driverDOb=date("Y-m-d", strtotime($form_data['new_driver_dob']));
+		$key = array_search($form_data['id_driver_to_update'], array_column($driversData, 'id'));
+
+		 $drivername = $form_data['edit_driver_first']. ' '.$form_data['edit_driver_middle'].' '.$form_data['edit_driver_last'];
+		$driverDOb=date("Y-m-d", strtotime($form_data['edit_driver_dob']));
+		$merital_status=$form_data['edit_driver_marital_status'];
+		$new_driver_Exp=$form_data['edit_driver_Exp'];
+		$Date_of_Hire=$form_data['edit_driver_hire_date'];
+		$points=$form_data['edit_driver_points'];
+		$Owner_Driver=$form_data['edit_driver_Owner'];
+		$add_driver_Backup=$form_data['edit_driver_Backup'];
 		$age = (date('Y') - date('Y',strtotime($driverDOb)));
-		
+		$DOB_Age_MaritalStatus_Points_LicenceNo=$driverDOb.','.$age .','.$merital_status.','.$points.','.$form_data['edit_driver_licence'];
 		$new_array=array(
-		"License_Number"=>$form_data['new_driver_licence'],"SR22"=>$form_data['new_driver_SR22'],"Name1"=>$drivername,"Age"=>"".$age."","DOB_Three"=>$driverDOb,"License_State"=>$form_data['new_driver_license_state'],"Points"=>"0"
+		"DOB_Age_MaritalStatus_Points_LicenceNo"=>$DOB_Age_MaritalStatus_Points_LicenceNo,"SR22"=>$form_data['edit_driver_SR22'],"Name1"=>$drivername,"Back_up_Driver"=>"".$add_driver_Backup."","Owner_Driver"=>$Owner_Driver,"License_State"=>$form_data['edit_driver_license_state'],"Experience_Years"=>"".$new_driver_Exp."","Hire_Date"=>"".$Date_of_Hire.""
 		) ;
-		$driversData[]=$new_array;
+		$driversData[0]=$new_array;
 			$dd=json_encode($driversData);
 			  $Contactdata = '{
 			"data": [{
@@ -368,14 +445,68 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}]}';
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token); 
 			if($zohoResponse['data'][0]['code']=='SUCCESS'){
+				$contacturl = "Contacts/".$_POST['contactId'];
+				$data = "";
+				$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+			echo json_encode($contactdata['data'][0]);
+			}else{
+				echo 0;
+			}
+	}
+	
+	if(ISSET($_POST['new_vehicle_add']) && $_POST['new_vehicle_add']=='success'){
+		parse_str($_POST['dataform'], $form_data);
+		$contacturl = "Contacts/".$_POST['contactId'];
+		 $data = "";
+		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+		$VehiclesData = $contactdata['data'][0]['Vehicles'];
+		
+		if($form_data['C2VehicleDetails_subcategory']!=''){
+			$category=$form_data['C2VehicleDetails_subcategory'];
+			}else{
+		$category=$form_data['C2VehicleDetails_category'];
+		}
+		if($form_data['C2VehicleDetails_make_name']!=''){
+			$make=$form_data['C2VehicleDetails_make_name'];
+			}else{
+		$make=$form_data['C2VehicleDetails_make'];
+		}
+		if($form_data['C2VehicleDetails_model_name']!=''){
+			$model =$form_data['C2VehicleDetails_model_name'];
+			}else{
+			$model=$form_data['C2VehicleDetails_model'];
+		}	
+		
+		
+		$Year_Make_Model1=$form_data['C2VehicleDetails_year'].','.$make.','.$model;
+		$Longest_Trip_City_of_Destination=$form_data['vehicle_Longest_tip'].','.$form_data['vehicle_Destination_City'];
+
+		$new_array=array(
+		"Gross_Weight"=>$form_data['vehicle_Gross_weight'],"Year_Make_Model1"=>$Year_Make_Model1,"Value"=>$form_data['vehicle_modifications'],"VIN"=>"".$form_data['vehicle_VIN']."","Loss_Payee"=>$form_data['C2VehicleDetails_Loss'],"Category"=>$category,"Longest_Trip_City_of_Destination"=>"".$Longest_Trip_City_of_Destination."","Radius"=>$form_data['C2VehicleDetails_Radius']
+		) ;
+		$VehiclesData[]=$new_array;
+			$dd=json_encode($VehiclesData);
+			  $Contactdata = '{
+			"data": [{
+           "Vehicles":'.$dd.'
+            
+			}]}';
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token); 
+			if($zohoResponse['data'][0]['code']=='SUCCESS'){
 				$id=$zohoResponse['data'][0]['details']['id'];
-				$new_array['driverId'] = $id;
+				$new_array['vehicleId'] = $id;
 			echo json_encode($new_array);
 			}else{
 				echo 0;
-			} */
+			} 
 	}
-	
+
+
+
+
+
+
+
 	if(ISSET($_POST['get_make']) && $_POST['get_make']=='success'){
 		if($_POST['vehicle_subcat']==''){
 		$response_vehicles_Make=$handleFunctionsObject->VehicleMake($_POST['vehicle_cat']);
@@ -384,7 +515,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php					
 							foreach($response_vehicles_Make as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['make'];?>"><?php echo $responsedata['make'];?></option>
 						<?php }
 						?>
 					
@@ -402,7 +533,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php					
 							foreach($response_vehicles_subMake as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['make'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['make'];?>"><?php echo $responsedata['make'];?></option>
 						<?php }
 						?>
 					
@@ -423,7 +554,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php 					
 							foreach($response_vehicles_cat as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['category'];?>"><?php echo $responsedata['category'];?></option>
 						<?php }
 						?>
 					
@@ -442,7 +573,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php 					
 							foreach($response_vehicles_year as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>" 
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['year'];?>" 
 							<?php if(ISSET($_POST['vehicle_year']) && $_POST['vehicle_year']!='' && $_POST['vehicle_year']==$responsedata['id']){echo 'selected';} ?>><?php echo $responsedata['year'];?></option>
 						<?php }
 						?>
@@ -463,7 +594,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php 					
 							foreach($response_vehicles_model as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['model_name'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['model_name'];?>"><?php echo $responsedata['model_name'];?></option>
 						<?php }
 						?>
 					
@@ -484,7 +615,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php 					
 							foreach($response_VehicleBodyStyle as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['body_style'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['body_style'];?>"><?php echo $responsedata['body_style'];?></option>
 						<?php }
 						?>
 					
@@ -525,7 +656,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			<option value=""></option>
 						<?php					
 							foreach($VehicleSubCategory as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['sub_category'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['sub_category'];?>"><?php echo $responsedata['sub_category'];?></option>
 						<?php }
 						?>
 					

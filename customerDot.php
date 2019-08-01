@@ -37,7 +37,9 @@ $handleFunctionsObject = new handleFunctions;
 <li class='driversLI'>Drivers</li>
 <li class='violationsLI'>Violations</li>
 <li class='underwritingLI'>Underwriting</li>
-<li class='pdfLI'>Additional PDF</li>
+<li class='CoverageLI'>Coverage Limit Information</li>
+<li class='OperationDescription'>Operation Description</li>
+<li class='InsuranceHistory'>Insurance History</li>
 </ul>
 <!-- fieldsets -->
 	<fieldset class='first'>
@@ -808,6 +810,7 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-center td-padding">Name</td>
 				  <td class="text-right">Age</td>
 				  <td class="text-right">Date Of Birth</td>
+				  <td class="text-right">Mertial Status</td>
 				  <td class="text-right">License Number</td>
 				  <td class="text-right">License State</td>
 				  <td class="text-right">Years of Class A Exp</td>
@@ -1291,9 +1294,152 @@ $handleFunctionsObject = new handleFunctions;
 	</div>
 	<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Underwriting action-button" value="Previous" />
-		<input type="button" name="submit" class="action-button submit" value="Submit" />
+		<input type="button" name="submit" class="action-button underwriting_data_next" value="Next" />
 	</div>
 </fieldset>
+<fieldset class='eleventh'>
+	<h2 class="fs-title">Coverage Limit Information</h2>
+	<h3 class="fs-subtitle"></h3>
+	<div class='main_form'>
+		<div class='col-md-12'>
+			<div class='main_field_div'>
+			<h2 class="fs-title">Proof of Prior Insurance</h2>
+			<h3 class="fs-subtitle"></h3>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Auto Liability :</label>
+					 <div class='radio'>
+						<input type="radio" name="Spouse" class="currently_insured_one"><label>$1M CSL</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse" class="currently_insured_one"><label>$750 CSL</label>
+					</div>
+					<div class='radio'>	
+						<h5> CSL = Combined Single Limit</h5>
+					</div>
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>AL Deductible:</label>	
+					<div class='radio'>
+						<input type="radio" name="Spouse1" class="currently_insured_two"><label>$500</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1" class="currently_insured_two"><label>$1,000</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1" class="currently_insured_two"><label> Other :<input type="text" name="text" value=""></label>
+					</div>
+					</div>
+					</div>
+
+				</div>
+				 <div class="form-row">
+					<div class="form-holder w-100">
+					<label>UM/UIM :</label>
+						<div class='radio'>	
+						<input type="radio" name="Spouse11" class="currently_insured_three"><label> Rejected</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse11" class="currently_insured_three"><label>Minimum State Limit Accepted</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse11" class="currently_insured_three"><label>Higher Limit: <input type="text"></label>
+					</div>
+					</div>
+				</div>
+				 <div class="form-row">
+					<div class="form-holder w-100">
+					<label>UM Pd :</label>
+						<div class='radio'>	
+						<input type="radio" name="Spouse1q" class="currently_insured_four"><label> Rejected</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1q" class="currently_insured_four"><label>Minimum State Limit Accepted</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1q" class="currently_insured_four"><label>Higher Limit: <input type="text"></label>
+					</div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Medical Payments:</label>
+						<div class='radio'>	
+						<input type="radio" name="Spouse1qs" class="currently_insured_five"><label> Rejected</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1qs" class="currently_insured_five"><label>$5,000</label>
+					</div>
+					</div>
+				</div>
+				
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>PIP:</label>
+						<div class='radio'>	
+						<input type="radio" name="Spouse1qs" class="currently_insured_six"><label> Rejected</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Spouse1qs" class="currently_insured_six"><label>Statutory Limits Accepted</label>
+					</div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<h3>Motor Truck Cargo ( Maximum Limits of $250,000):</h3>
+					
+						<div class='txt'>	
+						<label>Per Vehicle</label>
+						<input type="text" name="Per Vehicle " class="currently_insured_seven" value="">
+						</div>
+						<div class='txt'>	
+						<label>Aggregate</label>
+						<input type="text" name="Aggregate" class="currently_insured_seven" value=""></label>
+						</div>
+						<div class='radio'>	
+						<input type="radio" name="Sp_radio" class="currently_insured_seven"><label>Rejected</label>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<div class='previous_next_buttons'>
+		<input type="button" name="previous" class="previous_Coverage_Limit_Information action-button" value="Previous" />
+		<input type="button" name="next" class="action-button Coverage_Limit_Information_next" value="Next" />
+	</div>
+</fieldset>
+
+<fieldset class='twelve'>
+	<h2 class="fs-title">Operations Description</h2>
+<div class='previous_next_buttons'>
+		<input type="button" name="previous" class="previous_OperationDescription action-button" value="Previous" />
+		<input type="button" name="next" class="action-button OperationDescription_next" value="Next" />
+	</div>
+	
+	
+</fieldset>
+<fieldset class='thirteen'>
+	<h2 class="fs-title">Insurance History</h2>
+<div class='previous_next_buttons'>
+		<input type="button" name="previous" class="previous_InsuranceHistory action-button" value="Previous" />
+		<input type="button" name="next" class="action-button InsuranceHistory_next" value="Next" />
+	</div>
+	
+	
+</fieldset>
+
+
 
 </form>
 
@@ -1338,11 +1484,11 @@ $handleFunctionsObject = new handleFunctions;
 					  <label for="username" class="control-label">Marital Status</label>
 					
 					 <div class='radio'>
-						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" >
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" value='Married' >
 						<label>Married</label>
 					</div>
 					 <div class='radio'>
-						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" checked >
+						<input type="radio" name="new_driver_marital_status" class="form-control new_driver_marital_status" checked value='Single'>
 						<label>Single</label>
 					</div>
 					
@@ -1425,6 +1571,7 @@ $handleFunctionsObject = new handleFunctions;
 								<input type="text" class="form-control" name="new_driver_licence" id='new_driver_licence'>
 					
 							</div>
+							
 							<div class="form-group">
 								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
 								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
@@ -1434,6 +1581,41 @@ $handleFunctionsObject = new handleFunctions;
 								</select>
 					
 							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Years of Exp.</label>
+								<input type="text" class="form-control" name="new_driver_Exp" id='new_driver_Exp'>
+					
+							</div>
+							<div class="form-group">
+							<label for="username" class="control-label">Date of Hire</label>
+							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date'>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Points</label>
+								<input type="text" class="form-control" name="new_driver_points" id='new_driver_points'>
+					
+							</div>
+							
+							<div class="form-group">
+								<label for="username" class="control-label">Backup Driver</label>
+								<select name="add_driver_Backup" id="add_driver_Backup" class='form-control'>
+										<option selected="selected" value="No">No</option>
+										<option value="Yes">Yes</option>
+
+							</select>
+							</div>
+							
+							
+							<div class="form-group">
+								<label for="username" class="control-label">Driver Owner</label>
+								<select name="add_driver_Owner" id="add_driver_Owner" class='form-control'>
+										<option  value="No">No</option>
+										<option selected="selected" value="Yes">Yes</option>
+
+							</select>
+							</div>
+							
 							
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
@@ -1447,6 +1629,12 @@ $handleFunctionsObject = new handleFunctions;
 								</div>
 					
 							</div>
+							<!--div class="form-group" id='driver_case_no'>
+								<label for="username" class="control-label">Case Number</label>
+								<input type="text" class="form-control" name="driver_case_no">
+					
+							</div-->
+							
 						</div>
 					</div>
 				</div>
@@ -1500,11 +1688,11 @@ $handleFunctionsObject = new handleFunctions;
 					  <label for="username" class="control-label">Marital Status</label>
 					
 					 <div class='radio'>
-						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status" value='Married'>
+						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status Married" value='Married'>
 						<label>Married</label>
 					</div>
 					 <div class='radio'>
-						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status" checked value='Single'>
+						<input type="radio" name="edit_driver_marital_status" class="form-control edit_driver_marital_status Single"  value='Single'>
 						<label>Single</label>
 					</div>
 					
@@ -1525,7 +1713,7 @@ $handleFunctionsObject = new handleFunctions;
 										<option value="HI">Hawaii</option>
 										<option value="ID">Idaho</option>
 										<option value="IL">Illinois</option>
-										<option selected="selected" value="IN">Indiana</option>
+										<option value="IN">Indiana</option>
 										<option value="IT">International</option>
 										<option value="IA">Iowa</option>
 										<option value="KS">Kansas</option>
@@ -1596,15 +1784,49 @@ $handleFunctionsObject = new handleFunctions;
 								</select>
 					
 							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Years of Exp.</label>
+								<input type="text" class="form-control" name="edit_driver_Exp" id='edit_driver_Exp'>
+					
+							</div>
+							<div class="form-group">
+							<label for="username" class="control-label">Date of Hire</label>
+							<input type="text" class="form-control datepicker" name="edit_driver_hire_date" id='edit_driver_hire_date'>
+					
+							</div>
+							<div class="form-group">
+								<label for="username" class="control-label">Points</label>
+								<input type="text" class="form-control" name="edit_driver_points" id='edit_driver_points'>
+					
+							</div>
+							
+							<div class="form-group">
+								<label for="username" class="control-label">Backup Driver</label>
+								<select name="edit_driver_Backup" id="edit_driver_Backup" class='form-control'>
+										<option selected="selected" value="No">No</option>
+										<option value="Yes">Yes</option>
+
+							</select>
+							</div>
+							
+							
+							<div class="form-group">
+								<label for="username" class="control-label">Driver Owner</label>
+								<select name="edit_driver_Owner" id="edit_driver_Owner" class='form-control'>
+										<option  value="No">No</option>
+										<option  value="Yes">Yes</option>
+
+							</select>
+							</div>
 							
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
 								<div class='radio'>
-									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22" value='Yes'>
+									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22 SR22_Yes" value='Yes'>
 									<label>Yes</label>
 								</div>
 								 <div class='radio'>
-									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22" checked value='No'>
+									<input type="radio" name="edit_driver_SR22" class="form-control edit_driver_SR22 SR22_No"  value='No'>
 									<label>No</label>
 								</div>
 					
@@ -1613,10 +1835,12 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 				</div>
 			</div>
+			<input type='hidden' id='id_driver_to_update' name='id_driver_to_update'/>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-success" id='new_drive_add_button'>Add</button>
+			<button type="button" class="btn btn-success" id='update_driver_button'>Update</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
+
 		</form>
 	</div>
 	</div>
@@ -1632,7 +1856,7 @@ $handleFunctionsObject = new handleFunctions;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add New vehicle</h4>
       </div>
-	   <form id="loginForm" method="POST" action="#" novalidate="novalidate">
+	  <form id="Add_new_vehicle" method="POST" action="#" novalidate="novalidate">
       <div class="modal-body">
 		<div class="row">
 		<div class="col-xs-12">
@@ -1651,18 +1875,36 @@ $handleFunctionsObject = new handleFunctions;
 					<?php }
 						?>
 					  </div>
+					
 					<div class="form-group">
 					  <label for="VIN" class="control-label">VIN</label>
 					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
 					  <span class="help-block"></span>
 					</div>
 					<div class="form-group">
+					  <label for="Gross" class="control-label">Gross weight</label>
+					  <input type="text" class="form-control" id="vehicle_Gross_weight" name="vehicle_Gross_weight" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
+					  <input type="text" class="form-control" id="vehicle_Longest_tip" name="vehicle_Longest_tip" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
+					  <input type="text" class="form-control" id="vehicle_Destination_City" name="vehicle_Destination_City" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
+					
+					<div class="form-group">
 					  <label for="VIN" class="control-label">Category</label>
 					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control vehShortDropDownList ctrl-short-left all a">
 					<option value=""></option>
 						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
 							foreach($response_vehicles_cat as $responsedata){?>	
-							<option value="<?php echo $responsedata['id'];?>"><?php echo $responsedata['category'];?></option>
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['category'];?>"><?php echo $responsedata['category'];?></option>
 						<?php }
 						?>
 					</select>
@@ -1710,26 +1952,79 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group body_div_select" >
 					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
-					<select name="C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" class="form-control C2VehicleDetails_GaragingZIPCode">
-							<option value=""></option>
-						
-					</select>
+					
+					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
 					</div>
 					
 					<div class="form-group body_div_select" >
 					  <label for="Radius" class="control-label">Radius (One Way)</label>
-					<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
-							<option value=""></option>
+						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
+							<option value="50">50 miles</option>
+						<option selected="selected" value="100 miles">100 miles</option>
+						<option value="200 miles">200 miles</option>
+						<option value="300 miles">300 miles</option>
+						<option value="500 miles">500 miles</option>
+						<option value="999 Unlimited miles">Unlimited miles</option>
 						
-					</select>
+						</select>
 					</div>
-					<div class="form-group body_div_select" >
-					  <label for="Vehicle Sub-Type" class="control-label">Vehicle Sub-Type</label>
-					<select name="C2VehicleDetails_Vehicle_Sub-Type" id="C2VehicleDetails_Vehicle_Sub-Type" class="form-control C2VehicleDetails_Vehicle_Sub-Type">
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Is this vehicle used for business, personal or both?</label>
+					  <div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='0' checked>
+									<label>Business</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<label>Business/Personal</label>
+								</div>
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<label>Personal Only</label>
+						</div>
+					</div>
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Does this vehicle need comprehensive or collision coverage?</label>
+					  <div class='radio'>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='0'>
+									<label>Yes</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='1' checked>
+									<label>No</label>
+								</div>
+					
+					</div>
+					<div class="form-group body_modifications" >
+					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all permanently attached equipment (including aftermarket parts, mounted equipment and modifications)?</label>
+						<div class='radio'>
+									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
+									<label>$0 to $2,000</label>
+						</div>
+						<div class='radio'>
+									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='More than $2,000'>
+									<label>More than $2,000</label>
+						</div>
+					
+					</div>
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
+					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
 							<option value=""></option>
+							<?php
+							$losspayee=$handleFunctionsObject->VehicleLosspayee();
+							
+							foreach($losspayee as $res){
+								?>
+							<option value="<?php echo $res['loss_payee'];?>"><?php echo $res['loss_payee'];?></option>
 						
-					</select>
+							<?php } ?>
+						</select>
 					</div>
+					
+					
 					
 			  
 			</div>
@@ -1737,7 +2032,7 @@ $handleFunctionsObject = new handleFunctions;
        </div>
       </div>
       <div class="modal-footer">
-	  <button type="button" type='button'class="btn btn-success ">Add</button>
+	  <button type="button" type='button' class="btn btn-success" id='vehicles_add_button'>Add</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		
       </div>
@@ -1747,8 +2042,203 @@ $handleFunctionsObject = new handleFunctions;
   
 </div>
 </div>
+<!--------update vehicle----------------------------->
+<div id="vehicle_Edit_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Vehicle</h4>
+      </div>
+	  <form id="edit_vehicle" method="POST" action="#" novalidate="novalidate">
+      <div class="modal-body">
+		<div class="row">
+		<div class="col-xs-12">
+		 <div class='well'>
+			 
+					<div class="form-group">
+					  <label for="username" class="control-label">Type</label>
+					<?php 
+						$response_vehicles= $handleFunctionsObject->vehicle_type();
+						foreach($response_vehicles as $responsedata){?>
+					 <div class='radio'>
+						<input type="radio" name="edit_vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>'
+							data-id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
+						<label><?php echo $responsedata['category_type'];?></label>
+					</div>
+					<?php }
+						?>
+					  </div>
+					
+					<div class="form-group">
+					  <label for="VIN" class="control-label">VIN</label>
+					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="Gross" class="control-label">Gross weight</label>
+					  <input type="text" class="form-control" id="vehicle_Gross_weight" name="vehicle_Gross_weight" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
+					  <input type="text" class="form-control" id="vehicle_Longest_tip" name="vehicle_Longest_tip" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					<div class="form-group">
+					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
+					  <input type="text" class="form-control" id="vehicle_Destination_City" name="vehicle_Destination_City" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
+					
+					<div class="form-group">
+					  <label for="VIN" class="control-label">Category</label>
+					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<option value=""></option>
+						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
+							foreach($response_vehicles_cat as $responsedata){?>	
+							<option data-id="<?php echo $responsedata['id'];?>" value="<?php echo $responsedata['category'];?>"><?php echo $responsedata['category'];?></option>
+						<?php }
+						?>
+					</select>
+					</div>
+					<div class="form-group" id='category_sub' style='display:none;'>
+					  <label for="VIN" class="control-label">Sub Category</label>
+					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory" class="form-control vehShortDropDownList ctrl-short-left all a">
+					
+					</select>
+					</div>
+					<div class="form-group">
+					<label for="VIN" class="control-label">Year</label>
+					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					<div class="form-group make_div_select">
+					  <label for="make" class="control-label">Make</label>
+					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+					
+					</select>
+					</div>
+					<div class="form-group make_div" style="display:none;" >
+					<label for='make' class='control-label'>Enter Make</label>
+					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					</div>
+					<div class="form-group model_div_select" >
+					  <label for="VIN" class="control-label">Model</label>
+					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					<div class="form-group model_div" style="display:none;" >
+					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					</div>
+					<div class="form-group body_div_select" >
+					  <label for="Body" class="control-label">Body Style</label>
+					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body" class="form-control C2VehicleDetails_body">
+							<option value=""></option>
+						
+					</select>
+					</div>
+					<div class="form-group body_div_select" >
+					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
+					
+					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
+					</div>
+					
+					<div class="form-group body_div_select" >
+					  <label for="Radius" class="control-label">Radius (One Way)</label>
+						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
+							<option value="50">50 miles</option>
+						<option selected="selected" value="100 miles">100 miles</option>
+						<option value="200 miles">200 miles</option>
+						<option value="300 miles">300 miles</option>
+						<option value="500 miles">500 miles</option>
+						<option value="999 Unlimited miles">Unlimited miles</option>
+						
+						</select>
+					</div>
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Is this vehicle used for business, personal or both?</label>
+					  <div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='0' checked>
+									<label>Business</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<label>Business/Personal</label>
+								</div>
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<label>Personal Only</label>
+						</div>
+					</div>
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Does this vehicle need comprehensive or collision coverage?</label>
+					  <div class='radio'>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='0'>
+									<label>Yes</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='1' checked>
+									<label>No</label>
+								</div>
+					
+					</div>
+					<div class="form-group body_modifications" >
+					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all permanently attached equipment (including aftermarket parts, mounted equipment and modifications)?</label>
+						<div class='radio'>
+									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
+									<label>$0 to $2,000</label>
+						</div>
+						<div class='radio'>
+									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='More than $2,000'>
+									<label>More than $2,000</label>
+						</div>
+					
+					</div>
+					<div class="form-group body_vehicle_used" >
+					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
+					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
+							<option value=""></option>
+							<?php
+							$losspayee=$handleFunctionsObject->VehicleLosspayee();
+							
+							foreach($losspayee as $res){
+								?>
+							<option value="<?php echo $res['loss_payee'];?>"><?php echo $res['loss_payee'];?></option>
+						
+							<?php } ?>
+						</select>
+					</div>
+				<input type='hidden' id='vehicle_id_to_update' name='vehicle_id_to_update'>
+					
+					
+					
+			  
+			</div>
+		</div>
+       </div>
+      </div>
+      <div class="modal-footer">
+	  <button type="button" type='button' class="btn btn-success" id='vehicles_update_button'>Update</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		
+      </div>
+	  </form>
+    </div>
+	
+  
+</div>
+</div>
 
 </body>
 </html>

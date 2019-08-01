@@ -96,7 +96,7 @@ list-style-type: none;
 color: white;
 text-transform: uppercase;
 font-size: 9px;
-width:9.7%;
+width:7.7%;
 float: left;
 position: relative;
 }
@@ -298,4 +298,7 @@ input.checkType {
 .modal-body{
     height: 350px;
     overflow-y: auto;
+}
+.is-invalid {
+    border: 2px solid red !important;
 }

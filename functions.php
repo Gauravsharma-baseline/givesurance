@@ -201,7 +201,24 @@
 		return $response;
 				
 	} 	
-
+	function VehicleLosspayee(){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.loss_payee ORDER BY id DESC";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+				
+	}
 
     function getDataFromSafer($odt){
 		$response=$this->saferSearch($odt);
