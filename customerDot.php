@@ -42,6 +42,8 @@ $handleFunctionsObject = new handleFunctions;
 <!--li class='InsuranceHistory'>Insurance History</li-->
 <li class='CommoditiesLI'>Commodities</li>
 <li class='CargoRelatedLI'>Cargo Related</li>
+<li class='CargoFinal'>Cargo Final</li>
+<li class='PDFData'>PDF Data</li>
 </ul>
 <!-- fieldsets -->
 	<fieldset class='first'>
@@ -1448,10 +1450,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Auto Liability :</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured_one"><label>$1M CSL</label>
+						<input type="radio" name="Auto_Liability" class="Auto_Liability"><label>$1M CSL</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured_one"><label>$750 CSL</label>
+						<input type="radio" name="Auto_Liability" class="Auto_Liability"><label>$750 CSL</label>
 					</div>
 					<div class='radio'>	
 						<h5> CSL = Combined Single Limit</h5>
@@ -1463,13 +1465,14 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					 <label>AL Deductible:</label>	
 					<div class='radio'>
-						<input type="radio" name="Spouse1" class="currently_insured_two"><label>$500</label>
+						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$500'checked><label>$500</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1" class="currently_insured_two"><label>$1,000</label>
+						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$1,000'><label>$1,000</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1" class="currently_insured_two"><label> Other :<input type="text" name="text" value=""></label>
+						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='Other'><label> Other 
+						<input type="text" name="text" value="" id='AL_Deductible_text' style='display:none;' value='$500'></label>
 					</div>
 					</div>
 					</div>
@@ -1479,13 +1482,14 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>UM/UIM :</label>
 						<div class='radio'>	
-						<input type="radio" name="Spouse11" class="currently_insured_three"><label> Rejected</label>
+						<input type="radio" name="UM_UIM" class="UM_UIM" value='Rejected' checked><label> Rejected</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse11" class="currently_insured_three"><label>Minimum State Limit Accepted</label>
+						<input type="radio" name="UM_UIM" class="UM_UIM" value='Minimum State Limit Accepted'><label>Minimum State Limit Accepted</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse11" class="currently_insured_three"><label>Higher Limit: <input type="text"></label>
+						<input type="radio" name="UM_UIM" class="UM_UIM" value='Higher Limit'><label>Higher Limit 
+						<input type="text" class='UM_UIM_value' name='UM_UIM_value' id='UM_UIM_value'style='display:none;' value='Rejected'></label>
 					</div>
 					</div>
 				</div>
@@ -1493,13 +1497,13 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>UM Pd :</label>
 						<div class='radio'>	
-						<input type="radio" name="Spouse1q" class="currently_insured_four"><label> Rejected</label>
+						<input type="radio" name="UM_Pd" class="UM_Pd" value='Rejected' checked><label> Rejected</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1q" class="currently_insured_four"><label>Minimum State Limit Accepted</label>
+						<input type="radio" name="UM_Pd" class="UM_Pd" value='Minimum State Limit Accepted'><label>Minimum State Limit Accepted</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1q" class="currently_insured_four"><label>Higher Limit: <input type="text"></label>
+						<input type="radio" name="UM_Pd"  class="UM_Pd" value='Higher Limit'><label>Higher Limit <input type="text" id='UM_Pd_value' style='display:none;' value='Rejected'></label>
 					</div>
 					</div>
 				</div>
@@ -1510,10 +1514,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Medical Payments:</label>
 						<div class='radio'>	
-						<input type="radio" name="Spouse1qs" class="currently_insured_five"><label> Rejected</label>
+						<input type="radio" name="Medical_Payments" class="Medical_Payments" value='Rejected' checked><label> Rejected</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1qs" class="currently_insured_five"><label>$5,000</label>
+						<input type="radio" name="Medical_Payments" class="Medical_Payments"value='$5,000'><label>$5,000</label>
 					</div>
 					</div>
 				</div>
@@ -1523,10 +1527,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>PIP:</label>
 						<div class='radio'>	
-						<input type="radio" name="Spouse1qs" class="currently_insured_six"><label> Rejected</label>
+						<input type="radio" name="PIP" class="PIP" value='Rejected' checked><label> Rejected</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse1qs" class="currently_insured_six"><label>Statutory Limits Accepted</label>
+						<input type="radio" name="PIP" class="PIP" value='Statutory Limits Accepted'><label>Statutory Limits Accepted</label>
 					</div>
 					</div>
 				</div>
@@ -1539,14 +1543,14 @@ $handleFunctionsObject = new handleFunctions;
 					
 						<div class='txt'>	
 						<label>Per Vehicle</label>
-						<input type="text" name="Per Vehicle " class="currently_insured_seven" value="">
+						<input type="text" name="Motor_Truck_Cargo" class="Motor_Truck_Cargo" value="">
 						</div>
 						<div class='txt'>	
 						<label>Aggregate</label>
-						<input type="text" name="Aggregate" class="currently_insured_seven" value=""></label>
+						<input type="text" name="Aggregate" class="Aggregate" value=""></label>
 						</div>
 						<div class='radio'>	
-						<input type="radio" name="Sp_radio" class="currently_insured_seven"><label>Rejected</label>
+						<input type="radio" name="Motor_Truck_Rejected" class="Motor_Truck_Rejected" value='Rejected'><label>Rejected</label>
 					</div>
 					
 				</div>
@@ -1882,8 +1886,8 @@ $handleFunctionsObject = new handleFunctions;
 	<input type="text" name="Auto_second" class="Auto_second" value="" id="Auto_id_second">
 	</div>
 	<div class="col-sm-4">
-	<label>Hazmat</label>
-	<input type="text" name="Hazmats_second" class="Hazmat_second" value="" id="Hazmat_id_second">
+	<label>Other</label>
+	<input type="text" name="Other" class="Other" value="" id="Other_commodities">
 	</div>
 	
 	
@@ -1896,10 +1900,11 @@ $handleFunctionsObject = new handleFunctions;
 	
 	</fieldset>
 <fieldset class='fifthteen'>
-	<h2 class="fs-title">CargoRelated</h2>
+	<h2 class="fs-title">Cargo Related</h2>
 	<div class="container-fluid">
-	<div class="col-sm-8">
 	<div class="row">
+	<div class="col-sm-12">
+	
 	<label>Limit Requested: </label>
 	<div class="Limit">
 	<input type="text" name="Limitss_second" class="Limit_second" value="" id="Limit_id_second">
@@ -1938,12 +1943,218 @@ $handleFunctionsObject = new handleFunctions;
 	  <label> off Vehicles?   </label>
 	  <input type="checkbox" name="operate" value="operate"> Yes 
 	  <input type="checkbox" name="operate" value="operate" > No 
+	  </div>
+	  
 	   <div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_CargoRelated action-button" value="Previous" />
 		<input type="button" name="next" class="action-button CargoRelated_next" value="Next" />
 	</div>
+	</div>
 	</fieldset>
+<fieldset class='Sixteen'>
+	<h2 class="fs-title">Cargo Final</h2>
+	<div class="container-fluid">
+	<div class="col-sm-12">
+	<h2 class="fs-title">Give details of the number of the vehicles for which cargo coverage is required :</h2>
+	<div class="col-sm-4">
+	<div class="row">
+	  <label>Tractor Units<label> 
+	  <input type="text" name="Tractor" value="" id="Tractor_id" class="Tractor_cls">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Straight Truck <label> 
+	  <input type="text" name="Straight" value="" id="Straight_id" class="Straight_cls">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Reefer Trucks <label> 
+	  <input type="text" name="Reefer" value="" id="Reefer_id" class="Reefer_cls">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Tank Trucks <label> 
+	  <input type="text" name="Tank" value="" id="Tank_id" class="Tank_cls">
+		</div>
+		</div>
+		
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Other power Unit<label> 
+	  <input type="text" name="Other" value="" id="Other_id" class="Other_cls">
+		</div>
+		</div>
+		
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Refrigeration Unit 10 yrs old or less<label> 
+	  <input type="text" name="Refrigeration" value="" id="Refrigeration_id" class="Refrigeration_cls">
+		</div>
+		</div>
+		
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Refrigeration Unit more than to yrs old<label> 
+	  <input type="text" name="Refrigeration_sec" value="" id="Refrigeration_id_sec" class="Refrigeration_cls_sec">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Flat Bed Trailers<label> 
+	  <input type="text" name="Flat_Refrigeration_sec" value="" id="Flat_Refrigeration_id_sec" class="Flat_Refrigeration_cls_sec">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+	<div class="row">
+	  <label>Tank Trailers<label> 
+	  <input type="text" name="Tank_Refrigeration_sec" value="" id="Tank_Refrigeration_id_sec" class="Tank_Refrigeration_cls_sec">
+		</div>
+		</div>
+		
+		
+			<div class="col-sm-4">
+	<div class="row">
+	  <label>Double Trailers<label> 
+	  <input type="text" name="Double_Refrigeration_sec" value="" id="Double_Refrigeration_id_sec" class="Double_Refrigeration_cls_sec">
+		</div>
+		</div>
+		
+		<div class="col-sm-4">
+		<div class="row">
+	  <label>Total Number of  Trailers<label> 
+	  <input type="text" name="Total_Refrigeration_sec" value="" id="Total_Refrigeration_id_sec" class="Total_Refrigeration_cls_sec">
+		</div>
+		</div>
+		
+		<div class="row">
+	  <label>19. Equipment Identification: <label> 
+	 </div>
+	
+		<h2 class="fs-title">Give details of the number of the vehicles for which cargo coverage is required :</h2>
+		 <div>
+	 <label>1 <input type="text"></label>
+	 <label>2<input type="text"></label>
+	 <label>3<input type="text"></label>
+	 <label>4<input type="text"></label>
+	 <label>5<input type="text"></label>
+	 <label>6<input type="text"></label>
+	 <label>7<input type="text"></label>
+	 <label>8<input type="text"></label>
+	 <label>9<input type="text"></label>
+	 <label>10<input type="text"></label>
+	 </div>
+		</div>
+	   <div class='previous_next_buttons'>
+		<input type="button" name="previous" class="previous_CargoFinal action-button" value="Previous" />
+		<input type="button" name="next" class="action-button CargoFinal_next" value="Next" />
+		</div>
+	</fieldset>
+	
+	
+	<fieldset class='Seventeen'>
+	<h2 class="fs-title">PDF Data</h2>
+	<div class='row main_form'>
+		<div class='col-md-6 left'>
+			<div class='main_field_div'>
+			<h3 class="fs-subtitle"></h3>
+			<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>Form :</label>				
+					 <input type="text" name="Form" value="" class="Form_one" id="Form_one">
+					</div>
 
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>Type :</label>				
+					 <input type="text" name="Type" value="" class="Type_one" id="Type_one">
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>Posted Date :</label>				
+					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>Posted Date :</label>				
+					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
+					</div>
+
+				</div>
+			</div>	
+			</div>	
+			<div class='col-md-6 left'>
+			<div class='main_field_div'>
+			
+			
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>policy/Surety Number:</label>				
+					 <input type="text" name="policy" value="" class="policy_one" id="policy_one">
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>Coverage Form</label>
+					<input type="text" name="Coverage" value="" class="Coverage_class" id="Coverage_id" >
+						</div>
+					</div>	
+					<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>To</label>
+					<input type="text" name="To" value="" class="To_class" id="To_id" >
+						</div>
+					</div>	
+					<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>Cancellation Date</label>
+					<input type="text" name="Cancellation" value="" class="Cancellation_class" id="Cancellation_id" >
+						</div>
+					</div>
+					
+					<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>Effective Date</label>
+					<input type="text" name="Effective" value="" class="Effective_class" id="Effective_id" >
+						</div>
+					</div>
+					<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>Insurence carrier</label>
+					<input type="text" name="Insurence" value="" class="Insurence_class" id="Insurence_id" >
+						</div>
+					</div>
+				</div>	
+				</div>	
+				</div>
+
+	
+	   <div class='previous_next_buttons'>
+		<input type="button" name="previous" class="previous_PDFData action-button" value="Previous" />
+		<input type="button" name="next" class="action-button PDFData_next" value="Submit" />
+		</div>
+		
+		
+		
+		
+		</div>
+	</fieldset>
 
 
 </form>

@@ -340,7 +340,76 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	}
 	
 	if(ISSET($_POST['Coverage_Limit_Information']) && $_POST['Coverage_Limit_Information']=='success'){
-		
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */ 
+			   $Contactdata = '{
+			"data": [{
+            "Auto_Liability":  "'.$form_data['Auto_Liability'].'" ,
+            "AL_Deductible":  "'.$form_data['AL_Deductible'].'" ,
+            "UM_UIM1":  "'.$form_data['UM_UIM_value'].'" ,
+            "UM_PD":  "'.$form_data['UM_Pd_value'].'" ,
+            "Medical_Payment":  "'.$form_data['Medical_Payments'].'" ,
+            "PIP":  "'.$form_data['PIP'].'",
+            "MOTOR_TRUCK_CARGO":  "'.$form_data['Motor_Truck_Cargo'].'"
+            
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}  
+	}	
+	if(ISSET($_POST['Commodities_next']) && $_POST['Commodities_next']=='success'){
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */ 
+			   $Contactdata = '{
+			"data": [{
+            "Household_Goods":  "'.$form_data['Household_perid_two'].'" ,
+            "Metal_sheets_coils_rolls":  "'.$form_data['Household_perid_second'].'" ,
+            "Motor_Vehicles":  "'.$form_data['Motor_perid_second'].'" ,
+            "Drivo_Tow_away":  "'.$form_data['Drive_perid_second'].'" ,
+            "Building_Materials":  "'.$form_data['Building_perid_second'].'" ,
+            "Mobile_Homes":  "'.$form_data['Mobile_perid_second'].'" ,
+            "Machinery_Large_Objects":  "'.$form_data['Machinery_perid_second'].'" ,
+            "Auto_Parts_Tires":  "'.$form_data['Auto_second'].'" ,
+            "US_Mail":  "'.$form_data['US_perid_second'].'" ,
+            "Single_Line_48":  "'.$form_data['Freshs_second'].'" ,
+            "Single_Line_49":  "'.$form_data['Drys_second'].'" ,
+            "Single_Line_46":  "'.$form_data['Refrigerateds_second'].'" ,
+            "Single_Line_47":  "'.$form_data['Intermodals_second'].'" ,
+            "Single_Line_44":  "'.$form_data['Beveragess_second'].'" ,
+            "Single_Line_45":  "'.$form_data['Plastics_second'].'" ,
+            "Single_Line_42":  "'.$form_data['Grainss_second'].'" ,
+            "Single_Line_43":  "'.$form_data['Livestocks_second'].'" ,
+            "Single_Line_40":  "'.$form_data['Agriculturals_second'].'" ,
+            "Single_Line_41":  "'.$form_data['Liquidss_second'].'", 
+            "Logs_Poles_Beams_Lumber":  "'.$form_data['Logs_perid_second'].'", 
+            "Single_Line_37":  "'.$form_data['Garbages_second'].'", 
+            "Single_Line_50":  "'.$form_data['Meatss_second'].'", 
+            "Sand_Gravel":  "'.$form_data['Sands_second'].'", 
+            "Department_Store_Merchandise":  "'.$form_data['Departments_second'].'", 
+            "Single_Line_39":  "'.$form_data['Passengerss_second'].'", 
+            "Single_Line_36":  "'.$form_data['Chemicalss_second'].'", 
+            "Single_Line_35":  "'.$form_data['Papers_second'].'", 
+            "Oilfield_Equipment":  "'.$form_data['Oilfieldss_second'].'", 
+            "Single_Line_38":  "'.$form_data['Electronicss_second'].'", 
+            "Others":  "'.$form_data['Other'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} 
+	}	
+	if(ISSET($_POST['CargoRelated_next']) && $_POST['CargoRelated_next']=='success'){
 		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
 		if($response==0){
 			echo 0;	
@@ -361,45 +430,53 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		} */
 		echo json_encode($_POST);
-	}	
-	if(ISSET($_POST['Commodities_next']) && $_POST['Commodities_next']=='success'){
-		$contacturl = "Contacts/".$_POST['contactId'];
-		parse_str($_POST['dataform'], $form_data);
-		/*  echo '<pre>';
-			print_r($form_data);
-		echo '<pre>'; */ 
-			   $Contactdata = '{
+	}
+
+		if(ISSET($_POST['PDFData_next']) && $_POST['PDFData_next']=='success'){
+		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
+		if($response==0){
+			echo 0;	
+		}else{
+			/* echo '<pre>';
+			print_r($response);
+			echo '</pre>'; 
+			$contacturl = "Contacts/".$_POST['contactId'];
+			
+			 $Contactdata = '{
 			"data": [{
-            "Household_Goods":  "'.$form_data['currently_insured'].'" ,
-            "Metal_sheets_coils_rolls":  "'.$form_data['Proof_Insurance'].'" ,
-            "Motor_Vehicles":  "'.$form_data['Additional_Insureds'].'" ,
-            "Drivo_Tow_away":  "'.$form_data['Waivers_Subrogation'].'" ,
-            "Building_Materials":  "'.$form_data['customer_required_to_maintain_hours'].'" ,
-            "Mobile_Homes":  "'.$form_data['Year_current_business'].'" ,
-            "Are_any_state_or_federal_filings_required":  "'.$form_data['federal_filings_required'].'" ,
-            "Do_we_insure_all_commercial_vehicles_the_insured":  "'.$form_data['commercial_vehicles'].'" ,
-            "Do_we_insure_all_vehicles_that_the_insured_uses":  "'.$form_data['insured_uses_business'].'" ,
-            "Federal":  "'.$form_data['Federal'].'" ,
-            "Federal_Cargo_BMC_34":  "'.$form_data['fil_formh_cnt'].'" ,
-            "How_often_are_MVRs_reviewed":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Details":  "'.$form_data['explanations'].'" ,
-            "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
-            "Others":  "'.$form_data['fil_othr_cnt'].'" ,
-            "State_Cargo_Form_H":  "'.$form_data['fil_formh_cnt'].'" ,
-            "State_FT":  "'.$form_data['fil_State'].'" ,
-            "MCS90":  "'.$form_data['MCS90_val'].'" 
+            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($zohoResponse);
-			} 
-	}	
-
-
+			echo json_encode($response);
+			
+		} */
+		echo json_encode($_POST);
+	}
+	
+	if(ISSET($_POST['CargoFinal_next']) && $_POST['CargoFinal_next']=='success'){
+		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
+		if($response==0){
+			echo 0;	
+		}else{
+			/* echo '<pre>';
+			print_r($response);
+			echo '</pre>'; 
+			$contacturl = "Contacts/".$_POST['contactId'];
+			
+			 $Contactdata = '{
+			"data": [{
+            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			echo json_encode($response);
+			
+		} */
+		echo json_encode($_POST);
+	}
 
 
 	

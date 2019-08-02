@@ -114,6 +114,24 @@ $(".previous_CargoRelated").click(function(){
 		
 });
 
+$(".previous_CargoFinal").click(function(){
+	$(".CargoFinal").removeClass("active");
+	$(".CargoRelatedLI").addClass("active");
+	$(".Sixteen").hide(); 
+	$(".fifthteen").show();
+		
+});
+
+$(".previous_PDFData").click(function(){
+	$(".PDFData").removeClass("active");
+	$(".CargoFinal").addClass("active");
+	 $(".Seventeen").hide(); 
+	$(".Sixteen").show(); 
+		
+});
+
+
+
 $(".phoneli").click(function(){
 	$("#progressbar li").removeClass("active");
 	$(".phoneli").addClass("active");
@@ -328,7 +346,33 @@ $(".CargoRelatedLI").click(function(){
 	$(".fifthteen").show(); 
 	}	
 });
+$(".CargoFinal").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".CargoFinal").addClass("active");
+	$("fieldset").hide();
+	$(".Sixteen").show(); 
+	}	
+});
 
+$(".PDFData").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".PDFData").addClass("active");
+	$("fieldset").hide();
+	$(".Seventeen").show(); 
+	}	
+});
 
 
 
@@ -703,12 +747,12 @@ $(".violations_data_next").click(function(event ){
  
 $(".Coverage_Limit_Information_next").click(function(event ){
 	var contactId=$(".contactId").val();
-
+	var dataform=	$('.eleventh').find('select, textarea, input').serialize();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({Coverage_Limit_Information: "success",contactId:contactId}),
+           data: ({Coverage_Limit_Information: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
 				 $(".CoverageLI").removeClass("active");
 					$(".OperationDescription").addClass("active");
@@ -786,6 +830,69 @@ $(".Commodities_next").click(function(event ){
          });
 });
 
+$(".CargoRelated_next").click(function(event ){
+	var contactId=$(".contactId").val();
+	var contactId=$(".contactId").val();
+	var dataform=	$('.fifthteen').find('select, textarea, input').serialize();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({CargoRelated_next: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				 $(".CargoRelatedLI").removeClass("active");
+					$(".CargoFinal").addClass("active");
+					$(".fifthteen").hide();
+					$(".Sixteen").show(); 
+								 
+				
+           }
+         });
+});
+
+$(".PDFData_next").click(function(event ){
+	var contactId=$(".contactId").val();
+	var contactId=$(".contactId").val();
+	var dataform=	$('.Sixteen').find('select, textarea, input').serialize();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({PDFData_next: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				 $(".CargoFinal").removeClass("active");
+					$(".PDFData").addClass("active");
+					//$(".Sixteen").hide();
+					//$(".Seventeen").show(); 
+								 
+				
+           }
+         });
+});
+
+
+$(".CargoFinal_next").click(function(event ){
+	var contactId=$(".contactId").val();
+	var contactId=$(".contactId").val();
+	var dataform=	$('.Seventeen').find('select, textarea, input').serialize();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({CargoFinal_next: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				 $(".CargoFinal").removeClass("active");
+					$(".PDFData").addClass("active");
+					$(".Sixteen").hide();
+					$(".Seventeen").show(); 
+								 
+				
+           }
+         });
+});
 
 
 
@@ -1553,6 +1660,7 @@ $(document).on("click", ".Payments_Options", function(event){
 	var id = $(this).val();
 	if(id=='Financed with'){
 		$("#Financed_with").show();
+		$("#payment_option_value").val(' ');
 	}else{
 		$("#Financed_with").hide();
 		$("#payment_option_value").val(id);
@@ -1572,7 +1680,43 @@ $(document).on("click", ".currently_insured", function(event){
 
 });
 
+$(document).on("click", ".AL_Deductible", function(event){
+	var id = $(this).val();
+	if(id=='Other'){
+		$("#AL_Deductible_text").show();
+	}else{
+		$("#AL_Deductible_text").hide();
+		$("#AL_Deductible_text").val(id);
+	}
+	
 
+});
+$(document).on("click", ".UM_UIM", function(event){
+	var id = $(this).val();
+	if(id=='Higher Limit'){
+		$("#UM_UIM_value").val(' ');
+		$("#UM_UIM_value").show();
+		
+	}else{
+		$("#UM_UIM_value").hide();
+		$("#UM_UIM_value").val(id);
+	}
+	
+
+});
+$(document).on("click", ".UM_Pd", function(event){
+	var id = $(this).val();
+	if(id=='Higher Limit'){
+		$("#UM_Pd_value").val(' ');
+		$("#UM_Pd_value").show();
+		
+	}else{
+		$("#UM_Pd_value").hide();
+		$("#UM_Pd_value").val(id);
+	}
+	
+
+});
 
 
 $(".datepicker").datepicker({
