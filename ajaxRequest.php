@@ -176,53 +176,13 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	if(ISSET($_POST['general_data_next']) && $_POST['general_data_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
 		parse_str($_POST['dataform'], $form_data);
-		 echo '<pre>';
-			print_r($form_data);
-		echo '<pre>';
-			/*  $Contactdata = '{
-			"data": [{
-            "Agent_Code":  "'.$form_data['agent_code'].'" ,
-            "Policy_Effective_Date":  "'.$form_data['Policy_Effective'].'" ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
-            "Are_any_listed_vehicles_used_to_haul_steel":  " " ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
-            "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
-            "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
-            "USDOT_Assigned_to":  "'.$form_data['USDOT_Assigned_to'].'" ,
-            "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
-            "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
-            "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
-            "Last_Name1":  "'.$form_data['Financial_First_name'].'" ,
-            "First_Name_Two":  "'.$form_data['Financial_Middle_name'].'" ,
-            "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
-            "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
-             "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
-            "Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
-            "Is_it_OK_if_I_continue":  "'.$form_data['OK_if_I_continue'].'" 
-            
-            
-			}]}'; 
-			
-			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($zohoResponse);
-			}  */
-	}
-
-	if(ISSET($_POST['vehicles_data_next']) && $_POST['vehicles_data_next']=='success'){
-		$contacturl = "Contacts/".$_POST['contactId'];
-		parse_str($_POST['dataform'], $form_data);
-		/* echo '<pre>';
+		/*  echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; */
-			 $Contactdata = '{
+			  $Contactdata = '{
 			"data": [{
             "Agent_Code":  "'.$form_data['agent_code'].'" ,
             "Policy_Effective_Date":  "'.$form_data['Policy_Effective'].'" ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
-            "Are_any_listed_vehicles_used_to_haul_steel":  "'.$form_data['mailing_city'].'" ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
             "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
             "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
             "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
@@ -230,45 +190,59 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
             "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
             "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
+			"DOB":  "'.$form_data['Insured_DOB'].'" ,
             "Last_Name1":  "'.$form_data['Financial_First_name'].'" ,
             "First_Name_Two":  "'.$form_data['Financial_Middle_name'].'" ,
             "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
             "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
+			"ZIP_Code":  "'.$form_data['Financial_zipcode'].'" ,
+			"City":  "'.$form_data['Financial_City'].'" ,
+			"State":  "'.$form_data['Financial_State'].'" ,
+			"Home_Address":  "'.$form_data['Financial_Home_address'].'" ,
+			"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
             "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
-            "Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
-            "Is_it_OK_if_I_continue":  "'.$form_data['OK_if_I_continue'].'" ,
-            //"Insured_s_Phone":  "'.$form_data['Is_it_OK_if_I_continue'].'" 
+            "Designate_Spouse_as_a_Named_Insured":  "'.$form_data['Insured_Designate_Spouse'].'" ,
+            "Specify_Commodities_Hauled":  "'.$form_data['Specify_Commodities_Hauled'].'" ,
+            "Are_any_listed_vehicles_used_to_haul_steel":  "'.$form_data['is_vehicles_haul_steel'].'" ,
+            "listed_vehicles_or_the_load_require_a_placard":  "'.$form_data['is_vehicles_placard'].'" ,
+            "Insured_s_Phone":  "'.$form_data['Contact_Insured_phone'].'" ,
+            "Mailing_Address":  "'.$form_data['Contact_Insured_Mailing'].'" ,
+            "State_Two":  "'.$form_data['Contact_Insured_State'].'" ,
+            "ZIP_Code_Two":  "'.$form_data['Contact_Insured_ZIP_code'].'" ,
+            "City_Two":  "'.$form_data['Contact_Insured_City'].'", 
+            "E_mail_Address":  "'.$form_data['Contact_Insured_email'].'" 
+            "Date_Two":  "'.$form_data['Financial_dob'].'" ,
+            "Yrs_in_Trucking_Industry":  "'.$form_data['Yrs_in_Trucking_Industry'].'" ,
+            "Yrs_in_business":  "'.$form_data['Yrs_in_business'].'" ,
+            "If_New_Venture_Please_list_previous_industry_emplo":  "'.$form_data['previous_industry_employment'].'" ,
+            "Payment_Options":  "'.$form_data['payment_option_value'].'" 
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-		
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
 			} 
 	}
 
+	if(ISSET($_POST['vehicles_data_next']) && $_POST['vehicles_data_next']=='success'){
+		$contacturl = "Contacts/".$_POST['contactId'];
+		
+					$data = "";
+					$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+			if($contactdata['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($contactdata);
+			} 
+	}
+
 	if(ISSET($_POST['drivers_data_next']) && $_POST['drivers_data_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
 			$contacturl = "Contacts/".$_POST['contactId'];
-			
-			 $Contactdata = '{
-			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
-            
-			}]}'; 
-			
-			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+		
+					$data = "";
+					$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+			if($contactdata['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($contactdata);
+			} 
 	}
 	
 	
@@ -282,26 +256,40 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 	}
 	if(ISSET($_POST['underwriting_data_next']) && $_POST['underwriting_data_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
-			 $Contactdata = '{
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */ 
+			   $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Proof_of_Prior_Insurance":  "'.$form_data['currently_insured'].'" ,
+            "Does_the_insured_have_General_Liability_Insurance":  "'.$form_data['Proof_Insurance'].'" ,
+            "Number_of_Additional_Insureds":  "'.$form_data['Additional_Insureds'].'" ,
+            "Number_of_Waivers_of_Subrogation":  "'.$form_data['Waivers_Subrogation'].'" ,
+            "Is_the_customer_required_to_maintain_hours":  "'.$form_data['customer_required_to_maintain_hours'].'" ,
+            "Year_current_business_was_established":  "'.$form_data['Year_current_business'].'" ,
+            "Are_any_state_or_federal_filings_required":  "'.$form_data['federal_filings_required'].'" ,
+            "Do_we_insure_all_commercial_vehicles_the_insured":  "'.$form_data['commercial_vehicles'].'" ,
+            "Do_we_insure_all_vehicles_that_the_insured_uses":  "'.$form_data['insured_uses_business'].'" ,
+            "Federal":  "'.$form_data['Federal'].'" ,
+            "Federal_Cargo_BMC_34":  "'.$form_data['fil_formh_cnt'].'" ,
+            "How_often_are_MVRs_reviewed":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Details":  "'.$form_data['explanations'].'" ,
+            "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
+            "Others":  "'.$form_data['fil_othr_cnt'].'" ,
+            "State_Cargo_Form_H":  "'.$form_data['fil_formh_cnt'].'" ,
+            "State_FT":  "'.$form_data['fil_State'].'" ,
+            "MCS90":  "'.$form_data['MCS90_val'].'" 
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}  
 	}
 	
 	if(ISSET($_POST['OperationDescription']) && $_POST['OperationDescription']=='success'){
@@ -373,6 +361,42 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		} */
 		echo json_encode($_POST);
+	}	
+	if(ISSET($_POST['Commodities_next']) && $_POST['Commodities_next']=='success'){
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */ 
+			   $Contactdata = '{
+			"data": [{
+            "Household_Goods":  "'.$form_data['currently_insured'].'" ,
+            "Metal_sheets_coils_rolls":  "'.$form_data['Proof_Insurance'].'" ,
+            "Motor_Vehicles":  "'.$form_data['Additional_Insureds'].'" ,
+            "Drivo_Tow_away":  "'.$form_data['Waivers_Subrogation'].'" ,
+            "Building_Materials":  "'.$form_data['customer_required_to_maintain_hours'].'" ,
+            "Mobile_Homes":  "'.$form_data['Year_current_business'].'" ,
+            "Are_any_state_or_federal_filings_required":  "'.$form_data['federal_filings_required'].'" ,
+            "Do_we_insure_all_commercial_vehicles_the_insured":  "'.$form_data['commercial_vehicles'].'" ,
+            "Do_we_insure_all_vehicles_that_the_insured_uses":  "'.$form_data['insured_uses_business'].'" ,
+            "Federal":  "'.$form_data['Federal'].'" ,
+            "Federal_Cargo_BMC_34":  "'.$form_data['fil_formh_cnt'].'" ,
+            "How_often_are_MVRs_reviewed":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['fil_formh_cnt'].'" ,
+            "Details":  "'.$form_data['explanations'].'" ,
+            "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
+            "Others":  "'.$form_data['fil_othr_cnt'].'" ,
+            "State_Cargo_Form_H":  "'.$form_data['fil_formh_cnt'].'" ,
+            "State_FT":  "'.$form_data['fil_State'].'" ,
+            "MCS90":  "'.$form_data['MCS90_val'].'" 
+            
+			}]}'; 
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} 
 	}	
 
 

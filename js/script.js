@@ -75,7 +75,7 @@ $(".previous_Underwriting").click(function(){
 		
 });
 $(".previous_Coverage_Limit_Information").click(function(){
-	$(".pdfLI").removeClass("active");
+	$(".CoverageLI").removeClass("active");
 	$(".underwritingLI").addClass("active");
 	$(".tenth").show(); 
 	$(".eleventh").hide();
@@ -95,6 +95,22 @@ $(".previous_InsuranceHistory").click(function(){
 	$(".underwritingLI").addClass("active");
 	$(".twelve").show(); 
 	$(".eleventh").hide();
+		
+});
+
+$(".previous_Commodities").click(function(){
+	$(".CommoditiesLI").removeClass("active");
+	$(".OperationDescription").addClass("active");
+	$(".twelve").show(); 
+	$(".Fourteen_s").hide();
+		
+});
+
+$(".previous_CargoRelated").click(function(){
+	$(".CargoRelatedLI").removeClass("active");
+	$(".CommoditiesLI").addClass("active");
+	$(".fifthteen").hide(); 
+	$(".Fourteen_s").show();
 		
 });
 
@@ -214,11 +230,16 @@ $(".driversLI").click(function(){
 	}	
 });
 $(".violationsLI").click(function(){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
 	$("#progressbar li").removeClass("active");
 	$(".violationsLI").addClass("active");
 	$("fieldset").hide();
 	$(".ninth").show(); 
-		
+	}	
 });
 $(".underwritingLI").click(function(){
 	var phone=$(".phoneNumber").val();
@@ -258,7 +279,7 @@ $(".InsuranceHistory").click(function(){
 	$("#progressbar li").removeClass("active");
 	$(".InsuranceHistory").addClass("active");
 	$("fieldset").hide();
-	$(".thirteen").show(); 
+	$(".Fourteen_s").show(); 
 	}	
 });
 
@@ -278,6 +299,35 @@ $(".OperationDescription").click(function(){
 	}	
 });
 
+$(".CommoditiesLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".CommoditiesLI").addClass("active");
+	$("fieldset").hide();
+	$(".fourteen_s").show(); 
+	}	
+});
+
+
+
+$(".CargoRelatedLI").click(function(){
+	var phone=$(".phoneNumber").val();
+	if(phone==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".CargoRelatedLI").addClass("active");
+	$("fieldset").hide();
+	$(".fifthteen").show(); 
+	}	
+});
 
 
 
@@ -634,14 +684,15 @@ $(".violations_data_next").click(function(event ){
 });
  $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
+	var dataform=	$('.tenth').find('select, textarea, input').serialize();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({underwriting_data_next: "success",contactId:contactId}),
+           data: ({underwriting_data_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
-					$(".violationsLI").removeClass("active");
-					$(".underwritingLI").addClass("active");
+					$(".underwritingLI").removeClass("active");
+					$(".CoverageLI").addClass("active");
 					$(".tenth").hide();
 					$(".eleventh").show();
 								 
@@ -659,8 +710,8 @@ $(".Coverage_Limit_Information_next").click(function(event ){
            dataType: 'json',
            data: ({Coverage_Limit_Information: "success",contactId:contactId}),
             success:function(result){
-				 $(".underwritingLI").removeClass("active");
-					$(".CoverageLI").addClass("active");
+				 $(".CoverageLI").removeClass("active");
+					$(".OperationDescription").addClass("active");
 					$(".eleventh").hide();
 					$(".twelve").show(); 
 								 
@@ -678,11 +729,10 @@ $(".OperationDescription_next").click(function(event ){
            dataType: 'json',
            data: ({OperationDescription: "success",contactId:contactId}),
             success:function(result){
-				 $(".CoverageLI").removeClass("active");
-				
-					$(".OperationDescription").addClass("active");
+				 $(".OperationDescription").removeClass("active");
+					$(".CommoditiesLI").addClass("active");
 					$(".twelve").hide();
-					$(".thirteen").show(); 
+					$(".Fourteen_s").show(); 
 								 
 				
            }
@@ -703,16 +753,38 @@ $(".InsuranceHistory_next").click(function(event ){
            data: ({InsuranceHistory: "success",contactId:contactId}),
             success:function(result){
 				 $(".OperationDescription").removeClass("active");
-				
-					$(".InsuranceHistory").addClass("active");
+					$(".CommoditiesLI").addClass("active");
 					$(".thirteen").hide();
-					$(".fourteen").show(); 
+					$(".Fourteen_s").show(); 
 								 
 				
            }
          });
 });
 
+
+
+
+$(".Commodities_next").click(function(event ){
+	var contactId=$(".contactId").val();
+	var contactId=$(".contactId").val();
+	var dataform=	$('.Fourteen_s').find('select, textarea, input').serialize();
+
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({Commodities_next: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				 $(".CommoditiesLI").removeClass("active");
+					$(".CargoRelatedLI").addClass("active");
+					$(".Fourteen_s").hide();
+					$(".fifthteen").show(); 
+								 
+				
+           }
+         });
+});
 
 
 
@@ -1475,6 +1547,28 @@ $(document).on("click", ".have_DBA", function(event){
 	}else{
 		$("#DBA_NAME_DIV").hide();
 	}
+
+});
+$(document).on("click", ".Payments_Options", function(event){
+	var id = $(this).val();
+	if(id=='Financed with'){
+		$("#Financed_with").show();
+	}else{
+		$("#Financed_with").hide();
+		$("#payment_option_value").val(id);
+	}
+	
+
+});
+$(document).on("click", ".currently_insured", function(event){
+	var id = $(this).val();
+	if(id=='Yes'){
+		$("#showinsured_data").show();
+	}else{
+		$("#showinsured_data").hide();
+		
+	}
+	
 
 });
 
