@@ -351,7 +351,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>Does the insured ever transport passengers for hire?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' value='Yes'>
+						 <input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' checked value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>
@@ -366,7 +366,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>Are any listed vehicles used to haul steel?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="is_vehicles_haul_steel" class='is_vehicles_haul_steel' value='Yes'>
+						 <input type="radio" name="is_vehicles_haul_steel" class='is_vehicles_haul_steel' checked value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>
@@ -388,7 +388,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>listed vehicles or the load require a placard?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="is_vehicles_placard" class='is_vehicles_placard' value='Yes'>
+						 <input type="radio" name="is_vehicles_placard" class='is_vehicles_placard' checked value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>
@@ -443,7 +443,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row" id='DBA_NAME_DIV'>	
 					<div class="form-holder w-100">
 					<label>DBA</label>
-					<input type="text" class="form-control dot"  name='DBA_NAME' >  
+					<input type="text" class="form-control DBA_NAME"  name='DBA_NAME' >  
 					</div>
 				</div>
 
@@ -470,7 +470,7 @@ $handleFunctionsObject = new handleFunctions;
 					<label>Does the information assigned to this USDOT# match the insured's business?</label>	
 					<div class='radio'>
 					
-					<input type="radio" name="is_match_USDOT" checked class='is_match_USDOT'  value='Yes'>
+					<input type="radio" name="is_match_USDOT" checked class='is_match_USDOT'  value='Yes' checked>
 					<label>Yes</label>	
 					</div>
 					<div class='radio'>
@@ -1449,6 +1449,18 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Auto Liability :</label>
+					<!--label class="radio-inline" for="radios-0">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					  $1M CSL
+					</label>
+					<label class="radio-inline" for="radios-0">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					  $750 CSL
+					</label>
+					<label class="radio-inline" for="radios-0">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					 CSL = Combined Single Limit
+					</label-->
 					 <div class='radio'>
 						<input type="radio" name="Auto_Liability" class="Auto_Liability"><label>$1M CSL</label>
 					</div>
@@ -1503,7 +1515,7 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="UM_Pd" class="UM_Pd" value='Minimum State Limit Accepted'><label>Minimum State Limit Accepted</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="UM_Pd"  class="UM_Pd" value='Higher Limit'><label>Higher Limit <input type="text" id='UM_Pd_value' style='display:none;' value='Rejected'></label>
+						<input type="radio" name="UM_Pd"  class="UM_Pd" value='Higher Limit'><label>Higher Limit <input type="text" id='UM_Pd_value' style='display:none;' value='Rejected' name='UM_Pd_value'></label>
 					</div>
 					</div>
 				</div>
@@ -1565,128 +1577,122 @@ $handleFunctionsObject = new handleFunctions;
 
 <fieldset class='twelve'>
 	<h2 class="fs-title">Operations Description</h2>
-	<div class='main_form'>
-		<div class='col-md-4'>
-			<div class='main_field_div'>
-			
-			<h3 class="fs-subtitle"></h3>
-			<div class='col-md'>
+		<h3 class="fs-subtitle"></h3>
+		<div class='main_form'>
+		<div class='row'>
+		<div class='col-md-6'>
+			<h2 class="fs-title">Radius -Percentage of Loads</h2>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Radius</label>
-					<label>0-50 miles</label>
-					<label>50-200 miles</label>
-					<label>200+ miles</label>
+						<label>0-50 miles</label>
+						<input type="text" name="percentage_one" class="per_one" id="percentage_two_one" value="">
 					</div>
 				</div>
-				</div>
-			</div>
-		</div>
-				<div class='col-md'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Percentage of Loads</label>
-					</div>
-					<div class="input_one">
-					<input type="text" name="percentage_one" class="per_one" id="percentage_first_id"  value="">
-					</div>
-					<div class="input_two">
-					<input type="text" name="percentage_two" class="per_two" id="percentage_two_id" value="">
-					</div>
-					<div class="input_three">
-					<input type="text" name="percentage_three" class="per_three" id="percentage_three_id" value="">
-					</div>
+						<label>50-200 miles</label>
+						<input type="text" name="percentage_two" class="per_two" id="percentage_two_id" value="">
 					</div>
 				</div>
 				
-				<div class='col-md'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Average Radius:</label>
-					<label>	Longest Radius:</label>
-					<label>Furthest City:</label>
-					
+						<label>200+ miles</label>
+							<input type="text" name="percentage_three" class="per_three" id="percentage_three_id" value="">
 					</div>
 				</div>
-				</div>
-					<div class='col-md'>
+			</div>
+			
+		
+		<div class='col-md-6'>
+				<h2 class="fs-title">Estimates</h2>	
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Estimates</label>
-					
-					<div> 
-					<div class="input_one">
-					<input type="text" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="">
-					</div>
-					<div class="input_two">
-					<input type="text" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="">
-					</div>
-					<div class="input_three">
-					<input type="text" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="">
-					</div>
+						<label>Average Radius</label>
+						<input type="text" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="">
 					</div>
 				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+						
+						<label>Longest Radius</label>
+						<input type="text" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="">
+					</div>
 				</div>
-				<div class='col-md'>
-				<div class="form-row">	
-				<label>Breakdown of Brokered Loads:</label>
-				<div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+						<label>Furthest City</label>
+						<input type="text" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="">
+					</div>
+				</div>
+								
+			</div>	
+		
+		</div>	
+		</div>	
+			
+		<div class='main_form'>
+				<div class='row'>
+				<h2 class="fs-title">Breakdown of Brokered Loads</h2>
+			<div class='col-md-6'>				
+				<div class="form-row">
+				<div class="form-holder w-100">
 				<label> Percent Outgoing:<label>
 				<input type="text" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="">
 				</div>
-				<div>
+				</div>
+			</div>
+			<div class='col-md-6'>
+				<div class="form-row">
+				<div class="form-holder w-100">
 				<label>Percent Incoming:<label>
 				<input type="text" name="percent_incoming" id="incoming_percent" class="int_percent" value="">
 				</div>
 					</div>
-					
-				
-				
-				<div class="form-row">
-					<div class="form-holder w-100">
-					<label>Carrier Type</label>
-					<label>% of Business(Should Equal 100%)</label>
 					</div>
-					<div class="input_one_b">
+			</div>
+		</div>
+		<div class='main_form'>
+				<div class='row'>
+				<h2 class="fs-title">Carrier Type - % of Business(Should Equal 100%)</h2>
+				<div class="col-md-3 input_one_b">
 					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Contract<br>
 					
 					<input type="text" name="Business_one_name" class="Business_one" id="Business_first_id"  value="">
-					</div>
-					<div class="input_two_b">
-					<input type="checkbox" name="Business" value="" id="chk_two" class="chk_two_id" >Contract<br>
-					<input type="text" name="Business_two_name" class="Business_two" id="Business_two_id"  value="">
-					</div>
-					<div class="input_three_b">
+				</div>
+					
+					<div class="col-md-3 input_three_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Private<br>
-					<input type="text" name="Business_three_name" class="Business_three" id="Business_three_id"  value="">
+					<input type="text" name="Business_Private" class="Business_three" id="Business_three_id"  value="">
 					</div>
-					<div class="input_four_b">
-					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Non Trucking<br>
-					<input type="text" name="Business_three_name" class="Business_three" id="Business_three_id"  value="">
+					<div class="col-md-3 input_four_b">
+					<input type="checkbox" name="Non_Trucking_Business" value="" id="chk_thr" class="chk_three_id">Non Trucking<br>
+					<input type="text" name="Non_Trucking" class="Business_three" id="Business_three_id"  value="">
 					</div>
-					<div class="input_five_b">
-					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Brokered Loads*<br>
-					<input type="text" name="Business_three_name" class="Business_three" id="Business_three_id"  value="">
+					<div class="col-md-3 input_five_b">
+					<input type="checkbox" name="Brokered_Loads" value="" id="chk_thr" class="chk_three_id">Brokered Loads*<br>
+					<input type="text" name="Brokered_Loads_name" class="Business_three" id="Business_three_id"  value="">
 					</div>
-					<div class="input_six_b">
+					<div class="col-md-3 input_six_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Other<br>
-					<input type="text" name="Business_three_name" class="Business_three" id="Business_three_id"  value="">
+					<input type="text" name="Business_Other" class="Business_three" id="Business_three_id"  value="">
 					</div>
 					
 					</div>
 				</div>				
 					
 					
-					</div>
+					
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Household or Commercial Mover</label>
 						<div class='radio'>	
-						<input type="radio" name="Operations_radio" class="Operations_radio_one"><label> Yes</label>
+						<input type="radio" name="Operations_radio" class="Operations_radio_one" checked value='Yes'><label> Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Operations_radio" class="Operations_radio_two"><label>No</label>
+						<input type="radio" name="Operations_radio" class="Operations_radio_two" value='No'><label>No</label>
 					</div>
 					<div class='txt_cs'>	
 						<h6>
@@ -1695,13 +1701,15 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				
+				
 		
 	
-<div class='previous_next_buttons'>
+	<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_OperationDescription action-button" value="Previous" />
 		<input type="button" name="next" class="action-button OperationDescription_next" value="Next" />
 	</div>
-	</div>
+	
 	
 	
 </fieldset>
@@ -1903,46 +1911,71 @@ $handleFunctionsObject = new handleFunctions;
 	<h2 class="fs-title">Cargo Related</h2>
 	<div class="container-fluid">
 	<div class="row">
-	<div class="col-sm-12">
-	
+	<div class="col-sm-6">
+	<div class="form-row">
+	<div class="form-holder w-100">
 	<label>Limit Requested: </label>
 	<div class="Limit">
 	<input type="text" name="Limitss_second" class="Limit_second" value="" id="Limit_id_second">
 	</div>
+	</div>
+	</div>
+	<div class="form-row">
+					<div class="form-holder w-100">
    
 	<label>Deductible request :</label>
 	<div class="Deductible">
 	<input type="text" name="Deductibles_second" class="Deductible_second" value="" id="Deductible_id_second">
 	</div>
-	
-	<label>11. Do you require refrigeration breakdown coverage ? </label>
+	</div>
+	</div>
+	<div class="form-row">
+					<div class="form-holder w-100">
+	<label>Do you require refrigeration breakdown coverage ? </label>
+	<div class="radio">
+	 <input type="checkbox" name="refrigeration" value="Yes"> Yes 
+	 </div>
+	 <div class="radio">
+  <input type="checkbox" name="refrigeration" value="No" > No 
+	</div>
+	</div>
+	</div>
+	<div class="form-row">
+					<div class="form-holder w-100">
+	<label>Do you require trailer interchange coverage ? </label>
 	<div class="require">
-	 <input type="checkbox" name="refrigeration" value="refrigeration1"> Yes 
-  <input type="checkbox" name="refrigeration" value="refrigeration1" > No 
+	 <input type="checkbox" name="trailer" value="Yes"> Yes 
+  <input type="checkbox" name="trailer" value="No" > No 
+	</div>
+	</div>
+	</div>
 	</div>
 	
-	<label>12. Do you require trailer interchange coverage ? </label>
-	<div class="require">
-	 <input type="checkbox" name="trailer" value="refrigeration1"> Yes 
-  <input type="checkbox" name="trailer" value="refrigeration1" > No 
+	<div class="col-sm-6">
+	
+	<div class="form-row">
+					<div class="form-holder w-100">
+	<label>Do you operate a Freight Brokerage  ? </label>
+	<div class="radio">
+	 <input type="radio" name="operate_Freight" value="Yes"> Yes 
+	 </div>
+	 <div class="radio">
+	<input type="radio" name="operate_Freight" value="No" > No 
+	</div>
+	</div>
 	</div>
 	
-	<label>13. Do you operate a Freight Brokerage  ? </label>
-	<div class="require">
-	 <input type="checkbox" name="operate" value="operate"> Yes 
-  <input type="checkbox" name="operate" value="operate" > No 
-	</div>
-	<div>
-	Revenues Generated from freight Brokerage Last year : $
-	Projected Revenues Generated From Freight Brokerage This Year : $
-	</div>
+	<div class="form-row">
+					<div class="form-holder w-100">
+	
 	<label>Terminal Information :</label><br>
-	Do you require coverage for cargo in terminals or at other places where vehicles are left overnight or at weekends either : On vehicles ? 
-	 <input type="checkbox" name="operate" value="operate"> Yes 
-	  <input type="checkbox" name="operate" value="operate" > No 
+	Do you require coverage for cargo in terminals or at other places where vehicles are left overnight or at weekends either :<br> 
+		<label> on Vehicles?   </label>
+	 <input type="radio" name="on_Vehicles" value="Yes"> Yes 
+	  <input type="radio" name="on_Vehicles" value="No" > No 
 	  <label> off Vehicles?   </label>
-	  <input type="checkbox" name="operate" value="operate"> Yes 
-	  <input type="checkbox" name="operate" value="operate" > No 
+	  <input type="checkbox" name="off_Vehicles" value="Yes"> Yes 
+	  <input type="checkbox" name="off_Vehicles" value="No" > No 
 	  </div>
 	  
 	   <div class='previous_next_buttons'>
@@ -2070,41 +2103,35 @@ $handleFunctionsObject = new handleFunctions;
 			<h3 class="fs-subtitle"></h3>
 			<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>Form :</label>				
+					 <label>Form</label>				
 					 <input type="text" name="Form" value="" class="Form_one" id="Form_one">
 					</div>
 
-				</div>
+			</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>Type :</label>				
+					 <label>Type</label>				
 					 <input type="text" name="Type" value="" class="Type_one" id="Type_one">
 					</div>
 
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>Posted Date :</label>				
+					 <label>Posted Date</label>				
 					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
 					</div>
 
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>Posted Date :</label>				
+					 <label>Posted Date</label>				
 					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
 					</div>
 
 				</div>
-			</div>	
-			</div>	
-			<div class='col-md-6 left'>
-			<div class='main_field_div'>
-			
-			
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>policy/Surety Number:</label>				
+					 <label>policy/Surety Number</label>				
 					 <input type="text" name="policy" value="" class="policy_one" id="policy_one">
 					</div>
 
@@ -2114,7 +2141,12 @@ $handleFunctionsObject = new handleFunctions;
 				   <label>Coverage Form</label>
 					<input type="text" name="Coverage" value="" class="Coverage_class" id="Coverage_id" >
 						</div>
-					</div>	
+				</div>
+			</div>	
+			</div>	
+			<div class='col-md-6 left'>
+			<div class='main_field_div'>
+					
 					<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>To</label>

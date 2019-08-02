@@ -144,8 +144,8 @@ input.is-invalid {
 }
 label {
  
-    float: left;
-    padding: 2px 11px 2px 2px;
+   /* float: left;
+    padding: 2px 11px 2px 2px;*/
 } 
 h1{
     color: #fff;

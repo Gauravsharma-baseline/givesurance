@@ -223,6 +223,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
 			} 
+			echo json_encode($zohoResponse);
 	}
 
 	if(ISSET($_POST['vehicles_data_next']) && $_POST['vehicles_data_next']=='success'){
@@ -293,26 +294,33 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	}
 	
 	if(ISSET($_POST['OperationDescription']) && $_POST['OperationDescription']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
-			 $Contactdata = '{
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; */ 
+			   $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
-            
+            "Radious_0_50_miles":  "'.$form_data['percentage_one'].'" ,
+            "Radious_50_200_miles":  "'.$form_data['percentage_two'].'" ,
+            "Radious_200_miles":  "'.$form_data['percentage_three'].'" ,
+            "EstimateAverage_Radius":  "'.$form_data['Estimates_one'].'" ,
+            "Estimate_Longest_Radius":  "'.$form_data['Estimates_two'].'" ,
+            "Estimate_Furthest_City":  "'.$form_data['Estimates_three'].'" ,
+            "Percent_Incoming":  "'.$form_data['percent_incoming'].'" ,
+            "Percent_Outgoing":  "'.$form_data['percent_outgoing'].'" ,
+            "Contract_Percentage":  "'.$form_data['Business_one_name'].'" ,
+            "Private_Percentage":  "'.$form_data['Business_Private'].'" ,
+            "Brokered_Loards_Percentage":  "'.$form_data['Brokered_Loads_name'].'" ,
+            "Other_Percentage":  "'.$form_data['Business_Other'].'" ,
+            "Non_Trucking":  "'.$form_data['Non_Trucking'].'" ,
+            "Household_or_Commercial_Mover":  "'.$form_data['Operations_radio'].'" 
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}  
 	}
 	
 	
@@ -433,26 +441,31 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	}
 
 		if(ISSET($_POST['PDFData_next']) && $_POST['PDFData_next']=='success'){
-		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
-		if($response==0){
-			echo 0;	
-		}else{
-			/* echo '<pre>';
-			print_r($response);
-			echo '</pre>'; 
-			$contacturl = "Contacts/".$_POST['contactId'];
-			
-			 $Contactdata = '{
+		$contacturl = "Contacts/".$_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; 
+		/* "policy":  "'.$form_data['Drive_perid_second'].'" ,
+		*/ 
+			   $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$response['usdot_number'].'" 
+            "Form":  "'.$form_data['Form'].'" ,
+            "Type":  "'.$form_data['Type'].'" ,
+            "Posted_Date":  "'.$form_data['Posted'].'" ,  
+            "Coverage_From":  "'.$form_data['Coverage'].'" ,
+            "To":  "'.$form_data['To'].'" ,
+            "Cancellation_Date":  "'.$form_data['Cancellation'].'" ,
+            "Effective_Date":  "'.$form_data['Effective'].'" ,
+            "Insurance_Carrier":  "'.$form_data['Insurence'].'" 
+           
             
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			echo json_encode($response);
-			
-		} */
-		echo json_encode($_POST);
+			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			} 
 	}
 	
 	if(ISSET($_POST['CargoFinal_next']) && $_POST['CargoFinal_next']=='success'){

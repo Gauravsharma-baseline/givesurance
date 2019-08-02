@@ -766,12 +766,12 @@ $(".Coverage_Limit_Information_next").click(function(event ){
 //*************************************************** next code *********************************************************//
 $(".OperationDescription_next").click(function(event ){
 	var contactId=$(".contactId").val();
-
+	var dataform=	$('.twelve').find('select, textarea, input').serialize();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({OperationDescription: "success",contactId:contactId}),
+           data: ({OperationDescription: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
 				 $(".OperationDescription").removeClass("active");
 					$(".CommoditiesLI").addClass("active");
@@ -862,8 +862,8 @@ $(".PDFData_next").click(function(event ){
            dataType: 'json',
            data: ({PDFData_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
-				 $(".CargoFinal").removeClass("active");
-					$(".PDFData").addClass("active");
+				 //$(".CargoFinal").removeClass("active");
+					//$(".PDFData").addClass("active");
 					//$(".Sixteen").hide();
 					//$(".Seventeen").show(); 
 								 
