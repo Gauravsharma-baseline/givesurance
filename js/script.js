@@ -308,6 +308,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
 				$(".mc").val(result.MC);
+				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
 					$(".dotLi").addClass("active");
 					$(".second").show(); 
@@ -1074,7 +1075,7 @@ $("#C2VehicleDetails_body").html('<option value="" selected>updating....</option
 
 
 $(document).on("change", "#Business_types_select", function(event){
-var business_cat=$(this).val();
+var business_cat=$(this).find(':selected').attr('data-id');
 	 $.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
@@ -1457,7 +1458,25 @@ $(document).on("click", "#vehicles_add_button", function(event){
 
 
 
+$(document).on("click", ".driver_leasing_firms", function(event){
+	var id = $(this).val();
+	if(id=='Yes'){
+		$("#explanations_div").show();
+	}else{
+		$("#explanations_div").hide();
+	}
 
+});
+
+$(document).on("click", ".have_DBA", function(event){
+	var id = $(this).val();
+	if(id=='Yes'){
+		$("#DBA_NAME_DIV").show();
+	}else{
+		$("#DBA_NAME_DIV").hide();
+	}
+
+});
 
 
 

@@ -313,7 +313,7 @@ $handleFunctionsObject = new handleFunctions;
 							
 					if($business['category']!=''){
 					?>
-						  <option value="<?php echo $business['id'];?>"><?php echo $business['category'];?></option>
+						  <option data-id="<?php echo $business['id'];?>" value="<?php echo $business['category'];?>"><?php echo $business['category'];?></option>
 						 <?php 
 					} else{
 						echo '<option value="other">other</option>';
@@ -411,13 +411,13 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					
 					<label>USDOT# associated with the insured's business  :  </label>
-					<input type="text" class="form-control dot"  name='USDOT_associated' value="3298365" readonly/>  
+					<input type="text" class="form-control dot"  name='USDOT_associated' readonly/>  
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>USDOT Assigned to: </label>
-						<input type="text" class="form-control mailing_address" id='USDOT_Assigned_to' value="HAUL OF DUTY INC 120 E STREET RD APT G1-1 WARMINSTER, PA 18974" readonly/ name='USDOT_Assigned_to'>  
+						<input type="text" class="form-control mailing_address" id='USDOT_Assigned_to' value=""  name='USDOT_Assigned_to'>  
 					</div>
 				</div>
 				<div class="form-row">
@@ -432,6 +432,47 @@ $handleFunctionsObject = new handleFunctions;
 					
 					<input type="radio" name="is_match_USDOT" class='is_match_USDOT'  value='No'>
 					<label>No</label>	
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Yrs. in business</label>	
+					<input type="text" class="form-control Yrs_in_business" id='Yrs_in_business' value="" name='Yrs_in_business'> 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Yrs. in Trucking Industry</label>	
+					<input type="text" class="form-control Yrs_in_Trucking_Industry" id='Yrs_in_Trucking_Industry' value=""  name='Yrs_in_Trucking_Industry'> 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>If New Venture Please list previous industry employment and roles for Owner</label>	
+					<input type="text" class="form-control previous_industry_employment" id='previous_industry_employment' value=""  name='previous_industry_employment'> 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>List Filling(s) Required</label>	
+					<input type="text" class="form-control List_Filling" id='List_Filling' value=""  name='List_Filling'> 
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Payments Options</label>	
+					<div class='radio'>
+					<input type="radio" name="Payments_Options" checked class='Payments_Options'  value='Payment in Full'>
+					<label>Payment in Full</label>	
+					</div>
+					<div class='radio'>
+					<input type="radio" name="Payments_Options"  class='Payments_Options'  value='Financed with GBC'>
+					<label>Financed with GBC</label>	
+					</div>
+					<div class='radio'>
+						<input type="radio" name="Payments_Options"  class='Payments_Options'  value='Financed with'>
+						<label>Financed with</label>	
 					</div>
 					</div>
 				</div>
@@ -1182,10 +1223,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Are any state or federal filings required?</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured"><label>Yes</label>
+						<input type="radio" name="federal_filings_required" class="federal_filings_required" value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured"><label>No</label>
+						<input type="radio" name="federal_filings_required" class="federal_filings_required" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
@@ -1193,10 +1234,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Do we insure all commercial vehicles the insured owns?</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured"><label>Yes</label>
+						<input type="radio" name="commercial_vehicles" class="commercial_vehicles " value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured"><label>No</label>
+						<input type="radio" name="commercial_vehicles" class="commercial_vehicles" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
@@ -1204,13 +1245,61 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Do we insure all vehicles that the insured uses in their business?</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured"><label>Yes</label>
+						<input type="radio" name="insured_uses" class="insured_uses " value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured"><label>No</label>
+						<input type="radio" name="insured_uses" class="insured_uses" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>How often are MVRs reviewed?</label>
+					
+						<input type="text" name="MVRs_reviewed" class="MVRs_reviewed" id='MVRs_reviewed'/>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Are drivers required to pass a drug test at time of hire?</label>
+					<div class='radio'>
+						<input type="radio" name="required_to_pass_a_drug" class="required_to_pass_a_drug" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="required_to_pass_a_drug" class="required_to_pass_a_drug" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Are any drivers not covered by Workers Comp? If yes, provide details.</label>
+					<div class='radio'>
+						<input type="radio" name="covered_by_Workers" class="covered_by_Workers" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="covered_by_Workers" class="covered_by_Workers" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Does applicant hire drivers from driver leasing firms?</label>
+					<div class='radio'>
+						<input type="radio" name="driver_leasing_firms" class="driver_leasing_firms" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="driver_leasing_firms" class="driver_leasing_firms" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row" id='explanations_div' style='display:none' >
+					<div class="form-holder w-100">
+					<label>Please provide any explanations for answers or information requested below:</label>
+					<textarea name="explanations" class="explanations" id='explanations'></textarea>
+					</div>
+				</div>
+				
 			</div>
 			<div class='main_field_div'>
 				<h2 class="fs-title">Filing Types</h2>
@@ -1219,10 +1308,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Federal:</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured"><label>Yes</label>
+						<input type="radio" name="Federal" class="Federal" value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured"><label>No</label>
+						<input type="radio" name="Federal" class="Federal" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
@@ -1230,17 +1319,17 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>MCS90</label>
 					 <div class='radio'>
-						<input type="radio" name="Spouse" class="currently_insured"><label>Yes</label>
+						<input type="radio" name="MCS90_val" class="MCS90_val" value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Spouse" class="currently_insured"><label>No</label>
+						<input type="radio" name="MCS90_val" class="MCS90_val" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>State:</label>
-					 <select name="fil_puc_cnt" id="fil_puc_cnt" class="AddIControl all a">
+					 <select name="fil_State" id="fil_State" class="fil_State">
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -1257,7 +1346,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>State Cargo (Form H):</label>
-					<select name="fil_formh_cnt" id="fil_formh_cnt" class="AddIControl all a">
+					<select name="fil_formh_cnt" id="fil_formh_cnt" class="fil_formh_cnt all a">
 
 						<option value="0">0</option>
 						<option value="1">1</option>
@@ -1272,7 +1361,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Other:</label>
-					 <select name="fil_othr_cnt" id="fil_othr_cnt" class="AddIControl all a">
+					 <select name="fil_othr_cnt" id="fil_othr_cnt" class="Other">
 					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
