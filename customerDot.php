@@ -2124,7 +2124,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>Posted Date</label>				
-					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
+					 <input type="date" name="Posted" value="" class="datepicker Posted_one" id="Posted_one">
 					</div>
 
 				</div>
@@ -2156,20 +2156,20 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Cancellation Date</label>
-					<input type="text" name="Cancellation" value="" class="Cancellation_class" id="Cancellation_id" >
+					<input type="date" name="Cancellation" value="" class="Cancellation_class datepicker" id="Cancellation_id" >
 						</div>
 					</div>
 					
 					<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Effective Date</label>
-					<input type="text" name="Effective" value="" class="Effective_class" id="Effective_id" >
+					<input type="date" name="Effective" value="" class="Effective_class datepicker" id="Effective_id" >
 						</div>
 					</div>
 					<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Insurence carrier</label>
-					<input type="text" name="Insurence" value="" class="Insurence_class" id="Insurence_id" >
+					<input type="date" name="Insurence" value="" class="Insurence_class datepicker" id="Insurence_id" >
 						</div>
 					</div>
 				</div>	

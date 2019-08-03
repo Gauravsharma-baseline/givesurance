@@ -854,7 +854,7 @@ $(".CargoRelated_next").click(function(event ){
 $(".PDFData_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var contactId=$(".contactId").val();
-	var dataform=	$('.Sixteen').find('select, textarea, input').serialize();
+	var dataform=	$('.Seventeen').find('select, textarea, input').serialize();
 
 		 $.ajax({
             url:"ajaxRequest.php", 
