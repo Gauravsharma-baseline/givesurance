@@ -2169,7 +2169,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Insurence carrier</label>
-					<input type="date" name="Insurence" value="" class="Insurence_class datepicker" id="Insurence_id" >
+					<input type="text" name="Insurence" value="" class="Insurence_class" id="Insurence_id" >
 						</div>
 					</div>
 				</div>	
