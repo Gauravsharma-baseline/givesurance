@@ -219,6 +219,66 @@
 		return $response;
 				
 	}
+	function insertviolation($contact_id,$accident_violation,$date){
+		$conn = $this->pgConnect();
+		$query = "INSERT INTO public.violation(contact_id, accident_violation, date)VALUES('".$contact_id."', '".$accident_violation."', '".$date."')";
+		$result = pg_query($query); 
+					
+		if($result){
+			$response= 1;
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	}  
+	
+	
+	
+	function businessviolation($contact_id){
+		$conn = $this->pgConnect();
+		$query =  "SELECT * FROM public.violation where contact_id=$contact_id";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+			$response=array();	
+			while ($row = pg_fetch_assoc($rs)) {
+			 $response[]=$row;
+			
+			}
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	function deleteviolation($violationId){
+		$conn = $this->pgConnect();
+		$query =  "Delete  FROM public.violation where id=$violationId";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		
+		if($rs){
+			
+			 $response=1;
+			
+			
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	
+	
 
     function getDataFromSafer($odt){
 		$response=$this->saferSearch($odt);

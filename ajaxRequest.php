@@ -143,7 +143,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Mailing_Address":  "'.$_POST['mailingaddress'].'" ,
             "ZIP_Code_Two":  "'.$_POST['mailing_Postal'].'" ,
             "State_Two":  "'.$_POST['mailing_state'].'" ,
-            "City_Two":  "'.$_POST['mailing_city'].'" ,
+            "City_Two":  "'.$_POST['mailing_city'].'" 
             
 			}]}'; 
 			
@@ -191,8 +191,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
             "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
 			"DOB":  "'.$form_data['Insured_DOB'].'" ,
-            "Last_Name1":  "'.$form_data['Financial_First_name'].'" ,
-            "First_Name_Two":  "'.$form_data['Financial_Middle_name'].'" ,
+            "Last_Name1":  "'.$form_data['Insured_Last_name'].'" ,
+            "Suffix":  "'.$form_data['Insured_Suffix'].'" ,
+            "First_Name_Two":  "'.$form_data['Financial_First_name'].'" ,
             "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
             "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
 			"ZIP_Code":  "'.$form_data['Financial_zipcode'].'" ,
@@ -210,7 +211,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "State_Two":  "'.$form_data['Contact_Insured_State'].'" ,
             "ZIP_Code_Two":  "'.$form_data['Contact_Insured_ZIP_code'].'" ,
             "City_Two":  "'.$form_data['Contact_Insured_City'].'", 
-            "E_mail_Address":  "'.$form_data['Contact_Insured_email'].'" 
+            "E_mail_Address":  "'.$form_data['Contact_Insured_email'].'", 
             "Date_Two":  "'.$form_data['Financial_dob'].'" ,
             "Yrs_in_Trucking_Industry":  "'.$form_data['Yrs_in_Trucking_Industry'].'" ,
             "Yrs_in_business":  "'.$form_data['Yrs_in_business'].'" ,
@@ -222,46 +223,184 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
+			}else{
+				echo 0;
 			} 
-			echo json_encode($zohoResponse);
+			
 	}
 
+	if(ISSET($_POST['delete_voilation_next']) && $_POST['delete_voilation_next']=='success'){
+		$contactid = $_POST['contactId'];
+		$violation_id = $_POST['violation_id'];
+					$data = "";
+					$contactdata =  $handleFunctionsObject->deleteviolation($violation_id);
+			
+				echo $contactdata;
+			 
+	}
+	
 	if(ISSET($_POST['vehicles_data_next']) && $_POST['vehicles_data_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
-		
-					$data = "";
-					$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
-			if($contactdata['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($contactdata);
-			} 
+			$data = "";
+			$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+			if(ISSET($check_token_valid['code']) && $check_token_valid['code'] == "INVALID_TOKEN"){
+			$url = "token";
+			$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
+				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
+				if(isset($get_new_token['access_token'])){
+					file_put_contents("access_token.txt",$get_new_token['access_token']);
+				}
+				if(isset($get_new_token['refresh_token'])){
+					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
+				}
+				$old_access_token = file_get_contents("access_token.txt");
+				
+			}
+			echo 1;
 	}
 
 	if(ISSET($_POST['drivers_data_next']) && $_POST['drivers_data_next']=='success'){
 			$contacturl = "Contacts/".$_POST['contactId'];
-		
-					$data = "";
-					$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
-			if($contactdata['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($contactdata);
-			} 
+			$data = "";
+			$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+			if(ISSET($check_token_valid['code']) && $check_token_valid['code'] == "INVALID_TOKEN"){
+			$url = "token";
+			$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
+				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
+				if(isset($get_new_token['access_token'])){
+					file_put_contents("access_token.txt",$get_new_token['access_token']);
+				}
+				if(isset($get_new_token['refresh_token'])){
+					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
+				}
+				$old_access_token = file_get_contents("access_token.txt");
+				
+			}		
+			$d= $handleFunctionsObject->businessviolation($_POST['contactId']);
+			if($d!=0){
+				$i=0;
+				foreach($d as $ddd){
+					$dd=$ddd['accident_violation'];
+				?>
+				<tr id='tr_id_<?php echo $ddd['id'];?>'>
+				  <td class="td-padding">
+				  <select id='select_Accident_<?php echo $i;?>'>
+					<option value="AAF" <?php if($dd=='AAF'){echo 'selected';}?>>AAF - At Fault Accident</option>
+					<option value="BOT" <?php if($dd=='BOT'){echo 'selected';}?>>BOT - Open Bottle/Container</option>
+					<option value="CRD" <?php if($dd=='CRD'){echo 'selected';}?>>CRD - Careless/Improper Op of Vehicle</option>
+					<option value="DEQ" <?php if($dd=='DEQ'){echo 'selected';}?>>DEQ - Defective Equipment</option>
+					<option value="DEV" <?php if($dd=='DEV'){echo 'selected';}?>>DEV - Disregard Traffic Device/Sign</option>
+					<option value="DR" <?php if($dd=='DR'){echo 'selected';}?>>DR  - Drag Racing</option>
+					<option value="DWI" <?php if($dd=='DWI'){echo 'selected';}?>>DWI - Driving Under the Influence</option>
+					<option value="EQP" <?php if($dd=='EQP'){echo 'selected';}?>>EQP - Equipment Violations</option>
+					<option value="FAR" <?php if($dd=='FAR'){echo 'selected';}?>>FAR - False Report to Official/Perjury</option>
+					<option value="FEL" <?php if($dd=='FEL'){echo 'selected';}?>>FEL - Auto Theft / Felony</option>
+					<option value="FLE" <?php if($dd=='FLE'){echo 'selected';}?>>FLE - Flee/Elude Police</option>
+					<option value="FRA" <?php if($dd=='FRA'){echo 'selected';}?>>FRA - Failure to Report Accident</option>
+					<option value="FTC" <?php if($dd=='FTC'){echo 'selected';}?>>FTC - Following Too Close</option>
+					<option value="FTY" <?php if($dd=='FTY'){echo 'selected';}?>>FTY - Failure to Yield</option>
+					<option value="HOM" <?php if($dd=='HOM'){echo 'selected';}?>>HOM - Homicide/Assault w/ Vehicle</option>
+					<option value="IBK" <?php if($dd=='IBK'){echo 'selected';}?>>IBK - Improper Backing</option>
+					<option value="IP" <?php if($dd=='IP'){echo 'selected';}?>>IP  - Improper Passing</option>
+					<option value="IT" <?php if($dd=='IT'){echo 'selected';}?>>IT  - Improper Turn/U-Turn</option>
+					<option value="LIC" <?php if($dd=='LIC'){echo 'selected';}?>>LIC - License/Credentials Violation</option>
+					<option value="LTS" <?php if($dd=='LTS'){echo 'selected';}?>>LTS - Leaving the Scene</option>
+					<option value="MMV" <?php if($dd=='MMV'){echo 'selected';}?>>MMV - Other Minor Moving Violations</option>
+					<option value="NAF" <?php if($dd=='NAF'){echo 'selected';}?>>NAF - Not At Fault Accident</option>
+					<option value="REF" <?php if($dd=='REF'){echo 'selected';}?>>REF - Refusal to Test</option>
+					<option value="RKD" <?php if($dd=='RKD'){echo 'selected';}?>>RKD - Reckless Driving</option>
+					<option value="SAF" <?php if($dd=='SAF'){echo 'selected';}?>>SAF - Safety Violation</option>
+					<option value="SCH" <?php if($dd=='SCH'){echo 'selected';}?>>SCH - Passing School Bus</option>
+					<option value="SPD" <?php if($dd=='SPD'){echo 'selected';}?>>SPD - Speeding</option>
+					<option value="SUS" <?php if($dd=='SUS'){echo 'selected';}?>>SUS - Driving w/ Susp/Rev/Canc License</option>
+					<option value="WOC" <?php if($dd=='WOC'){echo 'selected';}?>>WOC - Operate w/o Owner's Consent</option>
+					<option value="WSR" <?php if($dd=='WSR'){echo 'selected';}?>>WSR - Wrong Side of Road</option>
+				 </select>
+				</td>
+				 <td class="text-center td-padding"> <input type="text" value="<?php echo $ddd['date'];?>" placeholder="" class='datepicker' id='Accident_date_<?php echo $i;?>'>				
+					</td>
+				  <td class="td-padding"><td class='td-padding'><button class='delete_voilation btn' data-id="<?php echo $i;?>" data-contact_id='<?php echo $ddd['id'];?>' type='button'>Delete</button></td>
+				</tr>
+				
+				
+			<?php	
+			$i++;	
+			}
+			}else{?>
+				<tr>
+				  <td class="td-padding">
+				  <select id="select_Accident_0">
+					<option selected="selected" value=""></option>
+					<option value="AAF">AAF - At Fault Accident</option>
+					<option value="BOT">BOT - Open Bottle/Container</option>
+					<option value="CRD">CRD - Careless/Improper Op of Vehicle</option>
+					<option value="DEQ">DEQ - Defective Equipment</option>
+					<option value="DEV">DEV - Disregard Traffic Device/Sign</option>
+					<option value="DR">DR  - Drag Racing</option>
+					<option value="DWI">DWI - Driving Under the Influence</option>
+					<option value="EQP">EQP - Equipment Violations</option>
+					<option value="FAR">FAR - False Report to Official/Perjury</option>
+					<option value="FEL">FEL - Auto Theft / Felony</option>
+					<option value="FLE">FLE - Flee/Elude Police</option>
+					<option value="FRA">FRA - Failure to Report Accident</option>
+					<option value="FTC">FTC - Following Too Close</option>
+					<option value="FTY">FTY - Failure to Yield</option>
+					<option value="HOM">HOM - Homicide/Assault w/ Vehicle</option>
+					<option value="IBK">IBK - Improper Backing</option>
+					<option value="IP">IP  - Improper Passing</option>
+					<option value="IT">IT  - Improper Turn/U-Turn</option>
+					<option value="LIC">LIC - License/Credentials Violation</option>
+					<option value="LTS">LTS - Leaving the Scene</option>
+					<option value="MMV">MMV - Other Minor Moving Violations</option>
+					<option value="NAF">NAF - Not At Fault Accident</option>
+					<option value="REF">REF - Refusal to Test</option>
+					<option value="RKD">RKD - Reckless Driving</option>
+					<option value="SAF">SAF - Safety Violation</option>
+					<option value="SCH">SCH - Passing School Bus</option>
+					<option value="SPD">SPD - Speeding</option>
+					<option value="SUS">SUS - Driving w/ Susp/Rev/Canc License</option>
+					<option value="WOC">WOC - Operate w/o Owner's Consent</option>
+					<option value="WSR">WSR - Wrong Side of Road</option>
+				 </select>
+				</td>
+				 <td class="text-center td-padding"> <input type="text" value="2019-08-03" placeholder="" class="datepicker hasDatepicker" id="Accident_date_0">				
+					</td>
+				  <td class="td-padding"></td>
+				</tr>
+				
+			<?php }
+						
+					
+			
 	}
 	
 	
 	if(ISSET($_POST['violations_data_next']) && $_POST['violations_data_next']=='success'){
-		 parse_str($_POST['voilationsdata'], $form_data);
-		$contacturl = "Contacts/".$_POST['contactId'];
-		 $data = "";
-		$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
+		 $form_data=json_decode($_POST['voilationsdata']);
+		$form_data = json_decode(json_encode($form_data), true);
+		/* echo '<pre>';
+		print_R($form_data);
+		 echo '</pre>'; */
+		if($form_data){
+			foreach($form_data as $d){
+				$d= $handleFunctionsObject->insertviolation($_POST['contactId'],trim($d['Accident']),trim($d['Accident_date']));
+				
+			}
+			
+			if($d==1){
+				echo json_encode($form_data);
+			}
+			
+		}
 		
-			echo json_encode($contactdata);
 			
 	}
 	if(ISSET($_POST['underwriting_data_next']) && $_POST['underwriting_data_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
 		parse_str($_POST['dataform'], $form_data);
-		/*  echo '<pre>';
+		/*   echo '<pre>';
 			print_r($form_data);
-		echo '<pre>'; */ 
+		echo '<pre>';  */ 
 			   $Contactdata = '{
 			"data": [{
             "Proof_of_Prior_Insurance":  "'.$form_data['currently_insured'].'" ,
@@ -274,23 +413,24 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Do_we_insure_all_commercial_vehicles_the_insured":  "'.$form_data['commercial_vehicles'].'" ,
             "Do_we_insure_all_vehicles_that_the_insured_uses":  "'.$form_data['insured_uses_business'].'" ,
             "Federal":  "'.$form_data['Federal'].'" ,
-            "Federal_Cargo_BMC_34":  "'.$form_data['fil_formh_cnt'].'" ,
-            "How_often_are_MVRs_reviewed":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['fil_formh_cnt'].'" ,
-            "Details":  "'.$form_data['explanations'].'" ,
-            "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
-            "Others":  "'.$form_data['fil_othr_cnt'].'" ,
+            "Federal_Cargo_BMC_34":  "'.$form_data['Federal_Cargo'].'" ,
+            "How_often_are_MVRs_reviewed":  "'.$form_data['MVRs_reviewed'].'" ,
+            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['vehicles_listed_owned'].'" ,
+            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['individual_instead_of_business'].'" ,
+			 "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
+            "Others":  "'.$form_data['fil_othr_cnt'].'", 
             "State_Cargo_Form_H":  "'.$form_data['fil_formh_cnt'].'" ,
-            "State_FT":  "'.$form_data['fil_State'].'" ,
-            "MCS90":  "'.$form_data['MCS90_val'].'" 
-            
+			"MCS90":  "'.$form_data['MCS90_val'].'",
+			"State_FT":  "'.$form_data['fil_State'].'", 			
+            "Details":  "'.trim($form_data['explanations']).'", 
+			
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
-			}  
+			} 
+					
 	}
 	
 	if(ISSET($_POST['OperationDescription']) && $_POST['OperationDescription']=='success'){
@@ -356,12 +496,14 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			   $Contactdata = '{
 			"data": [{
             "Auto_Liability":  "'.$form_data['Auto_Liability'].'" ,
-            "AL_Deductible":  "'.$form_data['AL_Deductible'].'" ,
+            "AL_Deductible":  "'.$form_data['AL_Deductible_text'].'" ,
             "UM_UIM1":  "'.$form_data['UM_UIM_value'].'" ,
             "UM_PD":  "'.$form_data['UM_Pd_value'].'" ,
             "Medical_Payment":  "'.$form_data['Medical_Payments'].'" ,
             "PIP":  "'.$form_data['PIP'].'",
-            "MOTOR_TRUCK_CARGO":  "'.$form_data['Motor_Truck_Cargo'].'"
+            "Per_vehicle":  "'.$form_data['Motor_Truck_Cargo'].'",
+            "Aggregate":  "'.$form_data['Aggregate'].'",
+            "Rejected":  "'.$form_data['Motor_Truck_Rejected'].'",
             
             
 			}]}'; 
@@ -369,7 +511,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
-			}  
+			} echo json_encode($zohoResponse); 
 	}	
 	if(ISSET($_POST['Commodities_next']) && $_POST['Commodities_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
@@ -446,7 +588,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		/*  echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; 
-		/* "policy":  "'.$form_data['Drive_perid_second'].'" ,
+		/* "policy":  "'.$form_data['Policy_Surety_Number'].'" ,
 		*/ 
 			   $Contactdata = '{
 			"data": [{
@@ -457,6 +599,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "To":  "'.$form_data['To'].'" ,
             "Cancellation_Date":  "'.$form_data['Cancellation'].'" ,
             "Effective_Date":  "'.$form_data['Effective'].'" ,
+			"policy":  "'.$form_data['Policy_Surety_Number'].'" ,
             "Insurance_Carrier":  "'.$form_data['Insurence'].'" 
            
             

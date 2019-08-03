@@ -253,10 +253,30 @@ $(".violationsLI").click(function(){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
-	$("#progressbar li").removeClass("active");
-	$(".violationsLI").addClass("active");
-	$("fieldset").hide();
-	$(".ninth").show(); 
+		$("body").css("cursor", "progress");
+		var contactId=$(".contactId").val();
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           //dataType: 'json',
+           data: ({drivers_data_next: "success",contactId:contactId}),
+            success:function(result){
+				$("body").css("cursor", "default");
+					$(".driversLI").removeClass("active");
+					$(".violationsLI").addClass("active");
+					$(".eigth").hide();
+					$(".ninth").show(); 
+					 $('#Violation_Table tbody').html(result); 
+					$("#progressbar li").removeClass("active");
+					$(".violationsLI").addClass("active");
+					$("fieldset").hide();
+					$(".ninth").show(); 			 
+				
+           }
+         });		
+		
+		
+	
 	}	
 });
 $(".underwritingLI").click(function(){
@@ -448,12 +468,10 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.License_State,
 							element.Experience_Years,
 							element.Hire_Date,
-							element.License_State,
 							element.Back_up_Driver,
 							element.Owner_Driver,
 							element.SR22,
-							points,
-							"<button class='delete_driver btn' data-id='"+element.id+"' type='button'>Delete</button>"
+							points
 							]
 						).draw();
 
@@ -472,13 +490,275 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.Category,
 							element.Radius,
 							element.Value,
-							element.Loss_Payee,
-							"<button class='btn' id='delete_vehicle' data-id='"+element.id+"'>Delete</button>"
+							element.Loss_Payee
+							
 							]
 						).draw();
 
 					});	
 					}
+					/*FMCSA*/
+					/* $('#Form_one').val(result.conatctData.Form);
+					$('#Type_one').val(result.conatctData.Type);
+					$('#Posted_Date').val(result.conatctData.Posted_Date);
+					$('#policy_one').val(result.conatctData.policy);
+					$('#Coverage_id').val(result.conatctData.Coverage_From);
+					$('#Effective_id').val(result.conatctData.Effective_Date);
+					$('#To_id').val(result.conatctData.To);
+					$('#Cancellation_id').val(result.conatctData.Cancellation_Date);
+					$('#Insurence_id').val(result.conatctData.Insurance_Carrier); */
+					/*COMMODITIES*/
+					$('#Household_id_two').val(result.conatctData.Household_Goods);
+					$('#Household_id_second').val(result.conatctData.Metal_sheets_coils_rolls);
+					$('#Motor_id_second').val(result.conatctData.Motor_Vehicles);
+					$('#Drive_id_second').val(result.conatctData.Drivo_Tow_away);
+					$('#Logs_id_second').val(result.conatctData.Insurance_Carrier);
+					$('#Building_id_second').val(result.conatctData.Building_Materials);
+					$('#Mobile_id_second').val(result.conatctData.Mobile_Homes);
+					$('#Machinery_id_second').val(result.conatctData.Machinery_Large_Objects);
+					$('#Fresh_id_second').val(result.conatctData.Single_Line_48);
+					$('#US_id_second').val(result.conatctData.US_Mail);
+					$('#Oilfield_id_second').val(result.conatctData.Oilfield_Equipment);
+					$('#Meats_id_second').val(result.conatctData.Single_Line_50);
+					$('#Dry_id_second').val(result.conatctData.Single_Line_49);
+					$('#Intermodal_id_second').val(result.conatctData.Single_Line_47);
+					$('#Refrigerated_id_second').val(result.conatctData.Single_Line_46);
+					$('#Paper_id_second').val(result.conatctData.Single_Line_35);
+					$('#Plastic_id_second').val(result.conatctData.Single_Line_45);
+					$('#Beverages_id_second').val(result.conatctData.Single_Line_44);
+					$('#Livestock_id_second').val(result.conatctData.Single_Line_43);
+					$('#Grain_id_second').val(result.conatctData.Single_Line_42);
+					$('#Liquids_id_second').val(result.conatctData.Single_Line_41);
+					$('#Chemicals_id_second').val(result.conatctData.Single_Line_36);
+					$('#Garbage_id_second').val(result.conatctData.Single_Line_37);
+					$('#Passengers_id_second').val(result.conatctData.Single_Line_39);
+					$('#Electronics_id_second').val(result.conatctData.Single_Line_38);
+					$('#Agricultural_id_second').val(result.conatctData.Single_Line_40);
+					$('#Sand_id_second').val(result.conatctData.Sand_Gravel);
+					$('#Department_id_second').val(result.conatctData.Department_Store_Merchandise);
+					$('#Auto_id_second').val(result.conatctData.Auto_Parts_Tires);
+					$('#Other_commodities').val(result.conatctData.Others);
+					
+						/*operation Qualification*/
+						
+					$('#percentage_two_one').val(result.conatctData.Radious_0_50_miles);
+					$('#percentage_two_id').val(result.conatctData.Radious_50_200_miles);
+					$('#percentage_three_id').val(result.conatctData.Radious_200_miles);
+					$('#Estimates_one_id').val(result.conatctData.EstimateAverage_Radius);
+					$('#Estimates_two_id').val(result.conatctData.Estimate_Longest_Radius);
+					$('#Estimates_three_id').val(result.conatctData.Estimate_Furthest_City);
+					$('#outgoing_percent').val(result.conatctData.Percent_Outgoing);
+					$('#incoming_percent').val(result.conatctData.Percent_Incoming);
+					if(result.conatctData.Contract_Percentage!=''){
+						$('#Business_first_id').val(result.conatctData.Contract_Percentage);
+						$('#chk_one').attr('checked','checked');
+					}
+					if(result.conatctData.Private_Percentage!=''){
+						$('#Business_Private_id').val(result.conatctData.Private_Percentage);
+						$('#chk_thr').attr('checked','checked');
+					}
+					if(result.conatctData.Non_Trucking!=''){
+							$('#Non_Trucking_id').val(result.conatctData.Non_Trucking);	
+						$('#Non_Trucking_Business_check').attr('checked','checked');
+					}
+					if(result.conatctData.Non_Trucking!=''){
+							$('#Non_Trucking_id').val(result.conatctData.Non_Trucking);	
+						$('#Non_Trucking_Business_check').attr('checked','checked');
+					}
+					if(result.conatctData.Other_Percentage!=''){
+							$('#Business_Other_check').val(result.conatctData.Other_Percentage);	
+						$('#Non_Trucking_Business_check').attr('checked','checked');
+					}
+					if(result.conatctData.Brokered_Loards_Percentage!=''){
+							$('#Brokered_Loads_id').val(result.conatctData.Brokered_Loards_Percentage);	
+						$('#Brokered_Loads_check').attr('checked','checked');
+					}	
+					
+					if(result.conatctData.Household_or_Commercial_Mover!='' && result.conatctData.Household_or_Commercial_Mover=='Yes'){
+							$('#Operations_radio_Mover').val(result.conatctData.Household_or_Commercial_Mover);	
+							$('#Brokered_Loads_check').attr('selected','selected');
+					}	
+				/*COVERAGE LIMIT INFORMATION*/
+					
+					if(result.conatctData.AL_Deductible!=''){
+						if(result.conatctData.AL_Deductible=='Other'){
+							$('#AL_Deductible_text').val(result.conatctData.AL_Deductible);	
+							$('#AL_Deductible_text').show();
+						}							
+					$("input[name='AL_Deductible'][value='"+result.conatctData.AL_Deductible+"']").attr('selected','selected');
+					$('#AL_Deductible_text').val(result.conatctData.AL_Deductible);	
+					}
+					if(result.conatctData.UM_UIM1!=''){
+						if(result.conatctData.UM_UIM1=='Higher Limit'){
+							$('#UM_UIM_value').val(result.conatctData.UM_UIM1);	
+							$('#UM_UIM_value').show();	
+						}
+						$("input[name='UM_UIM'][value='"+result.conatctData.UM_UIM1+"']").attr('selected','selected');
+					$('#UM_UIM_value').val(result.conatctData.UM_UIM1);		
+					}
+					if(result.conatctData.UM_PD!=''){
+						if(result.conatctData.UM_PD=='Higher Limit'){
+							$('#UM_Pd_value').val(result.conatctData.UM_PD);	
+							$('#UM_Pd_value').show();	
+						}
+					$("input[name='UM_Pd'][value='"+result.conatctData.UM_PD+"']").attr('selected','selected');
+					$('#UM_Pd_value').val(result.conatctData.UM_PD);	
+					}
+					if(result.conatctData.Medical_Payment!=''){
+					$("input[name='Medical_Payments'][value='"+result.conatctData.Medical_Payment+"']").attr('selected','selected');
+					
+					}
+					if(result.conatctData.PIP!=''){
+					$("input[name='PIP'][value='"+result.conatctData.PIP+"']").attr('selected','selected');
+					
+					}
+					if(result.conatctData.PIP!=''){
+					$("input[name='Auto_Liability'][value='"+result.conatctData.Auto_Liability+"']").attr('selected','selected');
+					
+					}
+					
+					$('.Motor_Truck_Cargo').val(result.conatctData.Per_vehicle);	
+					$('.Aggregate').val(result.conatctData.Aggregate);
+					if(result.conatctData.Rejected!='' &&result.conatctData.Rejected=='Rejected' ){
+							$('.Motor_Truck_Rejected').val(result.conatctData.Brokered_Loards_Percentage);	
+						$('.Motor_Truck_Rejected').attr('checked','checked');
+					}		
+						
+					/*COVERAGE LIMIT INFORMATION*/
+					if(result.conatctData.Proof_of_Prior_Insurance!=''){
+					$("input[name='currently_insured'][value='"+result.conatctData.Proof_of_Prior_Insurance+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Does_the_insured_have_General_Liability_Insurance!=''){
+					$("input[name='Proof_Insurance'][value='"+result.conatctData.Does_the_insured_have_General_Liability_Insurance+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Year_current_business_was_established!=''){
+					$('.Year_current_business_VAL').val(result.conatctData.Year_current_business_was_established);	
+					}
+					if(result.conatctData.Number_of_Additional_Insureds!=''){
+					$("input[name='Additional_Insureds'][value='"+result.conatctData.Number_of_Additional_Insureds+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Number_of_Waivers_of_Subrogation!=''){
+					$("input[name='Waivers_Subrogation'][value='"+result.conatctData.Number_of_Waivers_of_Subrogation+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Is_the_customer_required_to_maintain_hours!=''){
+					$("input[name='customer_required_to_maintain_hours'][value='"+result.conatctData.Is_the_customer_required_to_maintain_hours+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Are_any_state_or_federal_filings_required!=''){
+					$("input[name='federal_filings_required'][value='"+result.conatctData.Are_any_state_or_federal_filings_required+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Do_we_insure_all_commercial_vehicles_the_insured!=''){
+					$("input[name='commercial_vehicles'][value='"+result.conatctData.Do_we_insure_all_commercial_vehicles_the_insured+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Do_we_insure_all_vehicles_that_the_insured_uses!=''){
+					$("input[name='insured_uses_business'][value='"+result.conatctData.Do_we_insure_all_vehicles_that_the_insured_uses+"']").attr('selected','selected');
+					}
+					
+					$('#MVRs_reviewed').val(result.conatctData.How_often_are_MVRs_reviewed);
+					if(result.conatctData.Are_all_vehicles_listed_owned_registered_to_appl!=''){
+					$("input[name='vehicles_listed_owned'][value='"+result.conatctData.Are_all_vehicles_listed_owned_registered_to_appl+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Any_vehicles_titled_to_an_individual_instead_of_bs!=''){
+					$("input[name='individual_instead_of_business'][value='"+result.conatctData.Any_vehicles_titled_to_an_individual_instead_of_bs+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Any_vehicles_titled_to_an_individual_instead_of_bs!='' && result.conatctData.Any_vehicles_titled_to_an_individual_instead_of_bs=='Yes'){
+					$("#explanationsresult").val(result.conatctData.Any_vehicles_titled_to_an_individual_instead_of_bs);
+					$("#explanationsresult").show();
+					}
+					if(result.conatctData.Federal!=''){
+					$("input[name='Federal'][value='"+result.conatctData.Federal+"']").attr('selected','selected');
+					}
+					if(result.conatctData.Federal_Cargo_BMC_34!=''){
+					$("input[name='Federal_Cargo'][value='"+result.conatctData.Federal_Cargo_BMC_34+"']").attr('selected','selected');
+					}
+					if(result.conatctData.State_FT!=''){
+					$("input[name='fil_State'][value='"+result.conatctData.State_FT+"']").attr('selected','selected');
+					}
+					if(result.conatctData.State_Cargo_Form_H!=''){
+					$("input[name='fil_formh_cnt'][value='"+result.conatctData.State_Cargo_Form_H+"']").attr('selected','selected');
+					}
+					
+					if(result.conatctData.MCS90!=''){
+					$("input[name='MCS90_val'][value='"+result.conatctData.MCS90+"']").attr('selected','selected');
+					}
+					
+					$('#CA_Authority_Number').val(result.conatctData.CA_Authority_Number);
+					
+					if(result.conatctData.Others!=''){
+					$("input[name='fil_othr_cnt'][value='"+result.conatctData.Others+"']").attr('selected','selected');
+					}
+					
+					/*Policy POLICY*/
+					if(result.conatctData.Agent_Code!=''){
+					$("input[name='agent_code'][value='"+result.conatctData.Agent_Code+"']").attr('selected','selected');
+					}
+					
+					$('.Policy_Effective').val(result.conatctData.Policy_Effective_Date);
+					$('#Specify_Commodities_Hauled').val(result.conatctData.Specify_Commodities_Hauled);
+					
+					if(result.conatctData.Is_the_customer_currently_insured_with_Progressive!=''){
+					$("input[name='customer_Progressive_Commercial'][value='"+result.conatctData.Is_the_customer_currently_insured_with_Progressive+"']").attr('checked','checked');
+					}
+					
+					if(result.conatctData.Are_any_listed_vehicles_used_to_haul_steel!=''){
+					$("input[name='is_vehicles_haul_steel'][value='"+result.conatctData.Are_any_listed_vehicles_used_to_haul_steel+"']").attr('checked','checked');
+					}
+					if(result.conatctData.listed_vehicles_or_the_load_require_a_placard!=''){
+					$("input[name='is_vehicles_placard'][value='"+result.conatctData.listed_vehicles_or_the_load_require_a_placard+"']").attr('checked','checked');
+					}
+					if(result.conatctData.Structure!=''){
+					$("input[name='Business_Organization_Structure'][value='"+result.conatctData.Structure+"']").attr('checked','checked');
+					}
+					if(result.conatctData.Do_you_have_a_DBA!=''){
+					$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
+					}
+					if(result.conatctData.Do_you_have_a_DBA!=''){
+					$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
+					}
+					$("#USDOT_Assigned_to").val(result.conatctData.USDOT_Assigned_to);
+					
+					if(result.conatctData.Does_the_information_assigned_to_this_USDOT_match!=''){
+					$("input[name='is_match_USDOT'][value='"+result.conatctData.Does_the_information_assigned_to_this_USDOT_match+"']").attr('checked','checked');
+					}
+					$("#Yrs_in_business").val(result.conatctData.Yrs_in_business);
+					$("#Yrs_in_Trucking_Industry").val(result.conatctData.Yrs_in_Trucking_Industry);
+					$("#previous_industry_employment").val(result.conatctData.If_New_Venture_Please_list_previous_industry_emplo);
+					
+					if(result.conatctData.Payment_Options!=''){
+					$("input[name='Payments_Options'][value='"+result.conatctData.Payment_Options+"']").attr('checked','checked');
+					}
+					$("#Insured_first_name").val(result.conatctData.First_Name1);
+					$("#Insured_Middle_name").val(result.conatctData.Middle_Initial);
+					$("#Insured_Last_name").val(result.conatctData.Last_Name1);
+						$("#Insured_DOB").val(result.conatctData.DOB);
+					if(result.conatctData.Suffix!=''){
+					$("input[name='Insured_Suffix'][value='"+result.conatctData.Suffix+"']").attr('selected','selected');
+					}
+					
+					$("#Financial_First_name").val(result.conatctData.First_Name1);
+					$("#Financial_Last_name").val(result.conatctData.Last_Name_Two);
+					$("#Financial_dob").val(result.conatctData.Date_Two);
+					$("#Financial_Home_address").val(result.conatctData.Home_Address);
+					$("#Financial_City").val(result.conatctData.City);
+					$("#Financial_zipcode").val(result.conatctData.ZIP_Code);
+					$("#social_security_number").val(result.conatctData.Social_Security_Number);
+					if(result.conatctData.Suffix_Two!=''){
+					$("input[name='Financial_Suffix'][value='"+result.conatctData.Suffix_Two+"']").attr('selected','selected');
+					}
+					
+					if(result.conatctData.State!=''){
+					$("input[name='Financial_State'][value='"+result.conatctData.State+"']").attr('selected','selected');
+					}
+					
+					$("#Contact_Insured_phone").val(result.conatctData.Insured_s_Phone);
+					$("#Contact_Insured_email").val(result.conatctData.E_mail_Address);
+					$("#Contact_Insured_Mailing").val(result.conatctData.Mailing_Address);
+					$("#Contact_Insured_City").val(result.conatctData.City_Two);
+					$("#Contact_Insured_ZIP_code").val(result.conatctData.ZIP_Code_Two);
+					
+					if(result.conatctData.State_Two!=''){
+					$("input[name='Contact_Insured_State'][value='"+result.conatctData.State_Two+"']").attr('selected','selected');
+					}
+					
 				}	
 			}
            }
@@ -681,13 +961,14 @@ $(".drivers_data_next").click(function(event ){
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
-           dataType: 'json',
+           //dataType: 'json',
            data: ({drivers_data_next: "success",contactId:contactId}),
             success:function(result){
 					$(".driversLI").removeClass("active");
 					$(".violationsLI").addClass("active");
 					$(".eigth").hide();
 					$(".ninth").show(); 
+					 $('#Violation_Table tbody').html(result); 
 								 
 				
            }
@@ -822,8 +1103,9 @@ $(".Commodities_next").click(function(event ){
             success:function(result){
 				 $(".CommoditiesLI").removeClass("active");
 					$(".CargoRelatedLI").addClass("active");
-					$(".Fourteen_s").hide();
-					$(".fifthteen").show(); 
+					$("#alert_message_div").show();
+					//$(".Fourteen_s").hide();
+					//$(".fifthteen").show(); 
 								 
 				
            }
@@ -852,7 +1134,85 @@ $(".CargoRelated_next").click(function(event ){
 });
 
 $(".PDFData_next").click(function(event ){
-	var contactId=$(".contactId").val();
+	var d=0;
+	if($("#Form_one").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#Form_one").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#Form_one").removeClass('is-invalid');
+	}
+	if($("#Type_one").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#Type_one").addClass('is-invalid');
+	}else{
+		d=1;
+		$("#Type_one").removeClass('is-invalid');
+	}
+	if($("#Posted_one").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#Posted_one").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#Posted_one").removeClass('is-invalid');
+	}
+	
+	if($("#policy_one").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#policy_one").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#policy_one").removeClass('is-invalid');
+	}
+	if($("#Coverage_id").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#Coverage_id").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#Coverage_id").removeClass('is-invalid');
+	}
+	if($("#To_id").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#To_id").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#To_id").removeClass('is-invalid');
+	}
+	if($("#Cancellation_id").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#Cancellation_id").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#Cancellation_id").removeClass('is-invalid');
+	}
+	
+	if($("#Effective_id").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#Effective_id").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#Effective_id").removeClass('is-invalid');
+	}
+	if($("#Insurence_id").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#Insurence_id").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#Insurence_id").removeClass('is-invalid');
+	}
+	
+	
+	if(d==1){
+	
 	var contactId=$(".contactId").val();
 	var dataform=	$('.Seventeen').find('select, textarea, input').serialize();
 
@@ -870,6 +1230,7 @@ $(".PDFData_next").click(function(event ){
 				
            }
          });
+	}
 });
 
 
@@ -1008,8 +1369,8 @@ $(document).on("click", "#new_drive_add_button", function(event){
 							result.Back_up_Driver,
 							result.Owner_Driver,
 							result.SR22,
-							points,
-							"<button class='delete_driver btn' data-id='"+result.driverId+"'>Delete</button>"
+							points
+						
 							]
 						).draw();
 					}			 
@@ -1335,8 +1696,23 @@ $(document).on("click", "#voilation_add", function(event){
 });
 
 $('#Violation_Table').on('click', '.delete_voilation', function(){
-    $(this).closest ('tr').remove ();
-});
+	var id = $(this).attr("data-contact_id");
+	var contactId=$(".contactId").val();
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({delete_voilation_next: "success",contactId:contactId,violation_id:id}),
+            success:function(result){
+				if(result==1){
+					$("#tr_id_"+id).remove(); 
+								 
+				}
+           }
+         });
+	
+    
+	});
 
 
 
@@ -1359,15 +1735,16 @@ var points = $(this).closest("tr").find('td:eq(13)').text();
 	$("#edit_driver_last").val(n[2]);
 	$("#edit_driver_dob").val(dob);
 	$("#edit_driver_licence").val(licence);
-	$('#edit_driver_license_state [value=="AK"]').attr("selected", "selected");;
-	$("#edit_driver_commercial").val(n[2]).attr('selected', true);
-	$("."+marital).attr('checked', true);
-	$(".SR22_"+sr22).attr('checked', true);
+
+	$("input[name='edit_driver_license_state'][value='"+licence_state+"']").attr('selected','selected');
+	$("input[name='edit_driver_commercial'][value='"+licence_state+"']").attr('selected','selected');
+	$("input[name='edit_driver_Backup'][value='"+backup_driver+"']").attr('selected','selected');
+	$("input[name='edit_driver_Owner'][value='"+owner+"']").attr('selected','selected');
+	$("input[name='edit_driver_marital_status'][value='"+n[2]+"']").attr('checked','checked');
+	$("input[name='edit_driver_SR22'][value='"+sr22+"']").attr('checked','checked');
 	$("#edit_driver_Exp").val(exp);
 	$("#edit_driver_hire_date").val(hiredate);
 	$("#edit_driver_points").val(points);
-	$("#edit_driver_Backup").val(backup_driver).prop('selected', true);
-	$("#edit_driver_Owner").val(owner).prop('selected', true);
 	$("#id_driver_to_update").val(id);
 	
 	 
@@ -1468,12 +1845,9 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 							element.License_State,
 							element.Experience_Years,
 							element.Hire_Date,
-							element.License_State,
-							element.Back_up_Driver,
 							element.Owner_Driver,
 							element.SR22,
-							points,
-							'<button class="delete_driver btn" data-id="'+element.id+'" type="button">Delete</button>'
+							points
 							]
 						).draw();
 
@@ -1623,8 +1997,8 @@ $(document).on("click", "#vehicles_add_button", function(event){
 							result.Category,
 							result.Radius,
 							result.Value,
-							result.Loss_Payee,
-							"<button class='delete_vehicle btn' data-id='"+result.vehicleId+"'>Delete</button>"
+							result.Loss_Payee
+							
 							]
 						).draw();
 					} 		 
@@ -1637,7 +2011,7 @@ $(document).on("click", "#vehicles_add_button", function(event){
 
 
 
-$(document).on("click", ".driver_leasing_firms", function(event){
+$(document).on("click", ".individual_instead_of_business", function(event){
 	var id = $(this).val();
 	if(id=='Yes'){
 		$("#explanations_div").show();
@@ -1680,10 +2054,11 @@ $(document).on("click", ".currently_insured", function(event){
 
 });
 
-$(document).on("click", ".AL_Deductible", function(event){
+$(document).on("change", ".AL_Deductible", function(event){
 	var id = $(this).val();
 	if(id=='Other'){
 		$("#AL_Deductible_text").show();
+		$("#AL_Deductible_text").val('');
 	}else{
 		$("#AL_Deductible_text").hide();
 		$("#AL_Deductible_text").val(id);

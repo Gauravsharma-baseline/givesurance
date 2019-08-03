@@ -41,9 +41,9 @@ $handleFunctionsObject = new handleFunctions;
 <li class='OperationDescription'>Operation Description</li>
 <!--li class='InsuranceHistory'>Insurance History</li-->
 <li class='CommoditiesLI'>Commodities</li>
-<li class='CargoRelatedLI'>Cargo Related</li>
+<!--li class='CargoRelatedLI'>Cargo Related</li>
 <li class='CargoFinal'>Cargo Final</li>
-<li class='PDFData'>FMCSA </li>
+<li class='PDFData'>FMCSA </li-->
 </ul>
 <!-- fieldsets -->
 	<fieldset class='first'>
@@ -287,7 +287,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
-					<input type="text" class="form-control datepicker" value="<?php echo date('Y-m-d');?>" id='Policy_Effective' name='Policy_Effective'>
+					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('Y-m-d');?>" id='Policy_Effective' name='Policy_Effective'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -842,7 +842,7 @@ $handleFunctionsObject = new handleFunctions;
 			</div>	
 		</div>
 	</div>
-	<div class="confirmation_div">	
+	<!--div class="confirmation_div">	
 				<div class="form-holder w-100 ">
 					<label>Is it OK if I continue?:</label>
 					<div class='radio'>
@@ -855,7 +855,7 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="OK_if_I_continue" class='OK_if_I_continue' value='No, do not continue'><label>No, do not continue</label>
 					</div>
 				</div>
-		</div>
+		</div-->
 		<div class='previous_next_buttons'>
 			<input type="button" name="previous" class="previous_general  action-button" value="Previous" />
 			<input type="button" name="next" class="action-button general_data_next" value="Next" />
@@ -876,7 +876,7 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">Radius</td>
 				  <td class="text-right">Value</td>
 				  <td class="text-right">Loss Payee</td>
-				  <td class="text-right"></td>
+				  <!--td class="text-right"></td-->
 				</tr>
 			</thead>
 			  <tbody>
@@ -913,7 +913,7 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">Owner</td>
 				  <td class="text-right">SR22</td>
 				  <td class="text-right">Points</td>
-				  <td class="text-right"></td>
+				  <!--td class="text-right"></td-->
 				</tr>
 			</thead>
 			  <tbody>
@@ -1189,7 +1189,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Year current business was established (YYYY - enter 9999 if unknown or not applicable):</label>
-					<input type="text" class="form-control" name="Year_current_business" class='Year_current_business' value='9999'>
+					<input type="text" class="form-control" name="Year_current_business" class='Year_current_business' value='9999' ID='Year_current_business_VAL'>
 					</div>
 
 				</div>	
@@ -1293,15 +1293,18 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				
+				
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>How often are MVRs reviewed?</label>
 					
-						<input type="text" name="MVRs_reviewed" class="MVRs_reviewed" id='MVRs_reviewed'/>
+						<input type="text" name="MVRs_reviewed" class="MVRs_reviewed" id='MVRs_reviewed'/ value='Annually '>
 					</div>
 				</div>
 				
-				<div class="form-row">
+				<!--div class="form-row">
 					<div class="form-holder w-100">
 					<label>Are drivers required to pass a drug test at time of hire?</label>
 					<div class='radio'>
@@ -1333,7 +1336,30 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="driver_leasing_firms" class="driver_leasing_firms" value='No'><label>No</label>
 					</div>
 					</div>
+				</div-->
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Are all vehicles listed owned and registered to applicant?</label>
+					 <div class='radio'>
+						<input type="radio" name="vehicles_listed_owned" class="vehicles_listed_owned" value='Yes'checked><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="vehicles_listed_owned" class="vehicles_listed_owned" value='No'><label>No</label>
+					</div>
+					</div>
 				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Any vehicles titled to an individual instead of business? If yes, provide details.</label>
+					 <div class='radio'>
+						<input type="radio" name="individual_instead_of_business" class="individual_instead_of_business" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="individual_instead_of_business" class="individual_instead_of_business" value='No' checked><label>No</label>
+					</div>
+					</div>
+				</div>
+				
 				<div class="form-row" id='explanations_div' style='display:none' >
 					<div class="form-holder w-100">
 					<label>Please provide any explanations for answers or information requested below:</label>
@@ -1356,6 +1382,18 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Federal Cargo (BMC 34)</label>
+					 <div class='radio'>
+						<input type="radio" name="Federal_Cargo" class="Federal_Cargo" value='Yes' checked><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Federal_Cargo" class="Federal_Cargo" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>MCS90</label>
@@ -1462,10 +1500,10 @@ $handleFunctionsObject = new handleFunctions;
 					 CSL = Combined Single Limit
 					</label-->
 					 <div class='radio'>
-						<input type="radio" name="Auto_Liability" class="Auto_Liability"><label>$1M CSL</label>
+						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$1M CSL' checked><label>$1M CSL</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Auto_Liability" class="Auto_Liability"><label>$750 CSL</label>
+						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$750 CSL'><label>$750 CSL</label>
 					</div>
 					<div class='radio'>	
 						<h5> CSL = Combined Single Limit</h5>
@@ -1484,7 +1522,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class='radio'>	
 						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='Other'><label> Other 
-						<input type="text" name="text" value="" id='AL_Deductible_text' style='display:none;' value='$500'></label>
+						<input type="text" name="AL_Deductible_text" value="" id='AL_Deductible_text' style='display:none;' value='$500'></label>
 					</div>
 					</div>
 					</div>
@@ -1522,6 +1560,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				
 				
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Medical Payments:</label>
@@ -1546,30 +1585,51 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				</div>
 				
-				
-				
+				<div class='col-md-12'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<h3>Motor Truck Cargo ( Maximum Limits of $250,000):</h3>
+					
+						<div class='txt'>	
+				<label>Motor Truck Cargo ( Maximum Limits of $250,000)</label>
+				</div>
+						</div>
+						</div>
+				<div class='col-md-4'>
+				<div class="form-row">
+					<div class="form-holder w-100">
 					
 						<div class='txt'>	
 						<label>Per Vehicle</label>
 						<input type="text" name="Motor_Truck_Cargo" class="Motor_Truck_Cargo" value="">
 						</div>
+						</div>
+						</div>
+				</div>
+				<div class='col-md-4'>		
+					<div class="form-row">
+					<div class="form-holder w-100">	
 						<div class='txt'>	
 						<label>Aggregate</label>
 						<input type="text" name="Aggregate" class="Aggregate" value=""></label>
 						</div>
-						<div class='radio'>	
-						<input type="radio" name="Motor_Truck_Rejected" class="Motor_Truck_Rejected" value='Rejected'><label>Rejected</label>
+						</div>
 					</div>
-					
+				</div>
+				<div class='col-md-4'>		
+					<div class="form-row">
+					<div class="form-holder w-100">	
+						<div class='radio'>	
+						<input type="checkbox" name="Motor_Truck_Rejected" class="Motor_Truck_Rejected" value='Rejected'checked><label>Rejected</label>
+					</div>
+					</div>
+					</div>
+				</div>
 				</div>
 			</div>
-		</div>
-	</div>
-<div class='previous_next_buttons'>
+		
+		<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Coverage_Limit_Information action-button" value="Previous" />
 		<input type="button" name="next" class="action-button Coverage_Limit_Information_next" value="Next" />
 	</div>
@@ -1664,19 +1724,19 @@ $handleFunctionsObject = new handleFunctions;
 					
 					<div class="col-md-3 input_three_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Private<br>
-					<input type="number" name="Business_Private" class="Business_three" id="Business_three_id"  value="">
+					<input type="number" name="Business_Private" class="Business_three" id="Business_Private_id"  value="">
 					</div>
 					<div class="col-md-3 input_four_b">
-					<input type="checkbox" name="Non_Trucking_Business" value="" id="chk_thr" class="chk_three_id">Non Trucking<br>
-					<input type="number" name="Non_Trucking" class="Business_three" id="Business_three_id"  value="">
+					<input type="checkbox" name="Non_Trucking_Business" value="" id="Non_Trucking_Business_check" class="Non_Trucking_Business_check">Non Trucking<br>
+					<input type="number" name="Non_Trucking" class="Business_three" id="Non_Trucking_id"  value="">
 					</div>
 					<div class="col-md-3 input_five_b">
-					<input type="checkbox" name="Brokered_Loads" value="" id="chk_thr" class="chk_three_id">Brokered Loads*<br>
-					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Business_three_id"  value="">
+					<input type="checkbox" name="Brokered_Loads" value="" id="Brokered_Loads_check" class="Brokered_Loads_check">Brokered Loads*<br>
+					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Brokered_Loads_id"  value="">
 					</div>
 					<div class="col-md-3 input_six_b">
-					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Other<br>
-					<input type="number" name="Business_Other" class="Business_three" id="Business_three_id"  value="">
+					<input type="checkbox" name="Business" value="" id="Business_Other_check" class="Business_Other_check">Other<br>
+					<input type="number" name="Business_Other" class="Business_three" id="Business_Other_id"  value="">
 					</div>
 					
 					</div>
@@ -1689,10 +1749,10 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Household or Commercial Mover</label>
 						<div class='radio'>	
-						<input type="radio" name="Operations_radio" class="Operations_radio_one" checked value='Yes'><label> Yes</label>
+						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" checked value='Yes'><label> Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="Operations_radio" class="Operations_radio_two" value='No'><label>No</label>
+						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" value='No'><label>No</label>
 					</div>
 					<div class='txt_cs'>	
 						<h6>
@@ -1901,13 +1961,15 @@ $handleFunctionsObject = new handleFunctions;
 	
 	<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Commodities action-button" value="Previous" />
-		<input type="button" name="next" class="action-button Commodities_next" value="Next" />
+		<input type="button" name="next" class="action-button Commodities_next" value="Submit" />
 	</div>
 	</div>
 	</div>
-	
+	<div class="alert alert-success" id='alert_message_div' style='display:none;'>
+	  <strong>Data updated!</strong>
+	</div>
 	</fieldset>
-<fieldset class='fifthteen'>
+<!--fieldset class='fifthteen'>
 	<h2 class="fs-title">Cargo Related</h2>
 	<div class="container-fluid">
 	<div class="row">
@@ -2073,27 +2135,8 @@ $handleFunctionsObject = new handleFunctions;
 	  <input type="text" name="Total_Refrigeration_sec" value="" id="Total_Refrigeration_id_sec" class="Total_Refrigeration_cls_sec">
 		</div>
 		</div>
-	<div>
-		
-		<div class="row">
-	  <h2 class="fs-title">Equipment Identification</h2> 
-	 </div>
 	
-		<h3 class="fs-title">Give details of the number of the vehicles for which cargo coverage is required :</h3>
-	<div>
-	 <label>1 <input type="text" name='Equipment_Identification1'></label>
-	 <label>2<input type="text" name='Equipment_Identification2'></label>
-	 <label>3<input type="text" name='Equipment_Identification3'></label>
-	 <label>4<input type="text" name='Equipment_Identification4'></label>
-	 <label>5<input type="text" name='Equipment_Identification5'></label>
-	 <label>6<input type="text" name='Equipment_Identification6'></label>
-	 <label>7<input type="text" name='Equipment_Identification7'></label>
-	 <label>8<input type="text" name='Equipment_Identification8'></label>
-	 <label>9<input type="text" name='Equipment_Identification9'></label>
-	 <label>10<input type="text" name='Equipment_Identification10'></label>
-	 </div>
-		</div>
-		</div>
+	</div>
 	   <div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_CargoFinal action-button" value="Previous" />
 		<input type="button" name="next" class="action-button CargoFinal_next" value="Next" />
@@ -2186,7 +2229,7 @@ $handleFunctionsObject = new handleFunctions;
 		
 		
 		</div>
-	</fieldset>
+	</fieldset-->
 
 
 </form>
