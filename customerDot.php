@@ -43,7 +43,7 @@ $handleFunctionsObject = new handleFunctions;
 <li class='CommoditiesLI'>Commodities</li>
 <li class='CargoRelatedLI'>Cargo Related</li>
 <li class='CargoFinal'>Cargo Final</li>
-<li class='PDFData'>PDF Data</li>
+<li class='PDFData'>FMCSA </li>
 </ul>
 <!-- fieldsets -->
 	<fieldset class='first'>
@@ -1586,20 +1586,20 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>0-50 miles</label>
-						<input type="text" name="percentage_one" class="per_one" id="percentage_two_one" value="">
+						<input type="number" name="percentage_one" class="per_one" id="percentage_two_one" value="">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>50-200 miles</label>
-						<input type="text" name="percentage_two" class="per_two" id="percentage_two_id" value="">
+						<input type="number" name="percentage_two" class="per_two" id="percentage_two_id" value="">
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>200+ miles</label>
-							<input type="text" name="percentage_three" class="per_three" id="percentage_three_id" value="">
+							<input type="number" name="percentage_three" class="per_three" id="percentage_three_id" value="">
 					</div>
 				</div>
 			</div>
@@ -1610,20 +1610,20 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>Average Radius</label>
-						<input type="text" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="">
+						<input type="number" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						
 						<label>Longest Radius</label>
-						<input type="text" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="">
+						<input type="number" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>Furthest City</label>
-						<input type="text" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="">
+						<input type="number" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="">
 					</div>
 				</div>
 								
@@ -1639,7 +1639,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 				<div class="form-holder w-100">
 				<label> Percent Outgoing:<label>
-				<input type="text" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="">
+				<input type="number" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="">
 				</div>
 				</div>
 			</div>
@@ -1647,7 +1647,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 				<div class="form-holder w-100">
 				<label>Percent Incoming:<label>
-				<input type="text" name="percent_incoming" id="incoming_percent" class="int_percent" value="">
+				<input type="number" name="percent_incoming" id="incoming_percent" class="int_percent" value="">
 				</div>
 					</div>
 					</div>
@@ -1659,24 +1659,24 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="col-md-3 input_one_b">
 					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Contract<br>
 					
-					<input type="text" name="Business_one_name" class="Business_one" id="Business_first_id"  value="">
+					<input type="number" name="Business_one_name" class="Business_one" id="Business_first_id"  value="">
 				</div>
 					
 					<div class="col-md-3 input_three_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Private<br>
-					<input type="text" name="Business_Private" class="Business_three" id="Business_three_id"  value="">
+					<input type="number" name="Business_Private" class="Business_three" id="Business_three_id"  value="">
 					</div>
 					<div class="col-md-3 input_four_b">
 					<input type="checkbox" name="Non_Trucking_Business" value="" id="chk_thr" class="chk_three_id">Non Trucking<br>
-					<input type="text" name="Non_Trucking" class="Business_three" id="Business_three_id"  value="">
+					<input type="number" name="Non_Trucking" class="Business_three" id="Business_three_id"  value="">
 					</div>
 					<div class="col-md-3 input_five_b">
 					<input type="checkbox" name="Brokered_Loads" value="" id="chk_thr" class="chk_three_id">Brokered Loads*<br>
-					<input type="text" name="Brokered_Loads_name" class="Business_three" id="Business_three_id"  value="">
+					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Business_three_id"  value="">
 					</div>
 					<div class="col-md-3 input_six_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Other<br>
-					<input type="text" name="Business_Other" class="Business_three" id="Business_three_id"  value="">
+					<input type="number" name="Business_Other" class="Business_three" id="Business_three_id"  value="">
 					</div>
 					
 					</div>
@@ -1992,30 +1992,32 @@ $handleFunctionsObject = new handleFunctions;
 	<div class="col-sm-4">
 	<div class="row">
 	  <label>Tractor Units<label> 
-	  <input type="text" name="Tractor" value="" id="Tractor_id" class="Tractor_cls">
+	  <input type="number" name="Tractor" value="" id="Tractor_id" class="Tractor_cls">
 		</div>
 		</div>
 		
 		<div class="col-sm-4">
 	<div class="row">
 	  <label>Straight Truck <label> 
-	  <input type="text" name="Straight" value="" id="Straight_id" class="Straight_cls">
+	  <input type="number" name="Straight" value="" id="Straight_id" class="Straight_cls">
 		</div>
 		</div>
 		
 		<div class="col-sm-4">
 	<div class="row">
 	  <label>Reefer Trucks <label> 
-	  <input type="text" name="Reefer" value="" id="Reefer_id" class="Reefer_cls">
+	  <input type="number" name="Reefer" value="" id="Reefer_id" class="Reefer_cls">
 		</div>
 		</div>
-		
+	</div>
+	<div class="col-sm-12">		
 		<div class="col-sm-4">
 	<div class="row">
 	  <label>Tank Trucks <label> 
-	  <input type="text" name="Tank" value="" id="Tank_id" class="Tank_cls">
+	  <input type="number" name="Tank" value="" id="Tank_id" class="Tank_cls">
 		</div>
 		</div>
+		
 		
 		
 		<div class="col-sm-4">
@@ -2025,14 +2027,15 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 		</div>
 		
-		
+	
 		<div class="col-sm-4">
 	<div class="row">
 	  <label>Refrigeration Unit 10 yrs old or less<label> 
 	  <input type="text" name="Refrigeration" value="" id="Refrigeration_id" class="Refrigeration_cls">
 		</div>
 		</div>
-		
+	</div>
+	<div class="col-sm-12">		
 		
 		<div class="col-sm-4">
 	<div class="row">
@@ -2054,8 +2057,9 @@ $handleFunctionsObject = new handleFunctions;
 	  <input type="text" name="Tank_Refrigeration_sec" value="" id="Tank_Refrigeration_id_sec" class="Tank_Refrigeration_cls_sec">
 		</div>
 		</div>
+	</div>
 		
-		
+	<div class="col-sm-12">		
 			<div class="col-sm-4">
 	<div class="row">
 	  <label>Double Trailers<label> 
@@ -2069,24 +2073,26 @@ $handleFunctionsObject = new handleFunctions;
 	  <input type="text" name="Total_Refrigeration_sec" value="" id="Total_Refrigeration_id_sec" class="Total_Refrigeration_cls_sec">
 		</div>
 		</div>
+	<div>
 		
 		<div class="row">
-	  <label>19. Equipment Identification: <label> 
+	  <h2 class="fs-title">Equipment Identification</h2> 
 	 </div>
 	
-		<h2 class="fs-title">Give details of the number of the vehicles for which cargo coverage is required :</h2>
-		 <div>
-	 <label>1 <input type="text"></label>
-	 <label>2<input type="text"></label>
-	 <label>3<input type="text"></label>
-	 <label>4<input type="text"></label>
-	 <label>5<input type="text"></label>
-	 <label>6<input type="text"></label>
-	 <label>7<input type="text"></label>
-	 <label>8<input type="text"></label>
-	 <label>9<input type="text"></label>
-	 <label>10<input type="text"></label>
+		<h3 class="fs-title">Give details of the number of the vehicles for which cargo coverage is required :</h3>
+	<div>
+	 <label>1 <input type="text" name='Equipment_Identification1'></label>
+	 <label>2<input type="text" name='Equipment_Identification2'></label>
+	 <label>3<input type="text" name='Equipment_Identification3'></label>
+	 <label>4<input type="text" name='Equipment_Identification4'></label>
+	 <label>5<input type="text" name='Equipment_Identification5'></label>
+	 <label>6<input type="text" name='Equipment_Identification6'></label>
+	 <label>7<input type="text" name='Equipment_Identification7'></label>
+	 <label>8<input type="text" name='Equipment_Identification8'></label>
+	 <label>9<input type="text" name='Equipment_Identification9'></label>
+	 <label>10<input type="text" name='Equipment_Identification10'></label>
 	 </div>
+		</div>
 		</div>
 	   <div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_CargoFinal action-button" value="Previous" />
@@ -2096,7 +2102,7 @@ $handleFunctionsObject = new handleFunctions;
 	
 	
 	<fieldset class='Seventeen'>
-	<h2 class="fs-title">PDF Data</h2>
+	<h2 class="fs-title">FMCSA </h2>
 	<div class='row main_form'>
 		<div class='col-md-6 left'>
 			<div class='main_field_div'>
@@ -2122,13 +2128,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100">
-					 <label>Posted Date</label>				
-					 <input type="text" name="Posted" value="" class="Posted_one" id="Posted_one">
-					</div>
-
-				</div>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>policy/Surety Number</label>				
