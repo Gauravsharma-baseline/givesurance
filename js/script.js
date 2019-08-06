@@ -427,7 +427,9 @@ $(document).on("click", ".phone_number_next", function(event){
 					$(".dotLi").addClass("active");
 					$(".second").show(); 
 					$(".first").hide();
-				var conatctData=result.contactId;
+				var conatctData=result.conatctData;
+				console.log(conatctData);
+				
 				
 				if(conatctData!=''){
 					
@@ -447,14 +449,15 @@ $(document).on("click", ".phone_number_next", function(event){
 				var Vehiclestable=$('#dtVehiclesTable').DataTable();
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
-						var a=element.DOB_Age_MaritalStatus_Points_LicenceNo;
-					var d=a.split(',');
-					var dob=d[0];
-					var age=d[1];
+					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
+					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
+					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
+					var dob = d[0];
+					var age = d[1];
 					var merital=d[2];
 					var points=d[3];
 					var licence=d[4];
-						
+					
 						
 						drivertable.row.add(
 							[
@@ -474,6 +477,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							points
 							]
 						).draw();
+						};	
 
 					});	
 					}
@@ -692,8 +696,11 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='agent_code'][value='"+result.conatctData.Agent_Code+"']").attr('selected','selected');
 					}
 					
-					$('.Policy_Effective').val(result.conatctData.Policy_Effective_Date);
-					$('#Specify_Commodities_Hauled').val(result.conatctData.Specify_Commodities_Hauled);
+					
+					
+					$('#Policy_Effective').val(result.conatctData.Policy_Effective_Date);
+					
+					$('.Specify_Commodities_Hauled').val(result.conatctData.Specify_Commodities_Hauled);
 					
 					if(result.conatctData.Is_the_customer_currently_insured_with_Progressive!=''){
 					$("input[name='customer_Progressive_Commercial'][value='"+result.conatctData.Is_the_customer_currently_insured_with_Progressive+"']").attr('checked','checked');
@@ -710,10 +717,9 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					if(result.conatctData.Do_you_have_a_DBA!=''){
 					$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
+					$("#DBA_NAME_DIV").hide();
 					}
-					if(result.conatctData.Do_you_have_a_DBA!=''){
-					$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
-					}
+					
 					$("#USDOT_Assigned_to").val(result.conatctData.USDOT_Assigned_to);
 					
 					if(result.conatctData.Does_the_information_assigned_to_this_USDOT_match!=''){
@@ -724,29 +730,38 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("#previous_industry_employment").val(result.conatctData.If_New_Venture_Please_list_previous_industry_emplo);
 					
 					if(result.conatctData.Payment_Options!=''){
-					$("input[name='Payments_Options'][value='"+result.conatctData.Payment_Options+"']").attr('checked','checked');
+						if(result.conatctData.Payment_Options =='Payment in Full' || result.conatctData.Payment_Options=='Financed with GBC'){
+						$("input[name='Payments_Options'][value='"+result.conatctData.Payment_Options+"']").attr('checked','checked');
+						$("#payment_option_value").val(result.conatctData.Payment_Options);
+						}else{
+						$("input[name='Payments_Options'][value='Financed with']").attr('checked','checked');	
+						$("#payment_option_value").val(result.conatctData.Payment_Options);
+						$("#Financed_with").show();
+						}
 					}
 					$("#Insured_first_name").val(result.conatctData.First_Name1);
 					$("#Insured_Middle_name").val(result.conatctData.Middle_Initial);
 					$("#Insured_Last_name").val(result.conatctData.Last_Name1);
 						$("#Insured_DOB").val(result.conatctData.DOB);
 					if(result.conatctData.Suffix!=''){
-					$("input[name='Insured_Suffix'][value='"+result.conatctData.Suffix+"']").attr('selected','selected');
+					$('#Insured_Suffix').val(result.conatctData.Suffix);
 					}
 					
-					$("#Financial_First_name").val(result.conatctData.First_Name1);
+					$("#Financial_First_name").val(result.conatctData.First_Name_Two);
 					$("#Financial_Last_name").val(result.conatctData.Last_Name_Two);
 					$("#Financial_dob").val(result.conatctData.Date_Two);
 					$("#Financial_Home_address").val(result.conatctData.Home_Address);
 					$("#Financial_City").val(result.conatctData.City);
 					$("#Financial_zipcode").val(result.conatctData.ZIP_Code);
-					$("#social_security_number").val(result.conatctData.Social_Security_Number);
-					if(result.conatctData.Suffix_Two!=''){
-					$("input[name='Financial_Suffix'][value='"+result.conatctData.Suffix_Two+"']").attr('selected','selected');
+					$("#Financial_social_security_number").val(result.conatctData.Social_Security_Number);
+					//console.log(conatctData.Suffix_Two);
+					//console.log(conatctData.State);
+					if(result.conatctData.Suffix_Two !=''){
+						$('#Financial_Suffix').val(result.conatctData.Suffix_Two);
 					}
 					
 					if(result.conatctData.State!=''){
-					$("input[name='Financial_State'][value='"+result.conatctData.State+"']").attr('selected','selected');
+					$('#Financial_State').val(result.conatctData.State);
 					}
 					
 					$("#Contact_Insured_phone").val(result.conatctData.Insured_s_Phone);
@@ -756,7 +771,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("#Contact_Insured_ZIP_code").val(result.conatctData.ZIP_Code_Two);
 					
 					if(result.conatctData.State_Two!=''){
-					$("input[name='Contact_Insured_State'][value='"+result.conatctData.State_Two+"']").attr('selected','selected');
+						$('#Contact_Insured_State').val(result.conatctData.State_Two);
+					
 					}
 					
 				}	
@@ -982,16 +998,19 @@ $(".violations_data_next").click(function(event ){
 		var voilationArray={};;
 		 var select_Accident= $("#select_Accident_"+index).val();
 		 var Accident_date=$("#Accident_date_"+index).val();
+		 var Accident_id=$(".tr_violation").attr('data-id');
 		 
-		voilationArray.Accident=	select_Accident;
-		voilationArray.Accident_date=Accident_date;
+		voilationArray.Accident   =	select_Accident;
+		voilationArray.Accident_date = Accident_date;
+		voilationArray.Accident_id = Accident_id;
 		mainarray.push(voilationArray); 
 			 
     }); 
 	
 		var voilationsdata=JSON.stringify(mainarray);
+		console.log(voilationsdata);
 
-	 var contactId=$(".contactId").val();
+	/*  var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -1005,7 +1024,7 @@ $(".violations_data_next").click(function(event ){
 								 
 				
            }
-         }); 
+         });  */
 });
  $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();

@@ -710,12 +710,12 @@ $handleFunctionsObject = new handleFunctions;
 				<input type="text" class="form-control" name="Financial_First_name" placeholder="First Name.." id='Financial_First_name'>
 			</div>
 			</div>	
-			<div class="form-row">
+			<!--div class="form-row">
 				  <div class="form-holder w-100">
 				<label>Middle Initial:</label>
 				<input type="text" class="form-control" name="Financial_Middle_name" placeholder="Middle Initial:.."id='Financial_Middle_name'>
 			</div>
-			</div>		
+			</div-->		
 			<div class="form-row">
 				  <div class="form-holder w-100">	
 				<label>Last Name:</label><input type="text" class="form-control" name="Financial_Last_name" placeholder="Last Name:."id='Financial_Last_name'>
@@ -1822,140 +1822,140 @@ $handleFunctionsObject = new handleFunctions;
 
 	<div class="col-sm-4">
 	<label>Household Goods</label>
-	<input type="text" name="Household_perid_two" class="Household_two" value="" id="Household_id_two">
+	<input type="number" name="Household_perid_two" class="Household_two" value="" id="Household_id_two">
 	</DIV>
 	
 	<div class="col-sm-4">
 	<label>Metal: sheets, coils, rolls</label>
 	
-	<input type="text" name="Household_perid_second" class="Household_second" value="" id="Household_id_second">
+	<input type="number" name="Household_perid_second" class="Household_second" value="" id="Household_id_second">
 	</div>
 	
 	
 	<div class="col-sm-4">
 	<label>Motor Vehicles</label>
-	<input type="text" name="Motor_perid_second" class="Motor_second" value="" id="Motor_id_second">
+	<input type="number" name="Motor_perid_second" class="Motor_second" value="" id="Motor_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Drive/Tow away</label>
-	<input type="text" name="Drive_perid_second" class="Drive_second" value="" id="Drive_id_second">
+	<input type="number" name="Drive_perid_second" class="Drive_second" value="" id="Drive_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Logs, Poles, Bearms, Lumber</label>
-	<input type="text" name="Logs_perid_second" class="Logs_second" value="" id="Logs_id_second">
+	<input type="number" name="Logs_perid_second" class="Logs_second" value="" id="Logs_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Building Materials</label>
-	<input type="text" name="Building_perid_second" class="Building_second" value="" id="Building_id_second">
+	<input type="number" name="Building_perid_second" class="Building_second" value="" id="Building_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Mobile Homes</label>
-	<input type="text" name="Mobile_perid_second" class="Mobile_second" value="" id="Mobile_id_second">
+	<input type="number" name="Mobile_perid_second" class="Mobile_second" value="" id="Mobile_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Machinery, Large Objects</label>
-	<input type="text" name="Machinery_perid_second" class="Machinery_second" value="" id="Machinery_id_second">
+	<input type="number" name="Machinery_perid_second" class="Machinery_second" value="" id="Machinery_id_second">
 	</div>
 		<div class="col-sm-4">
 	<label>US Mail</label>
-	<input type="text" name="US_perid_second" class="US_second" value="" id="US_id_second">
+	<input type="number" name="US_perid_second" class="US_second" value="" id="US_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Oilfield Equipment</label>
-	<input type="text" name="Oilfieldss_second" class="Oilfield_second" value="" id="Oilfield_id_second">
+	<input type="number" name="Oilfieldss_second" class="Oilfield_second" value="" id="Oilfield_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Fresh Produce</label>
-	<input type="text" name="Freshs_second" class="Fresh_second" value="" id="Fresh_id_second">
+	<input type="number" name="Freshs_second" class="Fresh_second" value="" id="Fresh_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Meats</label>
-	<input type="text" name="Meatss_second" class="Meats_second" value="" id="Meats_id_second">
+	<input type="number" name="Meatss_second" class="Meats_second" value="" id="Meats_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Dry Bulk</label>
-	<input type="text" name="Drys_second" class="Dry_second" value="" id="Dry_id_second">
+	<input type="number" name="Drys_second" class="Dry_second" value="" id="Dry_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Intermodal Containers</label>
-	<input type="text" name="Intermodals_second" class="Intermodal_second" value="" id="Intermodal_id_second">
+	<input type="number" name="Intermodals_second" class="Intermodal_second" value="" id="Intermodal_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Refrigerated Food</label>
-	<input type="text" name="Refrigerateds_second" class="Refrigerated_second" value="" id="Refrigerated_id_second">
+	<input type="number" name="Refrigerateds_second" class="Refrigerated_second" value="" id="Refrigerated_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Paper Products</label>
-	<input type="text" name="Papers_second" class="Paper_second" value="" id="Paper_id_second">
+	<input type="number" name="Papers_second" class="Paper_second" value="" id="Paper_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Plastic Products</label>
-	<input type="text" name="Plastics_second" class="Plastic_second" value="" id="Plastic_id_second">
+	<input type="number" name="Plastics_second" class="Plastic_second" value="" id="Plastic_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Beverages</label>
-	<input type="text" name="Beveragess_second" class="Beverages_second" value="" id="Beverages_id_second">
+	<input type="number" name="Beveragess_second" class="Beverages_second" value="" id="Beverages_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Livestock</label>
-	<input type="text" name="Livestocks_second" class="Livestock_second" value="" id="Livestock_id_second">
+	<input type="number" name="Livestocks_second" class="Livestock_second" value="" id="Livestock_id_second">
 	</div>
 		<div class="col-sm-4">
 	<label>Grain, Feed, Hay</label>
-	<input type="text" name="Grainss_second" class="Grain_second" value="" id="Grain_id_second">
+	<input type="number" name="Grainss_second" class="Grain_second" value="" id="Grain_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Liquids/Gases</label>
-	<input type="text" name="Liquidss_second" class="Liquids_second" value="" id="Liquids_id_second">
+	<input type="number" name="Liquidss_second" class="Liquids_second" value="" id="Liquids_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Chemicals</label>
-	<input type="text" name="Chemicalss_second" class="Chemicals_second" value="" id="Chemicals_id_second">
+	<input type="number" name="Chemicalss_second" class="Chemicals_second" value="" id="Chemicals_id_second">
 	</div>
 	
 		<div class="col-sm-4">
 	<label>Garbage/Refuse</label>
-	<input type="text" name="Garbages_second" class="Garbage_second" value="" id="Garbage_id_second">
+	<input type="number" name="Garbages_second" class="Garbage_second" value="" id="Garbage_id_second">
 	</div>
 	
 	
 	
 		<div class="col-sm-4">
 	<label>	Electronics</label>
-	<input type="text" name="Electronicss_second" class="Electronics_second" value="" id="Electronics_id_second">
+	<input type="number" name="Electronicss_second" class="Electronics_second" value="" id="Electronics_id_second">
 	</div>
 		<div class="col-sm-4">
 	<label>Passengers</label>
-	<input type="text" name="Passengerss_second" class="Passengers_second" value="" id="Passengers_id_second">
+	<input type="number" name="Passengerss_second" class="Passengers_second" value="" id="Passengers_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Agricultural/Farm Supplies</label>
-	<input type="text" name="Agriculturals_second" class="Agricultural_second" value="" id="Agricultural_id_second">
+	<input type="number" name="Agriculturals_second" class="Agricultural_second" value="" id="Agricultural_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Sand/Gravel</label>
-	<input type="text" name="Sands_second" class="Sand_second" value="" id="Sand_id_second">
+	<input type="number" name="Sands_second" class="Sand_second" value="" id="Sand_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Department Store Merchandise</label>
-	<input type="text" name="Departments_second" class="Department_second" value="" id="Department_id_second">
+	<input type="number" name="Departments_second" class="Department_second" value="" id="Department_id_second">
 	</div>
 	
 	<div class="col-sm-4">
 	<label>Auto Parts / Tires</label>
-	<input type="text" name="Auto_second" class="Auto_second" value="" id="Auto_id_second">
+	<input type="number" name="Auto_second" class="Auto_second" value="" id="Auto_id_second">
 	</div>
 	<div class="col-sm-4">
 	<label>Other</label>
-	<input type="text" name="Other" class="Other" value="" id="Other_commodities">
+	<input type="number" name="Other" class="Other" value="" id="Other_commodities">
 	</div>
 	
 	

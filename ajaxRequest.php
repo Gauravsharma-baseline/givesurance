@@ -105,21 +105,17 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		}
 	}
 	if(ISSET($_POST['getMcData']) && $_POST['getMcData']=='success'){
-		/* $contacturl = "Contacts/".$_POST['contactId'];
+		 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "Mailing_Address":  "'.$_POST['mailingaddress'].'" ,
-            "ZIP_Code_Two":  "'.$_POST['mailing_Postal'].'" ,
-            "State_Two":  "'.$_POST['mailing_state'].'" ,
-            "City_Two":  "'.$_POST['mailing_city'].'" ,
-            
+            "MC_MX_FF_Number_s":  "'.$_POST['604145'].'" 
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 		
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
-			} */
+			} 
 			echo json_encode($_POST);
 	}
 	if(ISSET($_POST['physical_address']) && $_POST['physical_address']=='success'){
@@ -221,9 +217,25 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+			if(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
-			}else{
+			}elseif (ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
+				$url = "token";
+				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
+				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
+				if(isset($get_new_token['access_token'])){
+					file_put_contents("access_token.txt",$get_new_token['access_token']);
+				}
+				if(isset($get_new_token['refresh_token'])){
+					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
+				}
+				$old_access_token = file_get_contents("access_token.txt");
+				@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+				if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+				}
+			}
+			else{
 				echo 0;
 			} 
 			
@@ -282,7 +294,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				foreach($d as $ddd){
 					$dd=$ddd['accident_violation'];
 				?>
-				<tr id='tr_id_<?php echo $ddd['id'];?>'>
+				<tr id='tr_id_<?php echo $ddd['id'];?>' data-id ='<?php echo $ddd['id'];?>' class='tr_violation'>
 				  <td class="td-padding">
 				  <select id='select_Accident_<?php echo $i;?>'>
 					<option value="AAF" <?php if($dd=='AAF'){echo 'selected';}?>>AAF - At Fault Accident</option>
