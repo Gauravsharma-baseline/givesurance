@@ -870,7 +870,7 @@ $(".first_2_next").click(function(event ){
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
-           dataType: 'json',
+          // dataType: 'json',
            data: ({getMcData: "success", mc: mc,contactId:contactId}),
             success:function(result){
 				$("body").css("cursor", "default");

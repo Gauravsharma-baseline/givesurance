@@ -116,7 +116,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			if($zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
 			} 
-			echo json_encode($_POST);
+		
 	}
 	if(ISSET($_POST['physical_address']) && $_POST['physical_address']=='success'){
 		 $contacturl = "Contacts/".$_POST['contactId'];
