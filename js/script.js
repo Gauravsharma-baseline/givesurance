@@ -421,6 +421,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				else{
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
+				console.log(result.MC);
 				$("#mc_number").val(result.MC);
 				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
@@ -1031,7 +1032,7 @@ $(".violations_data_next").click(function(event ){
 		var voilationsdata=JSON.stringify(mainarray);
 		console.log(voilationsdata);
 
-	/*  var contactId=$(".contactId").val();
+	 var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -1045,7 +1046,7 @@ $(".violations_data_next").click(function(event ){
 								 
 				
            }
-         });  */
+         });  
 });
  $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
