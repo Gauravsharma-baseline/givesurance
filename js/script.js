@@ -421,7 +421,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				else{
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
-				$(".mc").val(result.MC);
+				$("#mc_number").val(result.MC);
 				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
 					$(".dotLi").addClass("active");
