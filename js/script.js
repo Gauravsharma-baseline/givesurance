@@ -1843,6 +1843,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 					var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
+					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){	
 						var a=element.DOB_Age_MaritalStatus_Points_LicenceNo;
 					var d=a.split(',');
 					var dob=d[0];
@@ -1870,7 +1871,9 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 							]
 						).draw();
 
-					});	
+					}
+					
+					})
 					}
 					}
 				$('#Driver_Edit_modal').modal('toggle');			 
