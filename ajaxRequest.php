@@ -331,7 +331,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				</td>
 				 <td class="text-center td-padding"> <input type="text" value="<?php echo $ddd['date'];?>" placeholder="" class='datepicker' id='Accident_date_<?php echo $i;?>'>				
 					</td>
-				  <td class="td-padding"><td class='td-padding'><button class='delete_voilation btn' data-id="<?php echo $i;?>" data-contact_id='<?php echo $ddd['id'];?>' type='button'>Delete</button></td>
+				  <td class='td-padding'><button class='delete_voilation btn' data-id="<?php echo $i;?>" data-contact_id='<?php echo $ddd['id'];?>' type='button'>Delete</button></td>
 				</tr>
 				
 				
