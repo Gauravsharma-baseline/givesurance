@@ -807,13 +807,15 @@ $(".dot_number_next").click(function(event ){
 	var checkType=$(".checkType").val();
 	var check_id_dot_already= $(".dot").val();
 	var searchedNumber=$(".searchedNumber").val();
+	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
 	if(searchedNumber==''){
 		event.preventDefault();
-		$(".searchedNumber").addClass('is-invalid');
+		$("#mc_number").addClass('is-invalid');
 	}else{
-	$(".searchedNumber").removeClass('is-invalid');
+	$("#mc_number").removeClass('is-invalid');
 	$("body").css("cursor", "progress");
+	if(mc_number==''){
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -824,9 +826,9 @@ $(".dot_number_next").click(function(event ){
 				$("body").css("cursor", "default");
               if(result==0){
 				event.preventDefault();
-				$(".searchedNumber").addClass('is-invalid'); 
+				$("#mc_number").addClass('is-invalid'); 
 				}else{
-					$(".mc").val(result.mc_mx_ff_nmumber);
+					$("#mc_number").val(result.mc_mx_ff_nmumber);
 					/* $(".mailing_address").val(result.mailing_address);
 					$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
@@ -859,7 +861,23 @@ $(".dot_number_next").click(function(event ){
            }
          });
 	
-	 
+		}else{
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+          // dataType: 'json',
+           data: ({getMcData: "success", mc: mc_number,contactId:contactId}),
+            success:function(result){
+				$("body").css("cursor", "default");
+					$(".dotLi").removeClass("active");
+					$(".MCLi").addClass("active");
+					$(".second").hide();
+					$(".first_2").show(); 
+					
+				}
+		 });
+		}
+		
 	}
 });
 $(".first_2_next").click(function(event ){
