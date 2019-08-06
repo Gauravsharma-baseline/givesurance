@@ -552,7 +552,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Single_Line_43":  "'.$form_data['Livestocks_second'].'" ,
             "Single_Line_40":  "'.$form_data['Agriculturals_second'].'" ,
             "Single_Line_41":  "'.$form_data['Liquidss_second'].'", 
-            "Logs_Poles_Beams_Lumber":  "'.$form_data['Logs_perid_second'].'", 
+            "Logs_Poles_Beams_Lumber":  "'.$form_data['Logs_id_second'].'", 
             "Single_Line_37":  "'.$form_data['Garbages_second'].'", 
             "Single_Line_50":  "'.$form_data['Meatss_second'].'", 
             "Sand_Gravel":  "'.$form_data['Sands_second'].'", 
@@ -563,6 +563,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Oilfield_Equipment":  "'.$form_data['Oilfieldss_second'].'", 
             "Single_Line_38":  "'.$form_data['Electronicss_second'].'", 
             "Others":  "'.$form_data['Other'].'" 
+            
             
 			}]}'; 
 			

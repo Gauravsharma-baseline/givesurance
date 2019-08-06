@@ -2365,7 +2365,7 @@ $handleFunctionsObject = new handleFunctions;
 							
 							<div class="form-group">
 								<label for="username" class="control-label">Commercial Driver's License (CDL)</label>
-								<select name="new_driver_commercial_" id="new_driver_commercial_" class='form-control'>
+								<select name="new_driver_commercial" id="new_driver_commercial" class='form-control'>
 										<option selected="selected" value="No">No</option>
 										<option value="Yes">Yes</option>
 
@@ -2490,7 +2490,7 @@ $handleFunctionsObject = new handleFunctions;
 					  </div>
 					<div class="form-group">
 					  <label for="username" class="control-label">License State</label>
-					  <select name='edit_driver_license_state' class='form-control'>
+					  <select name='edit_driver_license_state' class='form-control' id='edit_driver_license_state'>
 						<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
