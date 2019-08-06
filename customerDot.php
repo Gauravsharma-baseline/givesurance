@@ -64,7 +64,7 @@ $handleFunctionsObject = new handleFunctions;
 	<fieldset class='first_2'>
 		<h2 class="fs-title">Enter MC</h2>
 		<h3 class="fs-subtitle"></h3>
-		<input type="text" name="searchedNumber" placeholder="Enter MC Number" class="mc" />
+		<input type="text" name="mc_number" placeholder="Enter MC Number" class="mc" id='mc_number' />
 		<input type="button" name="previous" class="previous_first_2 action-button" value="Previous" />
 		<input type="button" name="next" class="action-button first_2_next" value="Next" />
 	</fieldset>

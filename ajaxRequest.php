@@ -108,7 +108,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "MC_MX_FF_Number_s":  "'.$_POST['604145'].'" 
+            "MC_MX_FF_Number_s":  "'.$_POST['mc'].'" 
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);

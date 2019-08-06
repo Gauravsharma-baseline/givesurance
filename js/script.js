@@ -864,7 +864,7 @@ $(".dot_number_next").click(function(event ){
 $(".first_2_next").click(function(event ){
 	//var checkType=$(".checkType").val();
 	//var check_id_dot_already= $(".dot").val();
-	var mc=$(".mc").val();
+	var mc=$("#mc_number").val();
 	var contactId=$(".contactId").val();
 	$("body").css("cursor", "progress");
 		 $.ajax({
