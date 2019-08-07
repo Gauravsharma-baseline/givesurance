@@ -80,7 +80,13 @@ $(".previous_Underwriting").click(function(){
 				$(".underwritingLI ").removeClass("active");
 				$(".violationsLI").addClass("active");
 				$(".ninth").show(); 
-				$(".tenth").hide();		 
+				$(".tenth").hide();		
+				$("#Violation_Table .datepicker").datepicker({
+							changeMonth: true,
+							changeYear: true,
+							showButtonPanel: true,
+							dateFormat: 'mm/dd/yy'
+						});
 				
            }
          });
@@ -282,7 +288,13 @@ $(".violationsLI").click(function(){
 					$("#progressbar li").removeClass("active");
 					$(".violationsLI").addClass("active");
 					$("fieldset").hide();
-					$(".ninth").show(); 			 
+					$(".ninth").show(); 
+					$("#Violation_Table .datepicker").datepicker({
+							changeMonth: true,
+							changeYear: true,
+							showButtonPanel: true,
+							dateFormat: 'mm/dd/yy'
+						});						
 				
            }
          });		
