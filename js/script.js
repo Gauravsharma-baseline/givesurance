@@ -1428,7 +1428,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 					var Vehiclestable=$('#dtDriverTable').DataTable();
 						Vehiclestable.row.add(
 							[
-							index+1,
+							index,
 							"<button class='edit_drivers btn' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							result.Name1,
 							age,
