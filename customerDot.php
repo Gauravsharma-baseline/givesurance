@@ -287,7 +287,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
-					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective'>
+					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective' placeholder='<?php echo date('m/d/Y');?>'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -546,7 +546,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100 ">
 						<label>Suffix:</label>
 						<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
-						  <option value="none">--None--</option>
+						  <option selected value="none">--None--</option>
 						  <option value="jr">jr</option>
 						  <option value="Sr">Sr</option>
 						  <option value="|">|</option>
@@ -559,7 +559,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>'>
+					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
 					<label>Designate Spouse as a Named Insured?</label>
 					<div class='radio'>
 						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
@@ -601,7 +601,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' <?php echo date('m/d/Y');?>>
+					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
 					
 					</div>
 				</div>
@@ -725,7 +725,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-holder w-100 ">
 				<label>Suffix:</label>
 					<select class="form-control" id='Financial_Suffix' name='Financial_Suffix'>
-						<option value="none">--None--</option>
+						<option selected value="none">--None--</option>
 						<option value="jr">jr</option>
 						<option value="Sr">Sr</option>
 						<option value="|">|</option>
@@ -753,7 +753,7 @@ $handleFunctionsObject = new handleFunctions;
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 				<label>Date of Birth:</label>
-				<input type="text" class="form-control datepicker" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob'>
+				<input type="text" class="form-control datepicker" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob' placeholder='<?php echo date('m/d/Y');?>'>
 				</div>
 			</div>	
 			<div class="form-row">	
@@ -979,7 +979,7 @@ $handleFunctionsObject = new handleFunctions;
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('m/d/Y');?>' placeholder='' class='datepicker'  id='Accident_date_0'>				
+				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('m/d/Y');?> 'placeholder='<?php echo date('m/d/Y');?>' class='datepicker'  id='Accident_date_0'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 
@@ -1127,13 +1127,13 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Effective Date:</label>
-						<input type="text" class="form-control datepicker current_policy_Effective_date" name="current_policy_Effective_date" value="<?php echo date("m/d/Y");?>" >
+						<input type="text" class="form-control datepicker current_policy_Effective_date" name="current_policy_Effective_date" value="<?php echo date("m/d/Y");?>" placeholder='<?php echo date('m/d/Y');?>' >
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Expiration Date:</label>
-						<input type="text" class="form-control datepicker current_policy_Expiration_date " name="current_policy_Expiration_date" value="<?php echo date("m/d/Y");?>" >
+						<input type="text" class="form-control datepicker current_policy_Expiration_date " name="current_policy_Expiration_date" value="<?php echo date("m/d/Y");?>" placeholder='<?php echo date('m/d/Y');?>'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -2268,7 +2268,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Date of Birth/Age</label>
-						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob' placeholder='select date'>
+						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'  placeholder='<?php echo date('m/d/Y');?>'>
 					
 					</div>
 					<div class="form-group">
@@ -2379,7 +2379,7 @@ $handleFunctionsObject = new handleFunctions;
 							</div>
 							<div class="form-group">
 							<label for="username" class="control-label">Date of Hire</label>
-							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date' placeholder='Select Date'>
+							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date' placeholder='Select Date' placeholder='<?php echo date('m/d/Y');?>'>
 					
 							</div>
 							<div class="form-group">

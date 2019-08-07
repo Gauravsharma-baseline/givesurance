@@ -462,6 +462,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				var Vehiclestable=$('#dtVehiclesTable').DataTable();
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
+						var i=index+1;
 					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
 					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
 					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
@@ -474,7 +475,7 @@ $(document).on("click", ".phone_number_next", function(event){
 						
 						drivertable.row.add(
 							[
-							index,
+							i,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
@@ -496,11 +497,11 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					if(Vehiclesdata!=''){
 					$.each(Vehiclesdata, function(index, element) {
-						
-
+						var i=index+1;
+							
 						Vehiclestable.row.add(
 							[
-							index,
+							i,
 							"<button id='edit_vehicles' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#vehicle_Edit_modal'>Edit</button>",
 							element.Year_Make_Model1,
 							element.VIN,
@@ -1427,7 +1428,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 					var Vehiclestable=$('#dtDriverTable').DataTable();
 						Vehiclestable.row.add(
 							[
-							index,
+							index+1,
 							"<button class='edit_drivers btn' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							result.Name1,
 							age,
@@ -1910,7 +1911,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 						
 						drivertable.row.add(
 							[
-							index,
+							index+1,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
