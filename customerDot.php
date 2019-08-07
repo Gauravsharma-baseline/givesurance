@@ -287,7 +287,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
-					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('Y-m-d');?>" id='Policy_Effective' name='Policy_Effective'>
+					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -559,7 +559,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('Y-m-d');?>'>
+					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>'>
 					<label>Designate Spouse as a Named Insured?</label>
 					<div class='radio'>
 						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
@@ -601,7 +601,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' <?php echo date('Y-m-d');?>>
+					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' <?php echo date('m/d/Y');?>>
 					
 					</div>
 				</div>

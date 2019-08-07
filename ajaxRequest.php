@@ -178,7 +178,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			  $Contactdata = '{
 			"data": [{
             "Agent_Code":  "'.$form_data['agent_code'].'" ,
-            "Policy_Effective_Date":  "'.$form_data['Policy_Effective'].'" ,
+            "Policy_Effective_Date":  "'. date("Y-m-d", strtotime($form_data['Policy_Effective'])).'" ,
             "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
             "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
             "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
@@ -186,7 +186,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
             "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
             "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
-			"DOB":  "'.$form_data['Insured_DOB'].'" ,
+			"DOB":  "'.date("Y-m-d", strtotime($form_data['Insured_DOB'])).'" ,
             "Last_Name1":  "'.$form_data['Insured_Last_name'].'" ,
             "Suffix":  "'.$form_data['Insured_Suffix'].'" ,
             "First_Name_Two":  "'.$form_data['Financial_First_name'].'" ,
@@ -208,7 +208,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "ZIP_Code_Two":  "'.$form_data['Contact_Insured_ZIP_code'].'" ,
             "City_Two":  "'.$form_data['Contact_Insured_City'].'", 
             "E_mail_Address":  "'.$form_data['Contact_Insured_email'].'", 
-            "Date_Two":  "'.$form_data['Financial_dob'].'" ,
+            "Date_Two":  "'.date("Y-m-d", strtotime($form_data['Financial_dob'])).'" ,
             "Yrs_in_Trucking_Industry":  "'.$form_data['Yrs_in_Trucking_Industry'].'" ,
             "Yrs_in_business":  "'.$form_data['Yrs_in_business'].'" ,
             "If_New_Venture_Please_list_previous_industry_emplo":  "'.$form_data['previous_industry_employment'].'" ,
@@ -339,7 +339,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			$i++;	
 			}
 			}else{?>
-				<tr>
+				<tr id='tr_id_0'>
 				  <td class="td-padding">
 				  <select id="select_Accident_0">
 					<option selected="selected" value=""></option>
@@ -375,7 +375,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="2019-08-03" placeholder="" class="datepicker" id="Accident_date_0">				
+				 <td class="text-center td-padding"> <input type="text" value="<?php echo date('m/d/Y');?>" placeholder="" class="datepicker" id="Accident_date_0">				
 					</td>
 				  <td class="td-padding"></td>
 				</tr>
@@ -396,9 +396,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		if($form_data){
 			foreach($form_data as $d){
 				if(isset($d['Accident_id']) && $d['Accident_id']!=''){
-				$d= $handleFunctionsObject->updateviolation($_POST['contactId'],trim($d['Accident_id']),trim($d['Accident_date']),trim($d['Accident']));	
+				$d= $handleFunctionsObject->updateviolation($_POST['contactId'],trim($d['Accident_id']),date("Y-m-d", strtotime($d['Accident_date'])),trim($d['Accident']));	
 				}elseif(!empty($d['Accident']) && $d['Accident_date']){
-				$d= $handleFunctionsObject->insertviolation($_POST['contactId'],trim($d['Accident']),trim($d['Accident_date']));
+				$d= $handleFunctionsObject->insertviolation($_POST['contactId'],trim($d['Accident']),date("Y-m-d", strtotime($d['Accident_date'])));
 				}
 			}
 			
@@ -610,7 +610,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			"data": [{
             "Form":  "'.$form_data['Form'].'" ,
             "Type":  "'.$form_data['Type'].'" ,
-            "Posted_Date":  "'.$form_data['Posted'].'" ,  
+            "Posted_Date":  "'.date("Y-m-d", strtotime($form_data['Posted'])).'" ,  
             "Coverage_From":  "'.$form_data['Coverage'].'" ,
             "To":  "'.$form_data['To'].'" ,
             "Cancellation_Date":  "'.$form_data['Cancellation'].'" ,
@@ -662,7 +662,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		$driverDOb=date("Y-m-d", strtotime($form_data['new_driver_dob']));
 		$merital_status=$form_data['new_driver_marital_status'];
 		$new_driver_Exp=$form_data['new_driver_Exp'];
-		$Date_of_Hire=$form_data['new_driver_hire_date'];
+		$Date_of_Hire=date("Y-m-d", strtotime($form_data['new_driver_hire_date']));
 		$points=$form_data['new_driver_points'];
 		$Owner_Driver=$form_data['add_driver_Owner'];
 		$add_driver_Backup=$form_data['add_driver_Backup'];
@@ -700,7 +700,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		$driverDOb=date("Y-m-d", strtotime($form_data['edit_driver_dob']));
 		$merital_status=$form_data['edit_driver_marital_status'];
 		$new_driver_Exp=$form_data['edit_driver_Exp'];
-		$Date_of_Hire=$form_data['edit_driver_hire_date'];
+		$Date_of_Hire=date("Y-m-d", strtotime($form_data['edit_driver_hire_date']));
 		$points=$form_data['edit_driver_points'];
 		$Owner_Driver=$form_data['edit_driver_Owner'];
 		$add_driver_Backup=$form_data['edit_driver_Backup'];
