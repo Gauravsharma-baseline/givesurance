@@ -329,7 +329,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR" <?php if($dd=='WSR'){echo 'selected';}?>>WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="<?php echo $ddd['date'];?>" placeholder="" class='datepicker' id='Accident_date_<?php echo $i;?>'>				
+				 <td class="text-center td-padding"> <input type="text" value="<?php echo  date("m/d/Y", strtotime($ddd['date']));?>" placeholder="" class='datepicker' id='Accident_date_<?php echo $i;?>'>				
 					</td>
 				  <td class='td-padding'><button class='delete_voilation btn' data-id="<?php echo $i;?>" data-contact_id='<?php echo $ddd['id'];?>' type='button'>Delete</button></td>
 				</tr>
@@ -375,7 +375,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="<?php echo date('m/d/Y');?>" placeholder="" class="datepicker" id="Accident_date_0">				
+				 <td class="text-center td-padding"> <input type="text" value="<?php echo date('m/d/Y');?>" placeholder="<?php echo date('m/d/Y');?>" class="datepicker" id="Accident_date_0">				
 					</td>
 				  <td class="td-padding"></td>
 				</tr>

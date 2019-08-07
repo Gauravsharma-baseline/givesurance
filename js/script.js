@@ -466,7 +466,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
 					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
 					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
-					var dob = d[0];
+					var dob = moment(d[0]).format('MM/DD/YYYY');
 					var age = d[1];
 					var merital=d[2];
 					var points=d[3];
@@ -477,6 +477,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							[
 							i,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
 							dob,
@@ -484,8 +485,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							licence,
 							element.License_State,
 							element.Experience_Years,
-							element.Hire_Date,
-							element.Back_up_Driver,
+							moment(element.Hire_Date).format('MM/DD/YYYY'),
 							element.Owner_Driver,
 							element.SR22,
 							points
@@ -730,7 +730,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					
 					
 					
-					$('#Policy_Effective').val(result.conatctData.Policy_Effective_Date);
+					$('#Policy_Effective').val(moment(result.conatctData.Policy_Effective_Date).format('MM/DD/YYYY'));
 					
 					$('.Specify_Commodities_Hauled').val(result.conatctData.Specify_Commodities_Hauled);
 					
@@ -774,14 +774,14 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("#Insured_first_name").val(result.conatctData.First_Name1);
 					$("#Insured_Middle_name").val(result.conatctData.Middle_Initial);
 					$("#Insured_Last_name").val(result.conatctData.Last_Name1);
-						$("#Insured_DOB").val(result.conatctData.DOB);
+						$("#Insured_DOB").val(moment(result.conatctData.DOB).format('MM/DD/YYYY'));
 					if(result.conatctData.Suffix!=''){
 					$('#Insured_Suffix').val(result.conatctData.Suffix);
 					}
 					
 					$("#Financial_First_name").val(result.conatctData.First_Name_Two);
 					$("#Financial_Last_name").val(result.conatctData.Last_Name_Two);
-					$("#Financial_dob").val(result.conatctData.Date_Two);
+					$("#Financial_dob").val(moment(result.conatctData.Date_Two).format('MM/DD/YYYY'));
 					$("#Financial_Home_address").val(result.conatctData.Home_Address);
 					$("#Financial_City").val(result.conatctData.City);
 					$("#Financial_zipcode").val(result.conatctData.ZIP_Code);
@@ -1038,7 +1038,12 @@ $(".drivers_data_next").click(function(event ){
 					$(".eigth").hide();
 					$(".ninth").show(); 
 					 $('#Violation_Table tbody').html(result); 
-								 
+						$("#Violation_Table .datepicker").datepicker({
+							changeMonth: true,
+							changeYear: true,
+							showButtonPanel: true,
+							dateFormat: 'mm/dd/yy'
+						});		 
 				
            }
          });
@@ -1762,7 +1767,7 @@ $(document).on("click", "#voilation_add", function(event){
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'mm/dd/yy',
 		});
     
 });
@@ -1832,7 +1837,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_first").val()==''){
 		 d=0;
 			event.preventDefault();
-			$("#edit_driver_first").editClass('is-invalid');
+			$("#edit_driver_first").addClass('is-invalid');
 	}else{
 		 d=1;
 		 $("#edit_driver_first").removeClass('is-invalid');
@@ -1840,7 +1845,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_last").val()==''){
 		 d=0;
 			event.preventDefault();
-			$("#edit_driver_last").editClass('is-invalid');
+			$("#edit_driver_last").addClass('is-invalid');
 	}else{
 		d=1;
 		$("#edit_driver_last").removeClass('is-invalid');
@@ -1848,7 +1853,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_dob").val()==''){
 		d=0;
 			event.preventDefault();
-			$("#edit_driver_dob").editClass('is-invalid');
+			$("#edit_driver_dob").addClass('is-invalid');
 	}else{
 		d=1;
 		 $("#edit_driver_dob").removeClass('is-invalid');
@@ -1857,7 +1862,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_licence").val()==''){
 		d=0;
 			event.preventDefault();
-			$("#edit_driver_licence").editClass('is-invalid');
+			$("#edit_driver_licence").addClass('is-invalid');
 	}else{
 		d=1;
 		 $("#edit_driver_licence").removeClass('is-invalid');
@@ -1865,7 +1870,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_Exp").val()==''){
 		d=0;
 			event.preventDefault();
-			$("#edit_driver_Exp").editClass('is-invalid');
+			$("#edit_driver_Exp").addClass('is-invalid');
 	}else{
 		d=1;
 		 $("#edit_driver_Exp").removeClass('is-invalid');
@@ -1873,7 +1878,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if($("#edit_driver_hire_date").val()==''){
 		d=0;
 			event.preventDefault();
-			$("#edit_driver_hire_date").editClass('is-invalid');
+			$("#edit_driver_hire_date").addClass('is-invalid');
 	}else{
 		d=1;
 		 $("#edit_driver_hire_date").removeClass('is-invalid');
@@ -1902,7 +1907,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
 					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
 					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
-					var dob = d[0];
+					var dob = moment(d[0]).format('MM/DD/YYYY');
 					var age = d[1];
 					var merital=d[2];
 					var points=d[3];
@@ -1920,7 +1925,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 							licence,
 							element.License_State,
 							element.Experience_Years,
-							element.Hire_Date,
+							moment(element.Hire_Date).format('MM/DD/YYYY'),
 							element.Back_up_Driver,
 							element.Owner_Driver,
 							element.SR22,
