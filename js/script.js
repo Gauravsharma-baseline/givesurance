@@ -68,12 +68,24 @@ $(".previous_violations").click(function(){
 });
 
 $(".previous_Underwriting").click(function(){
-	$(".underwritingLI ").removeClass("active");
-	$(".violationsLI").addClass("active");
-	$(".ninth").show(); 
-	$(".tenth").hide();
-		
+	var contactId=$(".contactId").val();
+	$("body").css("cursor", "progress");
+	 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           //dataType: 'json',
+           data: ({drivers_data_next: "success",contactId:contactId}),
+            success:function(result){
+				$("body").css("cursor", "default");
+				$(".underwritingLI ").removeClass("active");
+				$(".violationsLI").addClass("active");
+				$(".ninth").show(); 
+				$(".tenth").hide();		 
+				
+           }
+         });
 });
+
 $(".previous_Coverage_Limit_Information").click(function(){
 	$(".CoverageLI").removeClass("active");
 	$(".underwritingLI").addClass("active");
@@ -1034,12 +1046,12 @@ $(".violations_data_next").click(function(event ){
 	
 	var mainarray=[];
 	 $("#Violation_Table tbody").find("tr").each(function (index, element) {
-		 console.log(index);
+		
 		var voilationArray={};;
 		 var select_Accident= $("#select_Accident_"+index).val();
 		 var Accident_date=$("#Accident_date_"+index).val();
-		 var Accident_id=$(".tr_violation").attr('data-id');
-		 
+		 var Accident_id=$("#tr_id_"+index).attr('data-id');
+		 console.log(Accident_id);
 		voilationArray.Accident   =	select_Accident;
 		voilationArray.Accident_date = Accident_date;
 		voilationArray.Accident_id = Accident_id;
@@ -1064,7 +1076,7 @@ $(".violations_data_next").click(function(event ){
 								 
 				
            }
-         });  
+         });   
 });
  $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
@@ -1756,6 +1768,7 @@ $(document).on("click", "#voilation_add", function(event){
 
 $('#Violation_Table').on('click', '.delete_voilation', function(){
 	var id = $(this).attr("data-contact_id");
+	var id2 = $(this).attr("data-id");
 	var contactId=$(".contactId").val();
 		 $.ajax({
             url:"ajaxRequest.php", 
@@ -1764,7 +1777,7 @@ $('#Violation_Table').on('click', '.delete_voilation', function(){
            data: ({delete_voilation_next: "success",contactId:contactId,violation_id:id}),
             success:function(result){
 				if(result==1){
-					$("#tr_id_"+id).remove(); 
+					$("#tr_id_"+id2).remove(); 
 								 
 				}
            }
@@ -2162,7 +2175,7 @@ $(".datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'mm/dd/yy',
 	});
 
 

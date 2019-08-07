@@ -257,7 +257,26 @@
 		pg_close($conn);
 		return $response;
 		
-	} 
+	}
+	function updateviolation($contact_id,$Accident_id,$Accident_date,$Accident){
+		$conn = $this->pgConnect();
+		$query =  "update  public.violation SET accident_violation='".$Accident."', date='".$Accident_date."' where id=$Accident_id";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		
+		if($rs){
+			
+			 $response=1;
+			
+			
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	}	
 	function deleteviolation($violationId){
 		$conn = $this->pgConnect();
 		$query =  "Delete  FROM public.violation where id=$violationId";	

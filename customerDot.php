@@ -904,7 +904,7 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-center td-padding">Name</td>
 				  <td class="text-right">Age</td>
 				  <td class="text-right">Date Of Birth</td>
-				  <td class="text-right">Mertial Status</td>
+				  <td class="text-right">Marital Status</td>
 				  <td class="text-right">License Number</td>
 				  <td class="text-right">License State</td>
 				  <td class="text-right">Years of Class A Exp</td>
@@ -928,7 +928,7 @@ $handleFunctionsObject = new handleFunctions;
 </div>
 </fieldset>
 <fieldset class='ninth'>
-<h2 class="fs-title">Voilations</h2>
+<h2 class="fs-title">Violations</h2>
 <div class='infoDiv'>Enter all accidents (both at fault and not at fault) and violations for the last 35 months. If date of accident or violation is unknown, please leave the date blank, our systems will reconcile.</div>
 <h3 class="fs-subtitle"></h3>
 	<div class='main_form'>
@@ -979,7 +979,7 @@ $handleFunctionsObject = new handleFunctions;
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('Y-m-d');?>' placeholder='' class='datepicker'  id='Accident_date_0'>				
+				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('m/d/Y');?>' placeholder='' class='datepicker'  id='Accident_date_0'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 
@@ -1127,13 +1127,13 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Effective Date:</label>
-						<input type="text" class="form-control datepicker current_policy_Effective_date" name="current_policy_Effective_date" value="<?php echo date("y-m-d");?>" >
+						<input type="text" class="form-control datepicker current_policy_Effective_date" name="current_policy_Effective_date" value="<?php echo date("m/d/Y");?>" >
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Current Policy Expiration Date:</label>
-						<input type="text" class="form-control datepicker current_policy_Expiration_date " name="current_policy_Expiration_date" value="<?php echo date("y-m-d");?>" >
+						<input type="text" class="form-control datepicker current_policy_Expiration_date " name="current_policy_Expiration_date" value="<?php echo date("m/d/Y");?>" >
 					</div>
 				</div>
 				<div class="form-row">
@@ -1300,7 +1300,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>How often are MVRs reviewed?</label>
 					
-						<input type="text" name="MVRs_reviewed" class="MVRs_reviewed" id='MVRs_reviewed'/ value='Annually '>
+						<input type="text" name="MVRs_reviewed" class="MVRs_reviewed" id='MVRs_reviewed' value='Annually '>
 					</div>
 				</div>
 				
@@ -2268,7 +2268,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Date of Birth/Age</label>
-						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'>
+						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob' placeholder='select date'>
 					
 					</div>
 					<div class="form-group">
@@ -2379,7 +2379,7 @@ $handleFunctionsObject = new handleFunctions;
 							</div>
 							<div class="form-group">
 							<label for="username" class="control-label">Date of Hire</label>
-							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date'>
+							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date' placeholder='Select Date'>
 					
 							</div>
 							<div class="form-group">
@@ -2582,7 +2582,7 @@ $handleFunctionsObject = new handleFunctions;
 							</div>
 							<div class="form-group">
 							<label for="username" class="control-label">Date of Hire</label>
-							<input type="text" class="form-control datepicker" name="edit_driver_hire_date" id='edit_driver_hire_date'>
+							<input type="text" class="form-control datepicker" name="edit_driver_hire_date" id='edit_driver_hire_date' placeholder='Select Date'>
 					
 							</div>
 							<div class="form-group">

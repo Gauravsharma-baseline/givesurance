@@ -294,7 +294,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				foreach($d as $ddd){
 					$dd=$ddd['accident_violation'];
 				?>
-				<tr id='tr_id_<?php echo $ddd['id'];?>' data-id ='<?php echo $ddd['id'];?>' class='tr_violation'>
+				<tr id='tr_id_<?php echo $i;?>' data-id ='<?php echo $ddd['id'];?>' class='tr_violation'>
 				  <td class="td-padding">
 				  <select id='select_Accident_<?php echo $i;?>'>
 					<option value="AAF" <?php if($dd=='AAF'){echo 'selected';}?>>AAF - At Fault Accident</option>
@@ -375,7 +375,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="2019-08-03" placeholder="" class="datepicker hasDatepicker" id="Accident_date_0">				
+				 <td class="text-center td-padding"> <input type="text" value="2019-08-03" placeholder="" class="datepicker" id="Accident_date_0">				
 					</td>
 				  <td class="td-padding"></td>
 				</tr>
@@ -395,8 +395,11 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		 echo '</pre>'; */
 		if($form_data){
 			foreach($form_data as $d){
+				if(isset($d['Accident_id']) && $d['Accident_id']!=''){
+				$d= $handleFunctionsObject->updateviolation($_POST['contactId'],trim($d['Accident_id']),trim($d['Accident_date']),trim($d['Accident']));	
+				}elseif(!empty($d['Accident']) && $d['Accident_date']){
 				$d= $handleFunctionsObject->insertviolation($_POST['contactId'],trim($d['Accident']),trim($d['Accident_date']));
-				
+				}
 			}
 			
 			if($d==1){
