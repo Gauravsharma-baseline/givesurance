@@ -471,12 +471,11 @@ $(document).on("click", ".phone_number_next", function(event){
 					var merital=d[2];
 					var points=d[3];
 					var licence=d[4];
-					
+					;
 						
 						drivertable.row.add(
 							[
 							i,
-							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
@@ -486,6 +485,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.License_State,
 							element.Experience_Years,
 							moment(element.Hire_Date).format('MM/DD/YYYY'),
+							element.Back_up_Driver,
 							element.Owner_Driver,
 							element.SR22,
 							points
@@ -1460,7 +1460,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 });
 
  
-$(document).on("change", "#C2VehicleDetails_year", function(event){
+$(document).on("change", "#C2VehicleDetails_year,#C2VehicleDetails_year_edit", function(event){
 var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
 var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
 	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
@@ -1512,8 +1512,9 @@ var vehicle_type=$(this).data("id");
 $(document).on("change", "#C2VehicleDetails_category", function(event){
 var vehicle_cat=$(this).find(':selected').attr('data-id');
 var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
+
 var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
-			$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+			$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 			$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 			$.ajax({
@@ -1530,24 +1531,26 @@ var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('da
 					}else{
 						$("#category_sub").hide();	
 						$("#C2VehicleDetails_subcategory").html('<option value=""></option>');
-						if(C2VehicleDetails_year ==''){
+						if(C2VehicleDetails_year){
+							console.log('empty');
 							$.ajax({
 								url:"ajaxRequest.php", 
 								type: "POST", 
 							   data: ({get_year: "success",vehicle_cat:vehicle_cat}),
 								success:function(result){
-									$("#C2VehicleDetails_year").html(result);
-									$("#C2VehicleDetails_make").html('<option value=""></option>');
-									$("#C2VehicleDetails_model").html('<option value=""></option>');
+								$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html(result);
+								$("#edit_vehicle #C2VehicleDetails_make, #vehiles_add_modal #C2VehicleDetails_make").html('<option value=""></option>');
+									$("#edit_vehicle #C2VehicleDetails_model, #vehiles_add_modal #C2VehicleDetails_model").html('<option value=""></option>');
 								}
 							})
 						}else{
+							console.log('not empty');
 							$.ajax({
 								url:"ajaxRequest.php", 
 								type: "POST", 
 							   data: ({get_year: "success",vehicle_cat:vehicle_cat,vehicle_year:C2VehicleDetails_year}),
 								success:function(result){
-									$("#C2VehicleDetails_year").html(result);
+									$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html(result);
 									$("#C2VehicleDetails_make").html('<option value=""></option>');
 									$("#C2VehicleDetails_model").html('<option value=""></option>');
 									$.ajax({
@@ -2185,7 +2188,41 @@ $(".datepicker").datepicker({
 	});
 
 
+$(document).on("click", ".edit_vehicles", function(event){
+var id = $(this).attr("data-id") ;
+var name = $(this).closest("tr").find('td:eq(2)').text();
+var dob = $(this).closest("tr").find('td:eq(4)').text();
+var marital = $(this).closest("tr").find('td:eq(5)').text();
+var licence = $(this).closest("tr").find('td:eq(6)').text();
+var licence_state = $(this).closest("tr").find('td:eq(7)').text();
+var exp = $(this).closest("tr").find('td:eq(8)').text();
+var hiredate = $(this).closest("tr").find('td:eq(9)').text();
+var backup_driver = $(this).closest("tr").find('td:eq(10)').text();
+var owner = $(this).closest("tr").find('td:eq(11)').text();
+var sr22 = $(this).closest("tr").find('td:eq(12)').text();
+var points = $(this).closest("tr").find('td:eq(13)').text();
+ var n=name.split(' ');
+	$("#edit_driver_first").val(n[0]);
+	$("#edit_driver_middle").val(n[1]);
+	$("#edit_driver_last").val(n[2]);
+	$("#edit_driver_dob").val(dob);
+	$("#edit_driver_licence").val(licence);
+
+	
+	
+	$("#edit_driver_Owner").val(owner);
+	$("#edit_driver_Backup").val(backup_driver);
+	$("#edit_driver_license_state").val(licence_state);
+	$("#edit_driver_commercial").val(exp);
+	$("input[name='edit_driver_marital_status'][value='"+marital+"']").attr('checked','checked');
+	$("input[name='edit_driver_SR22'][value='"+sr22+"']").attr('checked','checked');
+	$("#edit_driver_Exp").val(exp);
+	$("#edit_driver_hire_date").val(hiredate);
+	$("#edit_driver_points").val(points);
+	$("#id_driver_to_update").val(id);
+	
+	 
+});
 
 
-
-} );
+});

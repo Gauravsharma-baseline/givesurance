@@ -2905,7 +2905,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					<label for="VIN" class="control-label">Year</label>
-					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year_edit" class="form-control vehShortDropDownList ctrl-short-left all a">
 							<option value=""></option>
 						
 					</select>
