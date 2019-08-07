@@ -334,13 +334,13 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">	
 					<label>Select Business Subcategory</label>
 				
-					<select class="form-control" id='Business_sub' name='Business_type_sub'>
+					<select class="form-control Business_sub" id='Business_sub' name='Business_type_sub'>
 					
 					</select>
 					
 					</div>	
 				</div>
-				<div class="form-row" id='business_sub_type_enter' style="display:none;">
+				<div class="form-row business_sub_type_enter" id='business_sub_type_enter' style="display:none;">
 					<div class="form-holder w-100">	
 					<label>Enter Business Subcategory</label>
 					<input type='text' name='enter_business_sub' class='enter_business_sub'>
@@ -877,6 +877,9 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">Radius</td>
 				  <td class="text-right">Value</td>
 				  <td class="text-right">Loss Payee</td>
+				  <td class="text-right">Gross weight</td>
+				  <td class="text-right">Longest Trip(One Way Miles)</td>
+				  <td class="text-right">City of Destination(Of Longest Haul)</td>
 				  <!--td class="text-right"></td-->
 				</tr>
 			</thead>
@@ -2692,7 +2695,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					<div class="form-group">
 					  <label for="VIN" class="control-label">Category</label>
-					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control C2VehicleDetails_category">
 					<option value=""></option>
 						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
 							foreach($response_vehicles_cat as $responsedata){?>	
@@ -2701,39 +2704,39 @@ $handleFunctionsObject = new handleFunctions;
 						?>
 					</select>
 					</div>
-					<div class="form-group" id='category_sub' style='display:none;'>
+					<div class="form-group category_sub " id='category_sub' style='display:none;'>
 					  <label for="VIN" class="control-label">Sub Category</label>
-					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory" class="form-control C2VehicleDetails_subcategory">
 					
 					</select>
 					</div>
 					<div class="form-group">
 					<label for="VIN" class="control-label">Year</label>
-					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year" class="form-control C2VehicleDetails_year">
 							<option value=""></option>
 						
 					</select>
 					</div>
 					<div class="form-group make_div_select">
 					  <label for="make" class="control-label">Make</label>
-					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make" class="form-control C2VehicleDetails_make">
 							<option value=""></option>
 					
 					</select>
 					</div>
 					<div class="form-group make_div" style="display:none;" >
 					<label for='make' class='control-label'>Enter Make</label>
-					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name' class='form-control C2VehicleDetails_make_name'/>
 					</div>
 					<div class="form-group model_div_select" >
 					  <label for="VIN" class="control-label">Model</label>
-					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model" class="form-control C2VehicleDetails_model">
 							<option value=""></option>
 						
 					</select>
 					</div>
 					<div class="form-group model_div" style="display:none;" >
-					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control C2VehicleDetails_model_name'/>
 					</div>
 					<div class="form-group body_div_select" >
 					  <label for="Body" class="control-label">Body Style</label>
@@ -2866,29 +2869,29 @@ $handleFunctionsObject = new handleFunctions;
 					
 					<div class="form-group">
 					  <label for="VIN" class="control-label">VIN</label>
-					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
+					  <input type="text" class="form-control" id="vehicle_VIN_edit" name="vehicle_VIN" value="" required="">
 					  <span class="help-block"></span>
 					</div>
 					<div class="form-group">
 					  <label for="Gross" class="control-label">Gross weight</label>
-					  <input type="text" class="form-control" id="vehicle_Gross_weight" name="vehicle_Gross_weight" value="" required="">
+					  <input type="text" class="form-control" id="vehicle_Gross_weight_edit" name="vehicle_Gross_weight" value="" required="">
 					  <span class="help-block"></span>
 					</div>
 					<div class="form-group">
 					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
-					  <input type="text" class="form-control" id="vehicle_Longest_tip" name="vehicle_Longest_tip" value="" required="">
+					  <input type="text" class="form-control" id="vehicle_Longest_tip_edit" name="vehicle_Longest_tip" value="" required="">
 					  <span class="help-block"></span>
 					</div>
 					<div class="form-group">
 					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
-					  <input type="text" class="form-control" id="vehicle_Destination_City" name="vehicle_Destination_City" value="" required="">
+					  <input type="text" class="form-control" id="vehicle_Destination_City_edit" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
 					</div>
 					
 					
 					<div class="form-group">
 					  <label for="VIN" class="control-label">Category</label>
-					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category_edit" class="form-control C2VehicleDetails_category">
 					<option value=""></option>
 						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
 							foreach($response_vehicles_cat as $responsedata){?>	
@@ -2897,43 +2900,43 @@ $handleFunctionsObject = new handleFunctions;
 						?>
 					</select>
 					</div>
-					<div class="form-group" id='category_sub' style='display:none;'>
+					<div class="form-group category_sub" id='category_sub' style='display:none;'>
 					  <label for="VIN" class="control-label">Sub Category</label>
-					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_subcategory" id="C2VehicleDetails_subcategory_edit" class="form-control C2VehicleDetails_subcategory">
 					
 					</select>
 					</div>
 					<div class="form-group">
 					<label for="VIN" class="control-label">Year</label>
-					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year_edit" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year_edit" class="form-control C2VehicleDetails_year">
 							<option value=""></option>
 						
 					</select>
 					</div>
 					<div class="form-group make_div_select">
 					  <label for="make" class="control-label">Make</label>
-					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make_edit" class="form-control C2VehicleDetails_make">
 							<option value=""></option>
 					
 					</select>
 					</div>
 					<div class="form-group make_div" style="display:none;" >
 					<label for='make' class='control-label'>Enter Make</label>
-					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name_edit' class='form-control C2VehicleDetails_make_name'/>
 					</div>
 					<div class="form-group model_div_select" >
 					  <label for="VIN" class="control-label">Model</label>
-					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model" class="form-control vehShortDropDownList ctrl-short-left all a">
+					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model_edit" class="form-control C2VehicleDetails_model">
 							<option value=""></option>
 						
 					</select>
 					</div>
 					<div class="form-group model_div" style="display:none;" >
-					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control vehShortDropDownList ctrl-short-left all a'/>
+					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name_edit' class='form-control C2VehicleDetails_model_name'/>
 					</div>
 					<div class="form-group body_div_select" >
 					  <label for="Body" class="control-label">Body Style</label>
-					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body" class="form-control C2VehicleDetails_body">
+					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body_edit" class="form-control C2VehicleDetails_body">
 							<option value=""></option>
 						
 					</select>
@@ -2941,12 +2944,12 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group body_div_select" >
 					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
 					
-					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
+					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode_edit" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
 					</div>
 					
 					<div class="form-group body_div_select" >
 					  <label for="Radius" class="control-label">Radius (One Way)</label>
-						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
+						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius_edit" class="form-control C2VehicleDetails_Radius">
 							<option value="50">50 miles</option>
 						<option selected="selected" value="100 miles">100 miles</option>
 						<option value="200 miles">200 miles</option>
@@ -2999,7 +3002,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
-					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
+					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss_edit" class="form-control C2VehicleDetails_Loss">
 							<option value=""></option>
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();

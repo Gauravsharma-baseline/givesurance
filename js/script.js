@@ -457,9 +457,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					$('#dtVehiclesTable tbody').empty();		
 					
-				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}
-				);
-				var Vehiclestable=$('#dtVehiclesTable').DataTable();
+				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
+				var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
 						var i=index+1;
@@ -498,7 +497,13 @@ $(document).on("click", ".phone_number_next", function(event){
 					if(Vehiclesdata!=''){
 					$.each(Vehiclesdata, function(index, element) {
 						var i=index+1;
-							
+						if(element.Longest_Trip_City_of_Destination){
+							var Longest_Trip_City_of_Destination= element.Longest_Trip_City_of_Destination;
+							d=Longest_Trip_City_of_Destination.split(',');
+							var Longest_Trip= d[0];
+							var City_of_Destination=d[1];
+						}
+						
 						Vehiclestable.row.add(
 							[
 							i,
@@ -508,7 +513,10 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.Category,
 							element.Radius,
 							element.Value,
-							element.Loss_Payee
+							element.Loss_Payee,
+							element.Gross_Weight,
+							Longest_Trip,
+							City_of_Destination
 							
 							]
 						).draw();
@@ -1460,19 +1468,19 @@ $(document).on("click", "#new_drive_add_button", function(event){
 });
 
  
-$(document).on("change", "#C2VehicleDetails_year,#C2VehicleDetails_year_edit", function(event){
-var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
-var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
-	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
-	$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+$(document).on("change", ".C2VehicleDetails_year", function(event){
+var vehicle_cat=$(".C2VehicleDetails_category").find(':selected').attr('data-id');
+var vehicle_subcat=$(".C2VehicleDetails_subcategory").find(':selected').attr('data-id');
+	$(".C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+	$(".C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
 	   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 		success:function(result){
 			if(result!=0){
-			$("#C2VehicleDetails_make").html(result);
-			$("#C2VehicleDetails_model").html('<option value=""></option>');
+			$(".C2VehicleDetails_make").html(result);
+			$(".C2VehicleDetails_model").html('<option value=""></option>');
 				$(".make_div").hide();
 				$(".make_div_select").show();
 				$(".model_div").hide();
@@ -1492,55 +1500,56 @@ var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('da
 
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
-		$("#C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
-		$("#C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
-		$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
-		$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+		$(".C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
+		$(".C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+		$(".C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+		$(".C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 	$.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
 	   data: ({get_vehicle_category: "success",vehicle_type:vehicle_type}),
 		success:function(result){
-		$("#C2VehicleDetails_category").html(result);
-		$("#C2VehicleDetails_year").html('<option value=""></option>');
-		$("#C2VehicleDetails_make").html('<option value=""></option>');
-		$("#C2VehicleDetails_model").html('<option value=""></option>');
+		$(".C2VehicleDetails_category").html(result);
+		$(".C2VehicleDetails_year").html('<option value=""></option>');
+		$(".C2VehicleDetails_make").html('<option value=""></option>');
+		$(".C2VehicleDetails_model").html('<option value=""></option>');
 		}
 	})
 });
 
-$(document).on("change", "#C2VehicleDetails_category", function(event){
+$(document).on("change", ".C2VehicleDetails_category", function(event){
 var vehicle_cat=$(this).find(':selected').attr('data-id');
-var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
-
-var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
-			$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
-			$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
-			$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+var C2VehicleDetails_year = $(".C2VehicleDetails_year").find(':selected').attr('data-id');
+console.log(C2VehicleDetails_year);
+console.log(vehicle_cat);
+var vehicle_subcat=$(".C2VehicleDetails_subcategory").find(':selected').attr('data-id');
+			$(".C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
+			$(".C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
+			$(".C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 			$.ajax({
 				url:"ajaxRequest.php", 
 				type: "POST", 
 			   data: ({get_vehicle_sub: "success",vehicle_cat:vehicle_cat}),
 				success:function(result){
 					if(result!=0){
-					$("#category_sub").show();	
-					$("#C2VehicleDetails_subcategory").html(result);
-					$("#C2VehicleDetails_year").html('<option value=""></option>');
-					$("#C2VehicleDetails_make").html('<option value=""></option>');
-					$("#C2VehicleDetails_model").html('<option value=""></option>');
+					$(".category_sub").show();	
+					$(".C2VehicleDetails_subcategory").html(result);
+					$(".C2VehicleDetails_year").html('<option value=""></option>');
+					$(".C2VehicleDetails_make").html('<option value=""></option>');
+					$(".C2VehicleDetails_model").html('<option value=""></option>');
 					}else{
-						$("#category_sub").hide();	
-						$("#C2VehicleDetails_subcategory").html('<option value=""></option>');
-						if(C2VehicleDetails_year){
+						$(".category_sub").hide();	
+						$(".C2VehicleDetails_subcategory").html('<option value=""></option>');
+						if(C2VehicleDetails_year== undefined){
 							console.log('empty');
 							$.ajax({
 								url:"ajaxRequest.php", 
 								type: "POST", 
 							   data: ({get_year: "success",vehicle_cat:vehicle_cat}),
 								success:function(result){
-								$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html(result);
-								$("#edit_vehicle #C2VehicleDetails_make, #vehiles_add_modal #C2VehicleDetails_make").html('<option value=""></option>');
-									$("#edit_vehicle #C2VehicleDetails_model, #vehiles_add_modal #C2VehicleDetails_model").html('<option value=""></option>');
+								$(".C2VehicleDetails_year").html(result);
+								$(".C2VehicleDetails_make").html('<option value=""></option>');
+									$(".C2VehicleDetails_model").html('<option value=""></option>');
 								}
 							})
 						}else{
@@ -1550,17 +1559,17 @@ var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('da
 								type: "POST", 
 							   data: ({get_year: "success",vehicle_cat:vehicle_cat,vehicle_year:C2VehicleDetails_year}),
 								success:function(result){
-									$("#C2VehicleDetails_year_edit, #vehiles_add_modal #C2VehicleDetails_year").html(result);
-									$("#C2VehicleDetails_make").html('<option value=""></option>');
-									$("#C2VehicleDetails_model").html('<option value=""></option>');
+									$(".C2VehicleDetails_year").html(result);
+									$(".C2VehicleDetails_make").html('<option value=""></option>');
+									$(".C2VehicleDetails_model").html('<option value=""></option>');
 									$.ajax({
 										url:"ajaxRequest.php", 
 										type: "POST", 
 									   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 										success:function(result){
 											if(result!=0){
-											$("#C2VehicleDetails_make").html(result);
-											$("#C2VehicleDetails_model").html('<option value=""></option>');
+											$(".C2VehicleDetails_make").html(result);
+											$(".C2VehicleDetails_model").html('<option value=""></option>');
 											$(".make_div").hide();
 											$(".make_div_select").show();
 											$(".model_div").hide();
@@ -1589,19 +1598,19 @@ var vehicle_subcat=$("#C2VehicleDetails_subcategory").find(':selected').attr('da
 
 
 
-$(document).on("change", "#C2VehicleDetails_subcategory", function(event){
+$(document).on("change", ".C2VehicleDetails_subcategory", function(event){
 var vehicle_sub=$(this).find(':selected').attr('data-id');
-var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
-var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
+var C2VehicleDetails_year=$(".C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$(".C2VehicleDetails_category").find(':selected').attr('data-id');
 	if(C2VehicleDetails_year ==''){
 		$.ajax({
 			url:"ajaxRequest.php", 
 			type: "POST", 
 		   data: ({get_year: "success",vehicle_cat:vehicle_cat}),
 			success:function(result){
-				$("#C2VehicleDetails_year").html(result);
-				$("#C2VehicleDetails_make").html('<option value=""></option>');
-				$("#C2VehicleDetails_model").html('<option value=""></option>');
+				$(".C2VehicleDetails_year").html(result);
+				$(".C2VehicleDetails_make").html('<option value=""></option>');
+				$(".C2VehicleDetails_model").html('<option value=""></option>');
 			}
 		})
 	}else{
@@ -1610,17 +1619,17 @@ var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id'
 			type: "POST", 
 		   data: ({get_year: "success",vehicle_cat:vehicle_cat,vehicle_year:C2VehicleDetails_year}),
 			success:function(result){
-				$("#C2VehicleDetails_year").html(result);
-				$("#C2VehicleDetails_make").html('<option value=""></option>');
-				$("#C2VehicleDetails_model").html('<option value=""></option>');
+				$(".C2VehicleDetails_year").html(result);
+				$(".C2VehicleDetails_make").html('<option value=""></option>');
+				$(".C2VehicleDetails_model").html('<option value=""></option>');
 				$.ajax({
 					url:"ajaxRequest.php", 
 					type: "POST", 
 				   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_subcat:vehicle_subcat}),
 					success:function(result){
 						if(result!=0){
-						$("#C2VehicleDetails_make").html(result);
-						$("#C2VehicleDetails_model").html('<option value=""></option>');
+						$(".C2VehicleDetails_make").html(result);
+						$(".C2VehicleDetails_model").html('<option value=""></option>');
 						$(".make_div").hide();
 						$(".make_div_select").show();
 						$(".model_div").hide();
@@ -1648,11 +1657,11 @@ var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id'
 
 
 
-$(document).on("change", "#C2VehicleDetails_make", function(event){
+$(document).on("change", ".C2VehicleDetails_make", function(event){
 var vehicle_make=$(this).find(':selected').attr('data-id');
-var vehicle_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
-var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
-$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
+var vehicle_year=$(".C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$(".C2VehicleDetails_category").find(':selected').attr('data-id');
+$(".C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
 
 	$.ajax({
 		url:"ajaxRequest.php", 
@@ -1660,7 +1669,7 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 	   data: ({get_vehicle_model: "success",vehicle_cat:vehicle_cat,vehicle_year:vehicle_year,vehicle_make:vehicle_make,}),
 		success:function(result){
 			if(result!=0){
-			$("#C2VehicleDetails_model").html(result);
+			$(".C2VehicleDetails_model").html(result);
 			$(".model_div_select").show();
 			$(".model_div").hide();
 			}else{
@@ -1673,12 +1682,12 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 });
 
 
-$(document).on("change", "#C2VehicleDetails_model", function(event){
+$(document).on("change", ".C2VehicleDetails_model", function(event){
 var vehicle_model=$(this).find(':selected').attr('data-id');
-var vehicle_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
-var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
-var vehicle_make=$("#C2VehicleDetails_make").find(':selected').attr('data-id');
-$("#C2VehicleDetails_body").html('<option value="" selected>updating....</option>');
+var vehicle_year=$(".C2VehicleDetails_year").find(':selected').attr('data-id');
+var vehicle_cat=$(".C2VehicleDetails_category").find(':selected').attr('data-id');
+var vehicle_make=$(".C2VehicleDetails_make").find(':selected').attr('data-id');
+$(".C2VehicleDetails_body").html('<option value="" selected>updating....</option>');
 
 	$.ajax({
 		url:"ajaxRequest.php", 
@@ -1686,7 +1695,7 @@ $("#C2VehicleDetails_body").html('<option value="" selected>updating....</option
 	   data: ({get_vehicle_body: "success",vehicle_cat:vehicle_cat,vehicle_year:vehicle_year,vehicle_make:vehicle_make,vehicle_model:vehicle_model}),
 		success:function(result){
 			if(result!=0){
-			$("#C2VehicleDetails_body").html(result);
+			$(".C2VehicleDetails_body").html(result);
 			}
 		}
 	})
@@ -1694,7 +1703,7 @@ $("#C2VehicleDetails_body").html('<option value="" selected>updating....</option
 
 
 
-$(document).on("change", "#Business_types_select", function(event){
+$(document).on("change", ".Business_types_select", function(event){
 var business_cat=$(this).find(':selected').attr('data-id');
 	 $.ajax({
 		url:"ajaxRequest.php", 
@@ -1702,11 +1711,11 @@ var business_cat=$(this).find(':selected').attr('data-id');
 	   data: ({get_business_sub: "success",business_cat:business_cat}),
 		success:function(result){
 			if(result!=0){
-			$("#Business_sub").html(result);
-			$("#business_sub_type").show();
+			$(".Business_sub").html(result);
+			$(".business_sub_type").show();
 			}else{
-				$("#business_sub_type").hide();
-				$("#enter_business_sub").show();
+				$(".business_sub_type").hide();
+				$(".enter_business_sub").show();
 			}
 		}
 	}) 
@@ -2074,6 +2083,13 @@ $(document).on("click", "#vehicles_add_button", function(event){
 					var i=$('#dtVehiclesTable tr:last').find('td:first').html();
 					var index= parseInt(i)+parseInt(1);
 					var Vehiclestable=$('#dtVehiclesTable').DataTable();
+					if(result.Longest_Trip_City_of_Destination){
+							var Longest_Trip_City_of_Destination= result.Longest_Trip_City_of_Destination;
+							d=Longest_Trip_City_of_Destination.split(',');
+							var Longest_Trip= d[0];
+							var City_of_Destination=d[1];
+						}
+					
 						Vehiclestable.row.add(
 							[
 							index,
@@ -2083,7 +2099,10 @@ $(document).on("click", "#vehicles_add_button", function(event){
 							result.Category,
 							result.Radius,
 							result.Value,
-							result.Loss_Payee
+							result.Loss_Payee,
+							result.Gross_Weight,
+							Longest_Trip,
+							City_of_Destination
 							
 							]
 						).draw();
@@ -2188,40 +2207,32 @@ $(".datepicker").datepicker({
 	});
 
 
-$(document).on("click", ".edit_vehicles", function(event){
+$(document).on("click", "#edit_vehicles", function(event){
+
 var id = $(this).attr("data-id") ;
 var name = $(this).closest("tr").find('td:eq(2)').text();
-var dob = $(this).closest("tr").find('td:eq(4)').text();
-var marital = $(this).closest("tr").find('td:eq(5)').text();
-var licence = $(this).closest("tr").find('td:eq(6)').text();
-var licence_state = $(this).closest("tr").find('td:eq(7)').text();
-var exp = $(this).closest("tr").find('td:eq(8)').text();
-var hiredate = $(this).closest("tr").find('td:eq(9)').text();
-var backup_driver = $(this).closest("tr").find('td:eq(10)').text();
-var owner = $(this).closest("tr").find('td:eq(11)').text();
-var sr22 = $(this).closest("tr").find('td:eq(12)').text();
-var points = $(this).closest("tr").find('td:eq(13)').text();
- var n=name.split(' ');
-	$("#edit_driver_first").val(n[0]);
-	$("#edit_driver_middle").val(n[1]);
-	$("#edit_driver_last").val(n[2]);
-	$("#edit_driver_dob").val(dob);
-	$("#edit_driver_licence").val(licence);
-
+var vin = $(this).closest("tr").find('td:eq(3)').text();
+var category = $(this).closest("tr").find('td:eq(4)').text();
+var radious = $(this).closest("tr").find('td:eq(5)').text();
+var value = $(this).closest("tr").find('td:eq(6)').text();
+var loss = $(this).closest("tr").find('td:eq(7)').text();
+var weight = $(this).closest("tr").find('td:eq(8)').text();
+var vehicle_Longest_tip = $(this).closest("tr").find('td:eq(9)').text();
+var vehicle_Destination = $(this).closest("tr").find('td:eq(10)').text();
 	
-	
-	$("#edit_driver_Owner").val(owner);
-	$("#edit_driver_Backup").val(backup_driver);
-	$("#edit_driver_license_state").val(licence_state);
-	$("#edit_driver_commercial").val(exp);
-	$("input[name='edit_driver_marital_status'][value='"+marital+"']").attr('checked','checked');
-	$("input[name='edit_driver_SR22'][value='"+sr22+"']").attr('checked','checked');
-	$("#edit_driver_Exp").val(exp);
-	$("#edit_driver_hire_date").val(hiredate);
-	$("#edit_driver_points").val(points);
-	$("#id_driver_to_update").val(id);
-	
-	 
+var n=name.split(',');
+	$("#vehicle_VIN_edit").val(vin);
+	$("#vehicle_Gross_weight_edit").val(weight);
+	$("#vehicle_Longest_tip_edit").val(vehicle_Longest_tip);
+	$("#vehicle_Destination_City_edit").val(vehicle_Destination);
+	$("#C2VehicleDetails_year_edit").val(n[0]);
+	$("#C2VehicleDetails_category_edit").val(category);
+	$("#C2VehicleDetails_make_edit").val(n[1]);
+	$("#C2VehicleDetails_model_edit").val(n[2]);
+	$("#C2VehicleDetails_Radius_edit").val(radious);
+	$("#C2VehicleDetails_Loss_edit").val(loss);
+	$("input[name='vehicle_modifications'][value='"+value+"']").attr('checked','checked');
+	$("#vehicle_id_to_update").val(id);
 });
 
 
