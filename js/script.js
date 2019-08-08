@@ -1468,12 +1468,14 @@ $(document).on("click", "#new_drive_add_button", function(event){
 	if(d==1){
 		var dataform=	$('#Add_new_Driver_form').serialize();
 		var contactId=$(".contactId").val();
+		$(".overlay").show();
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({new_drive_add: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				
 				if(result!==0){
 					var a=result.DOB_Age_MaritalStatus_Points_LicenceNo;
 					var d=a.split(',');
@@ -1507,7 +1509,8 @@ $(document).on("click", "#new_drive_add_button", function(event){
 						
 							]
 						).draw();
-					}			 
+					}
+					$(".overlay").hide();
 				}
            
          });
@@ -1982,6 +1985,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 	if(d==1){
 		var dataform=$('#Edit_Driver_form').serialize();
 		var contactId=$(".contactId").val();
+		$(".overlay").show();
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -2030,7 +2034,9 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 					});	
 					}
 					}
-				$('#Driver_Edit_modal').modal('toggle');			 
+					$(".overlay").show();
+				$('#Driver_Edit_modal').modal('toggle');	
+				
 				}
            
          });
@@ -2152,13 +2158,14 @@ $(document).on("click", "#vehicles_add_button", function(event){
 	if(d==1){
 		var dataform=	$('#Add_new_vehicle').serialize();
 		var contactId=$(".contactId").val();
+		$(".overlay").show();
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({new_vehicle_add: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
-				console.log(result);
+				$(".overlay").show();
 				if(result!==0){
 					 $('#vehiles_add_modal').modal('toggle');
 					var i=$('#dtVehiclesTable tr:last').find('td:first').html();
@@ -2388,12 +2395,14 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 	if(d==1){
 		var dataform=$('#edit_vehicle').serialize();
 		var contactId=$(".contactId").val();
+		$(".overlay").show();
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({update_vehicle: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 				if(result!==0){
 					Vehiclesdata=result.Vehicles;
 					if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
