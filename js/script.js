@@ -85,7 +85,9 @@ $(".previous_Underwriting").click(function(){
 							changeMonth: true,
 							changeYear: true,
 							showButtonPanel: true,
-							dateFormat: 'mm/dd/yy'
+							dateFormat: 'mm/dd/yy',
+							maxDate: '0',
+							yearRange: '1950:2019'
 						});
 				
            }
@@ -293,7 +295,9 @@ $(".violationsLI").click(function(){
 							changeMonth: true,
 							changeYear: true,
 							showButtonPanel: true,
-							dateFormat: 'mm/dd/yy'
+							dateFormat: 'mm/dd/yy',
+							maxDate: '0',
+							yearRange: '1950:2019'
 						});						
 				
            }
@@ -430,6 +434,7 @@ $(document).on("click", ".phone_number_next", function(event){
 	$(".phoneNumber").removeClass('is-invalid');
 	
 	$("body").css("cursor", "progress");
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -438,6 +443,7 @@ $(document).on("click", ".phone_number_next", function(event){
             success:function(result){
 				
 				$("body").css("cursor", "default");
+				$(".overlay").hide();
 				if(result==0){
 					event.preventDefault();
 					$(".phoneNumber").addClass('is-invalid');
@@ -768,8 +774,14 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='Business_Organization_Structure'][value='"+result.conatctData.Structure+"']").attr('checked','checked');
 					}
 					if(result.conatctData.Do_you_have_a_DBA!=''){
-					$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
-					$("#DBA_NAME_DIV").hide();
+						$("input[name='have_DBA'][value='"+result.conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
+						if(result.conatctData.Do_you_have_a_DBA=='Yes'){
+						$("#DBA_NAME_DIV").show();
+						$(".DBA_NAME").val(result.conatctData.DBA_Name);
+						}else{
+							$("#DBA_NAME_DIV").hide();
+							$(".DBA_NAME").val('');
+						}
 					}
 					
 					$("#USDOT_Assigned_to").val(result.conatctData.USDOT_Assigned_to);
@@ -791,6 +803,7 @@ $(document).on("click", ".phone_number_next", function(event){
 						$("#Financed_with").show();
 						}
 					}
+					$("#List_Filing").val(result.conatctData.List_Filing);
 					$("#Insured_first_name").val(result.conatctData.First_Name1);
 					$("#Insured_Middle_name").val(result.conatctData.Middle_Initial);
 					$("#Insured_Last_name").val(result.conatctData.Last_Name1);
@@ -1062,7 +1075,9 @@ $(".drivers_data_next").click(function(event ){
 							changeMonth: true,
 							changeYear: true,
 							showButtonPanel: true,
-							dateFormat: 'mm/dd/yy'
+							dateFormat: 'mm/dd/yy',
+							maxDate: '0',
+							yearRange: '1950:2019'
 						});		 
 				
            }
@@ -1722,23 +1737,46 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 
 
 
-$(document).on("change", ".Business_types_select", function(event){
+$(document).on("change", "#Business_types_select", function(event){
 var business_cat=$(this).find(':selected').attr('data-id');
+var business_val=$(this).find(':selected').val();
+console.log(business_val);
+	if(business_val=='Other'){
+		$("#business_sub_type_enter").show();
+		$("#business_sub_type").hide();
+		
+	}else{
 	 $.ajax({
 		url:"ajaxRequest.php", 
 		type: "POST", 
 	   data: ({get_business_sub: "success",business_cat:business_cat}),
 		success:function(result){
 			if(result!=0){
-			$(".Business_sub").html(result);
-			$(".business_sub_type").show();
+			$("#business_sub_type").show();
+			$("#business_sub_type_enter").hide();
+			$("#Business_sub").html(result);
+			
 			}else{
-				$(".business_sub_type").hide();
-				$(".enter_business_sub").show();
+				$("#business_sub_type").hide();
+				$("#business_sub_type_enter").show();
 			}
 		}
 	}) 
+	}
 });
+
+$(document).on("change", "#Business_sub", function(event){
+var business_cat=$(this).find(':selected').attr('data-id');
+var business_val=$(this).find(':selected').val();
+console.log(business_val);
+	if(business_val=='Other'){
+		$("#business_sub_type_enter").show();
+	}else{
+		$("#business_sub_type_enter").hide();
+		$("#enter_business_sub").val(business_val);
+	}
+});
+
 
 
 $(document).on("click", "#voilation_add", function(event){
@@ -1799,6 +1837,8 @@ $(document).on("click", "#voilation_add", function(event){
             changeYear: true,
             showButtonPanel: true,
             dateFormat: 'mm/dd/yy',
+			maxDate: '0',
+			yearRange: '1950:2019'
 		});
     
 });
@@ -1981,7 +2021,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 
 
 
-$(document).on("click", ".Insured_Designate_Spouse", function(event){
+/* $(document).on("click", ".Insured_Designate_Spouse", function(event){
 	var id = $(this).val();
 	if(id=='Yes'){
 		$("#Spouse_Information_div").show();
@@ -1989,7 +2029,7 @@ $(document).on("click", ".Insured_Designate_Spouse", function(event){
 		$("#Spouse_Information_div").hide();
 	}
 
-});
+}); */
 
 $(document).on("click", ".new_driver_SR22", function(event){
 	var id = $(this).val();
@@ -2218,31 +2258,21 @@ $(document).on("click", ".UM_Pd", function(event){
 });
 
 
-$(".datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            dateFormat: 'mm/dd/yy',
-	});
 
 
 $(document).on("click", "#edit_vehicles", function(event){
-
-var id = $(this).attr("data-id") ;
-var name = $(this).closest("tr").find('td:eq(2)').text();
-var vin = $(this).closest("tr").find('td:eq(3)').text();
-var category = $(this).closest("tr").find('td:eq(4)').text();
-var radious = $(this).closest("tr").find('td:eq(5)').text();
-var value = $(this).closest("tr").find('td:eq(6)').text();
-var loss = $(this).closest("tr").find('td:eq(7)').text();
-var weight = $(this).closest("tr").find('td:eq(8)').text();
-var vehicle_Longest_tip = $(this).closest("tr").find('td:eq(9)').text();
-var vehicle_Destination = $(this).closest("tr").find('td:eq(10)').text();
-	
-var n=name.split(',');
-console.log(n[0]);
-console.log(n[1]);
-console.log(n[2]);
+	var id = $(this).attr("data-id") ;
+	var name = $(this).closest("tr").find('td:eq(2)').text();
+	var vin = $(this).closest("tr").find('td:eq(3)').text();
+	var category = $(this).closest("tr").find('td:eq(4)').text();
+	var radious = $(this).closest("tr").find('td:eq(5)').text();
+	var value = $(this).closest("tr").find('td:eq(6)').text();
+	var loss = $(this).closest("tr").find('td:eq(7)').text();
+	var weight = $(this).closest("tr").find('td:eq(8)').text();
+	var vehicle_Longest_tip = $(this).closest("tr").find('td:eq(9)').text();
+	var vehicle_Destination = $(this).closest("tr").find('td:eq(10)').text();
+		
+	var n=name.split(',');
 	$("#vehicle_VIN_edit").val(vin);
 	$("#vehicle_Gross_weight_edit").val(weight);
 	$("#vehicle_Longest_tip_edit").val(vehicle_Longest_tip);
@@ -2522,5 +2552,24 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 	})
 });
 
+
+
+
+$(".datepicker").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		showButtonPanel: true,
+		dateFormat: 'mm/dd/yy',
+		yearRange: '-100:+100'
+		
+});
+$(".datepickerDOB").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		showButtonPanel: true,
+		dateFormat: 'mm/dd/yy',
+		maxDate: '0',
+		yearRange: '1950:2019'
+});
 
 });

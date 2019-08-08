@@ -174,14 +174,18 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		parse_str($_POST['dataform'], $form_data);
 		/*  echo '<pre>';
 			print_r($form_data);
-		echo '<pre>'; */
+		echo '<pre>'; 
+		"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
+		*/
 			  $Contactdata = '{
 			"data": [{
             "Agent_Code":  "'.$form_data['agent_code'].'" ,
             "Policy_Effective_Date":  "'. date("Y-m-d", strtotime($form_data['Policy_Effective'])).'" ,
             "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
             "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
+            "Business_Type_Category":  "'.$form_data['enter_business_sub'].'" ,
             "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
+            "DBA_Name":  "'.$form_data['DBA_NAME'].'" ,
             "USDOT_Assigned_to":  "'.$form_data['USDOT_Assigned_to'].'" ,
             "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
             "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
@@ -196,7 +200,6 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			"City":  "'.$form_data['Financial_City'].'" ,
 			"State":  "'.$form_data['Financial_State'].'" ,
 			"Home_Address":  "'.$form_data['Financial_Home_address'].'" ,
-			"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
             "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
             "Designate_Spouse_as_a_Named_Insured":  "'.$form_data['Insured_Designate_Spouse'].'" ,
             "Specify_Commodities_Hauled":  "'.$form_data['Specify_Commodities_Hauled'].'" ,
@@ -212,8 +215,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Yrs_in_Trucking_Industry":  "'.$form_data['Yrs_in_Trucking_Industry'].'" ,
             "Yrs_in_business":  "'.$form_data['Yrs_in_business'].'" ,
             "If_New_Venture_Please_list_previous_industry_emplo":  "'.$form_data['previous_industry_employment'].'" ,
-            "Payment_Options":  "'.$form_data['payment_option_value'].'" 
-            
+            "Payment_Options":  "'.$form_data['payment_option_value'].'" ,
+            "List_Filing":  "'.$form_data['List_Filing'].'"
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
@@ -329,7 +332,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR" <?php if($dd=='WSR'){echo 'selected';}?>>WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="<?php echo  date("m/d/Y", strtotime($ddd['date']));?>" placeholder="" class='datepicker' id='Accident_date_<?php echo $i;?>'>				
+				 <td class="text-center td-padding"> <input type="text" value="<?php echo  date("m/d/Y", strtotime($ddd['date']));?>" placeholder="" id='Accident_date_<?php echo $i;?>' class='datepicker'>				
 					</td>
 				  <td class='td-padding'><button class='delete_voilation btn' data-id="<?php echo $i;?>" data-contact_id='<?php echo $ddd['id'];?>' type='button'>Delete</button></td>
 				</tr>

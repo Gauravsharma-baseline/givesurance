@@ -9,6 +9,7 @@ $handleFunctionsObject = new handleFunctions;
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- jQuery --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -47,12 +48,16 @@ $handleFunctionsObject = new handleFunctions;
 <li class='PDFData'>FMCSA </li-->
 </ul>
 <!-- fieldsets -->
+<div class="overlay">
+    <div id="loading-img"></div>
+
 	<fieldset class='first'>
 	<h2 class="fs-title">Enter Phone Number</h2>
 	<h3 class="fs-subtitle"></h3>
 		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' />
 		<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
 		<input type="button" name="next" class="action-button phone_number_next" value="Next" />
+		
 	</fieldset>
 	<fieldset class='second'>
 		<h2 class="fs-title">Enter DOT</h2>
@@ -319,7 +324,7 @@ $handleFunctionsObject = new handleFunctions;
 						
 					if($business['category']!=''){
 					?>
-						  <option data-id="<?php echo $business['id'];?>" value="<?php echo $business['category'];?>"><?php echo $business['category'];?></option>
+						  <option data-id="<?php echo $business['id'];?>" value="<?php echo trim($business['category']);?>"><?php echo trim($business['category']);?></option>
 						 <?php 
 					} else{
 						echo '<option value="other">other</option>';
@@ -330,7 +335,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					</div>	
 				</div>	
-				<div class="form-row" id='business_sub_type' style="display:none;">
+				<div class="form-row business_sub_type" id='business_sub_type' style="display:none;">
 					<div class="form-holder w-100">	
 					<label>Select Business Subcategory</label>
 				
@@ -342,8 +347,8 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row business_sub_type_enter" id='business_sub_type_enter' style="display:none;">
 					<div class="form-holder w-100">	
-					<label>Enter Business Subcategory</label>
-					<input type='text' name='enter_business_sub' class='enter_business_sub'>
+					<label>Enter Business category</label>
+					<input type='text' name='enter_business_sub' class='enter_business_sub' id='enter_business_sub'>
 					</div>	
 				</div>
 				
@@ -501,8 +506,10 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>List Filling(s) Required</label>	
-					<input type="text" class="form-control List_Filling" id='List_Filling' value=""  name='List_Filling'> 
+					<label>List Filing(s) Required</label>	
+					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
+					<option>Select</option> 
+					</select>
 					</div>
 				</div>
 				<div class="form-row">
@@ -521,7 +528,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>Financed with</label>	
 					</div>
 					<div id='Financed_with' style='display:none'>
-					<label>enter</label>	
+					<label>Enter</label>	
 					<input type="text" class="form-control List_Filling" id='payment_option_value' value=""  name='payment_option_value'> 
 					</div>
 					
@@ -531,48 +538,12 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				</div>
 			
-			<div class='main_field_div'>
-				<h2 class="fs-title">Named Insured(s)</h2>
-				<div class="form-row">
-					<div class="form-holder w-100">
-						<label>First Name:</label>
-							<input type="text" class="form-control" name="Insured_first_name" placeholder="First Name.." id='Insured_first_name'>
-						<label>Middle Initial:</label>
-							<input type="text" class="form-control" name="Insured_Middle_name" placeholder="Middle Initial:.." id='Insured_Middle_name'>
-						<label>Last Name:</label>
-							<input type="text" class="form-control" name="Insured_Last_name" placeholder="Last Name:." id='Insured_Last_name'>
-						</div>	
-				</div>	
-				<div class="form-row">
-					<div class="form-holder w-100 ">
-						<label>Suffix:</label>
-						<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
-						  <option selected value="none">--None--</option>
-						  <option value="jr">jr</option>
-						  <option value="Sr">Sr</option>
-						  <option value="|">|</option>
-						  <option value="||">||</option>
-						  <option value="|||">|||</option>
-						  <option value="|V">|V</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-holder w-100 ">
-					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
-					<label>Designate Spouse as a Named Insured?</label>
-					<div class='radio'>
-						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
-					</div>
-					<div class='radio'>	
-						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
-					</div>
-					</div>
-				</div>
-			</div>
+			
 			</div>
 			<div class='col-md-6 right'>
+			
+			
+			
 				<div class='main_field_div' id='Spouse_Information_div' style='display:none'>
 				<h2 class="fs-title">Spouse Information</h2>
 				<div class="form-row">
@@ -602,11 +573,53 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepicker" name="Spouse_DOB" id='Spouse_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
+					<input type="text" class="form-control datepickerDOB" name="Spouse_DOB" id='Spouse_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
 					
 					</div>
 				</div>
 			</div>
+			<div class='main_field_div'>
+				<h2 class="fs-title">Named Insured(s)</h2>
+				<div class="form-row">
+					<div class="form-holder w-100">
+						<label>First Name:</label>
+							<input type="text" class="form-control" name="Insured_first_name" placeholder="First Name.." id='Insured_first_name'>
+						<label>Middle Initial:</label>
+							<input type="text" class="form-control" name="Insured_Middle_name" placeholder="Middle Initial:.." id='Insured_Middle_name'>
+						<label>Last Name:</label>
+							<input type="text" class="form-control" name="Insured_Last_name" placeholder="Last Name:." id='Insured_Last_name'>
+						</div>	
+				</div>	
+				<div class="form-row">
+					<div class="form-holder w-100 ">
+						<label>Suffix:</label>
+						<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
+						  <option selected value="none">--None--</option>
+						  <option value="jr">jr</option>
+						  <option value="Sr">Sr</option>
+						  <option value="|">|</option>
+						  <option value="||">||</option>
+						  <option value="|||">|||</option>
+						  <option value="|V">|V</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100 ">
+					<label>Date of Birth:</label>
+					<input type="text" class="form-control datepickerDOB" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
+					<label>Designate Spouse as a Named Insured?</label>
+					<div class='radio'>
+						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
+					</div>
+					</div>
+				</div>
+			</div>
+			
+			
 				<div class='main_field_div'>
 				 <h2 class='fs-title'>Contact Information</h2>
 				 <h3 class='fs-subtitle' ></h3>
@@ -754,7 +767,7 @@ $handleFunctionsObject = new handleFunctions;
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 				<label>Date of Birth:</label>
-				<input type="text" class="form-control datepicker" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob' placeholder='<?php echo date('m/d/Y');?>'>
+				<input type="text" class="form-control datepickerDOB" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob' placeholder='<?php echo date('m/d/Y');?>'>
 				</div>
 			</div>	
 			<div class="form-row">	
@@ -834,12 +847,12 @@ $handleFunctionsObject = new handleFunctions;
 			<input type="text" class="form-control" name="Financial_zipcode" id='Financial_zipcode' >
 				</div>
 			</div>
-			<div class="form-row">	
+			<!--div class="form-row">	
 				<div class="form-holder w-100 ">
 					<label>Social Security Number:</label>
 					<input type="text" class="form-control" name="social_security_number"  id='Financial_social_security_number' >
 				</div>
-				</div>
+				</div-->
 			</div>	
 		</div>
 	</div>
@@ -942,7 +955,7 @@ $handleFunctionsObject = new handleFunctions;
 			<thead>
 			<tr>
 				  <td class="td-padding">Accident/Violation:</td>
-				  <td class="text-center td-padding">Date</td>
+				  <td class="text-center td-padding datepickerDOB">Date</td>
 				  <td class="td-padding"><button id='voilation_add' type='button'>Add</button></td>
 				</tr>
 			</thead>
@@ -1288,7 +1301,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Do we insure all vehicles that the insured uses in their ?</label>
+					<label>Do we insure all vehicles that the insured uses?</label>
 					 <div class='radio'>
 						<input type="radio" name="insured_uses_business" class="insured_uses_business" value='Yes'checked><label>Yes</label>
 					</div>
@@ -2234,7 +2247,7 @@ $handleFunctionsObject = new handleFunctions;
 		
 		</div>
 	</fieldset-->
-
+</div>
 
 </form>
 
