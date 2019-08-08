@@ -2034,7 +2034,7 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 					});	
 					}
 					}
-					$(".overlay").show();
+					$(".overlay").hide();
 				$('#Driver_Edit_modal').modal('toggle');	
 				
 				}
@@ -2165,7 +2165,7 @@ $(document).on("click", "#vehicles_add_button", function(event){
            dataType: 'json',
            data: ({new_vehicle_add: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
-				$(".overlay").show();
+				
 				if(result!==0){
 					 $('#vehiles_add_modal').modal('toggle');
 					var i=$('#dtVehiclesTable tr:last').find('td:first').html();
@@ -2194,7 +2194,8 @@ $(document).on("click", "#vehicles_add_button", function(event){
 							
 							]
 						).draw();
-					} 		 
+					} 
+					$(".overlay").hide();					
 				}
          });
 	}
