@@ -759,6 +759,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					$('#Policy_Effective').val(moment(result.conatctData.Policy_Effective_Date).format('MM/DD/YYYY'));
 					
 					$('.Specify_Commodities_Hauled').val(result.conatctData.Specify_Commodities_Hauled);
+					$('#List_Filing').val(result.conatctData.List_Filing);
 					
 					if(result.conatctData.Is_the_customer_currently_insured_with_Progressive!=''){
 					$("input[name='customer_Progressive_Commercial'][value='"+result.conatctData.Is_the_customer_currently_insured_with_Progressive+"']").attr('checked','checked');
