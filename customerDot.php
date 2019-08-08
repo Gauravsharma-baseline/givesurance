@@ -50,7 +50,7 @@ $handleFunctionsObject = new handleFunctions;
 <!-- fieldsets -->
 <div class="overlay">
     <div id="loading-img"></div>
-
+</div>
 	<fieldset class='first'>
 	<h2 class="fs-title">Enter Phone Number</h2>
 	<h3 class="fs-subtitle"></h3>
@@ -2247,7 +2247,7 @@ $handleFunctionsObject = new handleFunctions;
 		
 		</div>
 	</fieldset-->
-</div>
+
 
 </form>
 

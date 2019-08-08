@@ -861,6 +861,7 @@ $(".dot_number_next").click(function(event ){
 	}else{
 	$("#mc_number").removeClass('is-invalid');
 	$("body").css("cursor", "progress");
+	$(".overlay").show();
 	if(mc_number==''){
 		 $.ajax({
             url:"ajaxRequest.php", 
@@ -870,6 +871,7 @@ $(".dot_number_next").click(function(event ){
             success:function(result){
 				
 				$("body").css("cursor", "default");
+				$(".overlay").hide();
               if(result==0){
 				event.preventDefault();
 				$("#mc_number").addClass('is-invalid'); 
@@ -908,6 +910,7 @@ $(".dot_number_next").click(function(event ){
          });
 	
 		}else{
+		$(".overlay").show();	
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -915,6 +918,7 @@ $(".dot_number_next").click(function(event ){
            data: ({getMcData: "success", mc: mc_number,contactId:contactId}),
             success:function(result){
 				$("body").css("cursor", "default");
+				$(".overlay").hide();
 					$(".dotLi").removeClass("active");
 					$(".MCLi").addClass("active");
 					$(".second").hide();
@@ -932,6 +936,7 @@ $(".first_2_next").click(function(event ){
 	var mc=$("#mc_number").val();
 	var contactId=$(".contactId").val();
 	$("body").css("cursor", "progress");
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -939,6 +944,7 @@ $(".first_2_next").click(function(event ){
            data: ({getMcData: "success", mc: mc,contactId:contactId}),
             success:function(result){
 				$("body").css("cursor", "default");
+				$(".overlay").hide();
 					$(".MCLi").removeClass("active");
 					$(".generalLI").addClass("active");
 					$(".first_2").hide();
@@ -1026,12 +1032,14 @@ $(".safer_data_next").click(function(event ){
 $(".general_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var dataform=	$('.sixth').find('select, textarea, input').serialize();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({general_data_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 					$(".generalLI").removeClass("active");
 					$(".vehiclesLI").addClass("active");
 					$(".sixth").hide();
@@ -1043,12 +1051,14 @@ $(".general_data_next").click(function(event ){
 });
 $(".vehicles_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({vehicles_data_next: "success",contactId:contactId}),
             success:function(result){
+				$(".overlay").hide();
 					$(".vehiclesLI").removeClass("active");
 					$(".driversLI").addClass("active");
 					$(".seventh").hide();
@@ -1060,12 +1070,14 @@ $(".vehicles_data_next").click(function(event ){
 });
 $(".drivers_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            //dataType: 'json',
            data: ({drivers_data_next: "success",contactId:contactId}),
             success:function(result){
+				$(".overlay").hide();
 					$(".driversLI").removeClass("active");
 					$(".violationsLI").addClass("active");
 					$(".eigth").hide();
@@ -1101,15 +1113,17 @@ $(".violations_data_next").click(function(event ){
     }); 
 	
 		var voilationsdata=JSON.stringify(mainarray);
-		console.log(voilationsdata);
-
+		
+	
 	 var contactId=$(".contactId").val();
+	 $(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({violations_data_next: "success",contactId:contactId,voilationsdata:voilationsdata}),
             success:function(result){
+				$(".overlay").hide();
 					 $(".violationsLI").removeClass("active");
 					$(".underwritingLI").addClass("active");
 					$(".ninth").hide();
@@ -1122,12 +1136,14 @@ $(".violations_data_next").click(function(event ){
  $(".underwriting_data_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var dataform=	$('.tenth').find('select, textarea, input').serialize();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({underwriting_data_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 					$(".underwritingLI").removeClass("active");
 					$(".CoverageLI").addClass("active");
 					$(".tenth").hide();
@@ -1141,12 +1157,14 @@ $(".violations_data_next").click(function(event ){
 $(".Coverage_Limit_Information_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var dataform=	$('.eleventh').find('select, textarea, input').serialize();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({Coverage_Limit_Information: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 				 $(".CoverageLI").removeClass("active");
 					$(".OperationDescription").addClass("active");
 					$(".eleventh").hide();
@@ -1160,12 +1178,14 @@ $(".Coverage_Limit_Information_next").click(function(event ){
 $(".OperationDescription_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var dataform=	$('.twelve').find('select, textarea, input').serialize();
+	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({OperationDescription: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 				 $(".OperationDescription").removeClass("active");
 					$(".CommoditiesLI").addClass("active");
 					$(".twelve").hide();
@@ -1182,13 +1202,14 @@ $(".OperationDescription_next").click(function(event ){
 
 $(".InsuranceHistory_next").click(function(event ){
 	var contactId=$(".contactId").val();
-
+		$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({InsuranceHistory: "success",contactId:contactId}),
             success:function(result){
+				$(".overlay").hide();
 				 $(".OperationDescription").removeClass("active");
 					$(".CommoditiesLI").addClass("active");
 					$(".thirteen").hide();
@@ -1206,13 +1227,14 @@ $(".Commodities_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var contactId=$(".contactId").val();
 	var dataform=	$('.Fourteen_s').find('select, textarea, input').serialize();
-
+		$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({Commodities_next: "success",contactId:contactId,dataform:dataform}),
             success:function(result){
+				$(".overlay").hide();
 				 $(".CommoditiesLI").removeClass("active");
 					$(".CargoRelatedLI").addClass("active");
 					$("#alert_message_div").show();
