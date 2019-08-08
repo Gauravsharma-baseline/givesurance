@@ -148,7 +148,7 @@ label {
     padding: 2px 11px 2px 2px;*/
 } 
 h1{
-    color: #fff;
+    color: #fff !important;
 }
 .left {
     width: 49%;

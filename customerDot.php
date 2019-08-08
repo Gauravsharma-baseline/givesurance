@@ -54,7 +54,7 @@ $handleFunctionsObject = new handleFunctions;
 	<fieldset class='first'>
 	<h2 class="fs-title">Enter Phone Number</h2>
 	<h3 class="fs-subtitle"></h3>
-		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' />
+		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
 		<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
 		<input type="button" name="next" class="action-button phone_number_next" value="Next" />
 		
@@ -508,7 +508,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>List Filing(s) Required</label>	
 					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
-					<option>Select</option> 
+					<option  value='' selected='selected'>Select Filing</option> 
 					</select>
 					</div>
 				</div>
@@ -560,7 +560,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100 ">
 						<label>Suffix:</label>
 						<select class="form-control" id='Spouse_Suffix' name='Spouse_Suffix'>
-						  <option value="none">--None--</option>
+						  <option selected value="none">None</option>
 						  <option value="jr">jr</option>
 						  <option value="Sr">Sr</option>
 						  <option value="|">|</option>
@@ -650,7 +650,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					<label>State:</label>
-					<select class="form-control"  id='Contact_Insured_State' name='Contact_Insured_State'>
+				<select class="form-control"  id='Contact_Insured_State' name='Contact_Insured_State'>
   				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
 				<option value="AZ">Arizona</option>
@@ -767,7 +767,7 @@ $handleFunctionsObject = new handleFunctions;
 			<div class="form-row">	
 				<div class="form-holder w-100 ">
 				<label>Date of Birth:</label>
-				<input type="text" class="form-control datepickerDOB" name="Financial_dob" value="<?php echo date("Y-m-d");?>" id='Financial_dob' placeholder='<?php echo date('m/d/Y');?>'>
+				<input type="text" class="form-control datepickerDOB" name="Financial_dob" value="<?php echo date("m/d/Y");?>" id='Financial_dob' placeholder='<?php echo date('m/d/Y');?>'>
 				</div>
 			</div>	
 			<div class="form-row">	
@@ -785,7 +785,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-holder w-100 ">	
 				<label>State:</label>
 					<select class="form-control" id='Financial_State' name='Financial_State'>
-					<option value="AL">Alabama</option>
+					<option value="AL" selected>Alabama</option>
 					<option value="AK">Alaska</option>
 					<option value="AZ">Arizona</option>
 					<option value="AR">Arkansas</option>

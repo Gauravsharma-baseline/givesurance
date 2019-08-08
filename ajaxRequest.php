@@ -177,47 +177,49 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		echo '<pre>'; 
 		"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
 		*/
+		$d=array("Agent_Code"=>  "".trim($form_data['agent_code'])."" ,
+            "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
+            "Is_the_customer_currently_insured_with_Progressive"=>  "".trim($form_data['customer_Progressive_Commercial'])."" ,
+            "Structure" =>  "".trim($form_data['Business_Organization_Structure'])."" ,
+            "Business_Type_Category"=>  "".trim($form_data['enter_business_sub'])."" ,
+            "Do_you_have_a_DBA"=>  "".trim($form_data['have_DBA'])."" ,
+            "DBA_Name"=>  "".trim($form_data['DBA_NAME'])."" ,
+            "USDOT_Assigned_to"=>  "".trim($form_data['USDOT_Assigned_to'])."" ,
+            "Does_the_information_assigned_to_this_USDOT_match"=>  "".trim($form_data['is_match_USDOT'])."" ,
+            "First_Name1"=>  "".trim($form_data['Insured_first_name'])."" ,
+            "Middle_Initial"=>  "".trim($form_data['Insured_Middle_name'])."" ,
+			"DOB"=>  "".date("Y-m-d", strtotime($form_data['Insured_DOB']))."" ,
+            "Last_Name1"=>  "".trim($form_data['Insured_Last_name'])."" ,
+            "Suffix"=>  "".trim($form_data['Insured_Suffix'])."" ,
+            "First_Name_Two"=>  "".trim($form_data['Financial_First_name'])."" ,
+            "Last_Name_Two"=>  "".trim($form_data['Financial_Last_name'])."" ,
+            "Suffix_Two"=>  "".trim($form_data['Financial_Suffix'])."" ,
+			"ZIP_Code"=>  "".trim($form_data['Financial_zipcode'])."" ,
+			"City"=>  "".trim($form_data['Financial_City'])."" ,
+			"State"=>  "".trim($form_data['Financial_State'])."" ,
+			"Home_Address"=>  "".trim($form_data['Financial_Home_address'])."" ,
+            "Involved_in_the_daily_operation_of_the_business"=>  "".trim($form_data['is_Involved_daily_operation'])."" ,
+            "Designate_Spouse_as_a_Named_Insured"=>  "".trim($form_data['Insured_Designate_Spouse'])."" ,
+            "Specify_Commodities_Hauled"=>  "".trim($form_data['Specify_Commodities_Hauled'])."" ,
+            "Are_any_listed_vehicles_used_to_haul_steel"=>  "".trim($form_data['is_vehicles_haul_steel'])."" ,
+            "listed_vehicles_or_the_load_require_a_placard"=>  "".trim($form_data['is_vehicles_placard'])."" ,
+            "Insured_s_Phone"=>  "".trim($form_data['Contact_Insured_phone'])."" ,
+            "Mailing_Address"=>  "".trim($form_data['Contact_Insured_Mailing'])."" ,
+            "State_Two"=>  "".trim($form_data['Contact_Insured_State'])."" ,
+            "ZIP_Code_Two"=>  "".trim($form_data['Contact_Insured_ZIP_code'])."" ,
+            "City_Two"=>  "".trim($form_data['Contact_Insured_City'])."", 
+            "E_mail_Address"=>  "".trim($form_data['Contact_Insured_email'])."", 
+            "Date_Two"=>  "".date("Y-m-d", strtotime($form_data['Financial_dob']))."" ,
+            "Yrs_in_Trucking_Industry"=>  "".trim($form_data['Yrs_in_Trucking_Industry'])."" ,
+            "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
+            "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
+            "Payment_Options"=>  "".trim($form_data['payment_option_value'])."" ,
+            "List_Filing"=>  "".trim($form_data['List_Filing']).""
+		);
+		
 			  $Contactdata = '{
-			"data": [{
-            "Agent_Code":  "'.$form_data['agent_code'].'" ,
-            "Policy_Effective_Date":  "'. date("Y-m-d", strtotime($form_data['Policy_Effective'])).'" ,
-            "Is_the_customer_currently_insured_with_Progressive":  "'.$form_data['customer_Progressive_Commercial'].'" ,
-            "Structure":  "'.$form_data['Business_Organization_Structure'].'" ,
-            "Business_Type_Category":  "'.$form_data['enter_business_sub'].'" ,
-            "Do_you_have_a_DBA":  "'.$form_data['have_DBA'].'" ,
-            "DBA_Name":  "'.$form_data['DBA_NAME'].'" ,
-            "USDOT_Assigned_to":  "'.$form_data['USDOT_Assigned_to'].'" ,
-            "Does_the_information_assigned_to_this_USDOT_match":  "'.$form_data['is_match_USDOT'].'" ,
-            "First_Name1":  "'.$form_data['Insured_first_name'].'" ,
-            "Middle_Initial":  "'.$form_data['Insured_Middle_name'].'" ,
-			"DOB":  "'.date("Y-m-d", strtotime($form_data['Insured_DOB'])).'" ,
-            "Last_Name1":  "'.$form_data['Insured_Last_name'].'" ,
-            "Suffix":  "'.$form_data['Insured_Suffix'].'" ,
-            "First_Name_Two":  "'.$form_data['Financial_First_name'].'" ,
-            "Last_Name_Two":  "'.$form_data['Financial_Last_name'].'" ,
-            "Suffix_Two":  "'.$form_data['Financial_Suffix'].'" ,
-			"ZIP_Code":  "'.$form_data['Financial_zipcode'].'" ,
-			"City":  "'.$form_data['Financial_City'].'" ,
-			"State":  "'.$form_data['Financial_State'].'" ,
-			"Home_Address":  "'.$form_data['Financial_Home_address'].'" ,
-            "Involved_in_the_daily_operation_of_the_business":  "'.$form_data['is_Involved_daily_operation'].'" ,
-            "Designate_Spouse_as_a_Named_Insured":  "'.$form_data['Insured_Designate_Spouse'].'" ,
-            "Specify_Commodities_Hauled":  "'.$form_data['Specify_Commodities_Hauled'].'" ,
-            "Are_any_listed_vehicles_used_to_haul_steel":  "'.$form_data['is_vehicles_haul_steel'].'" ,
-            "listed_vehicles_or_the_load_require_a_placard":  "'.$form_data['is_vehicles_placard'].'" ,
-            "Insured_s_Phone":  "'.$form_data['Contact_Insured_phone'].'" ,
-            "Mailing_Address":  "'.$form_data['Contact_Insured_Mailing'].'" ,
-            "State_Two":  "'.$form_data['Contact_Insured_State'].'" ,
-            "ZIP_Code_Two":  "'.$form_data['Contact_Insured_ZIP_code'].'" ,
-            "City_Two":  "'.$form_data['Contact_Insured_City'].'", 
-            "E_mail_Address":  "'.$form_data['Contact_Insured_email'].'", 
-            "Date_Two":  "'.date("Y-m-d", strtotime($form_data['Financial_dob'])).'" ,
-            "Yrs_in_Trucking_Industry":  "'.$form_data['Yrs_in_Trucking_Industry'].'" ,
-            "Yrs_in_business":  "'.$form_data['Yrs_in_business'].'" ,
-            "If_New_Venture_Please_list_previous_industry_emplo":  "'.$form_data['previous_industry_employment'].'" ,
-            "Payment_Options":  "'.$form_data['payment_option_value'].'" ,
-            "List_Filing":  "'.$form_data['List_Filing'].'"
-			}]}'; 
+			  "data": ['.json_encode($d).']
+			}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if (ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
@@ -240,6 +242,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}
 			else{
 				echo 0;
+				
 			}  
 			
 	}
@@ -418,31 +421,32 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		parse_str($_POST['dataform'], $form_data);
 		/*   echo '<pre>';
 			print_r($form_data);
-		echo '<pre>';  */ 
-			   $Contactdata = '{
-			"data": [{
-            "Proof_of_Prior_Insurance":  "'.$form_data['currently_insured'].'" ,
-            "Does_the_insured_have_General_Liability_Insurance":  "'.$form_data['Proof_Insurance'].'" ,
-            "Number_of_Additional_Insureds":  "'.$form_data['Additional_Insureds'].'" ,
-            "Number_of_Waivers_of_Subrogation":  "'.$form_data['Waivers_Subrogation'].'" ,
-            "Is_the_customer_required_to_maintain_hours":  "'.$form_data['customer_required_to_maintain_hours'].'" ,
-            "Year_current_business_was_established":  "'.$form_data['Year_current_business'].'" ,
-            "Are_any_state_or_federal_filings_required":  "'.$form_data['federal_filings_required'].'" ,
-            "Do_we_insure_all_commercial_vehicles_the_insured":  "'.$form_data['commercial_vehicles'].'" ,
-            "Do_we_insure_all_vehicles_that_the_insured_uses":  "'.$form_data['insured_uses_business'].'" ,
-            "Federal":  "'.$form_data['Federal'].'" ,
-            "Federal_Cargo_BMC_34":  "'.$form_data['Federal_Cargo'].'" ,
-            "How_often_are_MVRs_reviewed":  "'.$form_data['MVRs_reviewed'].'" ,
-            "Are_all_vehicles_listed_owned_registered_to_appl":  "'.$form_data['vehicles_listed_owned'].'" ,
-            "Any_vehicles_titled_to_an_individual_instead_of_bs":  "'.$form_data['individual_instead_of_business'].'" ,
-			 "CA_Authority_Number":  "'.$form_data['CA_Authority_Number'].'" ,
-            "Others":  "'.$form_data['fil_othr_cnt'].'", 
-            "State_Cargo_Form_H":  "'.$form_data['fil_formh_cnt'].'" ,
-			"MCS90":  "'.$form_data['MCS90_val'].'",
-			"State_FT":  "'.$form_data['fil_State'].'", 			
-            "Details":  "'.trim($form_data['explanations']).'", 
+		echo '<pre>';  */
+		$d	= array("Proof_of_Prior_Insurance" =>  "".trim($form_data['currently_insured'])."" ,
+            "Does_the_insured_have_General_Liability_Insurance"=>  "".trim($form_data['Proof_Insurance'])."" ,
+            "Number_of_Additional_Insureds"=>  "".trim($form_data['Additional_Insureds'])."" ,
+            "Number_of_Waivers_of_Subrogation"=>  "".trim($form_data['Waivers_Subrogation'])."" ,
+            "Is_the_customer_required_to_maintain_hours"=>  "".trim($form_data['customer_required_to_maintain_hours'])."" ,
+            "Year_current_business_was_established"=>  "".trim($form_data['Year_current_business'])."" ,
+            "Are_any_state_or_federal_filings_required"=>  "".trim($form_data['federal_filings_required'])."" ,
+            "Do_we_insure_all_commercial_vehicles_the_insured"=>  "".trim($form_data['commercial_vehicles'])."" ,
+            "Do_we_insure_all_vehicles_that_the_insured_uses"=>  "".trim($form_data['insured_uses_business'])."" ,
+            "Federal"=>  "".trim($form_data['Federal'])."" ,
+            "Federal_Cargo_BMC_34"=>  "".trim($form_data['Federal_Cargo'])."" ,
+            "How_often_are_MVRs_reviewed"=>  "".trim($form_data['MVRs_reviewed'])."" ,
+            "Are_all_vehicles_listed_owned_registered_to_appl"=>  "".trim($form_data['vehicles_listed_owned'])."" ,
+            "Any_vehicles_titled_to_an_individual_instead_of_bs"=>  "".trim($form_data['individual_instead_of_business'])."" ,
+			 "CA_Authority_Number"=>  "".trim($form_data['CA_Authority_Number'])."" ,
+            "Others"=>  "".trim($form_data['fil_othr_cnt'])."", 
+            "State_Cargo_Form_H"=>  "".trim($form_data['fil_formh_cnt'])."" ,
+			"MCS90"=>  "".trim($form_data['MCS90_val'])."",
+			"State_FT"=>  "".trim($form_data['fil_State'])."", 			
+            "Details"=>  "".trim($form_data['explanations']).""
+			);	
 			
-			}]}'; 
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			
@@ -478,23 +482,27 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		/*  echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; */ 
-			   $Contactdata = '{
-			"data": [{
-            "Radious_0_50_miles":  "'.$form_data['percentage_one'].'" ,
-            "Radious_50_200_miles":  "'.$form_data['percentage_two'].'" ,
-            "Radious_200_miles":  "'.$form_data['percentage_three'].'" ,
-            "EstimateAverage_Radius":  "'.$form_data['Estimates_one'].'" ,
-            "Estimate_Longest_Radius":  "'.$form_data['Estimates_two'].'" ,
-            "Estimate_Furthest_City":  "'.$form_data['Estimates_three'].'" ,
-            "Percent_Incoming":  "'.$form_data['percent_incoming'].'" ,
-            "Percent_Outgoing":  "'.$form_data['percent_outgoing'].'" ,
-            "Contract_Percentage":  "'.$form_data['Business_one_name'].'" ,
-            "Private_Percentage":  "'.$form_data['Business_Private'].'" ,
-            "Brokered_Loards_Percentage":  "'.$form_data['Brokered_Loads_name'].'" ,
-            "Other_Percentage":  "'.$form_data['Business_Other'].'" ,
-            "Non_Trucking":  "'.$form_data['Non_Trucking'].'" ,
-            "Household_or_Commercial_Mover":  "'.$form_data['Operations_radio'].'" 
-			}]}'; 
+			   $d = array(
+            "Radious_0_50_miles"=>  "".trim($form_data['percentage_one'])."" ,
+            "Radious_50_200_miles"=>  "".trim($form_data['percentage_two'])."" ,
+            "Radious_200_miles"=>  "".trim($form_data['percentage_three'])."" ,
+            "EstimateAverage_Radius"=>  "".trim($form_data['Estimates_one'])."" ,
+            "Estimate_Longest_Radius"=>  "".trim($form_data['Estimates_two'])."" ,
+            "Estimate_Furthest_City"=>  "".trim($form_data['Estimates_three'])."" ,
+            "Percent_Incoming"=>  "".trim($form_data['percent_incoming'])."" ,
+            "Percent_Outgoing"=>  "".trim($form_data['percent_outgoing'])."" ,
+            "Contract_Percentage"=>  "".trim($form_data['Business_one_name'])."" ,
+            "Private_Percentage"=>  "".trim($form_data['Business_Private'])."" ,
+            "Brokered_Loards_Percentage"=>  "".trim($form_data['Brokered_Loads_name'])."" ,
+            "Other_Percentage"=>  "".trim($form_data['Business_Other'])."" ,
+            "Non_Trucking"=>  "".trim($form_data['Non_Trucking'])."" ,
+            "Household_or_Commercial_Mover"=>  "".trim($form_data['Operations_radio'])."" 
+			); 
+			
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}';
+			
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
@@ -549,20 +557,21 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		/*  echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; */ 
-			   $Contactdata = '{
-			"data": [{
-            "Auto_Liability":  "'.$form_data['Auto_Liability'].'" ,
-            "AL_Deductible":  "'.$form_data['AL_Deductible_text'].'" ,
-            "UM_UIM1":  "'.$form_data['UM_UIM_value'].'" ,
-            "UM_PD":  "'.$form_data['UM_Pd_value'].'" ,
-            "Medical_Payment":  "'.$form_data['Medical_Payments'].'" ,
-            "PIP":  "'.$form_data['PIP'].'",
-            "Per_vehicle":  "'.$form_data['Motor_Truck_Cargo'].'",
-            "Aggregate":  "'.$form_data['Aggregate'].'",
-            "Rejected":  "'.$form_data['Motor_Truck_Rejected'].'",
-            
-            
-			}]}'; 
+			   $d = array(
+			"Auto_Liability"=> "".trim($form_data['Auto_Liability'])."" ,
+            "AL_Deductible"=> "".trim($form_data['AL_Deductible_text'])."" ,
+            "UM_UIM1"=> "".trim($form_data['UM_UIM_value'])."" ,
+            "UM_PD"=> "".trim($form_data['UM_Pd_value'])."" ,
+            "Medical_Payment"=> "".trim($form_data['Medical_Payments'])."" ,
+            "PIP"=> "".trim($form_data['PIP'])."",
+            "Per_vehicle"=> "".trim($form_data['Motor_Truck_Cargo'])."",
+            "Aggregate"=> "".trim($form_data['Aggregate'])."",
+            "Rejected"=> "".trim($form_data['Motor_Truck_Rejected']).""
+			);
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}';
+			
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
@@ -592,42 +601,40 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		/*  echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; */ 
-			   $Contactdata = '{
-			"data": [{
-            "Household_Goods":  "'.$form_data['Household_perid_two'].'" ,
-            "Metal_sheets_coils_rolls":  "'.$form_data['Household_perid_second'].'" ,
-            "Motor_Vehicles":  "'.$form_data['Motor_perid_second'].'" ,
-            "Drivo_Tow_away":  "'.$form_data['Drive_perid_second'].'" ,
-            "Building_Materials":  "'.$form_data['Building_perid_second'].'" ,
-            "Mobile_Homes":  "'.$form_data['Mobile_perid_second'].'" ,
-            "Machinery_Large_Objects":  "'.$form_data['Machinery_perid_second'].'" ,
-            "Auto_Parts_Tires":  "'.$form_data['Auto_second'].'" ,
-            "US_Mail":  "'.$form_data['US_perid_second'].'" ,
-            "Single_Line_48":  "'.$form_data['Freshs_second'].'" ,
-            "Single_Line_49":  "'.$form_data['Drys_second'].'" ,
-            "Single_Line_46":  "'.$form_data['Refrigerateds_second'].'" ,
-            "Single_Line_47":  "'.$form_data['Intermodals_second'].'" ,
-            "Single_Line_44":  "'.$form_data['Beveragess_second'].'" ,
-            "Single_Line_45":  "'.$form_data['Plastics_second'].'" ,
-            "Single_Line_42":  "'.$form_data['Grainss_second'].'" ,
-            "Single_Line_43":  "'.$form_data['Livestocks_second'].'" ,
-            "Single_Line_40":  "'.$form_data['Agriculturals_second'].'" ,
-            "Single_Line_41":  "'.$form_data['Liquidss_second'].'", 
-            "Logs_Poles_Beams_Lumber":  "'.$form_data['Logs_perid_second'].'", 
-            "Single_Line_37":  "'.$form_data['Garbages_second'].'", 
-            "Single_Line_50":  "'.$form_data['Meatss_second'].'", 
-            "Sand_Gravel":  "'.$form_data['Sands_second'].'", 
-            "Department_Store_Merchandise":  "'.$form_data['Departments_second'].'", 
-            "Single_Line_39":  "'.$form_data['Passengerss_second'].'", 
-            "Single_Line_36":  "'.$form_data['Chemicalss_second'].'", 
-            "Single_Line_35":  "'.$form_data['Papers_second'].'", 
-            "Oilfield_Equipment":  "'.$form_data['Oilfieldss_second'].'", 
-            "Single_Line_38":  "'.$form_data['Electronicss_second'].'", 
-            "Others":  "'.$form_data['Other'].'" 
-            
-            
-			}]}'; 
-			
+			  $d = array("Household_Goods"=>  "".trim($form_data['Household_perid_two'])."" ,
+            "Metal_sheets_coils_rolls"=>  "".trim($form_data['Household_perid_second'])."" ,
+            "Motor_Vehicles"=>  "".trim($form_data['Motor_perid_second'])."" ,
+            "Drivo_Tow_away"=>  "".trim($form_data['Drive_perid_second'])."" ,
+            "Building_Materials"=>  "".trim($form_data['Building_perid_second'])."" ,
+            "Mobile_Homes"=>  "".trim($form_data['Mobile_perid_second'])."" ,
+            "Machinery_Large_Objects"=>  "".trim($form_data['Machinery_perid_second'])."" ,
+            "Auto_Parts_Tires"=>  "".trim($form_data['Auto_second'])."" ,
+            "US_Mail"=>  "".trim($form_data['US_perid_second'])."" ,
+            "Single_Line_48"=>  "".trim($form_data['Freshs_second'])."" ,
+            "Single_Line_49"=>  "".trim($form_data['Drys_second'])."" ,
+            "Single_Line_46"=>  "".trim($form_data['Refrigerateds_second'])."" ,
+            "Single_Line_47"=>  "".trim($form_data['Intermodals_second'])."" ,
+            "Single_Line_44"=>  "".trim($form_data['Beveragess_second'])."" ,
+            "Single_Line_45"=>  "".trim($form_data['Plastics_second'])."" ,
+            "Single_Line_42"=>  "".trim($form_data['Grainss_second'])."" ,
+            "Single_Line_43"=>  "".trim($form_data['Livestocks_second'])."" ,
+            "Single_Line_40"=>  "".trim($form_data['Agriculturals_second'])."" ,
+            "Single_Line_41"=>  "".trim($form_data['Liquidss_second'])."", 
+            "Logs_Poles_Beams_Lumber"=>  "".trim($form_data['Logs_perid_second'])."", 
+            "Single_Line_37"=>  "".trim($form_data['Garbages_second'])."", 
+            "Single_Line_50"=>  "".trim($form_data['Meatss_second'])."", 
+            "Sand_Gravel"=>  "".trim($form_data['Sands_second'])."", 
+            "Department_Store_Merchandise"=>  "".trim($form_data['Departments_second'])."", 
+            "Single_Line_39"=>  "".trim($form_data['Passengerss_second'])."", 
+            "Single_Line_36"=>  "".trim($form_data['Chemicalss_second'])."", 
+            "Single_Line_35"=>  "".trim($form_data['Papers_second'])."", 
+            "Oilfield_Equipment"=>  "".trim($form_data['Oilfieldss_second'])."", 
+            "Single_Line_38"=>  "".trim($form_data['Electronicss_second'])."", 
+            "Others"=>  "".trim($form_data['Other'])."" 
+            ); 
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}';
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
 				$url = "token";
@@ -681,20 +688,20 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		echo '<pre>'; 
 		/* "policy":  "'.$form_data['Policy_Surety_Number'].'" ,
 		*/ 
-			   $Contactdata = '{
-			"data": [{
-            "Form":  "'.$form_data['Form'].'" ,
-            "Type":  "'.$form_data['Type'].'" ,
-            "Posted_Date":  "'.date("Y-m-d", strtotime($form_data['Posted'])).'" ,  
-            "Coverage_From":  "'.$form_data['Coverage'].'" ,
-            "To":  "'.$form_data['To'].'" ,
-            "Cancellation_Date":  "'.$form_data['Cancellation'].'" ,
-            "Effective_Date":  "'.$form_data['Effective'].'" ,
-			"policy":  "'.$form_data['Policy_Surety_Number'].'" ,
-            "Insurance_Carrier":  "'.$form_data['Insurence'].'" 
-           
-            
-			}]}'; 
+			$d = array(
+           "Form"=>  "".trim($form_data['Form'])."" ,
+            "Type"=>  "".trim($form_data['Type'])."" ,
+            "Posted_Date"=>  "".trim(date("Y-m-d", strtotime($form_data['Posted'])))."" ,  
+            "Coverage_From"=>  "".trim($form_data['Coverage'])."" ,
+            "To"=>  "".trim($form_data['To'])."" ,
+            "Cancellation_Date"=>  "".trim($form_data['Cancellation'])."" ,
+            "Effective_Date"=>  "".trim($form_data['Effective'])."" ,
+			"policy"=>  "".trim($form_data['Policy_Surety_Number'])."" ,
+            "Insurance_Carrier"=>  "".trim($form_data['Insurence'])."" 
+           );
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}';			
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
