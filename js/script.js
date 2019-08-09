@@ -1752,8 +1752,6 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 			$(".model_div_select").show();
 			$(".model_div").hide();
 			}else{
-				$(".make_div_select").hide();
-				$(".make_div").show();
 				$(".model_div_select").hide();
 				$(".model_div").show();
 				
@@ -2607,7 +2605,14 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 	})
 });
 
-
+$(document).on("change", "#C2VehicleDetails_Loss", function(event){
+var losspayee=$(this).find(':selected').val();
+if(losspayee!=='None'){
+$(".loss_payee_yes").show();
+	}else{
+		$(".loss_payee_yes").hide();
+	}
+});
 
 
 $(".datepicker").datepicker({

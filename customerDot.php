@@ -9,7 +9,7 @@ $handleFunctionsObject = new handleFunctions;
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- jQuery --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -2820,7 +2820,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
 					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
-							<option value=""></option>
+							<option value="None">None</option>
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();
 							
@@ -2831,6 +2831,17 @@ $handleFunctionsObject = new handleFunctions;
 							<?php } ?>
 						</select>
 					</div>
+					<div class='loss_payee_yes' style='display:none;'>
+					<div class="form-group " >
+					  <label for="Vehicle Sub-Type" class="control-label">Full Name</label>
+					   <input type="text" class="form-control loss_payee_full_name" id="loss_payee_full_name" name="loss_payee_full_name" value="" required="">
+					</div>
+					<div class="form-group " >
+					  <label for="Vehicle Sub-Type" class="control-label">Address</label>
+					   <textarea class="form-control loss_payee_address" id="loss_payee_address" name="loss_payee_full_name" ></textarea> 
+					</div>
+					</div>
+					
 					
 					
 					
