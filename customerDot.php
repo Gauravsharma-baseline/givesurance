@@ -489,13 +489,13 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Yrs. in business</label>	
-					<input type="number" class="form-control Yrs_in_business" id='Yrs_in_business' value="" name='Yrs_in_business' max='4'> 
+					<input type="number" class="form-control Yrs_in_business" id='Yrs_in_business' value="" name='Yrs_in_business' min='0'> 
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Yrs. in Trucking Industry</label>	
-					<input type="number" class="form-control Yrs_in_Trucking_Industry" id='Yrs_in_Trucking_Industry' value=""  name='Yrs_in_Trucking_Industry'> 
+					<input type="number" class="form-control Yrs_in_Trucking_Industry" id='Yrs_in_Trucking_Industry' value=""  name='Yrs_in_Trucking_Industry' min='0'> 
 					</div>
 				</div>
 				<div class="form-row">
@@ -996,7 +996,7 @@ $handleFunctionsObject = new handleFunctions;
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value='<?php echo date('m/d/Y');?> 'placeholder='<?php echo date('m/d/Y');?>' class='datepicker'  id='Accident_date_0'>				
+				 <td class="text-center td-padding"> <input type='text' value=' 'placeholder='<?php echo date('m/d/Y');?>' class='datepicker'  id='Accident_date_0'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 
@@ -1663,20 +1663,20 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>0-50 miles</label>
-						<input type="number" name="percentage_one" class="per_one" id="percentage_two_one" value="">
+						<input type="number" name="percentage_one" class="per_one" id="percentage_two_one" value="" min='0'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>50-200 miles</label>
-						<input type="number" name="percentage_two" class="per_two" id="percentage_two_id" value="">
+						<input type="number" name="percentage_two" class="per_two" id="percentage_two_id" value="" min='0'>
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>200+ miles</label>
-							<input type="number" name="percentage_three" class="per_three" id="percentage_three_id" value="">
+							<input type="number" name="percentage_three" class="per_three" id="percentage_three_id" value="" min='0'>
 					</div>
 				</div>
 			</div>
@@ -1687,20 +1687,20 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>Average Radius</label>
-						<input type="number" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="">
+						<input type="number" name="Estimates_one" class="Esti_one" id="Estimates_one_id" value="" min='0'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						
 						<label>Longest Radius</label>
-						<input type="number" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="">
+						<input type="number" name="Estimates_two"  class="Esti_two" id="Estimates_two_id"  value="" min='0'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>Furthest City</label>
-						<input type="number" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="">
+						<input type="number" name="Estimates_three"  class="Esti_three" id="Estimates_three_id"  value="" min='0'>
 					</div>
 				</div>
 								
@@ -1716,7 +1716,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 				<div class="form-holder w-100">
 				<label> Percent Outgoing:<label>
-				<input type="number" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="">
+				<input type="number" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="" min='0'>
 				</div>
 				</div>
 			</div>
@@ -1724,7 +1724,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 				<div class="form-holder w-100">
 				<label>Percent Incoming:<label>
-				<input type="number" name="percent_incoming" id="incoming_percent" class="int_percent" value="">
+				<input type="number" name="percent_incoming" id="incoming_percent" class="int_percent" value="" min='0'>
 				</div>
 					</div>
 					</div>
@@ -1736,24 +1736,24 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="col-md-3 input_one_b">
 					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Contract<br>
 					
-					<input type="number" name="Business_one_name" class="Business_one" id="Business_first_id"  value="">
+					<input type="number" name="Business_one_name" class="Business_one" id="Business_first_id"  value="" min='0'>
 				</div>
 					
 					<div class="col-md-3 input_three_b">
 					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Private<br>
-					<input type="number" name="Business_Private" class="Business_three" id="Business_Private_id"  value="">
+					<input type="number" name="Business_Private" class="Business_three" id="Business_Private_id"  value="" min='0'>
 					</div>
 					<div class="col-md-3 input_four_b">
 					<input type="checkbox" name="Non_Trucking_Business" value="" id="Non_Trucking_Business_check" class="Non_Trucking_Business_check">Non Trucking<br>
-					<input type="number" name="Non_Trucking" class="Business_three" id="Non_Trucking_id"  value="">
+					<input type="number" name="Non_Trucking" class="Business_three" id="Non_Trucking_id"  value="" min='0'>
 					</div>
 					<div class="col-md-3 input_five_b">
 					<input type="checkbox" name="Brokered_Loads" value="" id="Brokered_Loads_check" class="Brokered_Loads_check">Brokered Loads*<br>
-					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Brokered_Loads_id"  value="">
+					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Brokered_Loads_id"  value="" min='0'>
 					</div>
 					<div class="col-md-3 input_six_b">
 					<input type="checkbox" name="Business" value="" id="Business_Other_check" class="Business_Other_check">Other<br>
-					<input type="number" name="Business_Other" class="Business_three" id="Business_Other_id"  value="">
+					<input type="number" name="Business_Other" class="Business_three" id="Business_Other_id"  value="" min='0'>
 					</div>
 					
 					</div>

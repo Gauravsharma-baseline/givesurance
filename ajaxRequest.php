@@ -348,7 +348,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				<tr id='tr_id_0'>
 				  <td class="td-padding">
 				  <select id="select_Accident_0">
-					<option selected="selected" value=""></option>
+					<option selected="selected" value="">None</option>
 					<option value="AAF">AAF - At Fault Accident</option>
 					<option value="BOT">BOT - Open Bottle/Container</option>
 					<option value="CRD">CRD - Careless/Improper Op of Vehicle</option>
@@ -381,7 +381,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value="<?php echo date('m/d/Y');?>" placeholder="<?php echo date('m/d/Y');?>" class="datepicker" id="Accident_date_0">				
+				 <td class="text-center td-padding"> <input type="text" value=" " placeholder="<?php echo date('m/d/Y');?>" class="datepicker" id="Accident_date_0">				
 					</td>
 				  <td class="td-padding"></td>
 				</tr>
@@ -405,11 +405,15 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				$d= $handleFunctionsObject->updateviolation($_POST['contactId'],trim($d['Accident_id']),date("Y-m-d", strtotime($d['Accident_date'])),trim($d['Accident']));	
 				}elseif(!empty($d['Accident']) && $d['Accident_date']){
 				$d= $handleFunctionsObject->insertviolation($_POST['contactId'],trim($d['Accident']),date("Y-m-d", strtotime($d['Accident_date'])));
+				}else{
+					$d=0;
 				}
 			}
 			
 			if($d==1){
 				echo json_encode($form_data);
+			}else{
+				echo 0;
 			}
 			
 		}

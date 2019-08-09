@@ -1837,7 +1837,7 @@ $(document).on("click", "#voilation_add", function(event){
 			}
 		}else{ */
          var tds = '<tr>';
-             tds += "<td class='td-padding'><select id='select_Accident_"+rowCount+"'><option selected='selected' value=''></option>";
+             tds += "<td class='td-padding'><select id='select_Accident_"+rowCount+"'><option selected='selected' value=''>None</option>";
 			 tds += '<option value="AAF">AAF - At Fault Accident</option>';
 			 tds += '		<option value="BOT">BOT - Open Bottle/Container</option>';
 			 tds += '		<option value="CRD">CRD - Careless/Improper Op of Vehicle</option>';
@@ -2615,7 +2615,7 @@ $(".datepicker").datepicker({
 		changeYear: true,
 		showButtonPanel: true,
 		dateFormat: 'mm/dd/yy',
-		yearRange: '-100:+100'
+		yearRange: '-9:+100'
 		
 });
 $(".datepickerDOB").datepicker({
