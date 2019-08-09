@@ -1,5 +1,5 @@
 $(document).ready( function () {
-	
+
 $(".previous_doT").click(function(){
 	$(".dotLi").removeClass("active");
 	$(".phoneli").addClass("active");
@@ -15,6 +15,13 @@ $(".previous_first_2").click(function(){
 		
 });
 
+$(".previous_Intro").click(function(){
+	$(".IntroLi").removeClass("active");
+	$(".phoneli").addClass("active");
+	$(".first").show(); 
+	$(".first_1").hide();
+		
+});
 
 
 $(".previous_physical").click(function(){
@@ -159,7 +166,19 @@ $(".phoneli").click(function(){
 	$(".first").show(); 
 		
 });
-
+$(".IntroLi").click(function(){
+	var contactId=$(".contactId").val();
+	if(contactId==''){
+		event.preventDefault();
+		$(".phoneNumber").addClass('is-invalid');
+	}else{
+	$(".phoneNumber").removeClass('is-invalid');
+	$("#progressbar li").removeClass("active");
+	$(".IntroLi").addClass("active");
+	$("fieldset").hide();
+	$(".first_1").show(); 
+	}
+});
 
 $(".dotLi").click(function(){
 	var phoneNumber=$(".phoneNumber").val();
@@ -446,7 +465,6 @@ $(document).on("click", ".phone_number_next", function(event){
            dataType: 'json',
            data: ({getZohoContact: "success", phone_number: phone}),
             success:function(result){
-				
 				$("body").css("cursor", "default");
 				$(".overlay").hide();
 				if(result==0){
@@ -460,8 +478,8 @@ $(document).on("click", ".phone_number_next", function(event){
 				$("#mc_number").val(result.MC);
 				$(".dot").val(result.Dot);
 					$(".phoneli").removeClass("active");
-					$(".dotLi").addClass("active");
-					$(".second").show(); 
+					$(".IntroLi").addClass("active");
+					$(".first_1").show(); 
 					$(".first").hide();
 				var conatctData=result.conatctData;
 				//console.log(conatctData);
@@ -872,6 +890,33 @@ $(document).on("click", ".phone_number_next", function(event){
          });
 	}
 });
+
+
+
+$(".Intro_next").click(function(event ){
+var contactId=$(".contactId").val();
+	var dataform=	$('.first_1').find('select, textarea, input').serialize();
+	$(".overlay").show();
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({intro_data_next: "success",contactId:contactId,dataform:dataform}),
+            success:function(result){
+				$(".overlay").hide();
+					$(".IntroLi ").removeClass("active");
+					$(".dotLi").addClass("active");
+					$(".first_1").hide();
+					$(".second").show(); 
+								 
+				
+           }
+         });
+});
+
+
+
+
 $(".dot_number_next").click(function(event ){
 	var checkType=$(".checkType").val();
 	var check_id_dot_already= $(".dot").val();
@@ -1259,8 +1304,9 @@ $(".Commodities_next").click(function(event ){
             success:function(result){
 				$(".overlay").hide();
 				 $(".CommoditiesLI").removeClass("active");
-					$(".CargoRelatedLI").addClass("active");
-					$("#alert_message_div").show();
+					//$(".CargoRelatedLI").addClass("active");
+					$(".Fourteen_s").hide();
+					$(".eighteen").show();
 					//$(".Fourteen_s").hide();
 					//$(".fifthteen").show(); 
 								 
@@ -2615,6 +2661,10 @@ $(".loss_payee_yes").show();
 });
 
 
+
+
+
+
 $(".datepicker").datepicker({
 		changeMonth: true,
 		changeYear: true,
@@ -2632,4 +2682,26 @@ $(".datepickerDOB").datepicker({
 		yearRange: '1950:2019'
 });
 
+$('#Specify_Commodities_Hauled_select_div').multiselect();
+
+$('#Insured_first_name').keyup(function(){
+	$('#Financial_First_name').val($(this).val());
 });
+$('#Insured_Last_name').keyup(function(){
+	$('#Financial_Last_name').val($(this).val());
+});
+
+$(document).on("change", "#Insured_Suffix", function(event){
+var suffix=$(this).find(':selected').val();
+	$('#Financial_Suffix').val(suffix);
+});
+$(document).on("change", "#Insured_DOB", function(event){
+	$('#Financial_dob').val($(this).val());
+});
+
+
+});
+
+
+ 
+

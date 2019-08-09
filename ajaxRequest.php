@@ -81,6 +81,18 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 			echo json_encode($response);
 	}
+	if(ISSET($_POST['intro_data_next']) && $_POST['intro_data_next']=='success'){
+		 $contact = $_POST['contactId'];
+		parse_str($_POST['dataform'], $form_data);
+			
+		@$zohoResponse =  $handleFunctionsObject->insertintroconatctdata($contact,$form_data);
+		if($zohoResponse == 1){
+				echo json_encode($zohoResponse);
+		} 
+		
+	}
+ 
+ 
  
 	if(ISSET($_POST['getSaferData']) && $_POST['getSaferData']=='success'){
 		@$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
@@ -177,7 +189,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		echo '<pre>'; 
 		"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
 		*/
-		$d=array("Agent_Code"=>  "".trim($form_data['agent_code'])."" ,
+		$d=array(
             "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
             "Is_the_customer_currently_insured_with_Progressive"=>  "".trim($form_data['customer_Progressive_Commercial'])."" ,
             "Structure" =>  "".trim($form_data['Business_Organization_Structure'])."" ,
@@ -213,7 +225,6 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Yrs_in_Trucking_Industry"=>  "".trim($form_data['Yrs_in_Trucking_Industry'])."" ,
             "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
-            "Payment_Options"=>  "".trim($form_data['payment_option_value'])."" ,
             "List_Filing"=>  "".trim($form_data['List_Filing']).""
 		);
 		
@@ -658,7 +669,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}elseif(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
 			}else{
-				echo 0;
+				echo json_encode($zohoResponse);;
 			} 
 	}	
 	if(ISSET($_POST['CargoRelated_next']) && $_POST['CargoRelated_next']=='success'){

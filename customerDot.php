@@ -17,6 +17,9 @@ $handleFunctionsObject = new handleFunctions;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
 <!-- jQuery easing plugin --> 
+  <link rel="stylesheet" href="css/prettify.min.css" type="text/css">
+ <script type="text/javascript" src="js/prettify.min.js"></script>
+ <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
 <script src="js/script.js" type="text/javascript"></script> 
 <title>Customer with DOt</title>
@@ -29,6 +32,7 @@ $handleFunctionsObject = new handleFunctions;
 <!-- progressbar -->
 <ul id="progressbar">
 <li class="phoneli active">Phone Number </li>
+<li class="IntroLi">Intro</li>
 <li class='dotLi'>DOT</li>
 <li class='MCLi'>MC</li>
 <!--li  class='physicalLi'>Verify Phyical Address</li>
@@ -52,15 +56,79 @@ $handleFunctionsObject = new handleFunctions;
     <div id="loading-img"></div>
 </div>
 	<fieldset class='first'>
-	<h2 class="fs-title">Enter Phone Number</h2>
+	<h2 class="fs-title">Hi my name is (YOUR NAME) and I will be assisting you today.
+	In case we get disconnected, what is the best phone number to reach you?</h2>
 	<h3 class="fs-subtitle"></h3>
 		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
 		<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
 		<input type="button" name="next" class="action-button phone_number_next" value="Next" />
 		
 	</fieldset>
+	<fieldset class='first_1'>
+	<h2 class="fs-title">Intro</h2>
+	<h3 class="fs-subtitle"></h3>
+	<div class='row'>
+		<div class='col-md-6'>
+		<div class="form-row">
+			<div class="form-holder w-100">
+				<label>When do you need policy by?</label>
+				<input type="text" name="When_do_you_need_policy" class='When_do_you_need_policy datepicker'  placeholder='<?php echo date('m/d/Y');?>' value=''>
+					
+			</div>	
+		</div>
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<label>Are you the owner?</label>
+			 <div class='radio'>
+				<input type="radio" name="Are_you_the_owner" class='Are_you_the_owner'  value='Yes'>
+				<label>Yes</label>
+				</div>
+				 <div class='radio'>
+				<input type="radio" name="Are_you_the_owner"  class='Are_you_the_owner'  value='No'>
+				<label>No</label>
+				</div>
+			</div>	
+		</div>
+		</div>
+		<div class='col-md-6'>
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<label>How many vehicles do you need to add?</label>
+			 <select class="form-control how_many_vehicles" id='how_many_vehicles ' name='how_many_vehicles'>
+			 <option value=''>Select</option>
+			 <option value=1>1</option>
+			 <option value=2>2</option>
+			 <option value=3>3</option>
+			 <option value=4>4</option>
+			 <option value=5>5</option>
+			 <option value=6>6</option>
+			 <option value=7>7</option>
+			 <option value=8>8</option>
+			 <option value=9>9</option>
+			 <option value=9>10</option>
+			 </select>
+			</div>	
+		</div>
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<label>Is the owner also the driver?</label>
+			 <div class='radio'>
+				<input type="radio" name="Is_the_owner_driver" class='Is_the_owner_driver'  value='Yes'>
+				<label>Yes</label>
+				</div>
+				 <div class='radio'>
+				<input type="radio" name="Is_the_owner_driver"  class='Is_the_owner_driver'  value='No'>
+				<label>No</label>
+				</div>
+			</div>	
+		</div>
+		</div>
+		<input type="button" name="previous" class="previous_Intro action-button" value="Previous" />
+		<input type="button" name="next" class="action-button Intro_next" value="Next" />
+		</div>
+	</fieldset>
 	<fieldset class='second'>
-		<h2 class="fs-title">Enter DOT</h2>
+		<h2 class="fs-title">what is your DOT number</h2>
 		<h3 class="fs-subtitle"></h3>
 		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
 		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
@@ -282,14 +350,14 @@ $handleFunctionsObject = new handleFunctions;
 			<div class='main_field_div'>
 			<h2 class="fs-title">Policy</h2>
 			<h3 class="fs-subtitle"></h3>
-				<div class="form-row">
+				<!--div class="form-row">
 					<div class="form-holder w-100">
 					 <label>Agent Code:</label>				
 					 <select id='agent_code' name='agent_code'><option selected="selected" value="77743 (GIVESURANCE INS SVCS)">77743 (GIVESURANCE INS SVCS)</option>
 					</select>
 					</div>
 
-				</div>
+				</div-->
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
@@ -351,22 +419,6 @@ $handleFunctionsObject = new handleFunctions;
 					<input type='text' name='enter_business_sub' class='enter_business_sub' id='enter_business_sub'>
 					</div>	
 				</div>
-				
-				<div class="form-row">
-					<div class="form-holder w-100">			
-						<label>Does the insured ever transport passengers for hire?</label>
-						 <div class='radio'>
-						
-						 <input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' checked value='Yes'>
-						  <label>Yes</label>
-						 </div>
-						  <div class='radio'>
-						   
-						<input type="radio" name="Is_insured_transport_passengers" class='Is_insured_transport_passengers' value='No'>
-						<label>No</label>
-						</div>
-					</div>	
-				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">			
 						<label>Are any listed vehicles used to haul steel?</label>
@@ -385,7 +437,14 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row" id='Specify_Commodities_Hauled'>	
 					<div class="form-holder w-100">
 					<label>Specify Commodities Hauled</label>
-					<input type="text" class="form-control Specify_Commodities_Hauled"  name='Specify_Commodities_Hauled' >  
+					<select  multiple="multiple" id='Specify_Commodities_Hauled_select_div'>
+					  <option value="" disabled selected>Choose Commodities Hauled</option>
+					  <option value="1">USA</option>
+					  <option value="2">Germany</option>
+					  <option value="3">France</option>
+					  <option value="4">Poland</option>
+					  <option value="5">Japan</option>
+					</select>
 					</div>
 				</div>
 				
@@ -512,38 +571,11 @@ $handleFunctionsObject = new handleFunctions;
 					</select>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100">
-					<label>Payments Options</label>	
-					<div class='radio'>
-					<input type="radio" name="Payments_Options" checked class='Payments_Options'  value='Payment in Full'>
-					<label>Payment in Full</label>	
-					</div>
-					<div class='radio'>
-					<input type="radio" name="Payments_Options"  class='Payments_Options'  value='Financed with GBC'>
-					<label>Financed with GBC</label>	
-					</div>
-					<div class='radio'>
-						<input type="radio" name="Payments_Options"  class='Payments_Options'  value='Financed with'>
-						<label>Financed with</label>	
-					</div>
-					<div id='Financed_with' style='display:none'>
-					<label>Enter</label>	
-					<input type="text" class="form-control List_Filling" id='payment_option_value' value=""  name='payment_option_value'> 
-					</div>
-					
-					</div>
-					
-					
-				</div>
 				</div>
 			
 			
 			</div>
 			<div class='col-md-6 right'>
-			
-			
-			
 				<div class='main_field_div' id='Spouse_Information_div' style='display:none'>
 				<h2 class="fs-title">Spouse Information</h2>
 				<div class="form-row">
@@ -2247,8 +2279,24 @@ $handleFunctionsObject = new handleFunctions;
 		
 		</div>
 	</fieldset-->
+	<fieldset class='eighteen'>
+	<div class='row main_form'>
+		
+        <br><br> <h2 style="color:#0fad00">ThankYou</h2>
+        <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+		 <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+		   <span class="swal2-success-line-tip"></span>
+		   <span class="swal2-success-line-long"></span>
+		   <div class="swal2-success-ring"></div> 
+		   <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+		   <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+		  </div>
+        
+        <p style="font-size:17px;color:#5C5C5C;">Thank You for your time. We will proceed in further verification and keep you posted.</p>
+		
+		</div>
 
-
+	</fieldset>
 </form>
 
 
