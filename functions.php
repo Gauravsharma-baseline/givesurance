@@ -236,36 +236,36 @@
 		
 	} 
 
+	function GetContactData($contact_id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.zoho_contact_data where contactid=".$contact_id."";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+	}
+
+
+
 	function insertintroconatctdata($contact_id,$data){
 		$conn = $this->pgConnect();
 		$date=date("Y-m-d", strtotime($data['When_do_you_need_policy']));
-		$query = "SELECT * FROM public.Zoho_contact_data where contactid=".$contact_id."";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-		$rows = pg_num_rows($rs);
-		if($rows==1){
-		while ($row = pg_fetch_assoc($rs)) {
-			if($data['When_do_you_need_policy']!=''){
-			
-			$query =  "update  public.Zoho_contact_data SET when_do_you_need_policy_by='".$date."' where contactid=$contact_id";	
+		$res = $this->GetContactData($contact_id);
+		if($res!=0 && $data['When_do_you_need_policy']!=''|| $data['Are_you_the_owner']!='' || $data['how_many_vehicles']!='' || $data['Is_the_owner_driver']!=''){
+			 $query = "UPDATE  public.zoho_contact_data SET when_do_you_need_policy_by='".$date."',are_you_the_owner='".$data['Are_you_the_owner']."',how_many_vehicles=".$data['how_many_vehicles'].",is_the_owner_also_the_driver='".$data['Is_the_owner_driver']."' WHERE contactid=".$contact_id."";	
 			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-			}
-			if($data['Are_you_the_owner']!=''){
-			$query =  "update  public.Zoho_contact_data SET are_you_the_owner='".$data['Are_you_the_owner']."' where contactid=$contact_id";	
-			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-			}
-			if($data['how_many_vehicles']!=''){
-			$query =  "update  public.Zoho_contact_data SET how_many_vehicles='".$data['how_many_vehicles']."' where contactid=$contact_id";	
-			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-			}
-			if($data['Is_the_owner_driver']!=''){
-			$query =  "update  public.Zoho_contact_data SET is_the_owner_also_the_driver='".$data['Is_the_owner_driver']."' where contactid=$contact_id";	
-			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
-			}
-			
-			}
 		}
 		elseif($data['When_do_you_need_policy']!='' || $data['Are_you_the_owner']!='' || $data['Is_the_owner_driver']!='' ||  $data['how_many_vehicles']!=''){
-			  $query = "INSERT INTO public.Zoho_contact_data(contactid, is_the_owner_also_the_driver,when_do_you_need_policy_by,are_you_the_owner,how_many_vehicles)VALUES('".$contact_id."', '".$data['Is_the_owner_driver']."','".$date."','".$data['Are_you_the_owner']."','".$data['how_many_vehicles']."')";
+			  $query = "INSERT INTO public.zoho_contact_data(contactid, is_the_owner_also_the_driver,when_do_you_need_policy_by,are_you_the_owner,how_many_vehicles)VALUES('".$contact_id."', '".$data['Is_the_owner_driver']."','".$date."','".$data['Are_you_the_owner']."','".$data['how_many_vehicles']."')";
 			$result = pg_query($query);
 			
 		}

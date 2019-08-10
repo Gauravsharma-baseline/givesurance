@@ -482,9 +482,23 @@ $(document).on("click", ".phone_number_next", function(event){
 					$(".first_1").show(); 
 					$(".first").hide();
 				var conatctData=result.conatctData;
-				//console.log(conatctData);
+				var contactData=result.contactData[0];
+				if(contactData!==null || contactData!=0){
 				
-				
+				if(contactData.when_do_you_need_policy_by!==null){
+				  $('.When_do_you_need_policy').val(moment(contactData.when_do_you_need_policy_by).format('MM/DD/YYYY'));
+				}
+				if(contactData.are_you_the_owner!==null){
+				$("input[name='Are_you_the_owner'][value='"+contactData.are_you_the_owner+"']").attr('checked','checked');				  
+				}  
+				  if(contactData.how_many_vehicles!==null){
+				  $('#how_many_vehicles').val(contactData.how_many_vehicles);
+				  }
+				  
+					if(contactData.is_the_owner_also_the_driver!==null){
+						$("input[name='Is_the_owner_driver'][value='"+contactData.is_the_owner_also_the_driver+"']").attr('checked','checked');
+					}
+				}
 				if(conatctData!=''){
 					
 				driversdata=result.conatctData.Drivers1;
@@ -1624,6 +1638,26 @@ var vehicle_subcat= $("#C2VehicleDetails_subcategory").find(':selected').attr('d
 
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
+		if(vehicle_type==3){
+			$(".vehicle_Gross_weight_div").hide();
+			$(".vehicle_Longest_tip_div").hide();
+			$(".vehicle_Destination_City_div").hide();
+			$(".vehicle_Destination_City_div").hide();
+			$(".Radius_div_select").hide();
+			$(".make_div").hide();
+			$(".model_div_select").hide();
+			$(".make_div_select").hide();
+			$(".model_div").hide();
+			$(".body_div_select").hide();
+			$(".Trailer_div_select").show();
+		}else{
+			$(".vehicle_Gross_weight_div").show();
+			$(".vehicle_Longest_tip_div").show();
+			$(".vehicle_Destination_City_div").show();
+			$(".Radius_div_select").show();
+			$(".Trailer_div_select").hide();
+			
+		}
 		$(".C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
 		$(".C2VehicleDetails_year").html('<option value="" selected>updating....</option>');
 		$(".C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
@@ -2698,10 +2732,40 @@ var suffix=$(this).find(':selected').val();
 $(document).on("change", "#Insured_DOB", function(event){
 	$('#Financial_dob').val($(this).val());
 });
+$(document).on("change", ".C2VehicleDetails_Trailer", function(event){
+	var d=$(this).find(':selected').val();
+	if(d=='non-owned'){
+		$('.trailer_value_div_select').show();
+	}else{
+		$('.trailer_value_div_select').hide();
+	}
 
-
-});
+	});
 
 
  
+$(document).on("change", "#List_Filing", function(event){
+	var d=$(this).find(':selected').val();
+	if(d=='State'){
+		$('.customer_in_div').show();
+	}else{
+		$('.customer_in_div').hide();
+		$('.customer_state_div_value').hide();
+	}
 
+	});
+	
+$(document).on("change", ".you_are", function(event){
+	var d=$(this).val();
+	if(d=='CA'){
+		var a='Enter CA Number';
+	}else{
+		var a='Enter TXDOT Number';
+	}
+	$('.customer_state_div_value').html('<div class="form-holder w-100"><label>'+a+'</label><input type="text" name="customer_state_value"  class="customer_state_value"></div></div>');
+	$('.customer_state_div_value').show();
+	
+
+	});	
+
+});

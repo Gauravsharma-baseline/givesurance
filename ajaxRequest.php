@@ -33,7 +33,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					$url = "Contacts/$contactId";
 					$data = "";
 					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
-					$response	=	array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0]);
+					$contactDataGet=$handleFunctionsObject->GetContactData($contactId);
+					
+					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -46,7 +48,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 				    $contactId=$contactresponse['data'][0]['details']['id'];
 				   
-					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'');
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'');
 					}else{
 						 $response=0;
 					}  
@@ -59,7 +61,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					$url = "Contacts/$contactId";
 					$data = "";
 					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
-					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0]);
+					$contactDataGet=$handleFunctionsObject->GetContactData($contactId);
+					
+					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -71,7 +75,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 						   $contactId=$contactresponse['data'][0]['details']['id'];
-					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'');
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'');
 					}else{
 						$response=0;
 					}  
@@ -89,7 +93,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		if($zohoResponse == 1){
 				echo json_encode($zohoResponse);
 		} 
-		
+		echo json_encode($zohoResponse);
 	}
  
  

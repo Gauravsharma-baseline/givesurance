@@ -94,7 +94,7 @@ $handleFunctionsObject = new handleFunctions;
 		<div class="form-row">
 			<div class="form-holder w-100">
 			<label>How many vehicles do you need to add?</label>
-			 <select class="form-control how_many_vehicles" id='how_many_vehicles ' name='how_many_vehicles'>
+			 <select class="form-control how_many_vehicles" id='how_many_vehicles' name='how_many_vehicles'>
 			 <option value=''>Select</option>
 			 <option value=1>1</option>
 			 <option value=2>2</option>
@@ -438,12 +438,37 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Specify Commodities Hauled</label>
 					<select  multiple="multiple" id='Specify_Commodities_Hauled_select_div'>
-					  <option value="" disabled selected>Choose Commodities Hauled</option>
-					  <option value="1">USA</option>
-					  <option value="2">Germany</option>
-					  <option value="3">France</option>
-					  <option value="4">Poland</option>
-					  <option value="5">Japan</option>
+					  <option value="" selected>Choose Commodities Hauled</option>
+					  <option value="Household Goods">Household Goods</option>
+					  <option value="Drive/Tow away">Drive/Tow away</option>
+					  <option value="Mobile Homes">Mobile Homes</option>
+					  <option value="Oilfield Equipment">Oilfield Equipment</option>
+					  <option value="Dry Bulk">Dry Bulk</option>
+					  <option value="Paper Products">Paper Products</option>
+					  <option value="Livestock">Livestock</option>
+					  <option value="Chemicals">Chemicals</option>
+					  <option value="Passengers">Passengers</option>
+					  <option value="Department Store Merchandise">Department Store Merchandise</option>
+					  <option value="Metal: sheets, coils, rolls">Metal: sheets, coils, rolls</option>
+					  <option value="Logs, Poles, Bearms, Lumber">Logs, Poles, Bearms, Lumber</option>
+					  <option value="Machinery, Large Objects">Machinery, Large Objects</option>
+					  <option value="Fresh Produce">Fresh Produce</option>
+					  <option value="Intermodal Containers">Intermodal Containers</option>
+					  <option value="Plastic Products">Plastic Products</option>
+					  <option value="Grain, Feed, Hay">Grain, Feed, Hay</option>
+					  <option value="Garbage/Refuse">Garbage/Refuse</option>
+					  <option value="Agricultural/Farm Supplies">Agricultural/Farm Supplies</option>
+					  <option value="Auto Parts / Tires">Auto Parts / Tires</option>
+					  <option value="Motor Vehicles">Motor Vehicles</option>
+					  <option value="Building Materials">Building Materials</option>
+					  <option value="US Mail">US Mail</option>
+					  <option value="Meats">Meats</option>
+					  <option value="Refrigerated Food">Refrigerated Food</option>
+					  <option value="Beverages">Beverages</option>
+					  <option value="Liquids/Gases">Liquids/Gases</option>
+					  <option value="Electronics">Electronics</option>
+					  <option value="Sand/Gravel">Sand/Gravel</option>
+					  <option value="Other">Other</option>
 					</select>
 					</div>
 				</div>
@@ -568,8 +593,28 @@ $handleFunctionsObject = new handleFunctions;
 					<label>List Filing(s) Required</label>	
 					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
 					<option  value='' selected='selected'>Select Filing</option> 
+					<option  value='Federal'>Federal</option> 
+					<option  value='State'>State</option> 
 					</select>
 					</div>
+				</div>
+				<div class="form-row customer_in_div" style='display:none;'>
+					<div class="form-holder w-100">
+					<label>You are in</label>	
+					<div class='radio'>
+					
+					<input type="radio" name="you_are"  class='you_are'  value='CA' >
+					<label>CA</label>	
+					</div>
+					<div class='radio'>
+					
+					<input type="radio" name="you_are" class='you_are'  value='TX'>
+					<label>TX</label>	
+					</div>
+					</div>
+				</div>
+				<div class="form-row customer_state_div_value" style='display:none;'>
+					
 				</div>
 				</div>
 			
@@ -1536,18 +1581,18 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Auto Liability :</label>
-					<!--label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					<label class="radio-inline" for="radios-0">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" >
 					  $1M CSL
 					</label>
 					<label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1">
 					  $750 CSL
 					</label>
 					<label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" checked="checked">
+					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" >
 					 CSL = Combined Single Limit
-					</label-->
+					</label>
 					 <div class='radio'>
 						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$1M CSL' checked><label>$1M CSL</label>
 					</div>
@@ -1558,8 +1603,20 @@ $handleFunctionsObject = new handleFunctions;
 						<h5> CSL = Combined Single Limit</h5>
 					</div>
 					</div>
-
 				</div>
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					 <label>Do you need $1,000,000 Combined Single Limit for Auto Liability?</label>	
+					<div class='radio'>
+						<input type="radio" name="Combined_Single_Limit" class="Combined_Single_Limit" value='Yes'checked><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Combined_Single_Limit" class="Combined_Single_Limit" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>AL Deductible:</label>	
@@ -1574,7 +1631,7 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="text" name="AL_Deductible_text" value="" id='AL_Deductible_text' style='display:none;' value='$500'></label>
 					</div>
 					</div>
-					</div>
+				</div>
 
 				</div>
 				 <div class="form-row">
@@ -1641,7 +1698,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					
 						<div class='txt'>	
-				<label>Motor Truck Cargo ( Maximum Limits of $250,000)</label>
+				<label>Motor Truck Cargo</label>
 				</div>
 						</div>
 						</div>
@@ -2732,22 +2789,18 @@ $handleFunctionsObject = new handleFunctions;
 						?>
 					  </div>
 					
-					<div class="form-group">
-					  <label for="VIN" class="control-label">VIN</label>
-					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
-					  <span class="help-block"></span>
-					</div>
-					<div class="form-group">
+					
+					<div class="form-group vehicle_Gross_weight_div" id='vehicle_Gross_weight_div'>
 					  <label for="Gross" class="control-label">Gross weight</label>
 					  <input type="text" class="form-control" id="vehicle_Gross_weight" name="vehicle_Gross_weight" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group vehicle_Longest_tip_div" id='vehicle_Longest_tip_div'>
 					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
 					  <input type="text" class="form-control" id="vehicle_Longest_tip" name="vehicle_Longest_tip" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group vehicle_Destination_City_div" id='vehicle_Destination_City_div'>
 					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
 					  <input type="text" class="form-control" id="vehicle_Destination_City" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
@@ -2806,13 +2859,18 @@ $handleFunctionsObject = new handleFunctions;
 						
 					</select>
 					</div>
-					<div class="form-group body_div_select" >
+					<div class="form-group Garaging_div_select" >
 					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
 					
 					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
 					</div>
+					<div class="form-group">
+					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
+					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
+					  <span class="help-block"></span>
+					</div>
 					
-					<div class="form-group body_div_select" >
+					<div class="form-group Radius_div_select" >
 					  <label for="Radius" class="control-label">Radius (One Way)</label>
 						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
 							<option value="50">50 miles</option>
@@ -2824,6 +2882,20 @@ $handleFunctionsObject = new handleFunctions;
 						
 						</select>
 					</div>
+					<div class="form-group Trailer_div_select" style='display:none'>
+					  <label for="Radius" class="control-label">Trailer Type</label>
+						<select name="C2VehicleDetails_Trailer" id="C2VehicleDetails_Trailer" class="form-control C2VehicleDetails_Trailer">
+						<option value="owned" selected="selected">Owned</option>
+						<option  value="non-owned">Non-owned</option>
+						
+						</select>
+					</div>
+					<div class="form-group trailer_value_div_select" style='display:none'>
+					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the non-owned trailer?</label>
+						<input type='text' name="trailer_value" id="trailer_value" class="form-control trailer_value"/>
+					</div>
+					
+					
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Is this vehicle used for business, personal or both?</label>
 					  <div class='radio'>
