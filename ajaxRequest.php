@@ -34,8 +34,19 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					$data = "";
 					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
 					$contactDataGet=$handleFunctionsObject->GetContactData($contactId);
-					
-					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet);
+					$d='';
+					$Specify_Commodities_Hauled=explode("~",$contactdata['data'][0]['Specify_Commodities_Hauled']);
+					foreach($Specify_Commodities_Hauled as $Specify){
+						$commoditiesdata=  $handleFunctionsObject->GetContactcommoditeies($contactId,$Specify);
+						if($commoditiesdata!=0){
+						$d.='<div class="col-sm-4">
+						<label>'.$commoditiesdata[0]['name'].'</label>
+						<input type="number" name="'.$commoditiesdata[0]['name'].'"  value="'.$commoditiesdata[0]['value'].'" min="0">
+						</div>';
+						}
+					}
+			
+					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -48,7 +59,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 				    $contactId=$contactresponse['data'][0]['details']['id'];
 				   
-					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'');
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'','commodities_data'=>'');
 					}else{
 						 $response=0;
 					}  
@@ -62,8 +73,18 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					$data = "";
 					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
 					$contactDataGet=$handleFunctionsObject->GetContactData($contactId);
-					
-					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet);
+					$Specify_Commodities_Hauled=explode("~",$contactdata['data'][0]['Specify_Commodities_Hauled']);
+					$d='';
+					foreach($Specify_Commodities_Hauled as $Specify){
+						$commoditiesdata=  $handleFunctionsObject->GetContactcommoditeies($contactId,$Specify);
+						if($commoditiesdata!=0){
+						$d.='<div class="col-sm-4">
+						<label>'.$commoditiesdata[0]['name'].'</label>
+						<input type="number" name="'.$commoditiesdata[0]['name'].'"  value="'.$commoditiesdata[0]['value'].'" min="0">
+						</div>';
+						}
+					}
+					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d);
 				}else{
 					$url = "Contacts";
 					$Contactdata = '{
@@ -75,7 +96,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 						   $contactId=$contactresponse['data'][0]['details']['id'];
-					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'');
+					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'','commodities_data'=>'');
 					}else{
 						$response=0;
 					}  
@@ -188,16 +209,23 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	if(ISSET($_POST['general_data_next']) && $_POST['general_data_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
 		parse_str($_POST['dataform'], $form_data);
-		/*  echo '<pre>';
+		  /* echo '<pre>';
 			print_r($form_data);
-		echo '<pre>'; 
-		"Social_Security_Number":  "'.$form_data['social_security_number'].'" ,
-		*/
-		$d=array(
+		echo '<pre>'; */ 
+		$Specify_Commodities_Hauled=implode("~",$form_data['Specify_Commodities_Hauled']);
+		foreach($form_data['Specify_Commodities_Hauled'] as $comm){
+			if($comm!=''){
+				  $databaseRes =  $handleFunctionsObject->insertcommoditiesconatctdata($_POST['contactId'],$comm,'');
+			}
+		}
+		
+		
+		
+		 $d=array(
             "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
             "Is_the_customer_currently_insured_with_Progressive"=>  "".trim($form_data['customer_Progressive_Commercial'])."" ,
             "Structure" =>  "".trim($form_data['Business_Organization_Structure'])."" ,
-            "Business_Type_Category"=>  "".trim($form_data['enter_business_sub'])."" ,
+            "Business_Type_Category"=>  "".trim($form_data['Business_type'])."" ,
             "Do_you_have_a_DBA"=>  "".trim($form_data['have_DBA'])."" ,
             "DBA_Name"=>  "".trim($form_data['DBA_NAME'])."" ,
             "USDOT_Assigned_to"=>  "".trim($form_data['USDOT_Assigned_to'])."" ,
@@ -216,7 +244,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			"Home_Address"=>  "".trim($form_data['Financial_Home_address'])."" ,
             "Involved_in_the_daily_operation_of_the_business"=>  "".trim($form_data['is_Involved_daily_operation'])."" ,
             "Designate_Spouse_as_a_Named_Insured"=>  "".trim($form_data['Insured_Designate_Spouse'])."" ,
-            "Specify_Commodities_Hauled"=>  "".trim($form_data['Specify_Commodities_Hauled'])."" ,
+            "Specify_Commodities_Hauled"=>  "".trim($Specify_Commodities_Hauled)."" ,
             "Are_any_listed_vehicles_used_to_haul_steel"=>  "".trim($form_data['is_vehicles_haul_steel'])."" ,
             "listed_vehicles_or_the_load_require_a_placard"=>  "".trim($form_data['is_vehicles_placard'])."" ,
             "Insured_s_Phone"=>  "".trim($form_data['Contact_Insured_phone'])."" ,
@@ -229,7 +257,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Yrs_in_Trucking_Industry"=>  "".trim($form_data['Yrs_in_Trucking_Industry'])."" ,
             "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
-            "List_Filing"=>  "".trim($form_data['List_Filing']).""
+            "List_Filing"=>  "".trim($form_data['List_Filing'])."",
+            "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
+            "State_Filing_Number"=>  "".trim($form_data['customer_state_value'])."",
 		);
 		
 			  $Contactdata = '{
@@ -258,7 +288,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			else{
 				echo 0;
 				
-			}  
+			}   
 			
 	}
 
@@ -287,9 +317,23 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
 				}
 				$old_access_token = file_get_contents("access_token.txt");
+				$contactdata =  $handleFunctionsObject->zoho_curl($contacturl,"GET",$data,$old_access_token);
 				
 			}
-			echo 1;
+			
+			$d='';
+			$Specify_Commodities_Hauled=explode("~",$contactdata['data'][0]['Specify_Commodities_Hauled']);
+			foreach($Specify_Commodities_Hauled as $Specify){
+				$commoditiesdata=  $handleFunctionsObject->GetContactcommoditeies($_POST['contactId'],$Specify);
+				if($commoditiesdata!=0){
+				$d.='<div class="col-sm-4">
+				<label>'.$commoditiesdata[0]['name'].'</label>
+				<input type="number" name="'.$commoditiesdata[0]['name'].'"  value="'.$commoditiesdata[0]['value'].'" min="0">
+				</div>';
+				}
+			}
+			
+			echo json_encode(array('commodities_data'=>$d));
 	}
 
 	if(ISSET($_POST['drivers_data_next']) && $_POST['drivers_data_next']=='success'){
@@ -508,11 +552,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "EstimateAverage_Radius"=>  "".trim($form_data['Estimates_one'])."" ,
             "Estimate_Longest_Radius"=>  "".trim($form_data['Estimates_two'])."" ,
             "Estimate_Furthest_City"=>  "".trim($form_data['Estimates_three'])."" ,
-            "Percent_Incoming"=>  "".trim($form_data['percent_incoming'])."" ,
-            "Percent_Outgoing"=>  "".trim($form_data['percent_outgoing'])."" ,
-            "Contract_Percentage"=>  "".trim($form_data['Business_one_name'])."" ,
+            "Common_Percentage"=>  "".trim($form_data['Business_one_name'])."" ,
             "Private_Percentage"=>  "".trim($form_data['Business_Private'])."" ,
-            "Brokered_Loards_Percentage"=>  "".trim($form_data['Brokered_Loads_name'])."" ,
             "Other_Percentage"=>  "".trim($form_data['Business_Other'])."" ,
             "Non_Trucking"=>  "".trim($form_data['Non_Trucking'])."" ,
             "Household_or_Commercial_Mover"=>  "".trim($form_data['Operations_radio'])."" 

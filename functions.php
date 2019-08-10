@@ -17,7 +17,7 @@
 	}
 	 function businessCategories(){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.bussinesstype";	
+		$query = "SELECT * FROM public.business_type";	
 		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
@@ -251,6 +251,50 @@
 			
 		}
 		pg_close($conn);
+		return $response;
+	}
+	function GetContactcommoditeies($contact_id,$field){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.contact_commodities where contact_id=".$contact_id." AND name='".$field."'";		
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+	}
+
+	function insertcommoditiesconatctdata($contact_id,$field,$values){
+		$conn = $this->pgConnect();
+		if($field!=''){
+		$query = "SELECT * FROM public.contact_commodities where contact_id=".$contact_id." AND name='".$field."'";	
+		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rows = pg_num_rows($rs);
+		if($rows==1){
+			$query = "UPDATE  public.contact_commodities SET value='".$values."' WHERE contact_id=".$contact_id." AND name='".$field."'";
+			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+			
+		}else{
+			  $query = "INSERT INTO public.contact_commodities(contact_id, name,value)VALUES('".$contact_id."', '".$field."','".$values."')";
+			$result = pg_query($query);
+		}
+		
+		 pg_close($conn);
+		if($result){
+		
+		 $response=1;
+		}else{
+		$response=0	;
+			
+		}
+		}
 		return $response;
 	}
 

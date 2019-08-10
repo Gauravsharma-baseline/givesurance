@@ -17,9 +17,9 @@ $handleFunctionsObject = new handleFunctions;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script> 
 <!-- jQuery easing plugin --> 
-  <link rel="stylesheet" href="css/prettify.min.css" type="text/css">
- <script type="text/javascript" src="js/prettify.min.js"></script>
- <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+    rel="stylesheet" type="text/css" />
+<script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
 <script src="js/script.js" type="text/javascript"></script> 
 <title>Customer with DOt</title>
@@ -392,7 +392,7 @@ $handleFunctionsObject = new handleFunctions;
 						
 					if($business['category']!=''){
 					?>
-						  <option data-id="<?php echo $business['id'];?>" value="<?php echo trim($business['category']);?>"><?php echo trim($business['category']);?></option>
+						  <option data-id="<?php echo $business['description'];?>" value="<?php echo trim($business['category']);?>"><?php echo trim($business['category']);?></option>
 						 <?php 
 					} else{
 						echo '<option value="other">other</option>';
@@ -403,20 +403,10 @@ $handleFunctionsObject = new handleFunctions;
 					
 					</div>	
 				</div>	
-				<div class="form-row business_sub_type" id='business_sub_type' style="display:none;">
-					<div class="form-holder w-100">	
-					<label>Select Business Subcategory</label>
 				
-					<select class="form-control Business_sub" id='Business_sub' name='Business_type_sub'>
-					
-					</select>
-					
-					</div>	
-				</div>
 				<div class="form-row business_sub_type_enter" id='business_sub_type_enter' style="display:none;">
 					<div class="form-holder w-100">	
-					<label>Enter Business category</label>
-					<input type='text' name='enter_business_sub' class='enter_business_sub' id='enter_business_sub'>
+					<p class='enter_business_sub' id='enter_business_sub'></p>
 					</div>	
 				</div>
 				<div class="form-row">
@@ -437,7 +427,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row" id='Specify_Commodities_Hauled'>	
 					<div class="form-holder w-100">
 					<label>Specify Commodities Hauled</label>
-					<select  multiple="multiple" id='Specify_Commodities_Hauled_select_div'>
+					<select  multiple="multiple" id='Specify_Commodities_Hauled_select_div' name='Specify_Commodities_Hauled[]'>
 					  <option value="" selected>Choose Commodities Hauled</option>
 					  <option value="Household Goods">Household Goods</option>
 					  <option value="Drive/Tow away">Drive/Tow away</option>
@@ -600,17 +590,13 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row customer_in_div" style='display:none;'>
 					<div class="form-holder w-100">
-					<label>You are in</label>	
-					<div class='radio'>
+					<label>Select State</label>	
+					<select class="form-control List_Filing_state" id='List_Filing_state' name='List_Filing_state'>
+					<option  value='' selected='selected'>Select State</option> 
+					<option  value='CA'>CA</option> 
+					<option  value='TX'>TX</option> 
+					</select>
 					
-					<input type="radio" name="you_are"  class='you_are'  value='CA' >
-					<label>CA</label>	
-					</div>
-					<div class='radio'>
-					
-					<input type="radio" name="you_are" class='you_are'  value='TX'>
-					<label>TX</label>	
-					</div>
 					</div>
 				</div>
 				<div class="form-row customer_state_div_value" style='display:none;'>
@@ -1610,8 +1596,11 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>AL Deductible:</label>	
+					 <div class='radio'>
+						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$2,500' checked><label>$2,500</label>
+					</div>
 					<div class='radio'>
-						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$500'checked><label>$500</label>
+						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$500'><label>$500</label>
 					</div>
 					<div class='radio'>	
 						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$1,000'><label>$1,000</label>
@@ -1769,14 +1758,20 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>do you know the limit required?</label>
 						<div class='radio'>	
-						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes'><label>Yes</label>
+						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes' checked><label>Yes</label>
 					</div>
 					<div class='radio'>	
 						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='No'><label>No</label>
 					</div>
 					</div>
 				</div>
-				
+				<div class="form-row enter_the_limit_required_div" style='display:none;'>
+					<div class="form-holder w-100">
+					<label>Enter Limit</label>
+						<input type="text" name="enter_the_limit_required" class="enter_the_limit_required"/>
+					
+					</div>
+				</div>
 				</div>
 				</div>
 			</div>
@@ -1845,32 +1840,12 @@ $handleFunctionsObject = new handleFunctions;
 		</div>	
 		</div>	
 			
-		<div class='main_form'>
-				<div class='row'>
-				<h2 class="fs-title">Breakdown of Brokered Loads</h2>
-			<div class='col-md-6'>				
-				<div class="form-row">
-				<div class="form-holder w-100">
-				<label> Percent Outgoing:<label>
-				<input type="number" name="percent_outgoing" id="outgoing_percent" class="out_percent" value="" min='0'>
-				</div>
-				</div>
-			</div>
-			<div class='col-md-6'>
-				<div class="form-row">
-				<div class="form-holder w-100">
-				<label>Percent Incoming:<label>
-				<input type="number" name="percent_incoming" id="incoming_percent" class="int_percent" value="" min='0'>
-				</div>
-					</div>
-					</div>
-			</div>
-		</div>
+		
 		<div class='main_form'>
 				<div class='row'>
 				<h2 class="fs-title">Carrier Type - % of Business(Should Equal 100%)</h2>
 				<div class="col-md-3 input_one_b">
-					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Contract<br>
+					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Common<br>
 					
 					<input type="number" name="Business_one_name" class="Business_one" id="Business_first_id"  value="" min='0'>
 				</div>
@@ -1883,10 +1858,7 @@ $handleFunctionsObject = new handleFunctions;
 					<input type="checkbox" name="Non_Trucking_Business" value="" id="Non_Trucking_Business_check" class="Non_Trucking_Business_check">Non Trucking<br>
 					<input type="number" name="Non_Trucking" class="Business_three" id="Non_Trucking_id"  value="" min='0'>
 					</div>
-					<div class="col-md-3 input_five_b">
-					<input type="checkbox" name="Brokered_Loads" value="" id="Brokered_Loads_check" class="Brokered_Loads_check">Brokered Loads*<br>
-					<input type="number" name="Brokered_Loads_name" class="Business_three" id="Brokered_Loads_id"  value="" min='0'>
-					</div>
+					
 					<div class="col-md-3 input_six_b">
 					<input type="checkbox" name="Business" value="" id="Business_Other_check" class="Business_Other_check">Other<br>
 					<input type="number" name="Business_Other" class="Business_three" id="Business_Other_id"  value="" min='0'>
@@ -1971,156 +1943,17 @@ $handleFunctionsObject = new handleFunctions;
 <fieldset class='Fourteen_s'>
 	<h2 class="fs-title">Commodities</h2>
 	<div class="container-fluid">
-	<div class="row">
+	<div class="row" id='Commodities_data_div'>
 
-	<div class="col-sm-4">
-	<label>Household Goods</label>
-	<input type="number" name="Household_perid_two" class="Household_two" value="" id="Household_id_two">
-	</DIV>
 	
-	<div class="col-sm-4">
-	<label>Metal: sheets, coils, rolls</label>
-	
-	<input type="number" name="Household_perid_second" class="Household_second" value="" id="Household_id_second">
 	</div>
-	
-	
-	<div class="col-sm-4">
-	<label>Motor Vehicles</label>
-	<input type="number" name="Motor_perid_second" class="Motor_second" value="" id="Motor_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Drive/Tow away</label>
-	<input type="number" name="Drive_perid_second" class="Drive_second" value="" id="Drive_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Logs, Poles, Bearms, Lumber</label>
-	<input type="number" name="Logs_perid_second" class="Logs_second" value="" id="Logs_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Building Materials</label>
-	<input type="number" name="Building_perid_second" class="Building_second" value="" id="Building_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Mobile Homes</label>
-	<input type="number" name="Mobile_perid_second" class="Mobile_second" value="" id="Mobile_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Machinery, Large Objects</label>
-	<input type="number" name="Machinery_perid_second" class="Machinery_second" value="" id="Machinery_id_second">
-	</div>
-		<div class="col-sm-4">
-	<label>US Mail</label>
-	<input type="number" name="US_perid_second" class="US_second" value="" id="US_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Oilfield Equipment</label>
-	<input type="number" name="Oilfieldss_second" class="Oilfield_second" value="" id="Oilfield_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Fresh Produce</label>
-	<input type="number" name="Freshs_second" class="Fresh_second" value="" id="Fresh_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Meats</label>
-	<input type="number" name="Meatss_second" class="Meats_second" value="" id="Meats_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Dry Bulk</label>
-	<input type="number" name="Drys_second" class="Dry_second" value="" id="Dry_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Intermodal Containers</label>
-	<input type="number" name="Intermodals_second" class="Intermodal_second" value="" id="Intermodal_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Refrigerated Food</label>
-	<input type="number" name="Refrigerateds_second" class="Refrigerated_second" value="" id="Refrigerated_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Paper Products</label>
-	<input type="number" name="Papers_second" class="Paper_second" value="" id="Paper_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Plastic Products</label>
-	<input type="number" name="Plastics_second" class="Plastic_second" value="" id="Plastic_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Beverages</label>
-	<input type="number" name="Beveragess_second" class="Beverages_second" value="" id="Beverages_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Livestock</label>
-	<input type="number" name="Livestocks_second" class="Livestock_second" value="" id="Livestock_id_second">
-	</div>
-		<div class="col-sm-4">
-	<label>Grain, Feed, Hay</label>
-	<input type="number" name="Grainss_second" class="Grain_second" value="" id="Grain_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Liquids/Gases</label>
-	<input type="number" name="Liquidss_second" class="Liquids_second" value="" id="Liquids_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Chemicals</label>
-	<input type="number" name="Chemicalss_second" class="Chemicals_second" value="" id="Chemicals_id_second">
-	</div>
-	
-		<div class="col-sm-4">
-	<label>Garbage/Refuse</label>
-	<input type="number" name="Garbages_second" class="Garbage_second" value="" id="Garbage_id_second">
-	</div>
-	
-	
-	
-		<div class="col-sm-4">
-	<label>	Electronics</label>
-	<input type="number" name="Electronicss_second" class="Electronics_second" value="" id="Electronics_id_second">
-	</div>
-		<div class="col-sm-4">
-	<label>Passengers</label>
-	<input type="number" name="Passengerss_second" class="Passengers_second" value="" id="Passengers_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Agricultural/Farm Supplies</label>
-	<input type="number" name="Agriculturals_second" class="Agricultural_second" value="" id="Agricultural_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Sand/Gravel</label>
-	<input type="number" name="Sands_second" class="Sand_second" value="" id="Sand_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Department Store Merchandise</label>
-	<input type="number" name="Departments_second" class="Department_second" value="" id="Department_id_second">
-	</div>
-	
-	<div class="col-sm-4">
-	<label>Auto Parts / Tires</label>
-	<input type="number" name="Auto_second" class="Auto_second" value="" id="Auto_id_second">
-	</div>
-	<div class="col-sm-4">
-	<label>Other</label>
-	<input type="number" name="Other" class="Other" value="" id="Other_commodities">
-	</div>
-	
-	
 	<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Commodities action-button" value="Previous" />
 		<input type="button" name="next" class="action-button Commodities_next" value="Submit" />
 	</div>
+	
 	</div>
-	</div>
-	<div class="alert alert-success" id='alert_message_div' style='display:none;'>
-	  <strong>Data updated!</strong>
-	</div>
+	
 	</fieldset>
 <!--fieldset class='fifthteen'>
 	<h2 class="fs-title">Cargo Related</h2>
