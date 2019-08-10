@@ -626,7 +626,14 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "PIP"=> "".trim($form_data['PIP'])."",
             "Per_vehicle"=> "".trim($form_data['Motor_Truck_Cargo'])."",
             "Aggregate"=> "".trim($form_data['Aggregate'])."",
-            "Rejected"=> "".trim($form_data['Motor_Truck_Rejected']).""
+            "Rejected"=> "".trim($form_data['Motor_Truck_Rejected'])."",
+            "Do_you_need_Trailer_Interchange_coverage"=> "".trim($form_data['Trailer_Interchange_coverage'])."",
+            "Do_you_need_a_Limit_of_100_000_for_the_Motor_Truc"=> "".trim($form_data['need_Limit_Motor_Truck_CArgo'])."",
+            "Motor_Truck_Cargo_limit_value"=> "".trim($form_data['need_Limit_Motor_Truck_CArgo_other'])."",
+            "Limit_For_Interchange_coverage"=> "".trim($form_data['enter_the_limit_required'])."",
+            "do_you_know_the_limit_required"=> "".trim($form_data['know_the_limit_required'])."",
+            "Do_you_need_1_000_000_Combined_Single_Limit_for_A"=> "".trim($form_data['Combined_Single_Limit']).""
+			
 			);
 			$Contactdata = '{
 			  "data": ['.json_encode($d).']
@@ -657,65 +664,16 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	}	
 	if(ISSET($_POST['Commodities_next']) && $_POST['Commodities_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
+		
 		parse_str($_POST['dataform'], $form_data);
-		/*  echo '<pre>';
-			print_r($form_data);
-		echo '<pre>'; */ 
-			  $d = array("Household_Goods"=>  "".trim($form_data['Household_perid_two'])."" ,
-            "Metal_sheets_coils_rolls"=>  "".trim($form_data['Household_perid_second'])."" ,
-            "Motor_Vehicles"=>  "".trim($form_data['Motor_perid_second'])."" ,
-            "Drivo_Tow_away"=>  "".trim($form_data['Drive_perid_second'])."" ,
-            "Building_Materials"=>  "".trim($form_data['Building_perid_second'])."" ,
-            "Mobile_Homes"=>  "".trim($form_data['Mobile_perid_second'])."" ,
-            "Machinery_Large_Objects"=>  "".trim($form_data['Machinery_perid_second'])."" ,
-            "Auto_Parts_Tires"=>  "".trim($form_data['Auto_second'])."" ,
-            "US_Mail"=>  "".trim($form_data['US_perid_second'])."" ,
-            "Single_Line_48"=>  "".trim($form_data['Freshs_second'])."" ,
-            "Single_Line_49"=>  "".trim($form_data['Drys_second'])."" ,
-            "Single_Line_46"=>  "".trim($form_data['Refrigerateds_second'])."" ,
-            "Single_Line_47"=>  "".trim($form_data['Intermodals_second'])."" ,
-            "Single_Line_44"=>  "".trim($form_data['Beveragess_second'])."" ,
-            "Single_Line_45"=>  "".trim($form_data['Plastics_second'])."" ,
-            "Single_Line_42"=>  "".trim($form_data['Grainss_second'])."" ,
-            "Single_Line_43"=>  "".trim($form_data['Livestocks_second'])."" ,
-            "Single_Line_40"=>  "".trim($form_data['Agriculturals_second'])."" ,
-            "Single_Line_41"=>  "".trim($form_data['Liquidss_second'])."", 
-            "Logs_Poles_Beams_Lumber"=>  "".trim($form_data['Logs_perid_second'])."", 
-            "Single_Line_37"=>  "".trim($form_data['Garbages_second'])."", 
-            "Single_Line_50"=>  "".trim($form_data['Meatss_second'])."", 
-            "Sand_Gravel"=>  "".trim($form_data['Sands_second'])."", 
-            "Department_Store_Merchandise"=>  "".trim($form_data['Departments_second'])."", 
-            "Single_Line_39"=>  "".trim($form_data['Passengerss_second'])."", 
-            "Single_Line_36"=>  "".trim($form_data['Chemicalss_second'])."", 
-            "Single_Line_35"=>  "".trim($form_data['Papers_second'])."", 
-            "Oilfield_Equipment"=>  "".trim($form_data['Oilfieldss_second'])."", 
-            "Single_Line_38"=>  "".trim($form_data['Electronicss_second'])."", 
-            "Others"=>  "".trim($form_data['Other'])."" 
-            ); 
-			$Contactdata = '{
-			  "data": ['.json_encode($d).']
-			}';
-			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
-				$url = "token";
-				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
-				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
-				if(isset($get_new_token['access_token'])){
-					file_put_contents("access_token.txt",$get_new_token['access_token']);
-				}
-				if(isset($get_new_token['refresh_token'])){
-					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
-				}
-				$old_access_token = file_get_contents("access_token.txt");
-				@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
-				if($zohoResponse['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($zohoResponse);
-				}
-			}elseif(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
-				echo json_encode($zohoResponse);
-			}else{
-				echo json_encode($zohoResponse);;
-			} 
+		
+		 foreach($form_data as $key => $comm){
+			if($key!='' && $comm!='' ){
+			  $new_string = str_replace('_', ' ', $key);
+				  $databaseRes =  $handleFunctionsObject->insertcommoditiesconatctdata($_POST['contactId'],$new_string,$comm);
+			}
+		}
+		echo json_encode($databaseRes);	 
 	}	
 	if(ISSET($_POST['CargoRelated_next']) && $_POST['CargoRelated_next']=='success'){
 		/* @$response=$handleFunctionsObject->getDataFromSafer($_POST['searchedNumber']);
@@ -1228,3 +1186,22 @@ if(ISSET($_POST['update_vehicle']) && $_POST['update_vehicle']=='success'){
 			
 	}
 
+	if(ISSET($_POST['business_request']) && $_POST['business_request']=='success'){
+		$businessType = ucfirst($_POST['businessType']);
+		$response = $handleFunctionsObject->business_search($businessType);
+		if(!empty($response)){
+			$html = '';
+			$html .='<ul>';
+			foreach($response as $value){
+				$html .='<li data-id="'.$value['description'].'" class="Business_types_select">'.$value['category'].'</li>';
+			}
+			$html .='</ul>';
+			echo $html;
+		}else{
+			$html = '';
+			$html .='<ul>';
+			$html .='<li>No Data found</li>';
+			$html .='</ul>';
+			echo $html;
+	}
+	} 

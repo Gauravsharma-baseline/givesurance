@@ -730,7 +730,45 @@ $(document).on("click", ".phone_number_next", function(event){
 					if(result.conatctData.Rejected!==null &&result.conatctData.Rejected=='Rejected' ){
 							$('.Motor_Truck_Rejected').val(result.conatctData.Brokered_Loards_Percentage);	
 						$('.Motor_Truck_Rejected').attr('checked','checked');
-					}		
+					}
+					
+				if(result.conatctData.Do_you_need_a_Limit_of_100_000_for_the_Motor_Truc!==null){
+						$("input[name='need_Limit_Motor_Truck_CArgo'][value='"+result.conatctData.Do_you_need_a_Limit_of_100_000_for_the_Motor_Truc+"']").attr('checked','checked');
+						
+						if(result.conatctData.Do_you_need_Trailer_Interchange_coverage=='Other'){
+							$('.Motor_Truck_Cargo_limit_value_div').show();	
+							$("input[name='need_Limit_Motor_Truck_CArgo'][value='"+result.conatctData.Motor_Truck_Cargo_limit_value+"']").attr('checked','checked');
+						}else{
+							$('.Motor_Truck_Cargo_limit_value_div').hide();	
+							$('.need_Limit_Motor_Truck_CArgo_other').val(' ');	
+							
+						}
+						
+					}
+
+
+
+					
+
+					if(result.conatctData.Do_you_need_Trailer_Interchange_coverage!==null){
+						$("input[name='Trailer_Interchange_coverage'][value='"+result.conatctData.Do_you_need_Trailer_Interchange_coverage+"']").attr('checked','checked');
+						$("input[name='know_the_limit_required'][value='"+result.conatctData.do_you_know_the_limit_required+"']").attr('checked','checked');
+						if(result.conatctData.Do_you_need_Trailer_Interchange_coverage=='Yes'){
+							$('.know_the_limit_required_div').show();	
+						
+						}else{
+							$('.know_the_limit_required_div').hide();	
+							$('.enter_the_limit_required_div').hide();	
+						}
+						if(result.conatctData.do_you_know_the_limit_required=='Yes'){
+							$('.enter_the_limit_required_div').show();	
+							$('.enter_the_limit_required').val(result.conatctData.Limit_For_Interchange_coverage);
+						}
+					}
+					if(result.conatctData.Do_you_need_1_000_000_Combined_Single_Limit_for_A!==null){
+							$("input[name='Combined_Single_Limit'][value='"+result.conatctData.Do_you_need_1_000_000_Combined_Single_Limit_for_A+"']").attr('checked','checked');
+					}
+					
 						
 					/*COVERAGE LIMIT INFORMATION*/
 					if(result.conatctData.Proof_of_Prior_Insurance!==null){
@@ -797,6 +835,12 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					
 					/*Policy POLICY*/
+					if(result.conatctData.Business_Type_Category!==null){
+							$('#search_business_type').val(result.conatctData.Business_Type_Category);
+						
+					}
+					
+					
 					if(result.conatctData.Agent_Code!==null){
 					$("input[name='agent_code'][value='"+result.conatctData.Agent_Code+"']").attr('selected','selected');
 					}
@@ -1339,7 +1383,8 @@ $(".Commodities_next").click(function(event ){
 	var contactId=$(".contactId").val();
 	var contactId=$(".contactId").val();
 	var dataform=	$('.Fourteen_s').find('select, textarea, input').serialize();
-		$(".overlay").show();
+	console.log(dataform);
+		 $(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
@@ -2800,6 +2845,7 @@ $(document).on("change", ".Trailer_Interchange_coverage", function(event){
 	var d=$(this).val();
 	if(d=='Yes'){
 	$('.know_the_limit_required_div').show();
+	$('.enter_the_limit_required_div').show();
 	}else{
 		$('.know_the_limit_required_div').hide();
 	}
@@ -2815,5 +2861,37 @@ $(document).on("change", ".know_the_limit_required", function(event){
 	}
 
 	});	
+	
+	
+	// script for search Business
+$(document).on("keyup", "#search_business_type", function(event){
+var businessType =$(this).val();
+	
+	$.ajax({
+        url:"ajaxRequest.php", 
+        type: "POST", 
+        data: ({business_request: "success",businessType:businessType}),
+        success:function(result){
+			$('#business_response').html(result);
+        }
+    });
+});
+
+$(document).on("click", ".Business_types_select", function(event){
+var business_cat= $(this).attr("data-id");
+var business_val= $(this).text();
+$('#search_business_type').val(business_val);
+if(business_cat!=''){
+			$("#business_sub_type_enter").show();
+			$("#enter_business_sub").html(business_cat);
+			}else{
+				$("#enter_business_sub").html(' ');
+				$("#business_sub_type_enter").hide();
+			} 
+	}
+);
+	
+	
+	
 
 });

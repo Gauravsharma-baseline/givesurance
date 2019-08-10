@@ -383,23 +383,21 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					<label>Business Type</label>
-					<?php
-					$response=$handleFunctionsObject->businessCategories();
-					?>
-					<select class="form-control" id='Business_types_select' name='Business_type'>
-						<option>Select category</option>
-						<?php foreach($response as $business){
-						
-					if($business['category']!=''){
-					?>
-						  <option data-id="<?php echo $business['description'];?>" value="<?php echo trim($business['category']);?>"><?php echo trim($business['category']);?></option>
-						 <?php 
-					} else{
-						echo '<option value="other">other</option>';
-					}
-					} 
-					?>
-					</select>
+					<input type="text" class="form-control search_business" value="" id='search_business_type' name='Business_type' placeholder='Search...'>
+					<div id="business_response">
+						<?php
+						$response=$handleFunctionsObject->businessCategories();
+						foreach($response as $business){
+							if($business['category']!=''){  ?>
+								<ul>
+								<li data-id="<?php echo $business['description'];?>" class="Business_types_select"><?php echo $business['category']; ?></li>
+								</ul>
+								<?php 
+							}
+						}
+						?>
+					
+					</div>
 					
 					</div>	
 				</div>	
@@ -1728,7 +1726,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100 Motor_Truck_Cargo_limit_value_div" style='display:none;'>
-					<label>Do you need a Limit of $100,000 for the Motor Truck Cargo?</label>
+					<label>Select Limit</label>
 						<div class='radio'>	
 						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other" class="need_Limit_Motor_Truck_CArgo_other" value='$150,000'><label> $150,000</label>
 					</div>
@@ -1944,7 +1942,7 @@ $handleFunctionsObject = new handleFunctions;
 	<h2 class="fs-title">Commodities</h2>
 	<div class="container-fluid">
 	<div class="row" id='Commodities_data_div'>
-
+		<h3>No Specify Commodities Hauled. </h2>
 	
 	</div>
 	<div class='previous_next_buttons'>
