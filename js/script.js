@@ -482,14 +482,16 @@ $(document).on("click", ".phone_number_next", function(event){
 					$(".first_1").show(); 
 					$(".first").hide();
 				var conatctData=result.conatctData;
-				var contactData=result.contactData[0];
-				if(result.commodities_data!== null){
+				var contactDataa=result.contactData;
+				
+				if(result.commodities_data!== null || result.commodities_data!=' '){
 					$("#Commodities_data_div").html(result.commodities_data);
 				}else{
 					$("#Commodities_data_div").html("<div class='col-sm-4'><label>No Commodities Hauled!</label></div>");
 				}
 				
-				if(contactData!==null || contactData!=0){
+				if(contactDataa!==null || contactDataa!=0 || contactDataa!=' '){
+					contactData=contactDataa[0];
 				
 				if(contactData.when_do_you_need_policy_by!==null){
 				  $('.When_do_you_need_policy').val(moment(contactData.when_do_you_need_policy_by).format('MM/DD/YYYY'));
@@ -505,7 +507,8 @@ $(document).on("click", ".phone_number_next", function(event){
 						$("input[name='Is_the_owner_driver'][value='"+contactData.is_the_owner_also_the_driver+"']").attr('checked','checked');
 					}
 				}
-				if(conatctData!=''){
+				if(conatctData!==null || conatctData!=' '){
+					console.log('working inside');
 					
 				driversdata=result.conatctData.Drivers1;
 				Vehiclesdata=result.conatctData.Vehicles;
@@ -967,7 +970,9 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='is_Involved_daily_operation'][value='"+result.conatctData.Involved_in_the_daily_operation_of_the_business+"']").attr('checked','checked');
 					}
 					
-				}	
+				}	else{
+					console.log('working inside');
+				}
 			}
            }
          });
@@ -1646,8 +1651,11 @@ $(document).on("click", "#new_drive_add_button", function(event){
 					
 					 $('#Driver_add_modal').modal('toggle');
 					var i=$('#dtDriverTable tr:last').find('td:first').html();
+					if(i==' '){
+						i=0;
+					}
 					var index= parseInt(i)+parseInt(1);
-					var dtDriverTable=$('#dtDriverTable').DataTable();
+					var dtDriverTable=$('#dtDriverTable').DataTable({ "scrollX": true});
 						dtDriverTable.row.add(
 							[
 							index,
@@ -2332,8 +2340,11 @@ $(document).on("click", "#vehicles_add_button", function(event){
 				if(result!==0){
 					 $('#vehiles_add_modal').modal('toggle');
 					var i=$('#dtVehiclesTable tr:last').find('td:first').html();
+					if(i==''){
+						i=0;
+					}
 					var index= parseInt(i)+parseInt(1);
-					var Vehiclestable=$('#dtVehiclesTable').DataTable();
+					var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});
 					if(result.Longest_Trip_City_of_Destination){
 							var Longest_Trip_City_of_Destination= result.Longest_Trip_City_of_Destination;
 							d=Longest_Trip_City_of_Destination.split(',');
@@ -2891,7 +2902,22 @@ if(business_cat!=''){
 	}
 );
 	
-	
+$(document).on('click', '#add_drivers', function(){
+	var contactId=$(".contactId").val();
+	Is_the_owner_driver =$("input[name='Is_the_owner_driver']:checked").val();
+		if(Is_the_owner_driver=='Yes') {
+		$('#new_driver_first').val($('#Insured_first_name').val());
+		$('#new_driver_middle').val($('#Insured_Middle_name').val());
+		$('#new_driver_last').val($('#Insured_Last_name').val());
+		$('#new_driver_dob').val($('#Insured_DOB').val());
+		}else{
+			$('#new_driver_first').val(' ');
+		$('#new_driver_middle').val(' ');
+		$('#new_driver_last').val(' ');
+		$('#new_driver_dob').val('');
+		}
+    
+	});
 	
 
 });

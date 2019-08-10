@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+error_reporting(0);
    class handleFunctions {
 	   
     /*  $trelloListId	= '5d2901e0207a1126d1d915ea' ;

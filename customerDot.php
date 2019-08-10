@@ -712,6 +712,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">	
 					<label>State:</label>
 				<select class="form-control"  id='Contact_Insured_State' name='Contact_Insured_State'>
+  				<option value=" ">Select State</option>
   				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
 				<option value="AZ">Arizona</option>
@@ -725,7 +726,7 @@ $handleFunctionsObject = new handleFunctions;
 				<option value="HI">Hawaii</option>
 				<option value="ID">Idaho</option>
 				<option value="IL">Illinois</option>
-				<option selected="selected" value="IN">Indiana</option>
+				<option value="IN">Indiana</option>
 				<option value="IA">Iowa</option>
 				<option value="KS">Kansas</option>
 				<option value="KY">Kentucky</option>
@@ -846,7 +847,8 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-holder w-100 ">	
 				<label>State:</label>
 					<select class="form-control" id='Financial_State' name='Financial_State'>
-					<option value="AL" selected>Alabama</option>
+					<option value="" selected>Select State</option>
+					<option value="AL" >Alabama</option>
 					<option value="AK">Alaska</option>
 					<option value="AZ">Arizona</option>
 					<option value="AR">Arkansas</option>
