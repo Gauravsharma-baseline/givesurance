@@ -1574,10 +1574,10 @@ $handleFunctionsObject = new handleFunctions;
 <fieldset class='eleventh'>
 	<h2 class="fs-title">Coverage Limit Information</h2>
 	<h3 class="fs-subtitle"></h3>
-	<div class='main_form'>
-		<div class='col-md-12'>
-			<div class='main_field_div'>
-			<h3 class="fs-subtitle"></h3>
+			<div class='main_form'>
+			<div class='row'>
+				<div class='col-md-6'>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Auto Liability :</label>
@@ -1622,8 +1622,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
-
-				</div>
+				
 				 <div class="form-row">
 					<div class="form-holder w-100">
 					<label>UM/UIM :</label>
@@ -1668,8 +1667,10 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				</div>
 				
-				
+				<div class='col-md-6'>
+				<div class='main_field_div'>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>PIP:</label>
@@ -1681,18 +1682,17 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
-				</div>
 				
-				<div class='col-md-12'>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					
 						<div class='txt'>	
-				<label>Motor Truck Cargo</label>
+				<h2 class="fs-title">Motor Truck Cargo</h2><label>
 				</div>
 						</div>
-						</div>
-				<div class='col-md-4'>
+				</div>
+				
 				<div class="form-row">
 					<div class="form-holder w-100">
 					
@@ -1702,8 +1702,8 @@ $handleFunctionsObject = new handleFunctions;
 						</div>
 						</div>
 						</div>
-				</div>
-				<div class='col-md-4'>		
+				
+						
 					<div class="form-row">
 					<div class="form-holder w-100">	
 						<div class='txt'>	
@@ -1712,8 +1712,8 @@ $handleFunctionsObject = new handleFunctions;
 						</div>
 						</div>
 					</div>
-				</div>
-				<div class='col-md-4'>		
+				
+					
 					<div class="form-row">
 					<div class="form-holder w-100">	
 						<div class='radio'>	
@@ -1721,7 +1721,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 					</div>
-				</div>
+				
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
@@ -1741,16 +1741,16 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100 Motor_Truck_Cargo_limit_value_div" style='display:none;'>
 					<label>Do you need a Limit of $100,000 for the Motor Truck Cargo?</label>
 						<div class='radio'>	
-						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='$150,000'><label> $150,000</label>
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other" class="need_Limit_Motor_Truck_CArgo_other" value='$150,000'><label> $150,000</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='$250,000'><label>$250,000</label>
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other" class="need_Limit_Motor_Truck_CArgo_other" value='$250,000'><label>$250,000</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="need_Limit_Motor_Truck_CArgo"  class="need_Limit_Motor_Truck_CArgo" value='$300,000'><label>$300,000</label>
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other"  class="need_Limit_Motor_Truck_CArgo_other" value='$300,000'><label>$300,000</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="need_Limit_Motor_Truck_CArgo"  class="need_Limit_Motor_Truck_CArgo" value='$500,000'><label>$500,000</label>
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other"  class="need_Limit_Motor_Truck_CArgo_other" value='$500,000'><label>$500,000</label>
 					</div>
 					</div>
 				</div>
@@ -1766,7 +1766,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-holder w-100 Trailer_Interchange_coverage">
+					<div class="form-holder w-100 know_the_limit_required_div" style='display:none;'>
 					<label>do you know the limit required?</label>
 						<div class='radio'>	
 						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes'><label>Yes</label>
@@ -1778,12 +1778,14 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				
 				</div>
+				</div>
 			</div>
 		
 		<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Coverage_Limit_Information action-button" value="Previous" />
 		<input type="button" name="next" class="action-button Coverage_Limit_Information_next" value="Next" />
 	</div>
+	
 </fieldset>
 
 <fieldset class='twelve'>

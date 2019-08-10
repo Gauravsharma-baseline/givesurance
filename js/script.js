@@ -2780,9 +2780,9 @@ $(document).on("change", ".need_Limit_Motor_Truck_CArgo", function(event){
 $(document).on("change", ".Trailer_Interchange_coverage", function(event){
 	var d=$(this).val();
 	if(d=='Yes'){
-	$('.Motor_Truck_Cargo_limit_value_div').show();
+	$('.know_the_limit_required_div').show();
 	}else{
-		$('.Motor_Truck_Cargo_limit_value_div').hide();
+		$('.know_the_limit_required_div').hide();
 	}
 
 	});	
