@@ -1581,18 +1581,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Auto Liability :</label>
-					<label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" >
-					  $1M CSL
-					</label>
-					<label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1">
-					  $750 CSL
-					</label>
-					<label class="radio-inline" for="radios-0">
-					  <input type="radio" name="Auto_Liability" id="radios-0" value="1" >
-					 CSL = Combined Single Limit
-					</label>
+					
 					 <div class='radio'>
 						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$1M CSL' checked><label>$1M CSL</label>
 					</div>
@@ -1600,7 +1589,8 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$750 CSL'><label>$750 CSL</label>
 					</div>
 					<div class='radio'>	
-						<h5> CSL = Combined Single Limit</h5>
+					<input type="radio" name="Auto_Liability" class="Auto_Liability" value='CSL = Combined Single Limit'><label>CSL = Combined Single Limit</label>
+						
 					</div>
 					</div>
 				</div>
@@ -1732,6 +1722,61 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Do you need a Limit of $100,000 for the Motor Truck Cargo?</label>
+						<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='Yes' checked><label> Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='No'><label>No</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo"  class="need_Limit_Motor_Truck_CArgo" value='Other'><label>Other</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100 Motor_Truck_Cargo_limit_value_div" style='display:none;'>
+					<label>Do you need a Limit of $100,000 for the Motor Truck Cargo?</label>
+						<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='$150,000'><label> $150,000</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo" class="need_Limit_Motor_Truck_CArgo" value='$250,000'><label>$250,000</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo"  class="need_Limit_Motor_Truck_CArgo" value='$300,000'><label>$300,000</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="need_Limit_Motor_Truck_CArgo"  class="need_Limit_Motor_Truck_CArgo" value='$500,000'><label>$500,000</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100 Trailer_Interchange_coverage">
+					<label>Do you need Trailer Interchange coverage?</label>
+						<div class='radio'>	
+						<input type="radio" name="Trailer_Interchange_coverage" class="Trailer_Interchange_coverage" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="Trailer_Interchange_coverage" class="Trailer_Interchange_coverage" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-holder w-100 Trailer_Interchange_coverage">
+					<label>do you know the limit required?</label>
+						<div class='radio'>	
+						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes'><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				
 				</div>
 			</div>
 		
