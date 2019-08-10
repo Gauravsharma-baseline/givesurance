@@ -336,3 +336,9 @@ input.checkType {
 	from {transform:rotate(0deg);}
 	to {transform:rotate(360deg);}
 }
+.well .radio input {
+    margin: 0 0 0 0px!important;
+}
+input.Motor_Truck_Rejected {
+    width: auto!important;
+}

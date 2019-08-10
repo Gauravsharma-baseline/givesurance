@@ -128,7 +128,7 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 	</fieldset>
 	<fieldset class='second'>
-		<h2 class="fs-title">what is your DOT number</h2>
+		<h2 class="fs-title">what is your DOT number?</h2>
 		<h3 class="fs-subtitle"></h3>
 		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
 		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
@@ -1754,8 +1754,8 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100 Trailer_Interchange_coverage">
+				<div class="form-row Trailer_Interchange_coverage_div">
+					<div class="form-holder w-100">
 					<label>Do you need Trailer Interchange coverage?</label>
 						<div class='radio'>	
 						<input type="radio" name="Trailer_Interchange_coverage" class="Trailer_Interchange_coverage" value='Yes'><label>Yes</label>
@@ -1765,8 +1765,8 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100 know_the_limit_required_div" style='display:none;'>
+				<div class="form-row know_the_limit_required_div" style='display:none;'>
+					<div class="form-holder w-100">
 					<label>do you know the limit required?</label>
 						<div class='radio'>	
 						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes'><label>Yes</label>
