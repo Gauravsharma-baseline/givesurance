@@ -217,12 +217,11 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		  /* echo '<pre>';
 			print_r($form_data);
 		echo '<pre>'; */ 
-		//$filtered_Specify_Commodities_Hauled = array_filter($form_data['Specify_Commodities_Hauled']); 
-		$Specify_Commodities_Hauled=implode("~",$form_data['Specify_Commodities_Hauled']);
+		$filtered_Specify_Commodities_Hauled_filtered = array_filter($form_data['Specify_Commodities_Hauled']); 
+		$Specify_Commodities_Hauled=implode("~",$filtered_Specify_Commodities_Hauled_filtered);
 		
-		foreach($Specify_Commodities_Hauled as $comm){
-			
-				echo  $databaseRes =  $handleFunctionsObject->insertcommoditiesconatctdata($_POST['contactId'],$comm,'');
+		foreach($filtered_Specify_Commodities_Hauled_filtered as $comm){
+				  $databaseRes =  $handleFunctionsObject->insertcommoditiesconatctdata($_POST['contactId'],$comm,'');
 			
 		}
 		
@@ -295,7 +294,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			else{
 				echo 0;
 				
-			}   
+			} 
 			
 	}
 
