@@ -566,9 +566,10 @@ $(document).on("click", ".phone_number_next", function(event){
 					$('#dtDriverTable tbody').empty();	
 			
 					
-				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
 				
-					if(driversdata!=''){
+				
+				if(driversdata){
+					var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
 					$.each(driversdata, function(index, element) {
 						
 					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
@@ -600,6 +601,8 @@ $(document).on("click", ".phone_number_next", function(event){
 						};	
 
 					});	
+					}else{
+						var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
 					}
 					
 									/*FMCSA*/
