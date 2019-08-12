@@ -582,7 +582,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					var licence=d[4];
 						drivertable.row.add(
 							[
-							index,
+							index+1,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
