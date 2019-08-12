@@ -3061,6 +3061,13 @@ $(document).on('click', '#add_drivers', function(){
 		}
     
 	});
+$(document).on('change', '.When_do_you_need_policy', function(){	
+	var When_do_you_need_policy=$(this).val();
 	
-
+	if(When_do_you_need_policy){
+		$("#Policy_Effective").val(When_do_you_need_policy);	
+	}
 });
+});	
+
+

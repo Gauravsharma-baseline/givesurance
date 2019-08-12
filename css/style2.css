@@ -280,6 +280,14 @@ div#dtVehiclesTable_length #msform select {
 .multiselect-container .checkbox input[type="checkbox"] {
     width: initial !important;
 }
+
+.multiselect-container>li {
+    display: table;
+}
+ul.multiselect-container.dropdown-menu {
+    height: 230px;
+    overflow: auto;
+}
 @media screen and (max-width: 540px) {
     .radio {
         margin-left: 1rem;
