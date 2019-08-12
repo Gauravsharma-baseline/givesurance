@@ -2270,7 +2270,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Date of Birth/Age</label>
-						<input type="text" class="form-control datepicker" name="new_driver_dob" id='new_driver_dob'  placeholder='<?php echo date('m/d/Y');?>'>
+						<input type="text" class="form-control datepickerDOB" name="new_driver_dob" id='new_driver_dob'  placeholder='<?php echo date('m/d/Y');?>'>
 					
 					</div>
 					<div class="form-group">
@@ -2474,7 +2474,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group">
 					  <label for="username" class="control-label">Date of Birth/Age</label>
-						<input type="text" class="form-control datepicker" name="edit_driver_dob" id='edit_driver_dob'>
+						<input type="text" class="form-control datepickerDOB" name="edit_driver_dob" id='edit_driver_dob'>
 					
 					</div>
 					<div class="form-group">
@@ -2913,7 +2913,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					
 					<div class="form-group">
-					  <label for="VIN" class="control-label">Category</label>
+					  <label for="VIN" class="control-label">Category</label><p id='current_selected_cat'></p>
 					<select name="C2VehicleDetails_category" id="C2VehicleDetails_category_edit" class="form-control C2VehicleDetails_category">
 					<option value=""></option>
 						<?php $response_vehicles_cat= $handleFunctionsObject->VehicleCategory(1);					
@@ -2930,14 +2930,14 @@ $handleFunctionsObject = new handleFunctions;
 					</select>
 					</div>
 					<div class="form-group">
-					<label for="VIN" class="control-label">Year</label>
+					<label for="VIN" class="control-label">Year</label><p id='current_selected_year'></p>
 					<select name="C2VehicleDetails_year" id="C2VehicleDetails_year_edit" class="form-control C2VehicleDetails_year">
 							<option value=""></option>
 						
 					</select>
 					</div>
 					<div class="form-group make_div_select">
-					  <label for="make" class="control-label">Make</label>
+					  <label for="make" class="control-label">Make</label><p id='current_selected_make'></p>
 					<select name="C2VehicleDetails_make" id="C2VehicleDetails_make_edit" class="form-control C2VehicleDetails_make">
 							<option value=""></option>
 					
@@ -2948,7 +2948,7 @@ $handleFunctionsObject = new handleFunctions;
 					<input type='text' name='C2VehicleDetails_make_name' id='C2VehicleDetails_make_name_edit' class='form-control C2VehicleDetails_make_name'/>
 					</div>
 					<div class="form-group model_div_select" >
-					  <label for="VIN" class="control-label">Model</label>
+					  <label for="VIN" class="control-label">Model</label><p id='current_selected_model'></p>
 					<select name="C2VehicleDetails_model" id="C2VehicleDetails_model_edit" class="form-control C2VehicleDetails_model">
 							<option value=""></option>
 						
