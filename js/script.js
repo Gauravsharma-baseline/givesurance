@@ -385,16 +385,33 @@ $(".OperationDescription").click(function(){
 });
 
 $(".CommoditiesLI").click(function(){
+	
 	var phone=$(".phoneNumber").val();
 	if(phone==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
+		$("body").css("cursor", "progress");
 	$(".phoneNumber").removeClass('is-invalid');
-	$("#progressbar li").removeClass("active");
-	$(".CommoditiesLI").addClass("active");
-	$("fieldset").hide();
-	$(".fourteen_s").show(); 
+	var contactId=$(".contactId").val();
+		 $.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({vehicles_data_next: "success",contactId:contactId}),
+            success:function(result){
+				$("body").css("cursor", "default");
+				if(result.commodities_data!== null){
+					$("#Commodities_data_div").html(result.commodities_data);
+				}else{
+					$("#Commodities_data_div").html("<div class='col-sm-4'><label>No Commodities Hauled!</label></div>");
+				}
+			$("#progressbar li").removeClass("active");
+			$(".CommoditiesLI").addClass("active");
+			$("fieldset").hide();
+			$(".fourteen_s").show(); 
+		}
+		 })
 	}	
 });
 
@@ -1682,8 +1699,9 @@ $(document).on("click", "#new_drive_add_button", function(event){
 $(document).on("change", "#C2VehicleDetails_year", function(event){
 var vehicle_cat= $("#C2VehicleDetails_category").find(':selected').attr('data-id');
 var vehicle_subcat= $("#C2VehicleDetails_subcategory").find(':selected').attr('data-id');
-//console.log(vehicle_cat);
-//console.log(vehicle_subcat);
+var vehicle_type= $("input[name='vahicle_type']:checked").val();
+
+
 
 	$("#C2VehicleDetails_make").html('<option value="" selected>updating....</option>');
 	$("#C2VehicleDetails_model").html('<option value="" selected>updating....</option>');
@@ -1695,17 +1713,30 @@ var vehicle_subcat= $("#C2VehicleDetails_subcategory").find(':selected').attr('d
 			if(result!=0){
 			$("#C2VehicleDetails_make").html(result);
 			$("#C2VehicleDetails_model").html('<option value=""></option>');
+			if(vehicle_type=='Trailer'){
+				$(".make_div").hide();
+				$(".make_div_select").hide();
+				$(".model_div").hide();
+				$(".model_div_select").hide();
+			}else{
 				$(".make_div").hide();
 				$(".make_div_select").show();
 				$(".model_div").hide();
 				$(".model_div_select").show();
-				
+			}	
 			
+			}else{
+				if(vehicle_type=='Trailer'){
+				$(".make_div").hide();
+				$(".make_div_select").hide();
+				$(".model_div").hide();
+				$(".model_div_select").hide();
 			}else{
 				$(".make_div_select").hide();
 				$(".make_div").show();
 				$(".model_div_select").hide();
 				$(".model_div").show();
+				}
 			}
 			
 		}
@@ -1837,7 +1868,7 @@ $(document).on("change", "#C2VehicleDetails_subcategory", function(event){
 var vehicle_sub= $(this).find(':selected').attr('data-id');
 var C2VehicleDetails_year=$("#C2VehicleDetails_year").find(':selected').attr('data-id');
 var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id');
-
+var vehicle_type= $("input[name='vahicle_type']:checked").val();
 	if(C2VehicleDetails_year ==''){
 		$.ajax({
 			url:"ajaxRequest.php", 
@@ -1864,19 +1895,35 @@ var vehicle_cat=$("#C2VehicleDetails_category").find(':selected').attr('data-id'
 				   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_sub:vehicle_sub}),
 					success:function(result){
 						if(result!=0){
+						if(vehicle_type=='Trailer'){
+							   $(".make_div").hide();
+							$(".make_div_select").hide();
+							$(".model_div").hide();
+							$(".model_div_select").hide();
+							   
+						   }else{
+							
 						$(".C2VehicleDetails_make").html(result);
 						$(".C2VehicleDetails_model").html('<option value=""></option>');
 						$(".make_div").hide();
 						$(".make_div_select").show();
 						$(".model_div").hide();
 						$(".model_div_select").show();
+						 }
 					}else{
+						if(vehicle_type=='Trailer'){
+				   $(".make_div").hide();
+				$(".make_div_select").hide();
+				$(".model_div").hide();
+				$(".model_div_select").hide();
+				   
+			   }else{
 						$(".make_div_select").hide();
 						$(".make_div").show();
 						$(".model_div_select").hide();
 						$(".model_div").show();
 					}	
-						
+					}	
 					}
 				})
 				
@@ -2686,9 +2733,7 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 $(document).on("change", "#C2VehicleDetails_year_edit", function(event){
 var vehicle_cat= $("#C2VehicleDetails_category_edit").find(':selected').attr('data-id');
 var vehicle_subcat= $("#C2VehicleDetails_subcategory_edit").find(':selected').attr('data-id');
-var vehicle_type= $(".vahicle_type").find(':selected').attr('data-id');
-console.log(vehicle_type);
-
+var vehicle_type= $("input[name='vahicle_type']:checked").val();
 	$("#C2VehicleDetails_make_edit").html('<option value="" selected>updating....</option>');
 	$("#C2VehicleDetails_model_edit").html('<option value="" selected>updating....</option>');
 	$.ajax({
@@ -2735,6 +2780,7 @@ console.log(vehicle_type);
 
 
 $(document).on("change", "#C2VehicleDetails_subcategory_edit", function(event){
+var vehicle_type= $("input[name='vahicle_type']:checked").val();
 var vehicle_sub= $(this).find(':selected').attr('data-id');
 var C2VehicleDetails_year=$("#C2VehicleDetails_year_edit").find(':selected').attr('data-id');
 var vehicle_cat=$("#C2VehicleDetails_category_edit").find(':selected').attr('data-id');
@@ -2765,17 +2811,34 @@ var vehicle_cat=$("#C2VehicleDetails_category_edit").find(':selected').attr('dat
 				   data: ({get_make: "success",vehicle_cat:vehicle_cat,vehicle_sub:vehicle_sub}),
 					success:function(result){
 						if(result!=0){
+							
+						if(vehicle_type=='Trailer'){
+						   $(".make_div").hide();
+						$(".make_div_select").hide();
+						$(".model_div").hide();
+						$(".model_div_select").hide();
+						   
+					   }else{	
 						$("#C2VehicleDetails_make_edit").html(result);
 						$("#C2VehicleDetails_model_edit").html('<option value=""></option>');
 						$(".make_div").hide();
 						$(".make_div_select").show();
 						$(".model_div").hide();
 						$(".model_div_select").show();
+					   }
 					}else{
+						if(vehicle_type=='Trailer'){
+						   $(".make_div").hide();
+						$(".make_div_select").hide();
+						$(".model_div").hide();
+						$(".model_div_select").hide();
+						   
+					   }else{
 						$(".make_div_select").hide();
 						$(".make_div").show();
 						$(".model_div_select").hide();
 						$(".model_div").show();
+					   }
 					}	
 						
 					}

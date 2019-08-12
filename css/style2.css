@@ -278,7 +278,7 @@ div#dtVehiclesTable_length #msform select {
     padding: 0 20px 44px 0;
 }
 .multiselect-container .checkbox input[type="checkbox"] {
-    width: 7% !important;
+    width: initial !important;
 }
 @media screen and (max-width: 540px) {
     .radio {
@@ -1713,4 +1713,14 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swa
         -webkit-transform:rotate(360deg);
         transform:rotate(360deg)
     }
+}
+
+
+#Specify_Commodities_Hauled_select_div label, #Specify_Commodities_Hauled_select_div .multiselect, #Specify_Commodities_Hauled_select_div .btn-group {
+    width: 100%;
+    display: table;
+    max-width: 100%;
+}
+.multiselect-container {
+    width: 100%;
 }
