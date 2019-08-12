@@ -1016,11 +1016,16 @@ $(".dot_number_next").click(function(event ){
 	var searchedNumber=$(".searchedNumber").val();
 	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
+	var variable2 = searchedNumber.substring(0, 3);
+	console.log(variable2);
 	if(searchedNumber==''){
 		event.preventDefault();
 		$("#mc_number").addClass('is-invalid');
-	}else{
+	}if(variable2 =='dot' || variable2 =='DOT'){
+		
+	console.log('outside');	
 	$("#mc_number").removeClass('is-invalid');
+	$("#dot_alert").hide();
 	$("body").css("cursor", "progress");
 	$(".overlay").show();
 	if(mc_number==''){
@@ -1089,7 +1094,15 @@ $(".dot_number_next").click(function(event ){
 		 });
 		}
 		
+	}else{
+		console.log('inside');
+		event.preventDefault();
+		$("#mc_number").addClass('is-invalid');
+		$("#dot_alert").show();
+	
+		
 	}
+	
 });
 $(".first_2_next").click(function(event ){
 	//var checkType=$(".checkType").val();
@@ -3068,6 +3081,20 @@ $(document).on('change', '.When_do_you_need_policy', function(){
 		$("#Policy_Effective").val(When_do_you_need_policy);	
 	}
 });
+
+$(document).on('change', '.searchedNumber', function(){	
+	var searchedNumber=$(this).val();
+	
+	if(searchedNumber){
+		$(".dot").val(searchedNumber);	
+		$(".dot").val(searchedNumber);	
+	}
+});
+
+
+
+
+
 });	
 
 

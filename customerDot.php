@@ -130,6 +130,9 @@ $handleFunctionsObject = new handleFunctions;
 	<fieldset class='second'>
 		<h2 class="fs-title">what is your DOT number?</h2>
 		<h3 class="fs-subtitle"></h3>
+		<div role="alert" id='dot_alert' style='display:none;color:red';>
+		DOT Number must start with DOT
+		</div>
 		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
 		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
 		<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
