@@ -422,11 +422,11 @@ $handleFunctionsObject = new handleFunctions;
 						</div>
 					</div>	
 				</div>	
-				<div class="form-row" id='Specify_Commodities_Hauled'>	
+				<div class="form-row" id='Specify_Commodities_Hauled_select_div'>	
 					<div class="form-holder w-100">
 					<label>Specify Commodities Hauled</label>
-					<select  multiple="multiple" id='Specify_Commodities_Hauled_select_div' name='Specify_Commodities_Hauled[]'>
-					  <option value="" selected>Choose Commodities Hauled</option>
+					<select  multiple="multiple" id='Specify_Commodities_Hauled_select' name='Specify_Commodities_Hauled[]'>
+					  <option value="">Choose Commodities Hauled</option>
 					  <option value="Household Goods">Household Goods</option>
 					  <option value="Drive/Tow away">Drive/Tow away</option>
 					  <option value="Mobile Homes">Mobile Homes</option>
@@ -1726,8 +1726,8 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100 Motor_Truck_Cargo_limit_value_div" style='display:none;'>
+				<div class="form-row Motor_Truck_Cargo_limit_value_div" style='display:none;'>
+					<div class="form-holder w-100">
 					<label>Select Limit</label>
 						<div class='radio'>	
 						<input type="radio" name="need_Limit_Motor_Truck_CArgo_other" class="need_Limit_Motor_Truck_CArgo_other" value='$150,000'><label> $150,000</label>
@@ -2820,7 +2820,6 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
 					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
-							<option value="None">None</option>
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();
 							
@@ -2838,7 +2837,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group " >
 					  <label for="Vehicle Sub-Type" class="control-label">Address</label>
-					   <textarea class="form-control loss_payee_address" id="loss_payee_address" name="loss_payee_full_name" ></textarea> 
+					   <textarea class="form-control loss_payee_address" id="loss_payee_address" name="loss_payee_address" ></textarea> 
 					</div>
 					</div>
 					
@@ -2883,7 +2882,7 @@ $handleFunctionsObject = new handleFunctions;
 						$response_vehicles= $handleFunctionsObject->vehicle_type();
 						foreach($response_vehicles as $responsedata){?>
 					 <div class='radio'>
-						<input type="radio" name="edit_vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>'
+						<input type="radio" name="vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>' id ='<?php echo $responsedata['category_type'];?>'
 							data-id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
 						<label><?php echo $responsedata['category_type'];?></label>
 					</div>
@@ -2896,17 +2895,17 @@ $handleFunctionsObject = new handleFunctions;
 					  <input type="text" class="form-control" id="vehicle_VIN_edit" name="vehicle_VIN" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group vehicle_Gross_weight_div">
 					  <label for="Gross" class="control-label">Gross weight</label>
 					  <input type="text" class="form-control" id="vehicle_Gross_weight_edit" name="vehicle_Gross_weight" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group vehicle_Longest_tip_div">
 					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
 					  <input type="text" class="form-control" id="vehicle_Longest_tip_edit" name="vehicle_Longest_tip" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group">
+					<div class="form-group vehicle_Destination_City_div">
 					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
 					  <input type="text" class="form-control" id="vehicle_Destination_City_edit" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
@@ -2965,13 +2964,13 @@ $handleFunctionsObject = new handleFunctions;
 						
 					</select>
 					</div>
-					<div class="form-group body_div_select" >
+					<div class="form-group body_div_select_graging" >
 					  <label for="ZIP" class="control-label">Garaging ZIP Code</label>
 					
 					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode_edit" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
 					</div>
 					
-					<div class="form-group body_div_select" >
+					<div class="form-group Radius_div_select" >
 					  <label for="Radius" class="control-label">Radius (One Way)</label>
 						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius_edit" class="form-control C2VehicleDetails_Radius">
 							<option value="50">50 miles</option>
@@ -2983,31 +2982,43 @@ $handleFunctionsObject = new handleFunctions;
 						
 						</select>
 					</div>
+					<div class="form-group Trailer_div_select" style='display:none'>
+					  <label for="Radius" class="control-label">Trailer Type</label>
+						<select name="C2VehicleDetails_Trailer" id="C2VehicleDetails_Trailer" class="form-control C2VehicleDetails_Trailer">
+						<option value="owned" selected="selected">Owned</option>
+						<option  value="non-owned">Non-owned</option>
+						
+						</select>
+					</div>
+					<div class="form-group trailer_value_div_select" style='display:none'>
+					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the non-owned trailer?</label>
+						<input type='text' name="trailer_value" id="trailer_value" class="form-control trailer_value"/>
+					</div>
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Is this vehicle used for business, personal or both?</label>
 					  <div class='radio'>
-									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='0' checked>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='Business' checked>
 									<label>Business</label>
 								</div>
 								
 					<div class='radio'>
-									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='Business/Personal'>
 									<label>Business/Personal</label>
 								</div>
 					<div class='radio'>
-									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='1'>
+									<input type="radio" name="vehicle_used_for" class="form-control vehicle_used_for" value='Personal Only'>
 									<label>Personal Only</label>
 						</div>
 					</div>
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Does this vehicle need comprehensive or collision coverage?</label>
 					  <div class='radio'>
-									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='0'>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='Yes'>
 									<label>Yes</label>
 								</div>
 								
 					<div class='radio'>
-									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='1' checked>
+									<input type="radio" name="vehicle_used_comprehensive" class="form-control vehicle_used_comprehensive" value='No' checked>
 									<label>No</label>
 								</div>
 					
@@ -3026,8 +3037,8 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
-					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss_edit" class="form-control C2VehicleDetails_Loss">
-							<option value=""></option>
+					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
+							
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();
 							
@@ -3037,6 +3048,16 @@ $handleFunctionsObject = new handleFunctions;
 						
 							<?php } ?>
 						</select>
+					</div>
+					<div class='loss_payee_yes' style='display:none;'>
+					<div class="form-group " >
+					  <label for="Vehicle Sub-Type" class="control-label">Full Name</label>
+					   <input type="text" class="form-control loss_payee_full_name" id="loss_payee_full_name" name="loss_payee_full_name" value="" required="">
+					</div>
+					<div class="form-group " >
+					  <label for="Vehicle Sub-Type" class="control-label">Address</label>
+					   <textarea class="form-control loss_payee_address" id="loss_payee_address" name="loss_payee_address" ></textarea> 
+					</div>
 					</div>
 				<input type='hidden' id='vehicle_id_to_update' name='vehicle_id_to_update'>
 					

@@ -20,7 +20,7 @@ error_reporting(0);
 	 function businessCategories(){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.business_type";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -39,7 +39,7 @@ error_reporting(0);
 	function businessSubCategories($id){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.subcategory_business where category_id=$id";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -59,7 +59,7 @@ error_reporting(0);
 	function vehicle_type(){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.vehicle";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -77,7 +77,7 @@ error_reporting(0);
 	function VehicleCategory($id){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.category where vehicale_id=$id";
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -95,7 +95,7 @@ error_reporting(0);
 	function VehicleSubCategory($id){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.subcategory_vehicle where category_id=$id";
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -115,7 +115,7 @@ error_reporting(0);
 	function Vehicleyears($cat){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.year where category_id=$cat";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -133,7 +133,7 @@ error_reporting(0);
 	function VehicleMake($vehicle_cat){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.make WHERE category_id=$vehicle_cat";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -151,7 +151,7 @@ error_reporting(0);
 	function VehiclesubMake($vehicle_cat){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.make WHERE sub_category_id=$vehicle_cat";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -170,7 +170,7 @@ error_reporting(0);
 	function VehicleModel($vehicle_cat,$year,$vehicle_make){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.model WHERE category_id=$vehicle_cat AND year_id=$year AND make_id=$vehicle_make";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -188,7 +188,7 @@ error_reporting(0);
 	function VehicleBodyStyle($vehicle_cat,$year,$vehicle_make,$vehicle_model){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.body_style WHERE category_id=$vehicle_cat AND year_id=$year AND make_id=$vehicle_make AND model_id=$vehicle_model";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -205,8 +205,8 @@ error_reporting(0);
 	} 	
 	function VehicleLosspayee(){
 		$conn = $this->pgConnect();
-		$query = "SELECT * FROM public.loss_payee ORDER BY id DESC";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$query = "SELECT * FROM public.loss_payee";	
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -237,12 +237,127 @@ error_reporting(0);
 		return $response;
 		
 	} 
+	
+	function insertVehicle($contact_id,$data){
+		$conn = $this->pgConnect();
+		if($data['C2VehicleDetails_subcategory']=''){
+			$category=$data['C2VehicleDetails_subcategory'];
+			}else{
+		$category=$data['C2VehicleDetails_category'];
+		}
+		if($data['C2VehicleDetails_make_name']!=''){
+			$make=$data['C2VehicleDetails_make_name'];
+			}else{
+		$make=$data['C2VehicleDetails_make'];
+		}
+		if($data['C2VehicleDetails_model_name']!=''){
+			$model =$data['C2VehicleDetails_model_name'];
+			}else{
+			$model=$data['C2VehicleDetails_model'];
+		}
+		if($data['vahicle_type']=='Trailer'){
+			$query = "INSERT INTO public.contact_vehicles(
+		contact_id, vehicle_type, vin, category, year, garaging_zip_code, is_business, is_comprehensive, value, loss_payee, trailer_type, non_owned_value, name, address)
+		VALUES('".$contact_id."', '".$data['vahicle_type']."','".$data['vehicle_VIN']."', '".$category."','".$data['C2VehicleDetails_year']."','".trim($data['C2VehicleDetails_GaragingZIPCode'])."','".trim($data['vehicle_used_for'])."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['C2VehicleDetails_Trailer']."','".$data['trailer_value']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."') RETURNING *";
+		}else{
+		 $query = "INSERT INTO public.contact_vehicles(
+		contact_id, vehicle_type, vin, gross_weight, longest_trip, city_of_destination, category, year, make, model, body_style, garaging_zip_code, radius, is_business, is_comprehensive, value, loss_payee, name, address)
+		VALUES('".$contact_id."', '".$data['vahicle_type']."', '".$data['vehicle_VIN']."','".$data['vehicle_Gross_weight']."','".$data['vehicle_Longest_tip']."','".$data['vehicle_Destination_City']."','".$category."','".$data['C2VehicleDetails_year']."','".$make."','".$model."','".$data['C2VehicleDetails_body']."','".$data['C2VehicleDetails_GaragingZIPCode']."','".$data['C2VehicleDetails_Radius']."','".$data['vehicle_used_for']."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."') RETURNING *";
+		}
+		$result = pg_query($query); 
+					
+		if($result){
+			$fch = pg_fetch_assoc($result);
+			$response= $fch;
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	function updateVehicle($contact_id,$data){
+		$conn = $this->pgConnect();
+		if($data['C2VehicleDetails_subcategory']=''){
+			$category=$data['C2VehicleDetails_subcategory'];
+			}else{
+		$category=$data['C2VehicleDetails_category'];
+		}
+		if($data['C2VehicleDetails_make_name']!=''){
+			$make=$data['C2VehicleDetails_make_name'];
+			}else{
+		$make=$data['C2VehicleDetails_make'];
+		}
+		if($data['C2VehicleDetails_model_name']!=''){
+			$model =$data['C2VehicleDetails_model_name'];
+			}else{
+			$model=$data['C2VehicleDetails_model'];
+		}
+		if($data['vahicle_type']=='Trailer'){
+		 $query = "UPDATE  public.contact_vehicles SET
+		contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', is_business='".$data['vehicle_used_for']."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."', trailer_type='".$data['C2VehicleDetails_Trailer']."', non_owned_value='".$data['trailer_value']."', name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',gross_weight=' ', longest_trip=' ', city_of_destination='',  make=' ', model=' ', body_style=' ', radius=' ' WHERE id=".$data['vehicle_id_to_update']."";
+		}else{
+		   $query = "UPDATE  public.contact_vehicles SET
+		contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', longest_trip='".$data['vehicle_Longest_tip']."', city_of_destination='".$data['vehicle_Destination_City']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', make='".$make."', model='".$model."', body_style='".$data['C2VehicleDetails_body']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."'  WHERE id=".$data['vehicle_id_to_update']."";
+		}
+		$result = pg_query($query); 
+		if($result){
+			$fch = $this->GetContactVehicles($contact_id);
+			$response= $fch;
+		}else{
+		$response=0	;
+			
+		}
+
+		pg_close($conn);
+		return $response;
+		
+	} 
+	
+	
+	
+	function GetContactVehicles($contact_id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.contact_vehicles where contact_id=".$contact_id."";		
+		$rs = pg_query($conn, $query);
+		$rows = pg_num_rows($rs);
+		if($rows>=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response[]=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+	}
+		function GetContactSingeVehicles($contact_id,$vehicle_id){
+		$conn = $this->pgConnect();
+		$query = "SELECT * FROM public.contact_vehicles where contact_id=".$contact_id." and id=$vehicle_id";		
+		$rs = pg_query($conn, $query);
+		$rows = pg_num_rows($rs);
+		if($rows=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+	}
 
 	
 	function GetContactcommoditeies($contact_id,$field){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.contact_commodities where contact_id=".$contact_id." AND name='".$field."'";		
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 		$response=array();	
@@ -261,11 +376,11 @@ error_reporting(0);
 		$conn = $this->pgConnect();
 		if($field!=''){
 		$query = "SELECT * FROM public.contact_commodities where contact_id=".$contact_id." AND name='".$field."'";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows==1){
 			$query = "UPDATE  public.contact_commodities SET value='".$values."' WHERE contact_id=".$contact_id." AND name='".$field."'";
-			$result = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+			$result = pg_query($conn, $query);
 			
 		}else{
 			  $query = "INSERT INTO public.contact_commodities(contact_id, name,value)VALUES('".$contact_id."', '".$field."','".$values."')";
@@ -274,7 +389,6 @@ error_reporting(0);
 		
 		 pg_close($conn);
 		if($result){
-		
 		 $response=1;
 		}else{
 		$response=0	;
@@ -340,7 +454,7 @@ error_reporting(0);
 	function businessviolation($contact_id){
 		$conn = $this->pgConnect();
 		$query =  "SELECT * FROM public.violation where contact_id=$contact_id";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
@@ -360,7 +474,7 @@ error_reporting(0);
 	function updateviolation($contact_id,$Accident_id,$Accident_date,$Accident){
 		$conn = $this->pgConnect();
 		$query =  "update  public.violation SET accident_violation='".$Accident."', date='".$Accident_date."' where id=$Accident_id";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		
 		if($rs){
 			
@@ -379,7 +493,7 @@ error_reporting(0);
 	function deleteviolation($violationId){
 		$conn = $this->pgConnect();
 		$query =  "Delete  FROM public.violation where id=$violationId";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		
 		if($rs){
 			
@@ -724,7 +838,7 @@ error_reporting(0);
 	function business_search($data){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.business_type WHERE category LIKE '".$data."%'";	
-		$rs = pg_query($conn, $query) or die("Cannot execute query: $query\n");
+		$rs = pg_query($conn, $query);
 		$rows = pg_num_rows($rs);
 		if($rows>=1){
 			$response=array();	
