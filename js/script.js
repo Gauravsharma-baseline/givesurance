@@ -2527,10 +2527,10 @@ $(document).on("click", ".edit_vehicles", function(event){
 					  $('#C2VehicleDetails_category_edit option')
 						.filter(function() { return $.trim( $(this).text() ) == result.category; })
 						.attr('selected',true);
-					 $('#current_selected_cat').html('current selected :'+result.category);
-					 $('#current_selected_make').html('current selected :'+result.make);
-					 $('#current_selected_model').html('current selected :'+result.model);
-					 $('#current_selected_year').html('current selected :'+result.year);
+					 $('#current_selected_cat').html('currently selected :'+result.category);
+					 $('#current_selected_make').html('currently selected :'+result.make);
+					 $('#current_selected_model').html('currently selected :'+result.model);
+					 $('#current_selected_year').html('currently selected :'+result.year);
 					  
 					 if(result.vehicle_type=='Trailer'){
 						$(".C2VehicleDetails_Trailer").val(result.trailer_type).trigger('changed');
