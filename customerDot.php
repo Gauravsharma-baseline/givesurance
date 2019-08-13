@@ -133,7 +133,7 @@ $handleFunctionsObject = new handleFunctions;
 		<div role="alert" id='dot_alert' style='display:none;color:red';>
 		DOT Number must start with DOT
 		</div>
-		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" />
+		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
 		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
 		<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
 		<input type="button" name="next" class="action-button dot_number_next" value="Next" />
@@ -364,7 +364,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
-					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective' placeholder='<?php echo date('m/d/Y');?>'>
+					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective' placeholder='<?php echo date('m/d/Y');?>' readonly>
 					</div>
 				</div>
 				<div class="form-row">
@@ -415,7 +415,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>Are any listed vehicles used to haul steel?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="is_vehicles_haul_steel" class='is_vehicles_haul_steel' checked value='Yes'>
+						 <input type="radio" name="is_vehicles_haul_steel" class='is_vehicles_haul_steel'  value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>
@@ -469,7 +469,7 @@ $handleFunctionsObject = new handleFunctions;
 						<label>listed vehicles or the load require a placard?</label>
 						 <div class='radio'>
 						
-						 <input type="radio" name="is_vehicles_placard" class='is_vehicles_placard' checked value='Yes'>
+						 <input type="radio" name="is_vehicles_placard" class='is_vehicles_placard'  value='Yes'>
 						  <label>Yes</label>
 						 </div>
 						  <div class='radio'>

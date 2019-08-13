@@ -489,6 +489,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					$(".phoneNumber").addClass('is-invalid');
 				}
 				else{
+					
+				$("#Contact_Insured_phone").val(phone);
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
 				//console.log(result.MC);
@@ -503,13 +505,13 @@ $(document).on("click", ".phone_number_next", function(event){
 				var commodities_data=result.commodities_data;
 				var Vehiclesdata=result.vehicles_data;
 				
-				console.log(conatctData);
+				/* console.log(conatctData);
 				console.log(contactDataa);
 				console.log(commodities_data);
 				console.log(jQuery.type(conatctData));
 				console.log(jQuery.type(contactDataa));
 				console.log(jQuery.type(commodities_data));
-				console.log(jQuery.type(commodities_data));
+				console.log(jQuery.type(commodities_data)); */
 				
 				if(commodities_data){
 					$("#Commodities_data_div").html(commodities_data);
@@ -539,6 +541,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					
 				}
 				if(Vehiclesdata){
+					console.log('vehicle inside');
 					if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
 					  $('#dtVehiclesTable').DataTable().destroy();
 					}
@@ -1016,14 +1019,12 @@ $(".dot_number_next").click(function(event ){
 	var searchedNumber=$(".searchedNumber").val();
 	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
-	var variable2 = searchedNumber.substring(0, 3);
-	console.log(variable2);
 	if(searchedNumber==''){
 		event.preventDefault();
 		$("#mc_number").addClass('is-invalid');
-	}if(variable2 =='dot' || variable2 =='DOT'){
+	}else{
 		
-	console.log('outside');	
+
 	$("#mc_number").removeClass('is-invalid');
 	$("#dot_alert").hide();
 	$("body").css("cursor", "progress");
@@ -1043,10 +1044,11 @@ $(".dot_number_next").click(function(event ){
 				$("#mc_number").addClass('is-invalid'); 
 				}else{
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
-					/* $(".mailing_address").val(result.mailing_address);
-					$(".physical_street").val(result.p_street_address);
+					$("#Contact_Insured_Mailing").val(result.mailing_address);
+					$("#Financial_Home_address").val(result.physical_address);
+					$("#USDOT_Assigned_to").val(result.legal_name);
+					/*$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
-					$(".physical_address").val(result.physical_address);
 					$(".physical_state").val(result.p_state);
 					$(".mailing_state").val(result.m_state);
 					$(".physical_Postal").val(result.physical_zip);
@@ -1054,7 +1056,7 @@ $(".dot_number_next").click(function(event ){
 					$(".Entity_Type").val(result.Entity_Type);
 					$(".operating_status").val(result.operating_status);
 					$(".Out_of_Service_date").val(result.Out_of_Service_date);
-					$(".legal_name").val(result.legal_name);
+				
 					$(".dba_name").val(result.dba_name);
 					$(".state_carrier_ID_Number").val(result.state_carrier_ID_Number);
 					$(".duns_Number").val(result.duns_Number);
@@ -1093,13 +1095,6 @@ $(".dot_number_next").click(function(event ){
 				}
 		 });
 		}
-		
-	}else{
-		console.log('inside');
-		event.preventDefault();
-		$("#mc_number").addClass('is-invalid');
-		$("#dot_alert").show();
-	
 		
 	}
 	
@@ -1635,7 +1630,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 		d=1;
 		 $("#new_driver_Exp").removeClass('is-invalid');
 	}
-	if($("#new_driver_hire_date").val()==''){
+	/* if($("#new_driver_hire_date").val()==''){
 		d=0;
 			event.preventDefault();
 			$("#new_driver_hire_date").addClass('is-invalid');
@@ -1643,7 +1638,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 		d=1;
 		 $("#new_driver_hire_date").removeClass('is-invalid');
 	}
-	
+	 */
 	
 	
 	if(d==1){

@@ -596,14 +596,14 @@ error_reporting(0);
 					 
 					
 					/*******************************************Operation_Classification start*****************************/
-					$DOM = new DOMDocument();
+					/* $DOM = new DOMDocument();
 					$DOM->loadHTML($Operation_Classification);
 					$Operation_Classificationhead = $DOM->getElementsByTagName('th');
 					$DetailOperationClassification = $DOM->getElementsByTagName('td');
 					 
 					foreach($DetailOperationClassification as $NodeDetail)
 					{
-						$DetailOperation_ClassificationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+						$DetailOperation_ClassificationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]','', trim($NodeDetail->textContent));
 					}
 					
 					foreach($DetailOperation_ClassificationHTML as $key=>$nDetailOperation_ClassificationHTML){
@@ -611,7 +611,7 @@ error_reporting(0);
 						
 						 array_push($Operation_Classification_main,$DetailOperation_ClassificationHTML[$key+1]);
 					   }
-					} 
+					}  */
 					
 					
 					
@@ -619,19 +619,19 @@ error_reporting(0);
 					print_r($Operation_Classification_main); 
 					echo '<pre>'; */
 					/*******************************************Carrier_Operation*************************************/
-					$DOM = new DOMDocument();
+					/* $DOM = new DOMDocument();
 					$DOM->loadHTML($Carrier_Operation);
 					$DetailCarrier_Operation = $DOM->getElementsByTagName('td');
 					foreach($DetailCarrier_Operation as $NodeDetail)
 					{
-						$DetailCarrier_OperationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+						$DetailCarrier_OperationHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]','', trim($NodeDetail->textContent));
 					}
 					foreach($DetailCarrier_OperationHTML as $key=>$nDetailCarrier_OperationHTML){
 						if($nDetailCarrier_OperationHTML =='X'){
 						
 						 array_push($Carrier_Operation_main,$DetailCarrier_OperationHTML[$key+1]);
 					   }
-					}
+					} */
 					/* echo '<pre>';
 					print_r($Carrier_Operation_main); 
 					echo '<pre>'; */
@@ -639,7 +639,7 @@ error_reporting(0);
 					
 					
 					/*******************************************Cargo_Carried*************************************/
-					$DOM = new DOMDocument();
+					/* $DOM = new DOMDocument();
 					$DOM->loadHTML($Cargo_Carried);
 					
 					$DetailCargo_Carried = $DOM->getElementsByTagName('td');
@@ -647,14 +647,14 @@ error_reporting(0);
 					 
 					foreach($DetailCargo_Carried as $NodeDetail)  //#Get data name of the table
 					{
-						$DetailCargo_CarriedHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]*/','', trim($NodeDetail->textContent));
+						$DetailCargo_CarriedHTML[] = preg_replace('/[^(\x20-\x7F)\x0A\x0D]','', trim($NodeDetail->textContent));
 					}
 					foreach($DetailCargo_CarriedHTML as $key=>$nDetailCargo_CarriedHTML){
 						if($nDetailCargo_CarriedHTML =='X'){
 						
 						 array_push($Cargo_Carried_main,$DetailCargo_CarriedHTML[$key+1]);
 					   }
-					} 
+					}  */
 					
 					$zipcode_Physical = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $physical_address, $zipcode_physical_zip);
 					$pZip=preg_replace("/[^0-9]/", "", $zipcode_physical_zip[0] );
@@ -668,10 +668,10 @@ error_reporting(0);
 					  $street_address_m=explode(',',$mailing_address);
 					 $street_address_m=$street_address_m[0];
 					 
+				/* 	,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main)
+					  */
 					
-					 
-					
-					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'physical_zip'=>$pZip,'mailing_zip'=>$mZip,'p_street_address'=>$street_address_p,'m_street_address'=>$street_address_m,'phone'=>$phone,'mailing_address'=>$mailing_address,'p_state'=>$p_state,'m_state'=>$m_state,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main));
+					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'physical_zip'=>$pZip,'mailing_zip'=>$mZip,'p_street_address'=>$street_address_p,'m_street_address'=>$street_address_m,'phone'=>$phone,'mailing_address'=>$mailing_address,'p_state'=>$p_state,'m_state'=>$m_state,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber);
 					
 					
 					
