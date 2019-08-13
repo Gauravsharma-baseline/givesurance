@@ -482,14 +482,28 @@ $(document).on("click", ".phone_number_next", function(event){
            dataType: 'json',
            data: ({getZohoContact: "success", phone_number: phone}),
             success:function(result){
+				$("#msform")[0].reset();
+				if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
+					  $('#dtVehiclesTable').DataTable().destroy();
+					  $('#dtVehiclesTable tbody').empty();
+					}
+				if ( $.fn.DataTable.isDataTable('#dtDriverTable') ) {
+					  $('#dtDriverTable').DataTable().destroy();
+					  $('#dtDriverTable tbody').empty();
+					}
+				$("#msform select").val(" ").trigger('change');	
+				$(".phoneNumber").val(phone);
+				$(".contactId").val(result.contactId);
 				$("body").css("cursor", "default");
 				$(".overlay").hide();
-				if(result==0){
+				if(result==0 || !(result)){
 					event.preventDefault();
 					$(".phoneNumber").addClass('is-invalid');
 				}
 				else{
-					
+				var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});
+				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}); 
+				
 				$("#Contact_Insured_phone").val(phone);
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
@@ -540,13 +554,13 @@ $(document).on("click", ".phone_number_next", function(event){
 					
 					
 				}
-				if(Vehiclesdata){
-					console.log('vehicle inside');
+				if(Vehiclesdata || Vehiclesdata!=0){
+					/* console.log('vehicle inside');
 					if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
 					  $('#dtVehiclesTable').DataTable().destroy();
 					}
-					$('#dtVehiclesTable tbody').empty();
-					var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});	
+					$('#dtVehiclesTable tbody').empty(); */
+						
 						$.each(Vehiclesdata, function(index, element) {
 						var i=index+1;
 						if(element.vehicle_type=='Trailer'){
@@ -575,25 +589,21 @@ $(document).on("click", ".phone_number_next", function(event){
 					});		
 				
 				}else{
-					var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});	
+					console.log('vehicle outside');
+					//var Vehiclestable=$('#dtVehiclesTable').DataTable();	
 				}
 				if(conatctData){
-					driversdata=conatctData.Drivers1;
-				
-				if ( $.fn.DataTable.isDataTable('#dtDriverTable') ) {
-					  $('#dtDriverTable').DataTable().destroy();
-					}
-					$('#dtDriverTable tbody').empty();	
-			
+				driversdata=conatctData.Drivers1;
+				console.log(driversdata);
+				console.log(driversdata.length);
+				var driverlength= driversdata.length;
+				if(driverlength != 0){
+					console.log('driver inside');
 					
-				
-				
-				if(driversdata){
-					var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
+					var current = 1;
 					$.each(driversdata, function(index, element) {
-						
-					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
-					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
+					
+					if(element.DOB_Age_MaritalStatus_Points_LicenceNo!==null){
 					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
 					var dob = moment(d[0]).format('MM/DD/YYYY');
 					var age = d[1];
@@ -602,7 +612,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					var licence=d[4];
 						drivertable.row.add(
 							[
-							index+1,
+							current,
 							"<button class='edit_drivers btn' data-id='"+element.id+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
 							element.Name1,
 							age,
@@ -618,11 +628,13 @@ $(document).on("click", ".phone_number_next", function(event){
 							points
 							]
 						).draw();
+						current++;
 						};	
 
 					});	
 					}else{
-						var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
+						console.log('driver outside');
+						//var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
 					}
 					
 									/*FMCSA*/
@@ -979,7 +991,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					}
 					
 				}	else{
-					console.log('working inside');
+					console.log('working outside');
 				}
 			}
            }
@@ -2435,7 +2447,8 @@ $(document).on("click", "#vehicles_add_button", function(event){
 						).draw();
 					} 
 					  //$('#Add_new_vehicle').find('input:text').val(' ');  
-						$('#Add_new_vehicle')[0].reset();					  
+					$("#vehiles_add_modal #Add_new_vehicle")[0].reset();	
+					$("#vehicle_Edit_modal #edit_vehicle")[0].reset();					  
 					$(".overlay").hide();					
 				}
          });
@@ -2745,6 +2758,8 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 					
 					
 					}
+				$("#Add_new_vehicle")[0].reset();	
+				$("#edit_vehicle")[0].reset();	
 				$('#vehicle_Edit_modal').modal('toggle');			 
 				}
            
@@ -3128,7 +3143,10 @@ $(document).on('click', '#add_vehicles', function(){
 			if(result){
 			$(".last_vehicle_graging_zip").val(result.garaging_zip_code); 
 			}
-			
+			vahicle_type =$("input[name='vahicle_type']:checked").val();
+			if(vahicle_type=='Trailer'){
+			$(".C2VehicleDetails_GaragingZIPCode").val(result.garaging_zip_code);
+			}
 			$('#vehiles_add_modal').modal('show');
 		}
 	})
