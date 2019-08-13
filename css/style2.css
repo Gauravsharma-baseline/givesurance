@@ -371,6 +371,7 @@ div#business_response {
 div#business_response li {
     list-style: none;
     padding: 5px 0 5px 15px;
+    cursor: pointer;
 }
 input.search_business{
     margin-bottom: 0px;

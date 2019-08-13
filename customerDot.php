@@ -364,7 +364,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 				   <label>Policy Effective Date:</label>
-					<input type="text" class="form-control datepicker  Policy_Effective_datee" value="<?php echo date('m/d/Y');?>" id='Policy_Effective' name='Policy_Effective' placeholder='<?php echo date('m/d/Y');?>' readonly>
+					<input type="text" class="form-control  Policy_Effective_datee" id='Policy_Effective' name='Policy_Effective' readonly>
 					</div>
 				</div>
 				<div class="form-row">
@@ -949,7 +949,7 @@ $handleFunctionsObject = new handleFunctions;
 			<thead>
 			<tr>
 				  <td class="td-padding">Vehicle</td>
-				  <td class="td-padding"><button id='add_vehicles' type='button' data-toggle="modal" data-target="#vehiles_add_modal">Add</button></td>
+				  <td class="td-padding"><button id='add_vehicles' type='button'>Add</button></td>
 				  <td class="text-center td-padding">Year Make Model</td>
 				  <td class="text-right">VIN</td>
 				  <td class="text-right">Category</td>
@@ -2735,7 +2735,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group model_div" style="display:none;" >
 					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name' class='form-control C2VehicleDetails_model_name'/>
 					</div>
-					<div class="form-group body_div_select" >
+					<div class="form-group body_div_select_body_style" >
 					  <label for="Body" class="control-label">Body Style</label>
 					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body" class="form-control C2VehicleDetails_body">
 							<option value=""></option>
@@ -2843,11 +2843,8 @@ $handleFunctionsObject = new handleFunctions;
 					   <textarea class="form-control loss_payee_address" id="loss_payee_address" name="loss_payee_address" ></textarea> 
 					</div>
 					</div>
-					
-					
-					
-					
-			  
+					<input type='hidden' id='last_vehicle_graging_zip' class='last_vehicle_graging_zip'>
+					 
 			</div>
 		</div>
        </div>
@@ -2960,7 +2957,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group model_div" style="display:none;" >
 					<label for='model' class='control-label'>Enter Model</label><input type='text' name='C2VehicleDetails_model_name' id='C2VehicleDetails_model_name_edit' class='form-control C2VehicleDetails_model_name'/>
 					</div>
-					<div class="form-group body_div_select" >
+					<div class="form-group body_div_select_body_style" >
 					  <label for="Body" class="control-label">Body Style</label>
 					<select name="C2VehicleDetails_body" id="C2VehicleDetails_body_edit" class="form-control C2VehicleDetails_body">
 							<option value=""></option>
@@ -3040,7 +3037,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
-					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
+					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss_edit" class="form-control C2VehicleDetails_Loss">
 							
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();

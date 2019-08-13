@@ -991,6 +991,10 @@ $(document).on("click", ".phone_number_next", function(event){
 
 $(".Intro_next").click(function(event ){
 var contactId=$(".contactId").val();
+var When_do_you_need_policy=$(".When_do_you_need_policy").val();
+$("#Policy_Effective").val(When_do_you_need_policy);
+
+
 	var dataform=	$('.first_1').find('select, textarea, input').serialize();
 	$(".overlay").show();
 		 $.ajax({
@@ -1722,6 +1726,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 			$("#C2VehicleDetails_make").html(result);
 			$("#C2VehicleDetails_model").html('<option value=""></option>');
 			if(vehicle_type=='Trailer'){
+				
 				$(".make_div").hide();
 				$(".make_div_select").hide();
 				$(".model_div").hide();
@@ -1735,6 +1740,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 			
 			}else{
 				if(vehicle_type=='Trailer'){
+				
 				$(".make_div").hide();
 				$(".make_div_select").hide();
 				$(".model_div").hide();
@@ -1754,10 +1760,13 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
 		if(vehicle_type==3){
+			var gZip=$(".last_vehicle_graging_zip").val();
+			$(".C2VehicleDetails_GaragingZIPCode").val(gZip);
 			$(".vehicle_Gross_weight_div").hide();
 			$(".vehicle_Longest_tip_div").hide();
 			$(".vehicle_Destination_City_div").hide();
 			$(".vehicle_Destination_City_div").hide();
+			$(".body_div_select_body_style").hide();
 			$(".Radius_div_select").hide();
 			$(".make_div").hide();
 			$(".model_div_select").hide();
@@ -1766,12 +1775,14 @@ var vehicle_type=$(this).data("id");
 			$(".body_div_select").hide();
 			$(".Trailer_div_select").show();
 		}else{
+			$(".C2VehicleDetails_GaragingZIPCode").val(' ');
 			$(".vehicle_Gross_weight_div").show();
 			$(".vehicle_Longest_tip_div").show();
 			$(".vehicle_Destination_City_div").show();
 			$(".Radius_div_select").show();
 			$(".Trailer_div_select").hide();
 			$(".trailer_value_div_select").hide();
+			$(".body_div_select_body_style").show();
 			
 		}
 		$(".C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
@@ -1966,6 +1977,7 @@ $("#C2VehicleDetails_model").html('<option value="" selected>updating....</optio
 			}else{
 				$(".model_div_select").hide();
 				$(".model_div").show();
+				$(".body_div_select_body_style").hide();
 				
 				
 			}
@@ -1986,8 +1998,12 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 		type: "POST", 
 	   data: ({get_vehicle_body: "success",vehicle_cat:vehicle_cat,vehicle_year:vehicle_year,vehicle_make:vehicle_make,vehicle_model:vehicle_model}),
 		success:function(result){
-			if(result!=0){
+			if(result){
+				console.log(result);
 			$(".C2VehicleDetails_body").html(result);
+			}else{
+				console.log('hide');
+				$(".body_div_select_body_style").hide();
 			}
 		}
 	})
@@ -2585,13 +2601,13 @@ $(document).on("click", ".edit_vehicles", function(event){
 					
 					$("#C2VehicleDetails_Loss").val(result.loss_payee);
 					if(result.loss_payee=='None'){
-						$(".loss_payee_yes").show();
-						$("#loss_payee_full_name").val(result.name); 
-						$("#loss_payee_address").val(result.address); 
-					}else{
 						$(".loss_payee_yes").hide();
-						$("#loss_payee_full_name").val(' '); 
-						$("#loss_payee_address").val(' '); 
+						$(".loss_payee_full_name").val(' '); 
+						$(".loss_payee_address").val(' '); 
+					}else{
+						$(".loss_payee_yes").show();
+						$(".loss_payee_full_name").val(result.name); 
+						$(".loss_payee_address").val(result.address); 
 					}
 					$("#C2VehicleDetails_body_edit").val(result.body_style);
 					$("input[name='vehicle_modifications'][value='"+result.value+"']").attr('checked','checked');
@@ -2683,6 +2699,7 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 		 $("#C2VehicleDetails_Loss_edit").removeClass('is-invalid');
 	}
 	if(d==1){
+		console.log(d);
 		var dataform=$('#edit_vehicle').serialize();
 		var contactId=$(".contactId").val();
 		$(".overlay").show();
@@ -2732,6 +2749,8 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 				}
            
          });
+	}else{
+		event.preventDefault();
 	}
 
 	
@@ -2874,9 +2893,11 @@ $("#C2VehicleDetails_model_edit").html('<option value="" selected>updating....</
 			if(result!=0){
 			$("#C2VehicleDetails_model_edit").html(result);
 			$(".model_div_select").show();
+			$(".body_div_select_body_style").show();
 			$(".model_div").hide();
 			}else{
 				$(".model_div_select").hide();
+				$(".body_div_select_body_style").hide();
 				$(".model_div").show();
 				
 			}
@@ -2899,6 +2920,8 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 		success:function(result){
 			if(result!=0){
 			$(".C2VehicleDetails_body").html(result);
+			}else{
+			$(".body_div_select_body_style").hide();
 			}
 		}
 	})
@@ -2906,12 +2929,15 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 
 $(document).on("change", ".C2VehicleDetails_Loss", function(event){
 var losspayee=$(this).find(':selected').val();
-if(losspayee=='None'){
+console.log(losspayee);
+if(losspayee =='None'){
 		$(".loss_payee_yes").hide();
 		$(".loss_payee_full_name").val(' ');
 		$(".loss_payee_address").val(' ');
+		
 	}else{
 		$(".loss_payee_yes").show();
+	
 	}
 });
 
@@ -3086,7 +3112,27 @@ $(document).on('change', '.searchedNumber', function(){
 	}
 });
 
-
+$(document).on('click', '#add_vehicles', function(){	
+	var contactId=$(".contactId").val();
+	$.ajax({
+		url:"ajaxRequest.php", 
+		type: "POST", 
+		 dataType: 'json',
+	   data: ({get_contact_last_vehicle: "success",contactId:contactId}),
+		success:function(result){
+			console.log(result);
+			console.log(result.id);
+			console.log(result.contact_id);
+			
+			console.log(result.garaging_zip_code);
+			if(result){
+			$(".last_vehicle_graging_zip").val(result.garaging_zip_code); 
+			}
+			
+			$('#vehiles_add_modal').modal('show');
+		}
+	})
+});
 
 
 

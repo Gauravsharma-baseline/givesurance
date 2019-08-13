@@ -1102,11 +1102,24 @@ if(ISSET($_POST['update_vehicle']) && $_POST['update_vehicle']=='success'){
 			echo $html;
 	}
 } 
-if(ISSET($_POST['get_vehicle']) && $_POST['get_vehicle']=='success'){
+	if(ISSET($_POST['get_vehicle']) && $_POST['get_vehicle']=='success'){
 		
 		$contactid = $_POST['contactId'];
 		$vehicleid = $_POST['vehicleid'];
 		 	$contactdata =  $handleFunctionsObject->GetContactSingeVehicles($contactid,$vehicleid);
+			if($contactdata!=0){
+				echo json_encode($contactdata);
+			}else{
+				echo json_encode(array());
+			}
+			
+	}
+	
+	if(ISSET($_POST['get_contact_last_vehicle']) && $_POST['get_contact_last_vehicle']=='success'){
+		
+		$contactid = $_POST['contactId'];
+		
+		 	$contactdata =  $handleFunctionsObject->GetContactlastVehicles($contactid);
 			if($contactdata!=0){
 				echo json_encode($contactdata);
 			}else{

@@ -296,12 +296,28 @@ error_reporting(0);
 			$model=$data['C2VehicleDetails_model'];
 		}
 		if($data['vahicle_type']=='Trailer'){
+			
+			if($data['C2VehicleDetails_year']!='' && ($data['C2VehicleDetails_category']!='' || $data['C2VehicleDetails_subcategory']!='')){
 		 $query = "UPDATE  public.contact_vehicles SET
 		contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', is_business='".$data['vehicle_used_for']."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."', trailer_type='".$data['C2VehicleDetails_Trailer']."', non_owned_value='".$data['trailer_value']."', name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',gross_weight=' ', longest_trip=' ', city_of_destination='',  make=' ', model=' ', body_style=' ', radius=' ' WHERE id=".$data['vehicle_id_to_update']."";
+			}elseif($data['C2VehicleDetails_year']=='' && !empty($category)){
+			$query = "UPDATE  public.contact_vehicles SET
+		contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', category='".$category."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', is_business='".$data['vehicle_used_for']."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."', trailer_type='".$data['C2VehicleDetails_Trailer']."', non_owned_value='".$data['trailer_value']."', name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',gross_weight=' ', longest_trip=' ', city_of_destination='',  make=' ', model=' ', body_style=' ', radius=' ' WHERE id=".$data['vehicle_id_to_update']."";
+			}else{
+			$query = "UPDATE  public.contact_vehicles SET
+			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', is_business='".$data['vehicle_used_for']."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."', trailer_type='".$data['C2VehicleDetails_Trailer']."', non_owned_value='".$data['trailer_value']."', name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',gross_weight=' ', longest_trip=' ', city_of_destination='',  make=' ', model=' ', body_style=' ', radius=' ' WHERE id=".$data['vehicle_id_to_update']."";
+			}
 		}else{
+			
+			if(!empty($category) && $data['C2VehicleDetails_year']!='' && !empty($model)){
 		   $query = "UPDATE  public.contact_vehicles SET
-		contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', longest_trip='".$data['vehicle_Longest_tip']."', city_of_destination='".$data['vehicle_Destination_City']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', make='".$make."', model='".$model."', body_style='".$data['C2VehicleDetails_body']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."'  WHERE id=".$data['vehicle_id_to_update']."";
-		}
+			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', longest_trip='".$data['vehicle_Longest_tip']."', city_of_destination='".$data['vehicle_Destination_City']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', make='".$make."', model='".$model."', body_style='".$data['C2VehicleDetails_body']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."'  WHERE id=".$data['vehicle_id_to_update']."";
+			}else{
+				$query = "UPDATE  public.contact_vehicles SET
+			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', longest_trip='".$data['vehicle_Longest_tip']."', city_of_destination='".$data['vehicle_Destination_City']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."'  WHERE id=".$data['vehicle_id_to_update']."";
+			}
+			
+		}	
 		$result = pg_query($query); 
 		if($result){
 			$fch = $this->GetContactVehicles($contact_id);
@@ -335,6 +351,25 @@ error_reporting(0);
 		pg_close($conn);
 		return $response;
 	}
+	
+	function GetContactlastVehicles($contact_id){
+		$conn = $this->pgConnect();
+		 $query = "SELECT * FROM public.contact_vehicles where contact_id=".$contact_id." AND vehicle_type!='Trailer' ORDER BY ID DESC LIMIT 1";		
+		$rs = pg_query($conn, $query);
+		$rows = pg_num_rows($rs);
+		if($rows=1){
+		$response=array();	
+		while ($row = pg_fetch_assoc($rs)) {
+		 $response=$row;
+		}
+		}else{
+		$response=0	;
+			
+		}
+		pg_close($conn);
+		return $response;
+	}
+	
 		function GetContactSingeVehicles($contact_id,$vehicle_id){
 		$conn = $this->pgConnect();
 		$query = "SELECT * FROM public.contact_vehicles where contact_id=".$contact_id." and id=$vehicle_id";		
