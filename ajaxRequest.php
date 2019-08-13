@@ -225,9 +225,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		}
 		
-		
-		
-		 $d=array(
+		if($form_data['Insured_first_name']!=''){
+			$d=array(
             "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
             "Is_the_customer_currently_insured_with_Progressive"=>  "".trim($form_data['customer_Progressive_Commercial'])."" ,
             "Structure" =>  "".trim($form_data['Business_Organization_Structure'])."" ,
@@ -267,8 +266,51 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
             "State_Filing_Number"=>  "".trim($form_data['customer_state_value'])."",
 			"Last_Name"=>  "".trim($form_data['Insured_first_name'])." ".trim($form_data['Insured_Middle_name'])." ".trim($form_data['Insured_Last_name']).""
+			);
+		}
+		else{
+		 $d=array(
+            "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
+            "Is_the_customer_currently_insured_with_Progressive"=>  "".trim($form_data['customer_Progressive_Commercial'])."" ,
+            "Structure" =>  "".trim($form_data['Business_Organization_Structure'])."" ,
+            "Business_Type_Category"=>  "".trim($form_data['Business_type'])."" ,
+            "Do_you_have_a_DBA"=>  "".trim($form_data['have_DBA'])."" ,
+            "DBA_Name"=>  "".trim($form_data['DBA_NAME'])."" ,
+            "USDOT_Assigned_to"=>  "".trim($form_data['USDOT_Assigned_to'])."" ,
+            "Does_the_information_assigned_to_this_USDOT_match"=>  "".trim($form_data['is_match_USDOT'])."" ,
+            "First_Name1"=>  "".trim($form_data['Insured_first_name'])."" ,
+            "Middle_Initial"=>  "".trim($form_data['Insured_Middle_name'])."" ,
+			"DOB"=>  "".date("Y-m-d", strtotime($form_data['Insured_DOB']))."" ,
+            "Last_Name1"=>  "".trim($form_data['Insured_Last_name'])."" ,
+            "Suffix"=>  "".trim($form_data['Insured_Suffix'])."" ,
+            "First_Name_Two"=>  "".trim($form_data['Financial_First_name'])."" ,
+            "Last_Name_Two"=>  "".trim($form_data['Financial_Last_name'])."" ,
+            "Suffix_Two"=>  "".trim($form_data['Financial_Suffix'])."" ,
+			"ZIP_Code"=>  "".trim($form_data['Financial_zipcode'])."" ,
+			"City"=>  "".trim($form_data['Financial_City'])."" ,
+			"State"=>  "".trim($form_data['Financial_State'])."" ,
+			"Home_Address"=>  "".trim($form_data['Financial_Home_address'])."" ,
+            "Involved_in_the_daily_operation_of_the_business"=>  "".trim($form_data['is_Involved_daily_operation'])."" ,
+            "Designate_Spouse_as_a_Named_Insured"=>  "".trim($form_data['Insured_Designate_Spouse'])."" ,
+            "Specify_Commodities_Hauled"=>  "".trim($Specify_Commodities_Hauled)."" ,
+            "Are_any_listed_vehicles_used_to_haul_steel"=>  "".trim($form_data['is_vehicles_haul_steel'])."" ,
+            "listed_vehicles_or_the_load_require_a_placard"=>  "".trim($form_data['is_vehicles_placard'])."" ,
+            "Insured_s_Phone"=>  "".trim($form_data['Contact_Insured_phone'])."" ,
+            "Mailing_Address"=>  "".trim($form_data['Contact_Insured_Mailing'])."" ,
+            "State_Two"=>  "".trim($form_data['Contact_Insured_State'])."" ,
+            "ZIP_Code_Two"=>  "".trim($form_data['Contact_Insured_ZIP_code'])."" ,
+            "City_Two"=>  "".trim($form_data['Contact_Insured_City'])."", 
+            "E_mail_Address"=>  "".trim($form_data['Contact_Insured_email'])."", 
+            "Date_Two"=>  "".date("Y-m-d", strtotime($form_data['Financial_dob']))."" ,
+            "Yrs_in_Trucking_Industry"=>  "".trim($form_data['Yrs_in_Trucking_Industry'])."" ,
+            "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
+            "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
+            "List_Filing"=>  "".trim($form_data['List_Filing'])."",
+            "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
+            "State_Filing_Number"=>  "".trim($form_data['customer_state_value']).""
+			
 		);
-		
+		}
 			  $Contactdata = '{
 			  "data": ['.json_encode($d).']
 			}'; 
