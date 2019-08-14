@@ -26,7 +26,7 @@ $handleFunctionsObject = new handleFunctions;
 </head>
 <body>
 
-<h1 style="margin-top:20px" align="center">Customer with DOT</h1>
+<h1 style="margin-top:20px" align="center">Givesurance Fleetsured</h1>
 <!-- multistep form -->
 <form id="msform">
 <!-- progressbar -->
@@ -128,7 +128,7 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 	</fieldset>
 	<fieldset class='second'>
-		<h2 class="fs-title">what is your DOT number?</h2>
+		<h2 class="fs-title">What is your DOT number? If you dont have a DOT number please put 9999999999</h2>
 		<h3 class="fs-subtitle"></h3>
 		<div role="alert" id='dot_alert' style='display:none;color:red';>
 		DOT Number must start with DOT
@@ -511,7 +511,7 @@ $handleFunctionsObject = new handleFunctions;
 					<label>Do you have a DBA?</label>
 					<div class='radio'>
 					
-					<input type="radio" name="have_DBA" class='have_DBA'  value='Yes' checked>
+					<input type="radio" name="have_DBA" class='have_DBA'  value='Yes'>
 					<label>Yes</label>
 					</div>
 					<div class='radio'>
@@ -520,8 +520,8 @@ $handleFunctionsObject = new handleFunctions;
 						<label>No</label>
 					</div>
 					</div>
-				</div>
-				<div class="form-row" id='DBA_NAME_DIV'>	
+				</div>  
+				<div class="form-row" id='DBA_NAME_DIV' style='display:none'>	
 					<div class="form-holder w-100">
 					<label>DBA</label>
 					<input type="text" class="form-control DBA_NAME"  name='DBA_NAME' >  
@@ -586,6 +586,8 @@ $handleFunctionsObject = new handleFunctions;
 					<option  value='' selected='selected'>Select Filing</option> 
 					<option  value='Federal'>Federal</option> 
 					<option  value='State'>State</option> 
+					<option  value='Both'>Both</option> 
+					<option  value='Other'>Other</option> 
 					</select>
 					</div>
 				</div>
@@ -691,6 +693,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Insured's Phone:</label>
 						<input type="text" class="form-control" name="Contact_Insured_phone" id='Contact_Insured_phone'>
+						<input type="hidden" class="form-control" name="Contact_Insured_phone_hidden" id='Contact_Insured_phone_hidden'>
 					</div>
 				</div>
 				<div class="form-row">
@@ -714,8 +717,8 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					<label>State:</label>
-				<select class="form-control"  id='Contact_Insured_State' name='Contact_Insured_State'>
-  				<option value=" ">Select State</option>
+				<select class="form-control"  id="Contact_Insured_State" name="Contact_Insured_State">
+  				<option value="" Selected='selected'>Select State</option>
   				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
 				<option value="AZ">Arizona</option>
@@ -849,8 +852,8 @@ $handleFunctionsObject = new handleFunctions;
 			<div class="form-row">	
 				<div class="form-holder w-100 ">	
 				<label>State:</label>
-					<select class="form-control" id='Financial_State' name='Financial_State'>
-					<option value="" selected>Select State</option>
+					<select class="form-control" id="Financial_State" name="Financial_State">
+					<option value="" selected='selected'>Select State</option>
 					<option value="AL" >Alabama</option>
 					<option value="AK">Alaska</option>
 					<option value="AZ">Arizona</option>
@@ -1091,7 +1094,7 @@ $handleFunctionsObject = new handleFunctions;
 						<input type="radio" name="currently_insured" class="currently_insured" value="Yes"><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="currently_insured" class="currently_insured" value="No" checked><label>No</label>
+						<input type="radio" name="currently_insured" class="currently_insured" value="No"><label>No</label>
 					</div>
 					</div>
 
@@ -1491,7 +1494,8 @@ $handleFunctionsObject = new handleFunctions;
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>State:</label>
-					 <select name="fil_State" id="fil_State" class="fil_State">
+				<select name="fil_State" id="fil_State" class="fil_State">
+				<option value=" ">Select State</option>
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -1510,6 +1514,7 @@ $handleFunctionsObject = new handleFunctions;
 					<label>State Cargo (Form H):</label>
 					<select name="fil_formh_cnt" id="fil_formh_cnt" class="fil_formh_cnt all a">
 
+						<option value=" ">State Cargo (Form H)</option>
 						<option value="0">0</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -1519,6 +1524,13 @@ $handleFunctionsObject = new handleFunctions;
 						<option value="6">6</option>
 						<option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
 					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>Enter State Filing Number</label>
+					<input type="text" name="State_Filling_Number" class="State_Filling_Number" id='State_Filling_Number'/>
+				</div>
 				</div>
 				
 				
@@ -1568,8 +1580,26 @@ $handleFunctionsObject = new handleFunctions;
 				<div class='col-md-6'>
 				
 				<div class="form-row">
+					<div class="form-holder w-100">	
+				<label>Non trucks</label>
+				<select class="form-control select_Non_trucks" id="select_Non_trucks" name="select_Non_trucks">
+  				<option value="None" Selected='selected'>None</option>
+  				<option value="100k">100k</option>
+				<option value="200k">200k</option>
+				<option value="250k">250k</option>
+				<option value="500k">500k</option>
+				<option value="750k">750k</option>
+				<option value="1million">1million</option>
+				
+				</select>
+				</div>
+			</div>
+				
+				
+				
+				<div class="form-row auto_Liability_none" id='auto_Liability_div'>
 					<div class="form-holder w-100">
-					<label>Auto Liability :</label>
+					<label>Auto Liability</label>
 					
 					 <div class='radio'>
 						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$1M CSL' checked><label>$1M CSL</label>
@@ -1598,7 +1628,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>AL Deductible:</label>	
+					 <label>AL Deductible</label>	
 					 <div class='radio'>
 						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$2,500' checked><label>$2,500</label>
 					</div>
@@ -1617,7 +1647,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				 <div class="form-row">
 					<div class="form-holder w-100">
-					<label>UM/UIM :</label>
+					<label>UM/UIM</label>
 						<div class='radio'>	
 						<input type="radio" name="UM_UIM" class="UM_UIM" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1632,7 +1662,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				 <div class="form-row">
 					<div class="form-holder w-100">
-					<label>UM Pd :</label>
+					<label>UM Pd</label>
 						<div class='radio'>	
 						<input type="radio" name="UM_Pd" class="UM_Pd" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1650,7 +1680,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Medical Payments:</label>
+					<label>Medical Payments</label>
 						<div class='radio'>	
 						<input type="radio" name="Medical_Payments" class="Medical_Payments" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1665,7 +1695,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class='main_field_div'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>PIP:</label>
+					<label>PIP</label>
 						<div class='radio'>	
 						<input type="radio" name="PIP" class="PIP" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1684,35 +1714,45 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 						</div>
 				</div>
-				
 				<div class="form-row">
 					<div class="form-holder w-100">
+					<label>Do you know the limit required?</label>
+						<div class='radio'>	
+						<input type="radio" name="know_the_limit_required_motor" class="know_the_limit_required_motor" value='Yes' ><label>Yes</label>
+					</div>
+					<div class='radio'>	
+						<input type="radio" name="know_the_limit_required_motor" class="know_the_limit_required_motor" value='No'><label>No</label>
+					</div>
+					</div>
+				</div>
+				<div class="form-row enter_the_limit_required_motor_div" style='display:none;'>
+					<div class="form-holder w-100">
+					<label>Enter Limit</label>
+				<select class="form-control enter_the_limit_required_motor" name="enter_the_limit_required_motor">
+  				<option value="" selected='selected'>Select</option>
+  				<option value="10k">10k</option>
+				<option value="25k">25k</option>
+				<option value="35k">35k</option>
+				<option value="45k">45k</option>
+				<option value="55k">55k</option>
+				<option value="100k">100k</option>
+				<option value="other">other</option>
+						</select>
+						
 					
-						<div class='txt'>	
-						<label>Per Vehicle</label>
-						<input type="text" name="Motor_Truck_Cargo" class="Motor_Truck_Cargo" value="">
-						</div>
-						</div>
-						</div>
+					</div>
+				</div>
+				<div class="form-row enter_the_limit_required_motor_other_div" style='display:none;'>
+					<div class="form-holder w-100">
+						<input type="text" name="enter_the_limit_required_motor_other" class="enter_the_limit_required_motor_other"/>
+					
+					</div>
+				</div>
+				
+				
 				
 						
-					<div class="form-row">
-					<div class="form-holder w-100">	
-						<div class='txt'>	
-						<label>Aggregate</label>
-						<input type="text" name="Aggregate" class="Aggregate" value=""></label>
-						</div>
-						</div>
-					</div>
-				
-					
-					<div class="form-row">
-					<div class="form-holder w-100">	
-						<div class='radio'>	
-						<input type="checkbox" name="Motor_Truck_Rejected" class="Motor_Truck_Rejected" value='Rejected'checked><label>Rejected</label>
-					</div>
-					</div>
-					</div>
+
 				
 				
 				<div class="form-row">
@@ -1757,9 +1797,10 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				</div>
+				
 				<div class="form-row know_the_limit_required_div" style='display:none;'>
 					<div class="form-holder w-100">
-					<label>do you know the limit required?</label>
+					<label>Do you know the limit required?</label>
 						<div class='radio'>	
 						<input type="radio" name="know_the_limit_required" class="know_the_limit_required" value='Yes' checked><label>Yes</label>
 					</div>
@@ -1877,7 +1918,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Household or Commercial Mover</label>
 						<div class='radio'>	
-						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" checked value='Yes'><label> Yes</label>
+						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" value='Yes'><label> Yes</label>
 					</div>
 					<div class='radio'>	
 						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" value='No'><label>No</label>
@@ -2292,6 +2333,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group">
 					  <label for="username" class="control-label">License State</label>
 					  <select name='new_driver_license_state' class='form-control'>
+					  <option value=" ">Select State</option>
 						<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -2305,7 +2347,7 @@ $handleFunctionsObject = new handleFunctions;
 										<option value="HI">Hawaii</option>
 										<option value="ID">Idaho</option>
 										<option value="IL">Illinois</option>
-										<option selected="selected" value="IN">Indiana</option>
+										<option value="IN">Indiana</option>
 										<option value="IT">International</option>
 										<option value="IA">Iowa</option>
 										<option value="KS">Kansas</option>
@@ -2496,6 +2538,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-group">
 					  <label for="username" class="control-label">License State</label>
 					  <select name='edit_driver_license_state' class='form-control' id='edit_driver_license_state'>
+					  	<option value="">Select State</option>
 						<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -2671,7 +2714,11 @@ $handleFunctionsObject = new handleFunctions;
 					<?php }
 						?>
 					  </div>
-					
+					<div class="form-group">
+					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
+					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
+					  <span class="help-block"></span>
+					</div>
 					
 					<div class="form-group vehicle_Gross_weight_div" id='vehicle_Gross_weight_div'>
 					  <label for="Gross" class="control-label">Gross weight</label>
@@ -2747,11 +2794,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					 <input type="text" class="form-control C2VehicleDetails_GaragingZIPCode" id="C2VehicleDetails_GaragingZIPCode" name="C2VehicleDetails_GaragingZIPCode" value="" required="">
 					</div>
-					<div class="form-group">
-					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
-					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
-					  <span class="help-block"></span>
-					</div>
+					
 					
 					<div class="form-group Radius_div_select" >
 					  <label for="Radius" class="control-label">Radius (One Way)</label>
@@ -2891,7 +2934,7 @@ $handleFunctionsObject = new handleFunctions;
 					  </div>
 					
 					<div class="form-group">
-					  <label for="VIN" class="control-label">VIN</label>
+					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
 					  <input type="text" class="form-control" id="vehicle_VIN_edit" name="vehicle_VIN" value="" required="">
 					  <span class="help-block"></span>
 					</div>
@@ -3060,9 +3103,6 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					</div>
 				<input type='hidden' id='vehicle_id_to_update' name='vehicle_id_to_update'>
-					
-					
-					
 			  
 			</div>
 		</div>

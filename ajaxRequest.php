@@ -225,6 +225,12 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 		}
 		
+		if($form_data['Contact_Insured_phone']==''){
+			$phone=$form_data['Contact_Insured_phone_hidden'];
+			
+		}else{
+			$phone=$form_data['Contact_Insured_phone'];
+		}
 		if($form_data['Insured_first_name']!=''){
 			$d=array(
             "Policy_Effective_Date"=>  "". date("Y-m-d", strtotime($form_data['Policy_Effective']))."" ,
@@ -252,7 +258,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Specify_Commodities_Hauled"=>  "".trim($Specify_Commodities_Hauled)."" ,
             "Are_any_listed_vehicles_used_to_haul_steel"=>  "".trim($form_data['is_vehicles_haul_steel'])."" ,
             "listed_vehicles_or_the_load_require_a_placard"=>  "".trim($form_data['is_vehicles_placard'])."" ,
-            "Insured_s_Phone"=>  "".trim($form_data['Contact_Insured_phone'])."" ,
+            "Insured_s_Phone"=>  "".trim($phone)."" ,
             "Mailing_Address"=>  "".trim($form_data['Contact_Insured_Mailing'])."" ,
             "State_Two"=>  "".trim($form_data['Contact_Insured_State'])."" ,
             "ZIP_Code_Two"=>  "".trim($form_data['Contact_Insured_ZIP_code'])."" ,
@@ -264,7 +270,6 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
             "List_Filing"=>  "".trim($form_data['List_Filing'])."",
             "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
-            "State_Filing_Number"=>  "".trim($form_data['customer_state_value'])."",
 			"Last_Name"=>  "".trim($form_data['Insured_first_name'])." ".trim($form_data['Insured_Middle_name'])." ".trim($form_data['Insured_Last_name']).""
 			);
 		}
@@ -295,7 +300,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Specify_Commodities_Hauled"=>  "".trim($Specify_Commodities_Hauled)."" ,
             "Are_any_listed_vehicles_used_to_haul_steel"=>  "".trim($form_data['is_vehicles_haul_steel'])."" ,
             "listed_vehicles_or_the_load_require_a_placard"=>  "".trim($form_data['is_vehicles_placard'])."" ,
-            "Insured_s_Phone"=>  "".trim($form_data['Contact_Insured_phone'])."" ,
+            "Insured_s_Phone"=>  "".trim($phone)."" ,
             "Mailing_Address"=>  "".trim($form_data['Contact_Insured_Mailing'])."" ,
             "State_Two"=>  "".trim($form_data['Contact_Insured_State'])."" ,
             "ZIP_Code_Two"=>  "".trim($form_data['Contact_Insured_ZIP_code'])."" ,
@@ -306,8 +311,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
             "List_Filing"=>  "".trim($form_data['List_Filing'])."",
-            "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
-            "State_Filing_Number"=>  "".trim($form_data['customer_state_value']).""
+            "Filing_State"=>  "".trim($form_data['List_Filing_state']).""
+            
 			
 		);
 		}
@@ -549,11 +554,12 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Are_all_vehicles_listed_owned_registered_to_appl"=>  "".trim($form_data['vehicles_listed_owned'])."" ,
             "Any_vehicles_titled_to_an_individual_instead_of_bs"=>  "".trim($form_data['individual_instead_of_business'])."" ,
 			 "CA_Authority_Number"=>  "".trim($form_data['CA_Authority_Number'])."" ,
-            "Others"=>  "".$form_data['fil_othr_cnt']."", 
+            "Other"=>  "".$form_data['fil_othr_cnt']."", 
             "State_Cargo_Form_H"=>  "".trim($form_data['fil_formh_cnt'])."" ,
 			"MCS90"=>  "".trim($form_data['MCS90_val'])."",
 			"State_FT"=>  "".trim($form_data['fil_State'])."", 			
-            "Details"=>  "".trim($form_data['explanations']).""
+            "Details"=>  "".trim($form_data['explanations'])."",
+			"State_Filing_Number"=>  "".trim($form_data['State_Filling_Number']).""
 			);	
 			
 			$Contactdata = '{
@@ -665,7 +671,20 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		parse_str($_POST['dataform'], $form_data);
 		/*  echo '<pre>';
 			print_r($form_data);
-		echo '<pre>'; */ 
+		echo '<pre>'; */
+			
+			if($form_data['know_the_limit_required_motor']=='No'){
+				$know_the_limit_required_motor='';
+			}else{
+				if($form_data['enter_the_limit_required_motor']=='other'){
+				$know_the_limit_required_motor=$form_data['enter_the_limit_required_motor_other'];
+				}else{
+				$know_the_limit_required_motor='';
+				}
+				
+			}
+			
+		
 			   $d = array(
 			"Auto_Liability"=> "".trim($form_data['Auto_Liability'])."" ,
             "AL_Deductible"=> "".trim($form_data['AL_Deductible_text'])."" ,
@@ -681,7 +700,11 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Motor_Truck_Cargo_limit_value"=> "".trim($form_data['need_Limit_Motor_Truck_CArgo_other'])."",
             "Limit_For_Interchange_coverage"=> "".trim($form_data['enter_the_limit_required'])."",
             "do_you_know_the_limit_required"=> "".trim($form_data['know_the_limit_required'])."",
-            "Do_you_need_1_000_000_Combined_Single_Limit_for_A"=> "".trim($form_data['Combined_Single_Limit']).""
+            "Do_you_need_1_000_000_Combined_Single_Limit_for_A"=> "".trim($form_data['Combined_Single_Limit'])."",
+            "Non_trucks"=> "".trim($form_data['select_Non_trucks'])."",
+            "Do_you_know_the_Motor_Cargo_limit_required"=> "".trim($form_data['know_the_limit_required_motor'])."",
+            "Motor_Truck_Cargo_Limit"=> "".$form_data['enter_the_limit_required_motor']."",
+            "Motor_Truck_Cargo_Limit_other" => "".$know_the_limit_required_motor.""
 			
 			);
 			$Contactdata = '{

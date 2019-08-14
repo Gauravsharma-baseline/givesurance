@@ -1733,3 +1733,8 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swa
 .multiselect-container {
     width: 100%;
 }
+.auto_Liability_none{
+    pointer-events: none;
+	color: #ccc;
+    opacity: 0.5;
+}

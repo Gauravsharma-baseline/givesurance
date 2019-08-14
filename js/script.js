@@ -505,6 +505,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}); 
 				
 				$("#Contact_Insured_phone").val(phone);
+				$("#Contact_Insured_phone_hidden").val(phone);
 				$(".contactId").val(result.contactId);
 				$(".searchedNumber").val(result.Dot);
 				//console.log(result.MC);
@@ -756,7 +757,7 @@ $(document).on("click", ".phone_number_next", function(event){
 						
 						if(conatctData.Do_you_need_a_Limit_of_100_000_for_the_Motor_Truc=='Other'){
 							$('.Motor_Truck_Cargo_limit_value_div').show();	
-							$("input[name='need_Limit_Motor_Truck_CArgo'][value='"+conatctData.Motor_Truck_Cargo_limit_value+"']").attr('checked','checked');
+							$("input[name='need_Limit_Motor_Truck_CArgo_other'][value='"+conatctData.Motor_Truck_Cargo_limit_value+"']").attr('checked','checked');
 						}else{
 							$('.Motor_Truck_Cargo_limit_value_div').hide();	
 							$('.need_Limit_Motor_Truck_CArgo_other').val(' ');	
@@ -765,7 +766,39 @@ $(document).on("click", ".phone_number_next", function(event){
 						
 					}
 
+					if(conatctData.Non_trucks!==null){
+						$("input[name='select_Non_trucks'][value='"+conatctData.Non_trucks+"']").attr('selected','selected').trigger('click');
+						$('.select_Non_trucks').val(conatctData.Non_trucks);
+						$('#auto_Liability_div').removeClass('auto_Liability_none');
+						if(conatctData.Non_trucks=='None'){
+							$('#auto_Liability_div').addClass('auto_Liability_none');
+						
+						}else{
+							$('#auto_Liability_div').removeClass('auto_Liability_none');
+						}
+						
+					}
 
+					if(conatctData.Do_you_know_the_Motor_Cargo_limit_required!==null){
+						$("input[name='know_the_limit_required_motor'][value='"+conatctData.Do_you_know_the_Motor_Cargo_limit_required+"']").attr('checked','checked').trigger('click');
+						
+						if(conatctData.Do_you_know_the_Motor_Cargo_limit_required=='Yes'){
+							$('.enter_the_limit_required_motor_div').show();	
+							$('.enter_the_limit_required_motor').val(conatctData.Motor_Truck_Cargo_Limit);	
+							$("input[name='enter_the_limit_required_motor'][value='"+conatctData.Motor_Truck_Cargo_Limit+"']").attr('Selected','Selected');
+							if(conatctData.Motor_Truck_Cargo_Limit=='other'){
+								$('.enter_the_limit_required_motor_other_div').show();
+								$('.enter_the_limit_required_motor_other').val(conatctData.Motor_Truck_Cargo_Limit_other);		
+							}
+							
+						}else{
+							$('.enter_the_limit_required_motor_div').hide();	
+							$('.enter_the_limit_required_motor_other_div').hide();		
+							$('.enter_the_limit_required_motor_other').val( );		
+							
+						}
+						
+					}
 
 					
 
@@ -849,8 +882,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					if(conatctData.CA_Authority_Number!==null){
 					$('#CA_Authority_Number').val(conatctData.CA_Authority_Number);
 					}
-					if(conatctData.Others!==null){
-					$("#fil_othr_cnt").val(conatctData.Others);
+					if(conatctData.Other!==null){
+					$("#fil_othr_cnt").val(conatctData.Other);
 					}
 					
 					if(conatctData.Auto_Liability!==null){
@@ -883,20 +916,17 @@ $(document).on("click", ".phone_number_next", function(event){
 					if(conatctData.List_Filing!== null){
 					$('#List_Filing').val(conatctData.List_Filing);
 						if(conatctData.List_Filing =='State'){
-							$('#customer_in_div').show();
+							$('.customer_in_div').show();
 							$('.List_Filing_state').val(conatctData.Filing_State);
-							if(conatctData.Filing_State=='CA'){
-								var a='Enter CA Number';
-							}else{
-								var a='Enter TXDOT Number';
-							}
-							$('.customer_state_div_value').html('<div class="form-holder w-100"><label>'+a+'</label><input type="text" name="customer_state_value"  class="customer_state_value" value='+conatctData.State_Filing_Number+'></div></div>');
-							$('.customer_state_div_value').show();
 							
-
 						}
 						
 					
+					}
+					
+					
+					if(conatctData.State_Filing_Number!==null){
+					$(".State_Filling_Number").val(conatctData.State_Filing_Number);
 					}
 					if(conatctData.Is_the_customer_currently_insured_with_Progressive!==null){
 					$("input[name='customer_Progressive_Commercial'][value='"+conatctData.Is_the_customer_currently_insured_with_Progressive+"']").attr('checked','checked');
@@ -1060,9 +1090,15 @@ $(".dot_number_next").click(function(event ){
 				$("#mc_number").addClass('is-invalid'); 
 				}else{
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
-					$("#Contact_Insured_Mailing").val(result.mailing_address);
+					$("#Contact_Insured_Mailing").val(result.m_postal);
 					$("#Financial_Home_address").val(result.physical_address);
-					$("#USDOT_Assigned_to").val(result.legal_name);
+					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
+					$("#Contact_Insured_City").val(result.m_city);
+					$(".Contact_Insured_State").val(result.m_state);
+					
+					console.log(result.m_state);
+					$("input[name='Contact_Insured_State'][value='"+result.m_state+"']").attr('Selected','Selected');
+					$("#Contact_Insured_ZIP_code").val(result.mailing_zip);
 					/*$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
 					$(".physical_state").val(result.p_state);
@@ -3016,23 +3052,12 @@ $(document).on("change", "#List_Filing", function(event){
 		$('.customer_in_div').show();
 	}else{
 		$('.customer_in_div').hide();
-		$('.customer_state_div_value').hide();
+		
 	}
 
 	});
 	
-$(document).on("change", "#List_Filing_state", function(event){
-	var d=$(this).find(':selected').val();
-	if(d=='CA'){
-		var a='Enter CA Number';
-	}else{
-		var a='Enter TXDOT Number';
-	}
-	$('.customer_state_div_value').html('<div class="form-holder w-100"><label>'+a+'</label><input type="text" name="customer_state_value"  class="customer_state_value"></div></div>');
-	$('.customer_state_div_value').show();
 	
-
-	});	
 	
 $(document).on("change", ".need_Limit_Motor_Truck_CArgo", function(event){
 	var d=$(this).val();
@@ -3152,8 +3177,37 @@ $(document).on('click', '#add_vehicles', function(){
 	})
 });
 
+$(document).on("change", ".know_the_limit_required_motor", function(event){
+	var d=$("input[name='know_the_limit_required_motor']:checked").val();
+	if(d=='Yes'){
+	$('.enter_the_limit_required_motor_div').show();
+	}else{
+		$('.enter_the_limit_required_motor_div').hide();
+		
+	}
 
+});	
 
+$(document).on("change", ".enter_the_limit_required_motor", function(event){
+	var d=$(this).find(':selected').val();
+	if(d=='other'){
+	$('.enter_the_limit_required_motor_other_div').show();
+	}else{
+		$('.enter_the_limit_required_motor_other_div').hide();
+	}
+
+});		
+$(document).on("change", ".select_Non_trucks", function(event){
+	var d=$(this).find(':selected').val();
+	$('#auto_Liability_div').removeClass('auto_Liability_none');
+	if(d=='None'){
+		$('#auto_Liability_div').addClass('auto_Liability_none');
+	
+	}else{
+		$('#auto_Liability_div').removeClass('auto_Liability_none');
+	}
+
+});
 });	
 
 
