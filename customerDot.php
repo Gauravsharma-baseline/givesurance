@@ -718,7 +718,7 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">	
 					<label>State:</label>
 				<select class="form-control"  id="Contact_Insured_State" name="Contact_Insured_State">
-  				<option value="" Selected='selected'>Select State</option>
+  				<option Selected='selected'>Select State</option>
   				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
 				<option value="AZ">Arizona</option>

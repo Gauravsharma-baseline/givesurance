@@ -1094,10 +1094,10 @@ $(".dot_number_next").click(function(event ){
 					$("#Financial_Home_address").val(result.physical_address);
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
 					$("#Contact_Insured_City").val(result.m_city);
-					$(".Contact_Insured_State").val(result.m_state);
-					
+					$('#Contact_Insured_State').val(result.m_state);
 					console.log(result.m_state);
-					$("input[name='Contact_Insured_State'][value='"+result.m_state+"']").attr('Selected','Selected');
+					$('#Contact_Insured_State [value='+result.m_state+']').attr('selected', 'selected');
+					
 					$("#Contact_Insured_ZIP_code").val(result.mailing_zip);
 					/*$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
