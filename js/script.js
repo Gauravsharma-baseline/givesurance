@@ -1,5 +1,12 @@
 $(document).ready( function () {
 
+$(".previous_phone").click(function(){
+	$(".phoneli").removeClass("active");
+	$(".zeroli").addClass("active");
+	$(".zero").show(); 
+	$(".first").hide();
+		
+});
 $(".previous_doT").click(function(){
 	$(".dotLi").removeClass("active");
 	$(".phoneli").addClass("active");
@@ -156,7 +163,13 @@ $(".previous_PDFData").click(function(){
 	$(".Sixteen").show(); 
 		
 });
-
+$(".zeroli").click(function(){
+	$("#progressbar li").removeClass("active");
+	$(".zeroli").addClass("active");
+	$("fieldset").hide();
+	$(".zero").show(); 
+		
+});
 
 
 $(".phoneli").click(function(){
@@ -458,11 +471,41 @@ $(".PDFData").click(function(){
 	}	
 });
 
+$(document).on("click", ".zero_next", function(event){
+	var contact_Full_name=$(".contact_Full_name").val();
+	var d=$("input[name='quick_quote_for_insurance']:checked").val();
+	if(d=='Yes'){
+	var help_text=$('.help_text').val();
+		if(help_text==''){
+		event.preventDefault();
+		$(".help_text").addClass('is-invalid');
+	}else{
+		$(".help_text").removeClass('is-invalid');
+	}
+	}
 
-/* $('.phoneNumber').keyup(function () { 
-    this.value = this.value.replace(/[^\d]/,'');
-}) */;
-
+	if(contact_Full_name==''){
+		event.preventDefault();
+		$(".contact_Full_name").addClass('is-invalid');
+	}else{
+	$(".contact_Full_name").removeClass('is-invalid');
+	$(".overlay").show();
+	$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({form_zero_step: "success"}),
+            success:function(result){
+				$(".zeroli").removeClass("active");
+					$(".phoneli").addClass("active");
+					$(".zero").hide();
+					$(".first").show(); 
+					$(".overlay").hide();
+			}
+		 });
+		
+	}
+});
 
 
 $(document).on("click", ".phone_number_next", function(event){
@@ -1060,19 +1103,21 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 
 
 $(".dot_number_next").click(function(event ){
-	var checkType=$(".checkType").val();
+
 	var check_id_dot_already= $(".dot").val();
 	var searchedNumber=$(".searchedNumber").val();
 	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
+	
 	if(searchedNumber==''){
-		event.preventDefault();
-		$("#mc_number").addClass('is-invalid');
+		var d=$("input[name='need_new_DOT_number']:checked").val();
+	if(d=='Yes'){
+		searchedNumber='9999999999';
 	}else{
-		
-
 	$("#mc_number").removeClass('is-invalid');
 	$("#dot_alert").hide();
+	}
+	}
 	$("body").css("cursor", "progress");
 	$(".overlay").show();
 	if(mc_number==''){
@@ -1080,7 +1125,7 @@ $(".dot_number_next").click(function(event ){
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({getSaferData: "success", searchedNumber: searchedNumber,checkType:checkType,contactId:contactId}),
+           data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
             success:function(result){
 				
 				$("body").css("cursor", "default");
@@ -1147,9 +1192,6 @@ $(".dot_number_next").click(function(event ){
 				}
 		 });
 		}
-		
-	}
-	
 });
 $(".first_2_next").click(function(event ){
 	//var checkType=$(".checkType").val();
@@ -2382,14 +2424,7 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		 $("#vehicle_Gross_weight").removeClass('is-invalid');
 	}
 	
-	if($("#vehicle_Longest_tip").val()==''){
-		d=0;
-			event.preventDefault();
-			$("#vehicle_Longest_tip").addClass('is-invalid');
-	}else{
-		d=1;
-		 $("#vehicle_Longest_tip").removeClass('is-invalid');
-	}
+	
 	if($("#vehicle_Destination_City").val()==''){
 		d=0;
 			event.preventDefault();
@@ -2477,7 +2512,6 @@ $(document).on("click", "#vehicles_add_button", function(event){
 							result.value,
 							result.loss_payee,
 							result.gross_weight,
-							result.longest_trip,
 							result.city_of_destination
 							]
 						).draw();
@@ -2618,7 +2652,6 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$(".body_div_select").hide();
 						$(".Trailer_div_select").show();
 						$("#vehicle_Gross_weight_edit").val(' ');
-						$("#vehicle_Longest_tip_edit").val(' ');
 						$("#vehicle_Destination_City_edit").val(' ');
 						$("#C2VehicleDetails_make_edit").val(' ');
 						$("#C2VehicleDetails_model_edit").val(' ');
@@ -2638,7 +2671,6 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$(".Radius_div_select").show();
 						$(".Trailer_div_select").hide();
 						$("#vehicle_Gross_weight_edit").val(result.gross_weight);
-						$("#vehicle_Longest_tip_edit").val(result.longest_trip);
 						$("#vehicle_Destination_City_edit").val(result.city_of_destination);
 						$("#C2VehicleDetails_make_edit").val(result.make);
 						$("#C2VehicleDetails_model_edit").val(result.made);
@@ -2649,7 +2681,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 					$("#C2VehicleDetails_year_edit").val(result.year);
 					
 					$("#C2VehicleDetails_Loss").val(result.loss_payee);
-					if(result.loss_payee=='None'){
+					if(result.loss_payee=='None' || result.loss_payee=='Associated Bank' ){
 						$(".loss_payee_yes").hide();
 						$(".loss_payee_full_name").val(' '); 
 						$(".loss_payee_address").val(' '); 
@@ -2690,15 +2722,6 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 		d=1;
 		$("#vehicle_Gross_weight_edit").removeClass('is-invalid');
 	}
-	if($("#vehicle_Longest_tip_edit").val()==''){
-		d=0;
-			event.preventDefault();
-			$("#vehicle_Longest_tip_edit").addClass('is-invalid');
-	}else{
-		d=1;
-		 $("#vehicle_Longest_tip_edit").removeClass('is-invalid');
-	}
-	
 	if($("#vehicle_Destination_City_edit").val()==''){
 		d=0;
 			event.preventDefault();
@@ -2784,7 +2807,6 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 							element.value,
 							element.loss_payee,
 							element.gross_weight,
-							element.longest_trip,
 							element.city_of_destination
 							]
 						).draw();
@@ -2980,8 +3002,7 @@ $(".C2VehicleDetails_body").html('<option value="" selected>updating....</option
 
 $(document).on("change", ".C2VehicleDetails_Loss", function(event){
 var losspayee=$(this).find(':selected').val();
-console.log(losspayee);
-if(losspayee =='None'){
+if(losspayee =='None' || losspayee =='Associated Bank'){
 		$(".loss_payee_yes").hide();
 		$(".loss_payee_full_name").val(' ');
 		$(".loss_payee_address").val(' ');
@@ -3208,6 +3229,68 @@ $(document).on("change", ".select_Non_trucks", function(event){
 	}
 
 });
+
+$(document).on("click", ".quick_quote_for_insurance", function(event){
+	var d=$("input[name='quick_quote_for_insurance']:checked").val();
+	if(d=='No'){
+	$('.quick_quote_for_insurance_no').show();
+	$('.quick_quote_for_insurance_yes').hide();
+
+	
+	}else{
+		$('.quick_quote_for_insurance_yes').show();
+		$('.quick_quote_for_insurance_no').hide();
+		$('.help_text').val('');
+	}
+
+});	
+$(document).on("click", ".have_DOT_number", function(event){
+	var d=$("input[name='have_DOT_number']:checked").val();
+	if(d=='Yes'){
+	$('.enter_dot_div').show();
+	$('.need_new_DOT').hide();
+	$('.need_new_DOT_yes').hide();
+	$('.need_new_DOT_no').hide();
+	$('.searchedNumber_new').val('');
+	
+	}else{
+		$('.enter_dot_div').hide();
+		$('.need_new_DOT').show();
+		
+	}
+
+});		
+$(document).on("click", ".need_new_DOT_number", function(event){
+	var d=$("input[name='need_new_DOT_number']:checked").val();
+	if(d=='Yes'){
+	$('.need_new_DOT_yes').show();
+	$('.need_new_DOT_no').hide();
+	$('.searchedNumber_new').val(9999999999);
+	$('.searchedNumber').val('');
+	
+	}else{
+		$('.need_new_DOT_yes').hide();
+		$('.need_new_DOT_no').show();
+		$('.searchedNumber').val('');
+		$('.searchedNumber_new').val(9999999999);
+		
+	}
+
+});	
+
+$(document).on("change", ".Who_are_you_insured", function(event){
+	var d=$(this).find(':selected').val();
+	if(d=='Not Listed'){
+		$('.enter_insured_name_div').show();
+	
+	}else{
+		$('.enter_insured_name_div').hide();
+		$('.Who_are_you_insured_enter').val('');
+	}
+
+});
+
+
 });	
 
 

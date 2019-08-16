@@ -5,6 +5,12 @@ $zoho_client_secret='88c42ac4b05a8e341731956a233d89cb0399e7f3cb';
 $handleFunctionsObject = new handleFunctions;
 $old_access_token = file_get_contents("access_token.txt");
 $refresh_token = file_get_contents("refresh_token.txt");
+	if(ISSET($_POST['form_zero_step']) && $_POST['form_zero_step']=='success'){
+		
+		echo json_encode($_POST);
+	}
+
+
 	if(ISSET($_POST['getZohoContact']) && $_POST['getZohoContact']=='success'){
 		//$response=array();
 		$phone_number=preg_replace("/[^0-9]/", "", $_POST['phone_number'] );
@@ -270,7 +276,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
             "List_Filing"=>  "".trim($form_data['List_Filing'])."",
             "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
-			"Last_Name"=>  "".trim($form_data['Insured_first_name'])." ".trim($form_data['Insured_Middle_name'])." ".trim($form_data['Insured_Last_name']).""
+			//"Last_Name"=>  "".trim($form_data['Insured_first_name'])." ".trim($form_data['Insured_Middle_name'])." ".trim($form_data['Insured_Last_name']).""
 			);
 		}
 		else{
@@ -536,10 +542,31 @@ $refresh_token = file_get_contents("refresh_token.txt");
 	if(ISSET($_POST['underwriting_data_next']) && $_POST['underwriting_data_next']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
 		parse_str($_POST['dataform'], $form_data);
-		/*   echo '<pre>';
-			print_r($form_data);
-		echo '<pre>';  */
-		$d	= array("Proof_of_Prior_Insurance" =>  "".trim($form_data['currently_insured'])."" ,
+		
+		if($form_data['currently_insured']=='Yes'){
+			if($form_data['Who_are_you_insured']=='Not Listed'){
+			$Who_are_you_insured_enter=$form_data['Who_are_you_insured_enter'];
+			$What_is_your_Current_Liability_Limit=$form_data['Current_Liability_limit'];
+			$What_is_your_Current_Policy_Effective_Date=date("Y-m-d", strtotime($form_data['current_policy_Effective_date']));
+			$What_is_your_Current_Policy_Number=$form_data['Current_Policy_Number'];
+			$What_is_your_Current_Policy_Expiration_Date=date("Y-m-d", strtotime($form_data['current_policy_Expiration_date']));
+			}else{
+				$Who_are_you_insured_enter=$form_data['Who_are_you_insured'];
+				$What_is_your_Current_Liability_Limit='';
+			$What_is_your_Current_Policy_Effective_Date='';
+			$What_is_your_Current_Policy_Number='';
+			$What_is_your_Current_Policy_Expiration_Date='';
+			}
+		}
+		
+		
+		$d= array(
+			"Proof_of_Prior_Insurance" =>  "".trim($form_data['currently_insured'])."" ,
+			"What_is_your_Current_Liability_Limit" =>  "".trim($What_is_your_Current_Liability_Limit)."" ,
+			"What_is_your_Current_Policy_Effective_Date" =>  "".$What_is_your_Current_Policy_Effective_Date."" ,
+			"What_is_your_Current_Policy_Number" =>  "".trim($What_is_your_Current_Policy_Number)."" ,
+			"What_is_your_Current_Policy_Expiration_Date" =>  "".$What_is_your_Current_Policy_Expiration_Date."" ,
+			"Who_are_you_insured_with" =>  "".trim($Who_are_you_insured_enter)."" ,
             "Does_the_insured_have_General_Liability_Insurance"=>  "".trim($form_data['Proof_Insurance'])."" ,
             "Number_of_Additional_Insureds"=>  "".trim($form_data['Additional_Insureds'])."" ,
             "Number_of_Waivers_of_Subrogation"=>  "".trim($form_data['Waivers_Subrogation'])."" ,
@@ -692,8 +719,6 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "UM_PD"=> "".trim($form_data['UM_Pd_value'])."" ,
             "Medical_Payment"=> "".trim($form_data['Medical_Payments'])."" ,
             "PIP"=> "".trim($form_data['PIP'])."",
-            "Per_vehicle"=> "".trim($form_data['Motor_Truck_Cargo'])."",
-            "Aggregate"=> "".trim($form_data['Aggregate'])."",
             "Rejected"=> "".trim($form_data['Motor_Truck_Rejected'])."",
             "Do_you_need_Trailer_Interchange_coverage"=> "".trim($form_data['Trailer_Interchange_coverage'])."",
             "Do_you_need_a_Limit_of_100_000_for_the_Motor_Truc"=> "".trim($form_data['need_Limit_Motor_Truck_CArgo'])."",

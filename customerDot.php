@@ -31,7 +31,8 @@ $handleFunctionsObject = new handleFunctions;
 <form id="msform">
 <!-- progressbar -->
 <ul id="progressbar">
-<li class="phoneli active">Phone Number </li>
+<li class="zeroli active"></li>
+<li class="phoneli">Phone Number </li>
 <li class="IntroLi">Intro</li>
 <li class='dotLi'>DOT</li>
 <li class='MCLi'>MC</li>
@@ -55,14 +56,68 @@ $handleFunctionsObject = new handleFunctions;
 <div class="overlay">
     <div id="loading-img"></div>
 </div>
+	<fieldset class='zero'>
+	<h2 class="fs-title"></h2>
+	<h3 class="fs-subtitle"></h3>
+	<div class='row'>
+	<div class='col-md-6'>
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<label>Who am i speaking with today?</label>
+			<input type="text" name="contact_Full_name" placeholder="Enter Name" required class='contact_Full_name'/>
+			</div>	
+		</div>
+		
+	</div>	
+	<div class='col-md-6'>	
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<label>Would you like quick quote for insurance today?</label>
+			 <div class='radio'>
+				<input type="radio" name="quick_quote_for_insurance" class='quick_quote_for_insurance'  value='Yes'>
+				<label>Yes</label>
+				</div>
+				 <div class='radio'>
+				<input type="radio" name="quick_quote_for_insurance"  class='quick_quote_for_insurance'  value='No'>
+				<label>No</label>
+				</div>
+			</div>	
+		</div>
+		<div class="form-row quick_quote_for_insurance_yes" style='display:none'>
+			<div class="form-holder w-100">
+			<label>I can help you with that. Let me get some information from you real quick.</label>
+			
+			</div>	
+		</div>
+	</div>
+	<div class="form-row quick_quote_for_insurance_no" style='display:none'>
+			<div class="form-holder w-100">
+			<label>what can I help you with today? </label>
+			 <textarea  name="help_text"  required class='help_text'></textarea>
+			</div>	
+	</div>
+	
+	</div>
+	
+	
+	
+	</div>
+	<div class='previous_next_buttons'>
+
+	<input type="button" name="next" class="action-button zero_next" value="Next" />
+		</div>
+	</fieldset>
+
 	<fieldset class='first'>
 	<h2 class="fs-title">Hi my name is (YOUR NAME) and I will be assisting you today.
 	In case we get disconnected, what is the best phone number to reach you?</h2>
 	<h3 class="fs-subtitle"></h3>
 		<input type="text" name="phone" placeholder="Phone Number" required class='phoneNumber' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
 		<input type="hidden" name="contactId" placeholder="Phone Number" required class='contactId' />
+		<div class='previous_next_buttons'>
+			<input type="button" name="previous" class="previous_phone action-button" value="Previous" />
 		<input type="button" name="next" class="action-button phone_number_next" value="Next" />
-		
+		</div>
 	</fieldset>
 	<fieldset class='first_1'>
 	<h2 class="fs-title">Intro</h2>
@@ -78,7 +133,7 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 		<div class="form-row">
 			<div class="form-holder w-100">
-			<label>Are you the owner?</label>
+			<label>Are you the owner of the company?</label>
 			 <div class='radio'>
 				<input type="radio" name="Are_you_the_owner" class='Are_you_the_owner'  value='Yes'>
 				<label>Yes</label>
@@ -93,7 +148,7 @@ $handleFunctionsObject = new handleFunctions;
 		<div class='col-md-6'>
 		<div class="form-row">
 			<div class="form-holder w-100">
-			<label>How many vehicles do you need to add?</label>
+			<label>How many vehicles do you need in the insurance?</label>
 			 <select class="form-control how_many_vehicles" id='how_many_vehicles' name='how_many_vehicles'>
 			 <option value=''>Select</option>
 			 <option value=1>1</option>
@@ -123,20 +178,74 @@ $handleFunctionsObject = new handleFunctions;
 			</div>	
 		</div>
 		</div>
+		</div>
+			<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Intro action-button" value="Previous" />
 		<input type="button" name="next" class="action-button Intro_next" value="Next" />
 		</div>
+		
 	</fieldset>
 	<fieldset class='second'>
-		<h2 class="fs-title">What is your DOT number? If you dont have a DOT number please put 9999999999</h2>
+		<h2 class="fs-title">DOT</h2>
 		<h3 class="fs-subtitle"></h3>
 		<div role="alert" id='dot_alert' style='display:none;color:red';>
 		DOT Number must start with DOT
 		</div>
-		<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+		<div class='row'>
+		<div class='col-md-6'>
+		<div class="form-holder w-100">
+			<label>Do you have DOT number?</label>
+			 <div class='radio'>
+				<input type="radio" name="have_DOT_number" class='have_DOT_number'  value='Yes'>
+				<label>Yes</label>
+				</div>
+				 <div class='radio'>
+				<input type="radio" name="have_DOT_number"  class='have_DOT_number'  value='No'>
+				<label>No</label>
+				</div>
+		</div>	
+		
+		<div class="form-row enter_dot_div" style='display:none;'>
+			<div class="form-holder w-100">
+			<label>What is Your DOT Number?</label>
+			<input type="text" name="searchedNumber" placeholder="Enter DOT Number" class="searchedNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+			</div>	
+		</div>
+		</div>
+		<div class='col-md-6'>
+		<div class="form-row need_new_DOT" style='display:none;'>
+		<div class="form-holder w-100">
+			<label>Do you want a new DOT number?</label>
+			 <div class='radio'>
+				<input type="radio" name="need_new_DOT_number" class='need_new_DOT_number'  value='Yes'>
+				<label>Yes</label>
+				</div>
+				 <div class='radio'>
+				<input type="radio" name="need_new_DOT_number"  class='need_new_DOT_number'  value='No'>
+				<label>No</label>
+				</div>
+		</div>
+		</div>
+		<div class="form-row need_new_DOT_yes" style='display:none;'>
+		<div class="form-holder w-100">
+			<label>Sure let me get some more information! Press(9999999999)</label>
+			<input type="text" name="searchedNumber_new" placeholder="Enter DOT Number" class="searchedNumber_new" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+		</div>
+		</div>
+		<div class="form-row need_new_DOT_no" style='display:none;'>
+		<div class="form-holder w-100">
+			<label>No problem! Press(9999999999)</label>
+			 <input type="text" name="searchedNumber_new" placeholder="Enter DOT Number" class="searchedNumber_new" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class='previous_next_buttons'>
+		
 		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
 		<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
 		<input type="button" name="next" class="action-button dot_number_next" value="Next" />
+		</div>
 	</fieldset>
 	<fieldset class='first_2'>
 		<h2 class="fs-title">Enter MC</h2>
@@ -385,7 +494,7 @@ $handleFunctionsObject = new handleFunctions;
 				<h2 class="fs-title">Business Type</h2>		
 				<div class="form-row">
 					<div class="form-holder w-100">	
-					<label>Business Type</label>
+					<label>Are you general freight? Are you hauling intermodal? Are you hauling coal? What do you haul? Do you haul steel?</label>
 					<input type="text" class="form-control search_business" value="" id='search_business_type' name='Business_type' placeholder='Search...'>
 					<div id="business_response">
 						<?php
@@ -429,36 +538,36 @@ $handleFunctionsObject = new handleFunctions;
 					<div class="form-holder w-100">
 					<label>Specify Commodities Hauled</label>
 					<select  multiple="multiple" id='Specify_Commodities_Hauled_select' name='Specify_Commodities_Hauled[]'>
-					  <option value="">Choose Commodities Hauled</option>
-					  <option value="Household Goods">Household Goods</option>
-					  <option value="Drive/Tow away">Drive/Tow away</option>
-					  <option value="Mobile Homes">Mobile Homes</option>
-					  <option value="Oilfield Equipment">Oilfield Equipment</option>
-					  <option value="Dry Bulk">Dry Bulk</option>
-					  <option value="Paper Products">Paper Products</option>
-					  <option value="Livestock">Livestock</option>
-					  <option value="Chemicals">Chemicals</option>
-					  <option value="Passengers">Passengers</option>
-					  <option value="Department Store Merchandise">Department Store Merchandise</option>
-					  <option value="Metal: sheets, coils, rolls">Metal: sheets, coils, rolls</option>
-					  <option value="Logs, Poles, Bearms, Lumber">Logs, Poles, Bearms, Lumber</option>
-					  <option value="Machinery, Large Objects">Machinery, Large Objects</option>
-					  <option value="Fresh Produce">Fresh Produce</option>
-					  <option value="Intermodal Containers">Intermodal Containers</option>
-					  <option value="Plastic Products">Plastic Products</option>
-					  <option value="Grain, Feed, Hay">Grain, Feed, Hay</option>
-					  <option value="Garbage/Refuse">Garbage/Refuse</option>
-					  <option value="Agricultural/Farm Supplies">Agricultural/Farm Supplies</option>
-					  <option value="Auto Parts / Tires">Auto Parts / Tires</option>
-					  <option value="Motor Vehicles">Motor Vehicles</option>
-					  <option value="Building Materials">Building Materials</option>
-					  <option value="US Mail">US Mail</option>
-					  <option value="Meats">Meats</option>
-					  <option value="Refrigerated Food">Refrigerated Food</option>
-					  <option value="Beverages">Beverages</option>
-					  <option value="Liquids/Gases">Liquids/Gases</option>
-					  <option value="Electronics">Electronics</option>
-					  <option value="Sand/Gravel">Sand/Gravel</option>
+						<option value="">Choose Commodities Hauled</option>
+						 <option value="Agricultural/Farm Supplies">Agricultural/Farm Supplies</option>
+						<option value="Auto Parts / Tires">Auto Parts / Tires</option>
+						<option value="Beverages">Beverages</option>
+						<option value="Building Materials">Building Materials</option>
+						<option value="Chemicals">Chemicals</option>
+						<option value="Department Store Merchandise">Department Store Merchandise</option>
+						<option value="Drive/Tow away">Drive/Tow away</option>
+					    <option value="Dry Bulk">Dry Bulk</option>
+						<option value="Electronics">Electronics</option>
+						<option value="Fresh Produce">Fresh Produce</option>
+						 <option value="Garbage/Refuse">Garbage/Refuse</option>
+						<option value="Grain, Feed, Hay">Grain, Feed, Hay</option>
+						<option value="Household Goods">Household Goods</option>
+						<option value="Intermodal Containers">Intermodal Containers</option>
+						<option value="Liquids/Gases">Liquids/Gases</option>
+						<option value="Livestock">Livestock</option>
+						<option value="Logs, Poles, Bearms, Lumber">Logs, Poles, Bearms, Lumber</option>
+						<option value="Machinery, Large Objects">Machinery, Large Objects</option>
+						<option value="Metal: sheets, coils, rolls">Metal: sheets, coils, rolls</option>
+						<option value="Meats">Meats</option>
+						<option value="Mobile Homes">Mobile Homes</option>
+						<option value="Motor Vehicles">Motor Vehicles</option>
+						<option value="Oilfield Equipment">Oilfield Equipment</option>
+						<option value="Paper Products">Paper Products</option>
+						<option value="Passengers">Passengers</option>
+						<option value="Plastic Products">Plastic Products</option>
+						<option value="Refrigerated Food">Refrigerated Food</option>
+						<option value="Sand/Gravel">Sand/Gravel</option>
+						<option value="US Mail">US Mail</option>
 					  <option value="Other">Other</option>
 					</select>
 					</div>
@@ -488,7 +597,7 @@ $handleFunctionsObject = new handleFunctions;
 				<h2 class="fs-title">Business Organization Structure</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">	
-					  <label>Structure:</label>
+					  <label>Is this Individual, Partnership or Corporation?</label>
 						<div class='radio'>
 						
 						 <input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Individual/Sole Proprietor' checked>
@@ -563,25 +672,25 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Yrs. in business</label>	
+					<label>How many years have you been in business?</label>	
 					<input type="number" class="form-control Yrs_in_business" id='Yrs_in_business' value="" name='Yrs_in_business' min='0'> 
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Yrs. in Trucking Industry</label>	
+					<label>How many years have you been in Trucking Industry?</label>	
 					<input type="number" class="form-control Yrs_in_Trucking_Industry" id='Yrs_in_Trucking_Industry' value=""  name='Yrs_in_Trucking_Industry' min='0'> 
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>If New Venture Please list previous industry employment and roles for Owner</label>	
+					<label>If this is a new venture, then ask customer to list previous industry employment roles for the owner</label>	
 					<input type="text" class="form-control previous_industry_employment" id='previous_industry_employment' value=""  name='previous_industry_employment'> 
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>List Filing(s) Required</label>	
+					<label>What types of filings do you require?</label>	
 					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
 					<option  value='' selected='selected'>Select Filing</option> 
 					<option  value='Federal'>Federal</option> 
@@ -645,7 +754,8 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 			</div>
 			<div class='main_field_div'>
-				<h2 class="fs-title">Named Insured(s)</h2>
+				<h2 class="fs-title">Who's gonna be in this insurance? Can you give me the first and last name?
+And do you have middle initial?</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
 						<label>First Name:</label>
@@ -783,7 +893,7 @@ $handleFunctionsObject = new handleFunctions;
 			</div>
 			</div>
 			<div class='main_field_div'>
-			<h2 class='fs-title'>Financial Responsibility</h2>			
+			<h2 class='fs-title'>Who's going to be responsible for the insurance bills? </h2>			
 				<h3 class="fs-subtitle">President/CEO</h3>	
 			<div class="form-row">
 				  <div class="form-holder w-100">
@@ -960,8 +1070,7 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">Value</td>
 				  <td class="text-right">Loss Payee</td>
 				  <td class="text-right">Gross weight</td>
-				  <td class="text-right">Longest Trip(One Way Miles)</td>
-				  <td class="text-right">City of Destination(Of Longest Haul)</td>
+				  <td class="text-right">Where is the city of destination?</td>
 				  <!--td class="text-right"></td-->
 				</tr>
 			</thead>
@@ -994,11 +1103,11 @@ $handleFunctionsObject = new handleFunctions;
 				  <td class="text-right">License Number</td>
 				  <td class="text-right">License State</td>
 				  <td class="text-right">Years of Class A Exp</td>
-				  <td class="text-right">Date of Hire</td>
+				  <td class="text-right">Do you know the date of hire?</td>
 				  <td class="text-right">Backup driver</td>
 				  <td class="text-right">Owner</td>
 				  <td class="text-right">SR22</td>
-				  <td class="text-right">Points</td>
+				  <td class="text-right">Is there any points in the driving record? Do you know how many points?</td>
 				  <!--td class="text-right"></td-->
 				</tr>
 			</thead>
@@ -1023,8 +1132,8 @@ $handleFunctionsObject = new handleFunctions;
 	<table class="table" id='Violation_Table'>
 			<thead>
 			<tr>
-				  <td class="td-padding">Accident/Violation:</td>
-				  <td class="text-center td-padding datepickerDOB">Date</td>
+				  <td class="td-padding">Was it your fault or somebody's fault?</td>
+				  <td class="text-center td-padding datepickerDOB">When did it happen?</td>
 				  <td class="td-padding"><button id='voilation_add' type='button'>Add</button></td>
 				</tr>
 			</thead>
@@ -1089,7 +1198,7 @@ $handleFunctionsObject = new handleFunctions;
 			<h3 class="fs-subtitle"></h3>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Currently Insured?</label>
+					<label>Are you currently insured?</label>
 					 <div class='radio'>
 						<input type="radio" name="currently_insured" class="currently_insured" value="Yes"><label>Yes</label>
 					</div>
@@ -1099,147 +1208,159 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 
 				</div>
+				
+				
+				
 				<div id='showinsured_data' style='display:none;'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>Agent Code:</label>	
-					 <select name='Agent_Code_policy' class='Agent_Code_policy'>
-					 <option selected="selected" value="" ></option>
-					<option value="001">Not Listed</option>
-					<option value="003">Acadia Insurance Company</option>
-					<option value="004">Acceleration National Ins Co</option>
-					<option value="006">Acceptance Insurance Company</option>
-					<option value="007">Addison Insurance Company</option>
-					<option value="008">Admiral Insurance Company</option>
-					<option value="009">Ag Security Insurance Company</option>
-					<option value="014">AIG Hawaii Insurance Company Inc</option>
-					<option value="020">Allied Mutual Insurance Co</option>
-					<option value="021">Allstate Indemnity Company</option>
-					<option value="022">Allstate Insurance Company</option>
-					<option value="032">American Economy Insurance Company</option>
-					<option value="045">American International Grp</option>
-					<option value="046">American International Ins Company</option>
-					<option value="052">American Mercury Insurance Company</option>
-					<option value="053">American Mercury Lloyds Insurance Co</option>
-					<option value="058">American National Fire Ins Co</option>
-					<option value="069">American States Insurance Co of Tx</option>
-					<option value="070">American States Insurance Company</option>
-					<option value="077">Amica Mutual Insurance Company</option>
-					<option value="108">Beacon National Insurance Co</option>
-					<option value="113">Bituminous Casualty Corp</option>
-					<option value="126">Canal Indemnity Co</option>
-					<option value="131">Carolina Casualty Insurance Co</option>
-					<option value="142">Charter Oak Fire Insurance Co</option>
-					<option value="151">Church Mutual Insurance Co</option>
-					<option value="164">Clarendon America Insurance Co</option>
-					<option value="170">Colonial County Mutual Ins Co</option>
-					<option value="195">Consumers Cnty Mutual Ins Co</option>
-					<option value="196">Continental Casualty Co</option>
-					<option value="200">Continental Western Insurance Co</option>
-					<option value="256">Farm Bureau Mutual Insurance Co</option>
-					<option value="261">Farmers Ins Grp</option>
-					<option value="262">Farmers Insurance Exchange</option>
-					<option value="263">Farmers Mutual Insurance Co of Ne</option>
-					<option value="268">Federal Insurance Company</option>
-					<option value="279">Financial Indemnity Company</option>
-					<option value="282">Firemans Fund County Mutual Ins Co</option>
-					<option value="307">Gainsco County Mutual Ins Co</option>
-					<option value="311">GEICO General Insurance Co</option>
-					<option value="320">General Insurance Co of America</option>
-					<option value="331">Germania Insurance Company</option>
-					<option value="345">Great American Insurance Co</option>
-					<option value="350">Great Texas County Mutual Ins Co</option>
-					<option value="351">Great West Casualty Co</option>
-					<option value="369">Harford Mutual Insurance Co</option>
-					<option value="374">Hartford Casualty Insurance Co</option>
-					<option value="390">Home State County Mutual Ins Co</option>
-					<option value="444">Liberty Mutual Insurance Co</option>
-					<option value="446">Lincoln General Insurance Co</option>
-					<option value="458">Maryland Casualty Company</option>
-					<option value="468">Mercury Casualty Co</option>
-					<option value="471">Metropolitan Property &amp; Cas Ins Co</option>
-					<option value="476">Mid-Century Insurance Co</option>
-					<option value="477">Mid-Continent Casualty Co</option>
-					<option value="508">National American Insurance Co</option>
-					<option value="510">National Casualty Company</option>
-					<option value="517">National Fire &amp; Marine Insurance Co</option>
-					<option value="520">National Interstate Insurance Co</option>
-					<option value="521">National Liability &amp; Fire Ins Co</option>
-					<option value="530">Nationwide Mutual Insurance Co</option>
-					<option value="562">Northland Insurance Company</option>
-					<option value="567">Oak Brook County Mutual Ins Co</option>
-					<option value="571">Ohio Casualty Insurance Co</option>
-					<option value="574">Oklahoma Surety Company</option>
-					<option value="575">Old American Cty Mutual Fire Ins Co</option>
-					<option value="578">Old Republic Insurance Co</option>
-					<option value="621">Phoenix Insurance Company</option>
-					<option value="631">Progressive Ins Co - Personal Auto Policy</option>
-					<option value="647">Republic Western Ins Co</option>
-					<option value="657">Safeco Ins Co Of America</option>
-					<option value="664">Sagamore Insurance Co</option>
-					<option value="667">Scottsdale Insurance Company</option>
-					<option value="678">Sentry Insurance a Mutual Co</option>
-					<option value="689">Southern Farm Bureau Cas Ins Co</option>
-					<option value="690">Southern Fire &amp; Casualty Co</option>
-					<option value="691">Southern General Ins Co</option>
-					<option value="694">Southern Mutual Church Insurance Co</option>
-					<option value="719">State &amp; County Mutual Fire Ins Co</option>
-					<option value="715">State Farm Cty Mutual Ins Co of Tx</option>
-					<option value="718">State Farm Mutual Auto Ins Co</option>
-					<option value="727">Texas Farm Bureau Mutual Ins Co</option>
-					<option value="758">Travelers Insurance Group</option>
-					<option value="762">Trinity Universal Group</option>
-					<option value="766">Truck Insurance Exchange</option>
-					<option value="769">Twin City Fire Insurance Co</option>
-					<option value="778">Union Insurance Company</option>
-					<option value="779">Union Standard Ins Co</option>
-					<option value="785">United Fire &amp; Casualty Co</option>
-					<option value="790">United Services Auto Assoc (USAA)</option>
-					<option value="794">Universal Underwriters Insurance Co</option>
-					<option value="812">Victoria Automobile Insurance Co</option>
-					<option value="843">Westport Insurance Corp</option>
-					<option value="847">Windsor Insurance Company</option>
-					<option value="858">Zurich Ins Co Grp</option>
+					 <label>Who are you insured with?</label>	
+					 <select name='Who_are_you_insured' class='Who_are_you_insured'>
+					<option selected='selected' value="" >---Select----</option>
+					<option value="Not Listed">Not Listed</option>
+					<option value="Acadia Insurance Company">Acadia Insurance Company</option>
+					<option value="Acceleration National Ins Co">Acceleration National Ins Co</option>
+					<option value="Acceptance Insurance Company">Acceptance Insurance Company</option>
+					<option value="Addison Insurance Company">Addison Insurance Company</option>
+					<option value="Admiral Insurance Company">Admiral Insurance Company</option>
+					<option value="Ag Security Insurance Company">Ag Security Insurance Company</option>
+					<option value="AIG Hawaii Insurance Company Inc">AIG Hawaii Insurance Company Inc</option>
+					<option value="Allied Mutual Insurance Co">Allied Mutual Insurance Co</option>
+					<option value="Allstate Indemnity Company">Allstate Indemnity Company</option>
+					<option value="Allstate Insurance Company">Allstate Insurance Company</option>
+					<option value="American Economy Insurance Company">American Economy Insurance Company</option>
+					<option value="American International Grp">American International Grp</option>
+					<option value="American International Ins Company">American International Ins Company</option>
+					<option value="American Mercury Insurance Company">American Mercury Insurance Company</option>
+					<option value="American Mercury Lloyds Insurance Co">American Mercury Lloyds Insurance Co</option>
+					<option value="American National Fire Ins Co">American National Fire Ins Co</option>
+					<option value="American States Insurance Co of Tx">American States Insurance Co of Tx</option>
+					<option value="American States Insurance Company">American States Insurance Company</option>
+					<option value="Amica Mutual Insurance Company">Amica Mutual Insurance Company</option>
+					<option value="Beacon National Insurance Co">Beacon National Insurance Co</option>
+					<option value="Bituminous Casualty Corp">Bituminous Casualty Corp</option>
+					<option value="Canal Indemnity Co">Canal Indemnity Co</option>
+					<option value="Carolina Casualty Insurance Co">Carolina Casualty Insurance Co</option>
+					<option value="Charter Oak Fire Insurance Co">Charter Oak Fire Insurance Co</option>
+					<option value="Church Mutual Insurance Co">Church Mutual Insurance Co</option>
+					<option value="Clarendon America Insurance Co">Clarendon America Insurance Co</option>
+					<option value="Colonial County Mutual Ins Co">Colonial County Mutual Ins Co</option>
+					<option value="Consumers Cnty Mutual Ins Co">Consumers Cnty Mutual Ins Co</option>
+					<option value="Continental Casualty Co">Continental Casualty Co</option>
+					<option value="Continental Western Insurance Co">Continental Western Insurance Co</option>
+					<option value="Farm Bureau Mutual Insurance Co">Farm Bureau Mutual Insurance Co</option>
+					<option value="Farmers Ins Grp">Farmers Ins Grp</option>
+					<option value="Farmers Insurance Exchange">Farmers Insurance Exchange</option>
+					<option value="Farmers Mutual Insurance Co of Ne">Farmers Mutual Insurance Co of Ne</option>
+					<option value="Federal Insurance Company">Federal Insurance Company</option>
+					<option value="Financial Indemnity Company">Financial Indemnity Company</option>
+					<option value="Firemans Fund County Mutual Ins Co">Firemans Fund County Mutual Ins Co</option>
+					<option value="Gainsco County Mutual Ins Co">Gainsco County Mutual Ins Co</option>
+					<option value="GEICO General Insurance Co">GEICO General Insurance Co</option>
+					<option value="General Insurance Co of America">General Insurance Co of America</option>
+					<option value="Germania Insurance Company">Germania Insurance Company</option>
+					<option value="Great American Insurance Co">Great American Insurance Co</option>
+					<option value="Great Texas County Mutual Ins Co">Great Texas County Mutual Ins Co</option>
+					<option value="Great West Casualty Co">Great West Casualty Co</option>
+					<option value="Harford Mutual Insurance Co">Harford Mutual Insurance Co</option>
+					<option value="Hartford Casualty Insurance Co">Hartford Casualty Insurance Co</option>
+					<option value="Home State County Mutual Ins Co">Home State County Mutual Ins Co</option>
+					<option value="Liberty Mutual Insurance Co">Liberty Mutual Insurance Co</option>
+					<option value="Lincoln General Insurance Co">Lincoln General Insurance Co</option>
+					<option value="Maryland Casualty Company">Maryland Casualty Company</option>
+					<option value="Mercury Casualty Co">Mercury Casualty Co</option>
+					<option value="Metropolitan Property  Cas Ins Co">Metropolitan Property  Cas Ins Co</option>
+					<option value="Mid-Century Insurance Co">Mid-Century Insurance Co</option>
+					<option value="Mid-Continent Casualty Co">Mid-Continent Casualty Co</option>
+					<option value="National American Insurance Co">National American Insurance Co</option>
+					<option value="National Casualty Company">National Casualty Company</option>
+					<option value="National Fire  Marine Insurance Co">National Fire  Marine Insurance Co</option>
+					<option value="National Interstate Insurance Co">National Interstate Insurance Co</option>
+					<option value="National Liability  Fire Ins Co">National Liability   Fire Ins Co</option>
+					<option value="Nationwide Mutual Insurance Co">Nationwide Mutual Insurance Co</option>
+					<option value="Northland Insurance Company">Northland Insurance Company</option>
+					<option value="Oak Brook County Mutual Ins Co">Oak Brook County Mutual Ins Co</option>
+					<option value="Ohio Casualty Insurance Co">Ohio Casualty Insurance Co</option>
+					<option value="Oklahoma Surety Company">Oklahoma Surety Company</option>
+					<option value="Old American Cty Mutual Fire Ins Co">Old American Cty Mutual Fire Ins Co</option>
+					<option value="Old Republic Insurance Co">Old Republic Insurance Co</option>
+					<option value="Phoenix Insurance Company">Phoenix Insurance Company</option>
+					<option value="Progressive Ins Co - Personal Auto Policy">Progressive Ins Co - Personal Auto Policy</option>
+					<option value="Republic Western Ins Co">Republic Western Ins Co</option>
+					<option value="Safeco Ins Co Of America">Safeco Ins Co Of America</option>
+					<option value="Sagamore Insurance Co">Sagamore Insurance Co</option>
+					<option value="Scottsdale Insurance Company">Scottsdale Insurance Company</option>
+					<option value="Sentry Insurance a Mutual Co">Sentry Insurance a Mutual Co</option>
+					<option value="Southern Farm Bureau Cas Ins Co">Southern Farm Bureau Cas Ins Co</option>
+					<option value="Southern Fire Casualty Co">Southern Fire Casualty Co</option>
+					<option value="Southern General Ins Co">Southern General Ins Co</option>
+					<option value="Southern Mutual Church Insurance Co">Southern Mutual Church Insurance Co</option>
+					<option value="State County Mutual Fire Ins Co">State County Mutual Fire Ins Co</option>
+					<option value="State Farm Cty Mutual Ins Co of Tx">State Farm Cty Mutual Ins Co of Tx</option>
+					<option value="State Farm Mutual Auto Ins Co">State Farm Mutual Auto Ins Co</option>
+					<option value="Texas Farm Bureau Mutual Ins Co">Texas Farm Bureau Mutual Ins Co</option>
+					<option value="Travelers Insurance Group">Travelers Insurance Group</option>
+					<option value="Trinity Universal Group">Trinity Universal Group</option>
+					<option value="Truck Insurance Exchange">Truck Insurance Exchange</option>
+					<option value="Twin City Fire Insurance Co">Twin City Fire Insurance Co</option>
+					<option value="Union Insurance Company">Union Insurance Company</option>
+					<option value="Union Standard Ins Co">Union Standard Ins Co</option>
+					<option value="United Fire Casualty Co">United Fire  Casualty Co</option>
+					<option value="United Services Auto Assoc (USAA)">United Services Auto Assoc (USAA)</option>
+					<option value="Universal Underwriters Insurance Co">Universal Underwriters Insurance Co</option>
+					<option value="Victoria Automobile Insurance Co">Victoria Automobile Insurance Co</option>
+					<option value="Westport Insurance Corp">Westport Insurance Corp</option>
+					<option value="Windsor Insurance Company">Windsor Insurance Company</option>
+					<option value="Zurich Ins Co Grp">Zurich Ins Co Grp</option>
 				 </select>
 					</div>
 
 				</div>
-				 <div class="form-row">
+				<div class="form-row enter_insured_name_div" style='display:none'>
 					<div class="form-holder w-100">
-					<label>Current Policy Number:</label>
+					<label>Enter name</label>
+					<input type="text" class="form-control Who_are_you_insured_enter" name="Who_are_you_insured">
+
+				</div>
+				</div>
+				
+				
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>What is your Current Policy Number?</label>
 						<input type="text" class="form-control Current_Policy_Number" name="Current_Policy_Number">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Current Policy Effective Date:</label>
+					<label>What is your Current Policy Effective Date?</label>
 						<input type="text" class="form-control datepicker current_policy_Effective_date" name="current_policy_Effective_date" value="<?php echo date("m/d/Y");?>" placeholder='<?php echo date('m/d/Y');?>' >
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Current Policy Expiration Date:</label>
+					<label>What is your Current Policy Expiration Date?</label>
 						<input type="text" class="form-control datepicker current_policy_Expiration_date " name="current_policy_Expiration_date" value="<?php echo date("m/d/Y");?>" placeholder='<?php echo date('m/d/Y');?>'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Current Liability Limit:</label>
+					<label>What is your Current Liability Limit?</label>
 					 <select class='Current_Liability_limit' name='Current_Liability_limit'>
 							<option selected="selected" value=""></option>
-					<option value="98">Phys Dam Only</option>
-					<option value="99">Non Truck Liab</option>
-					<option value="01">State Min</option>
-					<option value="02">25/50</option>
-					<option value="03">50/100</option>
-					<option value="04">100 CSL</option>
-					<option value="05">100/300</option>
-					<option value="06">300 CSL</option>
-					<option value="07">350 CSL</option>
-					<option value="08">250/500</option>
-					<option value="09">500 CSL</option>
-					<option value="10">750 CSL</option>
-					<option value="11">1 Million CSL</option>
+					<option value="Phys Dam Only">Phys Dam Only</option>
+					<option value="Non Truck Liab">Non Truck Liab</option>
+					<option value="State Min">State Min</option>
+					<option value="25/50">25/50</option>
+					<option value="50/100">50/100</option>
+					<option value="100 CSL">100 CSL</option>
+					<option value="100/300">100/300</option>
+					<option value="300 CSL">300 CSL</option>
+					<option value="350 CSL">350 CSL</option>
+					<option value="250/500">250/500</option>
+					<option value="500 CSL">500 CSL</option>
+					<option value="750 CSL">750 CSL</option>
+					<option value="1 Million CSL">1 Million CSL</option>
 					</select>
 					</div>
 				</div>
@@ -1263,7 +1384,7 @@ $handleFunctionsObject = new handleFunctions;
 			<h3 class="fs-subtitle"></h3>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Does the insured have General Liability Insurance(GL) or a Business Owner's Policy(BOP)?</label>
+					<label>Do you have a general liability or a business policy insurance?</label>
 					 <select class='Proof_Insurance' name='Proof_Insurance'>
 					 <option value="General Liability Insurance" >General Liability Insurance</option>
 					<option selected="selected" value="Business Owners Policy">Business Owners Policy</option>
@@ -1281,7 +1402,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>	
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Number of Additional Insureds:</label>
+					<label>Do you need to add additional insured?</label>
 					 <select class='Additional_Insureds' name='Additional_Insureds'>
 						<option selected="selected" value="0">0</option>
 						<option value="1">1</option>
@@ -1300,7 +1421,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Number of Waivers of Subrogation:</label>
+					<label>Do you have waivers of subrogation?</label>
 					 <select class='Waivers_Subrogation' name='Waivers_Subrogation'>
 						<option selected="selected" value="0">0</option>
 						<option value="1">1</option>
@@ -1322,7 +1443,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				
 				<div class='main_field_div'>
-				<h2 class="fs-title">Electronic Logging Device (ELD)</h2>
+				<h2 class="fs-title">Are you required to maintain ELD?</h2>
 			<h3 class="fs-subtitle"></h3>
 				<div class="form-row">
 					<div class="form-holder w-100">
@@ -1581,7 +1702,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">	
-				<label>Non trucks</label>
+				<label>Do you need non-trucking insurance? If yes, how much do you need?</label>
 				<select class="form-control select_Non_trucks" id="select_Non_trucks" name="select_Non_trucks">
   				<option value="None" Selected='selected'>None</option>
   				<option value="100k">100k</option>
@@ -1599,7 +1720,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row auto_Liability_none" id='auto_Liability_div'>
 					<div class="form-holder w-100">
-					<label>Auto Liability</label>
+					<label>Since you have a DOT and you need the filings, are you looking for 750 CSL or 1M CSL auto liability?</label>
 					
 					 <div class='radio'>
 						<input type="radio" name="Auto_Liability" class="Auto_Liability" value='$1M CSL' checked><label>$1M CSL</label>
@@ -1628,7 +1749,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					 <label>AL Deductible</label>	
+					 <label>For your physical damage, would you like to have (choices) for the deductible?</label>	
 					 <div class='radio'>
 						<input type="radio" name="AL_Deductible" class="AL_Deductible" value='$2,500' checked><label>$2,500</label>
 					</div>
@@ -1647,7 +1768,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				 <div class="form-row">
 					<div class="form-holder w-100">
-					<label>UM/UIM</label>
+					<label>Uninsured Motorists/Uninsured Motorists?</label>
 						<div class='radio'>	
 						<input type="radio" name="UM_UIM" class="UM_UIM" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1662,7 +1783,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				 <div class="form-row">
 					<div class="form-holder w-100">
-					<label>UM Pd</label>
+					<label>Uninsured motorist property damage?</label>
 						<div class='radio'>	
 						<input type="radio" name="UM_Pd" class="UM_Pd" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1680,7 +1801,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Medical Payments</label>
+					<label>Would you like Medical payments?</label>
 						<div class='radio'>	
 						<input type="radio" name="Medical_Payments" class="Medical_Payments" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1695,7 +1816,7 @@ $handleFunctionsObject = new handleFunctions;
 				<div class='main_field_div'>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>PIP</label>
+					<label>Would you like to add a Personal Injury Protection coverage?</label>
 						<div class='radio'>	
 						<input type="radio" name="PIP" class="PIP" value='Rejected' checked><label> Rejected</label>
 					</div>
@@ -1828,29 +1949,29 @@ $handleFunctionsObject = new handleFunctions;
 </fieldset>
 
 <fieldset class='twelve'>
-	<h2 class="fs-title">Operations Description</h2>
+	<h2 class="fs-title">Let me collect some information with your operation.</h2>
 		<h3 class="fs-subtitle"></h3>
 		<div class='main_form'>
 		<div class='row'>
 		<div class='col-md-6'>
-			<h2 class="fs-title">Radius -Percentage of Loads</h2>
+			<h2 class="fs-title">What percentage of your loads is in</h2>
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-						<label>0-50 miles</label>
+						<label>0-50 miles?</label>
 						<input type="number" name="percentage_one" class="per_one" id="percentage_two_one" value="" min='0'>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-holder w-100">
-						<label>50-200 miles</label>
+						<label>50-200 miles?</label>
 						<input type="number" name="percentage_two" class="per_two" id="percentage_two_id" value="" min='0'>
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-						<label>200+ miles</label>
+						<label>200+ miles?</label>
 							<input type="number" name="percentage_three" class="per_three" id="percentage_three_id" value="" min='0'>
 					</div>
 				</div>
@@ -1887,19 +2008,19 @@ $handleFunctionsObject = new handleFunctions;
 		
 		<div class='main_form'>
 				<div class='row'>
-				<h2 class="fs-title">Carrier Type - % of Business(Should Equal 100%)</h2>
+				<h2 class="fs-title">Do you know operation classification? Is it common, private, or nontrucking?</h2>
 				<div class="col-md-3 input_one_b">
-					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">Common<br>
+					<input type="checkbox" name="Business" value="" id="chk_one" class="chk_one_cl">What percentage is common carrier type?<br>
 					
 					<input type="number" name="Business_one_name" class="Business_one" id="Business_first_id"  value="" min='0'>
 				</div>
 					
 					<div class="col-md-3 input_three_b">
-					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">Private<br>
+					<input type="checkbox" name="Business" value="" id="chk_thr" class="chk_three_id">What percentage is private carrier type?<br>
 					<input type="number" name="Business_Private" class="Business_three" id="Business_Private_id"  value="" min='0'>
 					</div>
 					<div class="col-md-3 input_four_b">
-					<input type="checkbox" name="Non_Trucking_Business" value="" id="Non_Trucking_Business_check" class="Non_Trucking_Business_check">Non Trucking<br>
+					<input type="checkbox" name="Non_Trucking_Business" value="" id="Non_Trucking_Business_check" class="Non_Trucking_Business_check">If it's not 100% ask for the percentage of non-trucking<br>
 					<input type="number" name="Non_Trucking" class="Business_three" id="Non_Trucking_id"  value="" min='0'>
 					</div>
 					
@@ -1916,7 +2037,7 @@ $handleFunctionsObject = new handleFunctions;
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Household or Commercial Mover</label>
+					<label>You don't do household or commercial mover, right?</label>
 						<div class='radio'>	
 						<input type="radio" name="Operations_radio" class="Operations_radio_Mover" value='Yes'><label> Yes</label>
 					</div>
@@ -1985,7 +2106,7 @@ $handleFunctionsObject = new handleFunctions;
 	
 </fieldset-->
 <fieldset class='Fourteen_s'>
-	<h2 class="fs-title">Commodities</h2>
+	<h2 class="fs-title">For your commodities, can you give me a percentage of ...</h2>
 	<div class="container-fluid">
 	<div class="row" id='Commodities_data_div'>
 		<h3>No Specify Commodities Hauled. </h2>
@@ -2261,7 +2382,7 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 	</fieldset-->
 	<fieldset class='eighteen'>
-	<div class='row main_form'>
+		<div class='row main_form'>
 		
         <br><br> <h2 style="color:#0fad00">ThankYou</h2>
         <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
@@ -2273,10 +2394,21 @@ $handleFunctionsObject = new handleFunctions;
 		   <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
 		  </div>
         
-        <p style="font-size:17px;color:#5C5C5C;">Thank You for your time. We will proceed in further verification and keep you posted.</p>
-		
+        <p style="font-size:17px;color:#5C5C5C;">I got the information I need right now, we'll submit it to our carriers. Me and my colleague will give you callback within an hour. You'll also get a text message when your quote is ready.</p>
+		<div class="form-row">
+					<div class="form-holder w-100">
+				   <label>What is the best number to receive the text message/confirmation?</label>
+					<input type="text" name="alternate_phone_number" placeholder="Phone Number" required class='phoneNumber' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  id="alternate_phone_number"/>
+					</div>
 		</div>
-
+		</div>
+		 <div class='previous_next_buttons'>
+		<input type="button" name="next" class="action-button Thankyou_next" value="Submit" />
+		</div>
+		<div class="alert alert-success" id='final_thanku_message' style='display:none'>
+		  Thank you for calling givesurance. Have a great day!!
+		</div>
+		
 	</fieldset>
 </form>
 
@@ -2331,7 +2463,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					  </div>
 					<div class="form-group">
-					  <label for="username" class="control-label">License State</label>
+					  <label for="username" class="control-label">What is the license state?</label>
 					  <select name='new_driver_license_state' class='form-control'>
 					  <option value=" ">Select State</option>
 						<option value="AL">Alabama</option>
@@ -2425,18 +2557,18 @@ $handleFunctionsObject = new handleFunctions;
 					
 							</div>
 							<div class="form-group">
-							<label for="username" class="control-label">Date of Hire</label>
+							<label for="username" class="control-label">Do you know the date of hire?</label>
 							<input type="text" class="form-control datepicker" name="new_driver_hire_date" id='new_driver_hire_date' placeholder='Select Date' placeholder='<?php echo date('m/d/Y');?>'>
 					
 							</div>
 							<div class="form-group">
-								<label for="username" class="control-label">Points</label>
+								<label for="username" class="control-label">Is there any points in the driving record? Do you know how many points?</label>
 								<input type="text" class="form-control" name="new_driver_points" id='new_driver_points'>
 					
 							</div>
 							
 							<div class="form-group">
-								<label for="username" class="control-label">Backup Driver</label>
+								<label for="username" class="control-label">Is the backup driver?</label>
 								<select name="add_driver_Backup" id="add_driver_Backup" class='form-control'>
 										<option selected="selected" value="No">No</option>
 										<option value="Yes">Yes</option>
@@ -2536,7 +2668,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					  </div>
 					<div class="form-group">
-					  <label for="username" class="control-label">License State</label>
+					  <label for="username" class="control-label">What is the license state?</label>
 					  <select name='edit_driver_license_state' class='form-control' id='edit_driver_license_state'>
 					  	<option value="">Select State</option>
 						<option value="AL">Alabama</option>
@@ -2634,13 +2766,13 @@ $handleFunctionsObject = new handleFunctions;
 					
 							</div>
 							<div class="form-group">
-								<label for="username" class="control-label">Points</label>
+								<label for="username" class="control-label">Is there any points in the driving record? Do you know how many points?</label>
 								<input type="text" class="form-control" name="edit_driver_points" id='edit_driver_points'>
 					
 							</div>
 							
 							<div class="form-group">
-								<label for="username" class="control-label">Backup Driver</label>
+								<label for="username" class="control-label">Is the backup driver?</label>
 								<select name="edit_driver_Backup" id="edit_driver_Backup" class='form-control'>
 										<option selected="selected" value="No">No</option>
 										<option value="Yes">Yes</option>
@@ -2725,13 +2857,9 @@ $handleFunctionsObject = new handleFunctions;
 					  <input type="text" class="form-control" id="vehicle_Gross_weight" name="vehicle_Gross_weight" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group vehicle_Longest_tip_div" id='vehicle_Longest_tip_div'>
-					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
-					  <input type="text" class="form-control" id="vehicle_Longest_tip" name="vehicle_Longest_tip" value="" required="">
-					  <span class="help-block"></span>
-					</div>
+					
 					<div class="form-group vehicle_Destination_City_div" id='vehicle_Destination_City_div'>
-					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
+					  <label for="City of Destination" class="control-label">Where is the city of destination?</label>
 					  <input type="text" class="form-control" id="vehicle_Destination_City" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
 					</div>
@@ -2797,7 +2925,7 @@ $handleFunctionsObject = new handleFunctions;
 					
 					
 					<div class="form-group Radius_div_select" >
-					  <label for="Radius" class="control-label">Radius (One Way)</label>
+					  <label for="Radius" class="control-label">What is your longest trip one way?</label>
 						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius" class="form-control C2VehicleDetails_Radius">
 							<option value="50">50 miles</option>
 						<option selected="selected" value="100 miles">100 miles</option>
@@ -2851,8 +2979,24 @@ $handleFunctionsObject = new handleFunctions;
 								</div>
 					
 					</div>
+					<div class="form-group add_any_modification_div" >
+					  <label for="Vehicle Sub-Type" class="control-label">Do you want to add any modification in the insurance?</label>
+					  <div class='radio'>
+									<input type="radio" name="add_any_modification" class="form-control add_any_modification" value='Yes'>
+									<label>Yes</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="add_any_modification" class="form-control add_any_modification" value='No' checked>
+									<label>No</label>
+						</div>
+					
+					</div>
+					
+					
+					
 					<div class="form-group body_modifications" >
-					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all permanently attached equipment (including aftermarket parts, mounted equipment and modifications)?</label>
+					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all the equipments... *Is it between less than 2000 or more than 2000?* </label>
 						<div class='radio'>
 									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
 									<label>$0 to $2,000</label>
@@ -2943,13 +3087,9 @@ $handleFunctionsObject = new handleFunctions;
 					  <input type="text" class="form-control" id="vehicle_Gross_weight_edit" name="vehicle_Gross_weight" value="" required="">
 					  <span class="help-block"></span>
 					</div>
-					<div class="form-group vehicle_Longest_tip_div">
-					  <label for="vehicle_Longest_tip" class="control-label">Longest Trip(One Way Miles)</label>
-					  <input type="text" class="form-control" id="vehicle_Longest_tip_edit" name="vehicle_Longest_tip" value="" required="">
-					  <span class="help-block"></span>
-					</div>
+					
 					<div class="form-group vehicle_Destination_City_div">
-					  <label for="City of Destination" class="control-label">City of Destination(Of Longest Haul)</label>
+					  <label for="City of Destination" class="control-label">Where is the city of destination?</label>
 					  <input type="text" class="form-control" id="vehicle_Destination_City_edit" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
 					</div>
@@ -3014,7 +3154,7 @@ $handleFunctionsObject = new handleFunctions;
 					</div>
 					
 					<div class="form-group Radius_div_select" >
-					  <label for="Radius" class="control-label">Radius (One Way)</label>
+					  <label for="Radius" class="control-label">What is your longest trip one way?</label>
 						<select name="C2VehicleDetails_Radius" id="C2VehicleDetails_Radius_edit" class="form-control C2VehicleDetails_Radius">
 							<option value="50">50 miles</option>
 						<option selected="selected" value="100 miles">100 miles</option>
@@ -3066,8 +3206,23 @@ $handleFunctionsObject = new handleFunctions;
 								</div>
 					
 					</div>
+					<div class="form-group add_any_modification_div" >
+					  <label for="Vehicle Sub-Type" class="control-label">Do you want to add any modification in the insurance?</label>
+					  <div class='radio'>
+									<input type="radio" name="add_any_modification" class="form-control add_any_modification" value='Yes'>
+									<label>Yes</label>
+								</div>
+								
+					<div class='radio'>
+									<input type="radio" name="add_any_modification" class="form-control add_any_modification" value='No' checked>
+									<label>No</label>
+								</div>
+					
+					</div>
+					
+					
 					<div class="form-group body_modifications" >
-					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all permanently attached equipment (including aftermarket parts, mounted equipment and modifications)?</label>
+					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all the equipments... *Is it between less than 2000 or more than 2000?*</label>
 						<div class='radio'>
 									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
 									<label>$0 to $2,000</label>
