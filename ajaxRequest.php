@@ -15,6 +15,9 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		//$response=array();
 		$phone_number=preg_replace("/[^0-9]/", "", $_POST['phone_number'] );
 			 $url = "Contacts/search?phone=$phone_number";
+			 
+			 
+			 
 			$data = "";
 			$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 			if(ISSET($check_token_valid['code']) && $check_token_valid['code'] == "INVALID_TOKEN"){
@@ -56,11 +59,17 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d,'vehicles_data'=>$vehicles);
 				}else{
+					
+					
 					$url = "Contacts";
 					$Contactdata = '{
 					"data": [{
 					"Phone":  "'.$phone_number.'" ,
-					"Last_Name":  "custom" ,
+					"Last_Name":  "'.$lastname.'" ,
+					
+					"First_Name1":  "'.$firstname.'" ,
+					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'" ,
+					"what_can_I_help_you_with_today": "'.$help_text.'" ,
 					
 					}]}';
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
@@ -97,11 +106,13 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d,'vehicles_data'=>$vehicles);
 				}else{
-					$url = "Contacts";
 					$Contactdata = '{
 					"data": [{
 					"Phone":  "'.$phone_number.'" ,
-					"Last_Name":  "custom"
+					"Last_Name":  "'.$lastname.'",
+					"First_Name1":  "'.$firstname.'" ,
+					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'",
+					"what_can_I_help_you_with_today": "'.$help_text.'" ,
 					
 					}]}';
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
@@ -139,7 +150,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "USDOT_associated_with_the_insured_s_business":  "'.$_POST['searchedNumber'].'" 
+            "USDOT_associated_with_the_insured_s_business":  "'.$_POST['searchedNumber'].'" ,
+            "Do_you_want_a_new_DOT_number":  "'.$_POST['d'].'" 
             
 			}]}'; 
 			
@@ -156,7 +168,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		 $contacturl = "Contacts/".$_POST['contactId'];
 			 $Contactdata = '{
 			"data": [{
-            "MC_MX_FF_Number_s":  "'.$_POST['mc'].'" 
+            "MC_MX_FF_Number_s":  "'.$_POST['mc'].'" ,
+			"Do_you_want_a_new_DOT_number":  "'.$_POST['d'].'" 
 			}]}'; 
 			
 			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
@@ -544,30 +557,37 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		parse_str($_POST['dataform'], $form_data);
 		
 		if($form_data['currently_insured']=='Yes'){
-			if($form_data['Who_are_you_insured']=='Not Listed'){
-			$Who_are_you_insured_enter=$form_data['Who_are_you_insured_enter'];
 			$What_is_your_Current_Liability_Limit=$form_data['Current_Liability_limit'];
 			$What_is_your_Current_Policy_Effective_Date=date("Y-m-d", strtotime($form_data['current_policy_Effective_date']));
-			$What_is_your_Current_Policy_Number=$form_data['Current_Policy_Number'];
+			$Current_Policy_Number = $form_data['Current_Policy_Number'];
 			$What_is_your_Current_Policy_Expiration_Date=date("Y-m-d", strtotime($form_data['current_policy_Expiration_date']));
+			$Has_insured=$form_data['continuous_coverage'];
+			if($form_data['Who_are_you_insured']=='Not Listed'){
+			$Who_are_you_insured_enter=$form_data['Who_are_you_insured_enter'];
+			
 			}else{
-				$Who_are_you_insured_enter=$form_data['Who_are_you_insured'];
-				$What_is_your_Current_Liability_Limit='';
-			$What_is_your_Current_Policy_Effective_Date='';
-			$What_is_your_Current_Policy_Number='';
-			$What_is_your_Current_Policy_Expiration_Date='';
+				$Who_are_you_insured_enter=$form_data['who_are_you_insured'];
+				
 			}
+		}else{
+			$What_is_your_Current_Liability_Limit='';
+			$What_is_your_Current_Policy_Effective_Date='';
+			$Current_Policy_Number='';
+			$What_is_your_Current_Policy_Expiration_Date='';
+			$Has_insured='';
+			$Who_are_you_insured_enter='';
 		}
 		
 		
 		$d= array(
-			"Proof_of_Prior_Insurance" =>  "".trim($form_data['currently_insured'])."" ,
-			"What_is_your_Current_Liability_Limit" =>  "".trim($What_is_your_Current_Liability_Limit)."" ,
-			"What_is_your_Current_Policy_Effective_Date" =>  "".$What_is_your_Current_Policy_Effective_Date."" ,
-			"What_is_your_Current_Policy_Number" =>  "".trim($What_is_your_Current_Policy_Number)."" ,
-			"What_is_your_Current_Policy_Expiration_Date" =>  "".$What_is_your_Current_Policy_Expiration_Date."" ,
-			"Who_are_you_insured_with" =>  "".trim($Who_are_you_insured_enter)."" ,
-            "Does_the_insured_have_General_Liability_Insurance"=>  "".trim($form_data['Proof_Insurance'])."" ,
+		"Proof_of_Prior_Insurance" =>  "".trim($form_data['currently_insured'])."" ,
+		"What_is_your_Current_Liability_Limit" =>  "".trim($What_is_your_Current_Liability_Limit)."" ,
+		"What_is_your_Current_Policy_Effective_Date" => "".$What_is_your_Current_Policy_Effective_Date."" ,
+		"What_is_your_Current_Policy_Number" =>  "".$Current_Policy_Number."" ,
+	"What_is_your_Current_Policy_Expiration_Date" => "".$What_is_your_Current_Policy_Expiration_Date."" ,
+	"Who_are_you_insured_with" =>  "".$Who_are_you_insured_enter."" ,
+	"Has_insured_had_continuous_coverage_for_at_least_o" => "".$Has_insured."" ,
+      "Does_the_insured_have_General_Liability_Insurance"=>  "".trim($form_data['Proof_Insurance'])."" ,
             "Number_of_Additional_Insureds"=>  "".trim($form_data['Additional_Insureds'])."" ,
             "Number_of_Waivers_of_Subrogation"=>  "".trim($form_data['Waivers_Subrogation'])."" ,
             "Is_the_customer_required_to_maintain_hours"=>  "".trim($form_data['customer_required_to_maintain_hours'])."" ,
@@ -613,7 +633,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			}elseif(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
 				echo json_encode($zohoResponse);
 			}else{
-				echo 0;
+				echo json_encode($zohoResponse);;
 			}
 			
 			
@@ -1216,4 +1236,45 @@ if(ISSET($_POST['update_vehicle']) && $_POST['update_vehicle']=='success'){
 				echo json_encode(array());
 			}
 			
+	}
+	
+	
+	if(ISSET($_POST['thankyou_next']) && $_POST['thankyou_next']=='success'){
+		$contacturl = "Contacts/".$_POST['contactId'];
+		$alternate_phone_number = $_POST['alternate_phone_number'];
+		
+		/*  echo '<pre>';
+			print_r($form_data);
+		echo '<pre>'; 
+		/* "policy":  "'.$form_data['Policy_Surety_Number'].'" ,
+		*/ 
+			$d = array(
+           "Alternate_Phone"=>  "".$alternate_phone_number.""
+           
+           );
+			$Contactdata = '{
+			  "data": ['.json_encode($d).']
+			}';			
+			
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
+				$url = "token";
+				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
+				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
+				if(isset($get_new_token['access_token'])){
+					file_put_contents("access_token.txt",$get_new_token['access_token']);
+				}
+				if(isset($get_new_token['refresh_token'])){
+					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
+				}
+				$old_access_token = file_get_contents("access_token.txt");
+				@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+				if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+				}
+			}elseif(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+			}else{
+				echo json_encode($zohoResponse);
+			} 
 	}

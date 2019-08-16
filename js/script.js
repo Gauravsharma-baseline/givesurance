@@ -473,21 +473,15 @@ $(".PDFData").click(function(){
 
 $(document).on("click", ".zero_next", function(event){
 	var contact_Full_name=$(".contact_Full_name").val();
-	var d=$("input[name='quick_quote_for_insurance']:checked").val();
-	if(d=='Yes'){
-	var help_text=$('.help_text').val();
-		if(help_text==''){
-		event.preventDefault();
-		$(".help_text").addClass('is-invalid');
-	}else{
-		$(".help_text").removeClass('is-invalid');
-	}
-	}
-
-	if(contact_Full_name==''){
-		event.preventDefault();
-		$(".contact_Full_name").addClass('is-invalid');
-	}else{
+		if(!contact_Full_name && !$('input[name="quick_quote_for_insurance"]').is(':checked')){
+			console.log($('input[name="quick_quote_for_insurance"]').is(':checked'));
+			event.preventDefault();
+			$(".dot_alert").show();
+			$(".contact_Full_name").addClass('is-invalid');
+			
+			
+		}else{
+	$(".dot_alert").hide();
 	$(".contact_Full_name").removeClass('is-invalid');
 	$(".overlay").show();
 	$.ajax({
@@ -510,6 +504,13 @@ $(document).on("click", ".zero_next", function(event){
 
 $(document).on("click", ".phone_number_next", function(event){
 	var phone=$(".phoneNumber").val();
+	var contact_Full_name=$(".contact_Full_name").val();
+	var quick_quote_for_insurance = $("input[name='quick_quote_for_insurance']:checked").val();
+	if(quick_quote_for_insurance=='No'){
+		var help_text=$(".help_text").val();
+	}else{
+	help_text='';	
+	}
 	
 	if(phone==''){
 		event.preventDefault();
@@ -523,7 +524,7 @@ $(document).on("click", ".phone_number_next", function(event){
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({getZohoContact: "success", phone_number: phone}),
+           data: ({getZohoContact: "success", phone_number: phone,contact_Full_name:contact_Full_name,quick_quote_for_insurance:quick_quote_for_insurance,help_text:help_text}),
             success:function(result){
 				$("#msform")[0].reset();
 				if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
@@ -550,7 +551,15 @@ $(document).on("click", ".phone_number_next", function(event){
 				$("#Contact_Insured_phone").val(phone);
 				$("#Contact_Insured_phone_hidden").val(phone);
 				$(".contactId").val(result.contactId);
-				$(".searchedNumber").val(result.Dot);
+				if(result.Dot !==null){
+					if(result.Dot=='99999999999'){
+						$("input[name='have_DOT_number'][value='No']").attr('checked','checked').trigger('click');
+						$(".searchedNumber").val(result.Dot);
+					}else{
+						$("input[name='have_DOT_number'][value='Yes']").attr('checked','checked').trigger('click');
+						$(".searchedNumber").val(result.Dot);
+					}
+				}
 				//console.log(result.MC);
 				$("#mc_number").val(result.MC);
 				$(".dot").val(result.Dot);
@@ -579,6 +588,7 @@ $(document).on("click", ".phone_number_next", function(event){
 				
 				if(contactDataa){
 					contactData=contactDataa[0];
+				
 				
 				if(contactData.when_do_you_need_policy_by!==null){
 				  $('.When_do_you_need_policy').val(moment(contactData.when_do_you_need_policy_by).format('MM/DD/YYYY'));
@@ -867,7 +877,23 @@ $(document).on("click", ".phone_number_next", function(event){
 						
 					/*COVERAGE LIMIT INFORMATION*/
 					if(conatctData.Proof_of_Prior_Insurance!==null){
-					$("input[name='currently_insured'][value='"+conatctData.Proof_of_Prior_Insurance+"']").attr('checked','checked');
+					$("input[name='currently_insured'][value='"+conatctData.Proof_of_Prior_Insurance+"']").attr('checked','checked').triger('click');
+					if(conatctData.Proof_of_Prior_Insurance=='Yes'){
+					$('#showinsured_data').show();
+						if(conatctData.What_is_your_Current_Liability_Limit=='Not Listed'){
+							$('.enter_insured_name_div').show();
+							$('.Who_are_you_insured_enter').val(conatctData.What_is_your_Current_Liability_Limit);
+						}else{
+							$('.enter_insured_name_div').hide();
+							$('.who_are_you_insured').val(conatctData.What_is_your_Current_Liability_Limit);
+							$("input[name='who_are_you_insured'][value='"+conatctData.What_is_your_Current_Liability_Limit+"']").attr('Selected','Selected');
+							$('.Who_are_you_insured_enter').val('');
+						}	
+					}else{
+						$('#showinsured_data').hide();
+						$('.Who_are_you_insured_enter').hide();
+						$('.Who_are_you_insured_enter').val('');
+					}
 					}
 					if(conatctData.Does_the_insured_have_General_Liability_Insurance!==null){
 					$(".Proof_Insurance").val(conatctData.Does_the_insured_have_General_Liability_Insurance);
@@ -985,7 +1011,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='Business_Organization_Structure'][value='"+conatctData.Structure+"']").attr('checked','checked');
 					}
 					if(conatctData.Do_you_have_a_DBA!==null){
-						$("input[name='have_DBA'][value='"+conatctData.Do_you_have_a_DBA+"']").attr('checked','checked');
+						$("input[name='have_DBA'][value='"+conatctData.Do_you_have_a_DBA+"']").attr('checked','checked').triger('click');
 						if(conatctData.Do_you_have_a_DBA=='Yes'){
 						$("#DBA_NAME_DIV").show();
 						$(".DBA_NAME").val(conatctData.DBA_Name);
@@ -1063,6 +1089,12 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='is_Involved_daily_operation'][value='"+conatctData.Involved_in_the_daily_operation_of_the_business+"']").attr('checked','checked');
 					}
 					
+					if(conatctData.Alternate_Phone!==null){
+					$("#alternate_phone_number").val(conatctData.Alternate_Phone);
+					}
+					
+					
+					
 				}	else{
 					console.log('working outside');
 				}
@@ -1109,6 +1141,7 @@ $(".dot_number_next").click(function(event ){
 	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
 	
+	
 	if(searchedNumber==''){
 		var d=$("input[name='need_new_DOT_number']:checked").val();
 	if(d=='Yes'){
@@ -1116,7 +1149,10 @@ $(".dot_number_next").click(function(event ){
 	}else{
 	$("#mc_number").removeClass('is-invalid');
 	$("#dot_alert").hide();
+	d='No';
 	}
+	}else{
+	var d='';	
 	}
 	$("body").css("cursor", "progress");
 	$(".overlay").show();
@@ -1125,7 +1161,7 @@ $(".dot_number_next").click(function(event ){
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
+           data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId,d:d}),
             success:function(result){
 				
 				$("body").css("cursor", "default");
@@ -1180,7 +1216,7 @@ $(".dot_number_next").click(function(event ){
             url:"ajaxRequest.php", 
             type: "POST", 
           // dataType: 'json',
-           data: ({getMcData: "success", mc: mc_number,contactId:contactId}),
+           data: ({getMcData: "success", mc: mc_number,contactId:contactId,d:d}),
             success:function(result){
 				$("body").css("cursor", "default");
 				$(".overlay").hide();
@@ -3289,7 +3325,25 @@ $(document).on("change", ".Who_are_you_insured", function(event){
 	}
 
 });
-
+$(document).on('click', '.Thankyou_next', function(){	
+	var contactId=$(".contactId").val();
+	var alternate_phone_number=$("#alternate_phone_number").val();
+	if(alternate_phone_number==''){
+		event.preventDefault();
+		$("#alternate_phone_number").addClass('is-invalid');
+	}else{
+		$("#alternate_phone_number").removeClass('is-invalid');
+		$.ajax({
+		url:"ajaxRequest.php", 
+		type: "POST", 
+		 dataType: 'json',
+	   data: ({thankyou_next: "success",contactId:contactId,alternate_phone_number:alternate_phone_number}),
+		success:function(result){
+			$("#final_thanku_message").show();
+		}
+	})
+	}
+});
 
 });	
 

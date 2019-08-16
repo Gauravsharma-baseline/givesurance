@@ -60,6 +60,7 @@ $handleFunctionsObject = new handleFunctions;
 	<h2 class="fs-title"></h2>
 	<h3 class="fs-subtitle"></h3>
 	<div class='row'>
+	
 	<div class='col-md-6'>
 		<div class="form-row">
 			<div class="form-holder w-100">
@@ -83,23 +84,26 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 			</div>	
 		</div>
-		<div class="form-row quick_quote_for_insurance_yes" style='display:none'>
+		
+		<div class="form-row quick_quote_for_insurance_no" style='display:none'>
+			<div class="form-holder w-100">
+			<label>what can I help you with today? </label>
+			 <textarea  name="help_text"  required class='help_text'></textarea>
+			</div>	
+		</div>
+	</div>
+	<div class="form-row quick_quote_for_insurance_yes" style='display:none'>
 			<div class="form-holder w-100">
 			<label>I can help you with that. Let me get some information from you real quick.</label>
 			
 			</div>	
 		</div>
-	</div>
-	<div class="form-row quick_quote_for_insurance_no" style='display:none'>
-			<div class="form-holder w-100">
-			<label>what can I help you with today? </label>
-			 <textarea  name="help_text"  required class='help_text'></textarea>
-			</div>	
-	</div>
 	
 	</div>
 	
-	
+	<div role="alert" class='dot_alert' style='display:none;color:red';>
+		Please Fill all fields.
+	</div>
 	
 	</div>
 	<div class='previous_next_buttons'>
@@ -1215,8 +1219,8 @@ And do you have middle initial?</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					 <label>Who are you insured with?</label>	
-					 <select name='Who_are_you_insured' class='Who_are_you_insured'>
-					<option selected='selected' value="" >---Select----</option>
+					 <select name='who_are_you_insured' class='who_are_you_insured'>
+					<option selected='selected' value="">---Select----</option>
 					<option value="Not Listed">Not Listed</option>
 					<option value="Acadia Insurance Company">Acadia Insurance Company</option>
 					<option value="Acceleration National Ins Co">Acceleration National Ins Co</option>
@@ -1319,7 +1323,7 @@ And do you have middle initial?</h2>
 				<div class="form-row enter_insured_name_div" style='display:none'>
 					<div class="form-holder w-100">
 					<label>Enter name</label>
-					<input type="text" class="form-control Who_are_you_insured_enter" name="Who_are_you_insured">
+					<input type="text" class="form-control Who_are_you_insured_enter" name="Who_are_you_insured_enter">
 
 				</div>
 				</div>
@@ -1346,8 +1350,8 @@ And do you have middle initial?</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>What is your Current Liability Limit?</label>
-					 <select class='Current_Liability_limit' name='Current_Liability_limit'>
-							<option selected="selected" value=""></option>
+					<select class='Current_Liability_limit' name='Current_Liability_limit'>
+					<option selected="selected" value="">----Select---</option>
 					<option value="Phys Dam Only">Phys Dam Only</option>
 					<option value="Non Truck Liab">Non Truck Liab</option>
 					<option value="State Min">State Min</option>
@@ -1368,10 +1372,10 @@ And do you have middle initial?</h2>
 					<div class="form-holder w-100">
 					<label>Has insured had continuous coverage for at least one year?</label>
 					 <div class='radio'>
-						<input type="radio" name="continuous_coverage" class="continuous_coverage" checked><label>Yes</label>
+						<input type="radio" name="continuous_coverage" class="continuous_coverage" checked value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
-						<input type="radio" name="continuous_coverage" class="continuous_coverage"><label>No</label>
+						<input type="radio" name="continuous_coverage" class="continuous_coverage" value='No'><label>No</label>
 					</div>
 					</div>
 
@@ -2114,7 +2118,7 @@ And do you have middle initial?</h2>
 	</div>
 	<div class='previous_next_buttons'>
 		<input type="button" name="previous" class="previous_Commodities action-button" value="Previous" />
-		<input type="button" name="next" class="action-button Commodities_next" value="Submit" />
+		<input type="button" name="next" class="action-button Commodities_next" value="Next" />
 	</div>
 	
 	</div>
