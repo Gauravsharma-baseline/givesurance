@@ -250,9 +250,12 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 		</div>
 		</div>
+		<div role="alert" class='dot_alert' style='display:none;color:red';>
+		Please enter Valid DOT Number.
+		</div>
 		<div class='previous_next_buttons'>
-		
-		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot" />
+		<input type="hidden" name="dot" placeholder="Enter DOT Number" class="dot"/>
+		<input type="hidden" name="checkalreadyexists" class="checkalreadyexists"/>
 		<input type="button" name="previous" class="previous_doT action-button" value="Previous" />
 		<input type="button" name="next" class="action-button dot_number_next" value="Next" />
 		</div>

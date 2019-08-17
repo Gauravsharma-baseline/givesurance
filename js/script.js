@@ -565,17 +565,24 @@ $(document).on("click", ".phone_number_next", function(event){
 				$("#Contact_Insured_phone_hidden").val(phone);
 				$(".contactId").val(result.contactId);
 				if(result.Dot !==null){
-					if(result.Dot=='99999999999'){
+					if(result.Dot=='9999999999'){
 						$("input[name='have_DOT_number'][value='No']").attr('checked','checked').trigger('click');
-						$(".searchedNumber").val(result.Dot);
+						$(".searchedNumber").val('');
+						$(".enter_dot_div").hide('');
+						$(".need_new_DOT").show('');
+						$(".dot").val('');
 					}else{
 						$("input[name='have_DOT_number'][value='Yes']").attr('checked','checked').trigger('click');
 						$(".searchedNumber").val(result.Dot);
+						$(".enter_dot_div").show('');
+						$(".need_new_DOT").hide('');
+						$(".dot").val(result.Dot);
+						$(".checkalreadyexists").val(result.Dot);
 					}
 				}
 				//console.log(result.MC);
 				$("#mc_number").val(result.MC);
-				$(".dot").val(result.Dot);
+				
 					$(".phoneli").removeClass("active");
 					$(".IntroLi").addClass("active");
 					$(".first_1").show(); 
@@ -660,6 +667,15 @@ $(document).on("click", ".phone_number_next", function(event){
 					//var Vehiclestable=$('#dtVehiclesTable').DataTable();	
 				}
 				if(conatctData){
+					
+					if(conatctData.Do_you_want_a_new_DOT_number!==null){
+						console.log(conatctData.Do_you_want_a_new_DOT_number);
+						$("input[name='need_new_DOT_number'][value='"+conatctData.Do_you_want_a_new_DOT_number+"']").attr('checked','checked').trigger('click');
+						$(".searchedNumber_new").val(conatctData.USDOT_associated_with_the_insured_s_business);
+					
+					}
+					
+					
 				driversdata=conatctData.Drivers1;
 				console.log(driversdata);
 				console.log(driversdata.length);
@@ -1149,41 +1165,38 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 
 $(".dot_number_next").click(function(event ){
 
-	var check_id_dot_already= $(".dot").val();
-	var searchedNumber=$(".searchedNumber").val();
+	var d=$("input[name='have_DOT_number']:checked").val();
+	if(d=='Yes'){
+		var searchedNumber=$(".searchedNumber").val();
+	}else{
+		var need_new_DOT_number=$("input[name='need_new_DOT_number']:checked").val();
+		var searchedNumber='9999999999';
+	}
+	var check_id_dot_already= $(".checkalreadyexists").val();
+	
 	var mc_number=$("#mc_number").val();
 	var contactId=$(".contactId").val();
-	
-	
-	if(searchedNumber==''){
-		var d=$("input[name='need_new_DOT_number']:checked").val();
-	if(d=='Yes'){
-		searchedNumber='9999999999';
-	}else{
-	$("#mc_number").removeClass('is-invalid');
-	$("#dot_alert").hide();
-	d='No';
-	}
-	}else{
-	var d='';	
-	}
-	$("body").css("cursor", "progress");
+	console.log(check_id_dot_already);
+	 $("body").css("cursor", "progress");
 	$(".overlay").show();
-	if(mc_number==''){
+	if(d=='Yes' && check_id_dot_already==''){
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId,d:d}),
+           data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
             success:function(result){
-				
-				$("body").css("cursor", "default");
-				$(".overlay").hide();
+			$("body").css("cursor", "default");
+			$(".overlay").hide();
               if(result==0){
 				event.preventDefault();
-				$("#mc_number").addClass('is-invalid'); 
+				$(".searchedNumber").addClass('is-invalid'); 
+				$(".dot_alert").show(); 
 				}else{
+					$(".dot_alert").hide(); 
+					$(".searchedNumber").removeClass('is-invalid'); 
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
+					$(".dot").val(result.usdot_number);
 					$("#Contact_Insured_Mailing").val(result.m_postal);
 					$("#Financial_Home_address").val(result.physical_address);
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
@@ -1223,13 +1236,31 @@ $(".dot_number_next").click(function(event ){
            }
          });
 	
+		}else if(d=='Yes' && check_id_dot_already!=''){
+			$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({getMcData: "success", mc: mc_number,contactId:contactId,searchedNumber:searchedNumber,already:1}),
+            success:function(result){
+			$("body").css("cursor", "default");
+			$(".overlay").hide();
+					$(".dotLi").removeClass("active");
+					$(".MCLi").addClass("active");
+					$(".second").hide();
+					$(".first_2").show(); 
+					//$(".physicalLi").addClass("active");
+				
+           }
+         });
+			
 		}else{
 		$(".overlay").show();	
 		$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
           // dataType: 'json',
-           data: ({getMcData: "success", mc: mc_number,contactId:contactId,d:d}),
+           data: ({getMcData: "success", mc: mc_number,contactId:contactId,searchedNumber:9999999999,need_new_DOT_number,need_new_DOT_number}),
             success:function(result){
 				$("body").css("cursor", "default");
 				$(".overlay").hide();
@@ -1240,7 +1271,7 @@ $(".dot_number_next").click(function(event ){
 					
 				}
 		 });
-		}
+		} 
 });
 $(".first_2_next").click(function(event ){
 	//var checkType=$(".checkType").val();
@@ -3307,7 +3338,7 @@ $(document).on("click", ".have_DOT_number", function(event){
 	}else{
 		$('.enter_dot_div').hide();
 		$('.need_new_DOT').show();
-		
+		$('.searchedNumber').val('');
 	}
 
 });		
