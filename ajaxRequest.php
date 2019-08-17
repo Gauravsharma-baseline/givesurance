@@ -37,8 +37,16 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 				
 				 if(!empty($check_token_valid['data'][0]['id'])){
-					
-				    $contactId = $check_token_valid['data'][0]['id'];
+					 $contactId=$check_token_valid['data'][0]['id'];
+					$contacturl = "Contacts/".$contactId;
+					 $Contactdata = '{
+								"data": [{
+								"Last_Name":  "'.$lastname.'" ,
+								"First_Name":  "'.$firstname.'" 
+								
+								}]}'; 
+								
+					@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 					$dot = $check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
 					$mc	=	$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
 					$url = "Contacts/$contactId";
@@ -85,10 +93,22 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			} else{
 				
 			 	if(!empty($check_token_valid['data'][0]['id'])){
+					 $contactId=$check_token_valid['data'][0]['id'];
+					$contacturl = "Contacts/".$contactId;
+					 $Contactdata = '{
+								"data": [{
+								"Last_Name":  "'.$lastname.'" ,
+								"First_Name":  "'.$firstname.'" 
+								
+								}]}'; 
+								
+					@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
 					
-				    $contactId=$check_token_valid['data'][0]['id'];
+				   
 					$dot=$check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
 					$mc=$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
+					
+					
 					$url = "Contacts/$contactId";
 					$data = "";
 					$contactdata =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);	
