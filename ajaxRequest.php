@@ -539,11 +539,11 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			$Current_Policy_Number = $form_data['Current_Policy_Number'];
 			$What_is_your_Current_Policy_Expiration_Date=date("Y-m-d", strtotime($form_data['current_policy_Expiration_date']));
 			$Has_insured=$form_data['continuous_coverage'];
-			if($form_data['Who_are_you_insured']=='Not Listed'){
+			if($form_data['who_are_you_insured']=='Not Listed'){
 			$Who_are_you_insured_enter=$form_data['Who_are_you_insured_enter'];
 			
 			}else{
-				$Who_are_you_insured_enter=$form_data['who_are_you_insured'];
+				$Who_are_you_insured_enter='';
 				
 			}
 		}else{
@@ -562,7 +562,8 @@ $refresh_token = file_get_contents("refresh_token.txt");
 		"What_is_your_Current_Policy_Effective_Date" => "".$What_is_your_Current_Policy_Effective_Date."" ,
 		"What_is_your_Current_Policy_Number" =>  "".$Current_Policy_Number."" ,
 	"What_is_your_Current_Policy_Expiration_Date" => "".$What_is_your_Current_Policy_Expiration_Date."" ,
-	"Who_are_you_insured_with" =>  "".$Who_are_you_insured_enter."" ,
+	"Who_are_you_insured_with" =>  "".$form_data['who_are_you_insured']."" ,
+	"Not_Listed_Name" =>  "".$Who_are_you_insured_enter."" ,
 	"Has_insured_had_continuous_coverage_for_at_least_o" => "".$Has_insured."" ,
       "Does_the_insured_have_General_Liability_Insurance"=>  "".trim($form_data['Proof_Insurance'])."" ,
             "Number_of_Additional_Insureds"=>  "".trim($form_data['Additional_Insureds'])."" ,
@@ -635,7 +636,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Private_Percentage"=>  "".trim($form_data['Business_Private'])."" ,
             "Other_Percentage"=>  "".trim($form_data['Business_Other'])."" ,
             "Non_Trucking"=>  "".trim($form_data['Non_Trucking'])."" ,
-            "Household_or_Commercial_Mover"=>  "".trim($form_data['Operations_radio'])."" 
+            "household_or_commercial_mover"=>  "".trim($form_data['Operations_radio'])."" 
 			); 
 			
 			$Contactdata = '{

@@ -774,9 +774,8 @@ $(document).on("click", ".phone_number_next", function(event){
 					
 					
 					
-					if(conatctData.Household_or_Commercial_Mover!==null && conatctData.Household_or_Commercial_Mover=='Yes'){
-							$('.Operations_radio_Mover').attr('checked','checked');
-							
+					if(conatctData.household_or_commercial_mover!==null){
+							$("input[name='Operations_radio'][value='"+conatctData.household_or_commercial_mover+"']").attr('checked','checked')
 					}	
 				/*COVERAGE LIMIT INFORMATION*/
 					
@@ -922,13 +921,14 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='currently_insured'][value='"+conatctData.Proof_of_Prior_Insurance+"']").attr('checked','checked').trigger('click');
 					if(conatctData.Proof_of_Prior_Insurance=='Yes'){
 					$('#showinsured_data').show();
-						if(conatctData.What_is_your_Current_Liability_Limit=='Not Listed'){
+					$('.who_are_you_insured').val(conatctData.Who_are_you_insured_with);
+							$("input[name='who_are_you_insured'][value='"+conatctData.Who_are_you_insured_with+"']").attr('Selected','Selected');
+						if(conatctData.Who_are_you_insured_with=='Not Listed'){
 							$('.enter_insured_name_div').show();
-							$('.Who_are_you_insured_enter').val(conatctData.What_is_your_Current_Liability_Limit);
+							$('.Who_are_you_insured_enter').val(conatctData.Not_Listed_Name);
 						}else{
 							$('.enter_insured_name_div').hide();
-							$('.who_are_you_insured').val(conatctData.What_is_your_Current_Liability_Limit);
-							$("input[name='who_are_you_insured'][value='"+conatctData.What_is_your_Current_Liability_Limit+"']").attr('Selected','Selected');
+							
 							$('.Who_are_you_insured_enter').val('');
 						}	
 					if(conatctData.What_is_your_Current_Policy_Number!==null){
