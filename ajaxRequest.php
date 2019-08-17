@@ -176,7 +176,14 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			"USDOT_associated_with_the_insured_s_business":  "'.$_POST['searchedNumber'].'" 
 			}]}';  
 			 
-		 }else{
+			}else if($_POST['updatemc']==1){
+			 $Contactdata = '{
+			"data": [{
+            "MC_MX_FF_Number_s":  "'.$_POST['mc'].'" 
+			}]}'; 
+			
+			}
+			 else{
 			 $Contactdata = '{
 			"data": [{
             "MC_MX_FF_Number_s":  "'.$_POST['mc'].'" ,
@@ -483,7 +490,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type="text" value=" " placeholder="<?php echo date('m/d/Y');?>" class="datepicker" id="Accident_date_0">				
+				 <td class="text-center td-padding"> <input type="text" value=" " placeholder="When did it happen?" class="datepicker" id="Accident_date_0">				
 					</td>
 				  <td class="td-padding"></td>
 				</tr>

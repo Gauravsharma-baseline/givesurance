@@ -94,7 +94,10 @@ $(".previous_Underwriting").click(function(){
 				$(".underwritingLI ").removeClass("active");
 				$(".violationsLI").addClass("active");
 				$(".ninth").show(); 
-				$(".tenth").hide();		
+				$(".tenth").hide();	
+				$("input[name='is_voilation'][value='Yes']").attr('checked','checked').trigger('click');
+				$("#Violation_Table").show();
+				
 				$("#Violation_Table .datepicker").datepicker({
 							changeMonth: true,
 							changeYear: true,
@@ -174,14 +177,17 @@ $(".zeroli").click(function(){
 
 $(".phoneli").click(function(){
 	var contact_last_name=$(".contact_last_name").val();
-	if(contact_last_name==''){
+	if(contact_last_name && $('input[name="quick_quote_for_insurance"]').is(':checked') &&  $("input[name='quick_quote_for_insurance']:checked").val()=='Yes'){
+		$(".dot_alert").hide();
+		$("#progressbar li").removeClass("active");
+		$(".phoneli").addClass("active");
+		$("fieldset").hide();
+		$(".first").show();
+	}else{
 		event.preventDefault();
 		$(".contact_last_name").addClass('is-invalid');
-	}else{
-	$("#progressbar li").removeClass("active");
-	$(".phoneli").addClass("active");
-	$("fieldset").hide();
-	$(".first").show(); 
+		$(".dot_alert").show();
+	 
 	}	
 });
 $(".IntroLi").click(function(){
@@ -327,6 +333,7 @@ $(".violationsLI").click(function(){
 					$("#progressbar li").removeClass("active");
 					$(".violationsLI").addClass("active");
 					$("fieldset").hide();
+					
 					$(".ninth").show(); 
 					$("#Violation_Table .datepicker").datepicker({
 							changeMonth: true,
@@ -504,6 +511,8 @@ $(document).on("click", ".zero_next", function(event){
 									$(".zero").hide();
 									$(".first").show(); 
 									$(".overlay").hide();
+									$("#Insured_first_name").val(contact_first_name);
+									$("#Insured_Last_name").val(contact_last_name);
 							}
 						 });
 						
@@ -674,7 +683,11 @@ $(document).on("click", ".phone_number_next", function(event){
 						$(".searchedNumber_new").val(conatctData.USDOT_associated_with_the_insured_s_business);
 					
 					}
+					if(conatctData.Would_you_like_quick_quote_for_insurance_today!==null){
+						$("input[name='quick_quote_for_insurance'][value='"+conatctData.Would_you_like_quick_quote_for_insurance_today+"']").attr('checked','checked').trigger('click');
+						
 					
+					}
 					
 				driversdata=conatctData.Drivers1;
 				console.log(driversdata);
@@ -918,6 +931,18 @@ $(document).on("click", ".phone_number_next", function(event){
 							$("input[name='who_are_you_insured'][value='"+conatctData.What_is_your_Current_Liability_Limit+"']").attr('Selected','Selected');
 							$('.Who_are_you_insured_enter').val('');
 						}	
+					if(conatctData.What_is_your_Current_Policy_Number!==null){
+					$(".Current_Policy_Number").val(conatctData.What_is_your_Current_Policy_Number);
+					}
+					if(conatctData.What_is_your_Current_Policy_Expiration_Date!==null){
+					$(".current_policy_Expiration_date").val(moment(conatctData.What_is_your_Current_Policy_Expiration_Date).format('MM/DD/YYYY'));
+					}	
+					if(conatctData.What_is_your_Current_Policy_Effective_Date!==null){
+					$(".current_policy_Effective_date").val(moment(conatctData.What_is_your_Current_Policy_Effective_Date).format('MM/DD/YYYY'));
+					}	
+					if(conatctData.Current_Liability_limit!==null){
+					$(".Current_Liability_limit").val(conatctData.What_is_your_Current_Liability_Limit);
+					}						
 					}else{
 						$('#showinsured_data').hide();
 						$('.Who_are_you_insured_enter').hide();
@@ -1191,9 +1216,9 @@ $(".dot_number_next").click(function(event ){
               if(result==0){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
-				$(".dot_alert").show(); 
+				$(".dot_alert_valid").show(); 
 				}else{
-					$(".dot_alert").hide(); 
+					$(".dot_alert_valid").hide(); 
 					$(".searchedNumber").removeClass('is-invalid'); 
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
 					$(".dot").val(result.usdot_number);
@@ -1284,7 +1309,7 @@ $(".first_2_next").click(function(event ){
             url:"ajaxRequest.php", 
             type: "POST", 
           // dataType: 'json',
-           data: ({getMcData: "success", mc: mc,contactId:contactId}),
+           data: ({getMcData: "success", mc: mc,contactId:contactId,updatemc:1}),
             success:function(result){
 				$("body").css("cursor", "default");
 				$(".overlay").hide();
@@ -2775,6 +2800,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 					$("input[name='vehicle_used_comprehensive'][value='"+result.is_comprehensive+"']").attr('checked','checked');
 					$("input[name='vehicle_used_for'][value='"+result.is_business+"']").attr('checked','checked');
 					$("#C2VehicleDetails_GaragingZIPCode_edit").val(result.garaging_zip_code);
+					$("input[name='add_any_modification'][value='"+result.need_modification+"']").attr('checked','checked');
 					
 					$("#vehicle_id_to_update").val(id); 
 					$('#vehicle_Edit_modal').modal('show');
@@ -3321,8 +3347,9 @@ $(document).on("click", ".quick_quote_for_insurance", function(event){
 		$('.quick_quote_for_insurance_yes').show();
 		$('.quick_quote_for_insurance_no').hide();
 		$('.help_text').val('');
-			$(".no_insurance").hide();
-			$(".zero_next").show();
+		$(".no_insurance").hide();
+		$(".zero_next").show();
+		$(".dot_alert").hide();
 	}
 
 });	
@@ -3361,7 +3388,7 @@ $(document).on("click", ".need_new_DOT_number", function(event){
 
 });	
 
-$(document).on("change", ".Who_are_you_insured", function(event){
+$(document).on("change", ".who_are_you_insured", function(event){
 	var d=$(this).find(':selected').val();
 	if(d=='Not Listed'){
 		$('.enter_insured_name_div').show();
@@ -3390,6 +3417,13 @@ $(document).on('click', '.Thankyou_next', function(){
 		}
 	})
 	}
+});
+
+
+$(document).on('click', '.is_violation', function(){	
+	var contactId=$(".contactId").val();
+	var d=$("input[name='is_violation']:checked").val();
+	$("#Violation_Table").show();
 });
 
 });	

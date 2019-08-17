@@ -250,7 +250,7 @@ $handleFunctionsObject = new handleFunctions;
 		</div>
 		</div>
 		</div>
-		<div role="alert" class='dot_alert' style='display:none;color:red';>
+		<div role="alert" class='dot_alert_valid' style='display:none;color:red';>
 		Please enter Valid DOT Number.
 		</div>
 		<div class='previous_next_buttons'>
@@ -1142,10 +1142,25 @@ And do you have middle initial?</h2>
 	<div class='main_form'>
 	
 	<div class='row'>
-	<table class="table" id='Violation_Table'>
+	<div class="form-row" id='is_violation_div'>	
+				<div class="form-holder w-100 ">
+				<label>Do you have any violations that you are aware of?</label>
+					<div class='radio'>
+						<input type="radio" name="is_voilation" class='is_violation' value='Yes'>
+						<label>Yes</label>
+					</div>
+					<div class='radio'>
+						<input type="radio" name="is_voilation" class='is_violation' value='No'><label>No</label>
+					</div>
+				
+			</div>
+	</div>
+	
+	
+	<table class="table" id='Violation_Table' style='display:none;'>
 			<thead>
 			<tr>
-				  <td class="td-padding">Was it your fault or somebody's fault?</td>
+				  <td class="td-padding" id='violation_header'>Was it your fault or somebody's fault?</td>
 				  <td class="text-center td-padding datepickerDOB">When did it happen?</td>
 				  <td class="td-padding"><button id='voilation_add' type='button'>Add</button></td>
 				</tr>
@@ -1187,7 +1202,7 @@ And do you have middle initial?</h2>
 					<option value="WSR">WSR - Wrong Side of Road</option>
 				 </select>
 				</td>
-				 <td class="text-center td-padding"> <input type='text' value=' 'placeholder='<?php echo date('m/d/Y');?>' class='datepicker'  id='Accident_date_0'>				
+				 <td class="text-center td-padding"> <input type='text' value='' placeholder='When did it happen?' class='datepicker'  id='Accident_date_0'>				
 					</td>
 				  <td class="td-padding"></td>
 				</tbody> 
@@ -1359,22 +1374,7 @@ And do you have middle initial?</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>What is your Current Liability Limit?</label>
-					<select class='Current_Liability_limit' name='Current_Liability_limit'>
-					<option selected="selected" value="">----Select---</option>
-					<option value="Phys Dam Only">Phys Dam Only</option>
-					<option value="Non Truck Liab">Non Truck Liab</option>
-					<option value="State Min">State Min</option>
-					<option value="25/50">25/50</option>
-					<option value="50/100">50/100</option>
-					<option value="100 CSL">100 CSL</option>
-					<option value="100/300">100/300</option>
-					<option value="300 CSL">300 CSL</option>
-					<option value="350 CSL">350 CSL</option>
-					<option value="250/500">250/500</option>
-					<option value="500 CSL">500 CSL</option>
-					<option value="750 CSL">750 CSL</option>
-					<option value="1 Million CSL">1 Million CSL</option>
-					</select>
+					<input type="text" class="form-control Current_Liability_limit " name="Current_Liability_limit">
 					</div>
 				</div>
 				<div class="form-row">
@@ -3021,7 +3021,7 @@ And do you have middle initial?</h2>
 					
 					</div>
 					<div class="form-group body_vehicle_used" >
-					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
+					  <label for="Vehicle Sub-Type" class="control-label">Do you need to add a loss payee?</label>
 					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss" class="form-control C2VehicleDetails_Loss">
 							<?php
 							$losspayee=$handleFunctionsObject->VehicleLosspayee();
@@ -3247,7 +3247,7 @@ And do you have middle initial?</h2>
 					
 					</div>
 					<div class="form-group body_vehicle_used" >
-					  <label for="Vehicle Sub-Type" class="control-label">Loss Payee:</label>
+					  <label for="Vehicle Sub-Type" class="control-label">Do you need to add a loss payee?</label>
 					  <select name="C2VehicleDetails_Loss" id="C2VehicleDetails_Loss_edit" class="form-control C2VehicleDetails_Loss">
 							
 							<?php
