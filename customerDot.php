@@ -31,7 +31,7 @@ $handleFunctionsObject = new handleFunctions;
 <form id="msform">
 <!-- progressbar -->
 <ul id="progressbar">
-<li class="zeroli active"></li>
+<li class="zeroli active">Greetings</li>
 <li class="phoneli">Phone Number </li>
 <li class="IntroLi">Intro</li>
 <li class='dotLi'>DOT</li>
@@ -57,7 +57,7 @@ $handleFunctionsObject = new handleFunctions;
     <div id="loading-img"></div>
 </div>
 	<fieldset class='zero'>
-	<h2 class="fs-title"></h2>
+	<h2 class="fs-title">Welcome to Givesurance</h2>
 	<h3 class="fs-subtitle"></h3>
 	<div class='row'>
 	
@@ -65,7 +65,12 @@ $handleFunctionsObject = new handleFunctions;
 		<div class="form-row">
 			<div class="form-holder w-100">
 			<label>Who am i speaking with today?</label>
-			<input type="text" name="contact_Full_name" placeholder="Enter Name" required class='contact_Full_name'/>
+			<input type="text" name="contact_first_name" placeholder="Enter First Name" required class='contact_first_name'/>
+			</div>	
+		</div>
+		<div class="form-row">
+			<div class="form-holder w-100">
+			<input type="text" name="contact_last_name" placeholder="Enter Last Name" required class='contact_last_name'/>
 			</div>	
 		</div>
 		
@@ -109,6 +114,7 @@ $handleFunctionsObject = new handleFunctions;
 	<div class='previous_next_buttons'>
 
 	<input type="button" name="next" class="action-button zero_next" value="Next" />
+	<input type="button" name="next" class="action-button no_insurance" value="Done" style='display:none;'/>
 		</div>
 	</fieldset>
 

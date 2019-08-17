@@ -173,11 +173,16 @@ $(".zeroli").click(function(){
 
 
 $(".phoneli").click(function(){
+	var contact_last_name=$(".contact_last_name").val();
+	if(contact_last_name==''){
+		event.preventDefault();
+		$(".contact_last_name").addClass('is-invalid');
+	}else{
 	$("#progressbar li").removeClass("active");
 	$(".phoneli").addClass("active");
 	$("fieldset").hide();
 	$(".first").show(); 
-		
+	}	
 });
 $(".IntroLi").click(function(){
 	var contactId=$(".contactId").val();
@@ -472,59 +477,64 @@ $(".PDFData").click(function(){
 });
 
 $(document).on("click", ".zero_next", function(event){
-	var contact_Full_name=$(".contact_Full_name").val();
-		if(!contact_Full_name && !$('input[name="quick_quote_for_insurance"]').is(':checked')){
+	var contact_first_name=$(".contact_first_name").val();
+	var contact_last_name=$(".contact_last_name").val();
+		if(contact_last_name && $('input[name="quick_quote_for_insurance"]').is(':checked')){
 			console.log($('input[name="quick_quote_for_insurance"]').is(':checked'));
+			var quick_quote_for_insurance = $("input[name='quick_quote_for_insurance']:checked").val();
+				if(quick_quote_for_insurance=='No'){
+					$(this).hide();
+					$(".no_insurance").show();
+					$(".dot_alert").html('I am sorry I will not be able to help you with that. Let me transfer to our professional who can better assist you.');
+					$(".dot_alert").show();
+				}else{
+					$(this).show();
+					$(".no_insurance").hide();
+					$(".dot_alert").hide();
+					//$(".contact_last_name").removeClass('is-invalid');
+					$(".overlay").show();
+					$.ajax({
+							url:"ajaxRequest.php", 
+							type: "POST", 
+						   dataType: 'json',
+						   data: ({form_zero_step: "success"}),
+							success:function(result){
+								$(".zeroli").removeClass("active");
+									$(".phoneli").addClass("active");
+									$(".zero").hide();
+									$(".first").show(); 
+									$(".overlay").hide();
+							}
+						 });
+						
+					}
+		}else{
 			event.preventDefault();
 			$(".dot_alert").show();
-			$(".contact_Full_name").addClass('is-invalid');
-			
-			
-		}else{
-	$(".dot_alert").hide();
-	$(".contact_Full_name").removeClass('is-invalid');
-	$(".overlay").show();
-	$.ajax({
-            url:"ajaxRequest.php", 
-            type: "POST", 
-           dataType: 'json',
-           data: ({form_zero_step: "success"}),
-            success:function(result){
-				$(".zeroli").removeClass("active");
-					$(".phoneli").addClass("active");
-					$(".zero").hide();
-					$(".first").show(); 
-					$(".overlay").hide();
-			}
-		 });
-		
-	}
+			//$(".contact_last_name").addClass('is-invalid');
+		}
 });
 
 
 $(document).on("click", ".phone_number_next", function(event){
 	var phone=$(".phoneNumber").val();
-	var contact_Full_name=$(".contact_Full_name").val();
-	var quick_quote_for_insurance = $("input[name='quick_quote_for_insurance']:checked").val();
-	if(quick_quote_for_insurance=='No'){
-		var help_text=$(".help_text").val();
-	}else{
-	help_text='';	
-	}
+	var contact_first_name=$(".contact_first_name").val();
+	var contact_last_name=$(".contact_last_name").val();
+	var quick_quote_for_insurance = 'Yes';
+	
 	
 	if(phone==''){
 		event.preventDefault();
 		$(".phoneNumber").addClass('is-invalid');
 	}else{
 	$(".phoneNumber").removeClass('is-invalid');
-	
 	$("body").css("cursor", "progress");
 	$(".overlay").show();
 		 $.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
-           data: ({getZohoContact: "success", phone_number: phone,contact_Full_name:contact_Full_name,quick_quote_for_insurance:quick_quote_for_insurance,help_text:help_text}),
+           data: ({getZohoContact: "success", phone_number: phone,contact_first_name:contact_first_name,contact_last_name:contact_last_name,quick_quote_for_insurance:quick_quote_for_insurance}),
             success:function(result){
 				$("#msform")[0].reset();
 				if ( $.fn.DataTable.isDataTable('#dtVehiclesTable') ) {
@@ -545,6 +555,9 @@ $(document).on("click", ".phone_number_next", function(event){
 					$(".phoneNumber").addClass('is-invalid');
 				}
 				else{
+					$(".contact_first_name").val(contact_first_name);
+					$(".contact_last_name").val(contact_last_name);
+					
 				var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});
 				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}); 
 				
@@ -877,7 +890,7 @@ $(document).on("click", ".phone_number_next", function(event){
 						
 					/*COVERAGE LIMIT INFORMATION*/
 					if(conatctData.Proof_of_Prior_Insurance!==null){
-					$("input[name='currently_insured'][value='"+conatctData.Proof_of_Prior_Insurance+"']").attr('checked','checked').triger('click');
+					$("input[name='currently_insured'][value='"+conatctData.Proof_of_Prior_Insurance+"']").attr('checked','checked').trigger('click');
 					if(conatctData.Proof_of_Prior_Insurance=='Yes'){
 					$('#showinsured_data').show();
 						if(conatctData.What_is_your_Current_Liability_Limit=='Not Listed'){
@@ -1011,7 +1024,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='Business_Organization_Structure'][value='"+conatctData.Structure+"']").attr('checked','checked');
 					}
 					if(conatctData.Do_you_have_a_DBA!==null){
-						$("input[name='have_DBA'][value='"+conatctData.Do_you_have_a_DBA+"']").attr('checked','checked').triger('click');
+						$("input[name='have_DBA'][value='"+conatctData.Do_you_have_a_DBA+"']").attr('checked','checked').trigger('click');
 						if(conatctData.Do_you_have_a_DBA=='Yes'){
 						$("#DBA_NAME_DIV").show();
 						$(".DBA_NAME").val(conatctData.DBA_Name);
@@ -3277,6 +3290,8 @@ $(document).on("click", ".quick_quote_for_insurance", function(event){
 		$('.quick_quote_for_insurance_yes').show();
 		$('.quick_quote_for_insurance_no').hide();
 		$('.help_text').val('');
+			$(".no_insurance").hide();
+			$(".zero_next").show();
 	}
 
 });	

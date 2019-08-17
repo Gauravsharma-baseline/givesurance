@@ -13,11 +13,12 @@ $refresh_token = file_get_contents("refresh_token.txt");
 
 	if(ISSET($_POST['getZohoContact']) && $_POST['getZohoContact']=='success'){
 		//$response=array();
-		$phone_number=preg_replace("/[^0-9]/", "", $_POST['phone_number'] );
+		$phone_number=preg_replace("/[^0-9]/", "", $_POST['phone_number']);
+		$firstname=$_POST['contact_first_name'];
+		$lastname=$_POST['contact_last_name'];
+		$quick_quote_for_insurance=$_POST['quick_quote_for_insurance'];
+		
 			 $url = "Contacts/search?phone=$phone_number";
-			 
-			 
-			 
 			$data = "";
 			$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 			if(ISSET($check_token_valid['code']) && $check_token_valid['code'] == "INVALID_TOKEN"){
@@ -36,6 +37,7 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				$check_token_valid =  $handleFunctionsObject->zoho_curl($url,"GET",$data,$old_access_token);
 				
 				 if(!empty($check_token_valid['data'][0]['id'])){
+					
 				    $contactId = $check_token_valid['data'][0]['id'];
 					$dot = $check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
 					$mc	=	$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
@@ -60,16 +62,14 @@ $refresh_token = file_get_contents("refresh_token.txt");
 					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d,'vehicles_data'=>$vehicles);
 				}else{
 					
-					
 					$url = "Contacts";
 					$Contactdata = '{
 					"data": [{
 					"Phone":  "'.$phone_number.'" ,
 					"Last_Name":  "'.$lastname.'" ,
-					
-					"First_Name1":  "'.$firstname.'" ,
-					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'" ,
-					"what_can_I_help_you_with_today": "'.$help_text.'" ,
+					"First_Name":  "'.$firstname.'" ,
+					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'" 
+				
 					
 					}]}';
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
@@ -78,11 +78,14 @@ $refresh_token = file_get_contents("refresh_token.txt");
 				   
 					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'','commodities_data'=>'','vehicles_data'=>0);
 					}else{
-						 $response=0;
+						
+						$response=0;
 					}  
 				} 
 			} else{
+				
 			 	if(!empty($check_token_valid['data'][0]['id'])){
+					
 				    $contactId=$check_token_valid['data'][0]['id'];
 					$dot=$check_token_valid['data'][0]['USDOT_associated_with_the_insured_s_business'];
 					$mc=$check_token_valid['data'][0]['MC_MX_FF_Number_s'];
@@ -106,20 +109,20 @@ $refresh_token = file_get_contents("refresh_token.txt");
 			
 					$response=array('contactId'=>$contactId,'Dot'=>$dot,'MC'=>$mc,'conatctData'=>$contactdata['data'][0],'contactData'=>$contactDataGet,'commodities_data'=>$d,'vehicles_data'=>$vehicles);
 				}else{
+					$url = "Contacts";
 					$Contactdata = '{
 					"data": [{
 					"Phone":  "'.$phone_number.'" ,
-					"Last_Name":  "'.$lastname.'",
-					"First_Name1":  "'.$firstname.'" ,
-					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'",
-					"what_can_I_help_you_with_today": "'.$help_text.'" ,
-					
+					"Last_Name":  "'.$lastname.'" ,
+					"First_Name":  "'.$firstname.'" ,
+					"Would_you_like_quick_quote_for_insurance_today": "'.$quick_quote_for_insurance.'"
 					}]}';
 					@$contactresponse =  $handleFunctionsObject->zoho_curl($url,"POST",$Contactdata,$old_access_token);
 					  if(!empty($contactresponse['data'][0]['details']['id'])){
 						   $contactId=$contactresponse['data'][0]['details']['id'];
 					$response=array('contactId'=>$contactId,'Dot'=>'','MC'=>'','conatctData'=>'','contactData'=>'','commodities_data'=>'','vehicles_data'=>0);
 					}else{
+						
 						$response=0;
 					}  
 				} 
