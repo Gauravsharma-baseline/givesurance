@@ -3318,6 +3318,7 @@ $(document).on("click", ".need_new_DOT_number", function(event){
 	$('.need_new_DOT_no').hide();
 	$('.searchedNumber_new').val(9999999999);
 	$('.searchedNumber').val('');
+	$('.dot_alert').hide();
 	
 	}else{
 		$('.need_new_DOT_yes').hide();
