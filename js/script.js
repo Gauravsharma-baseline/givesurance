@@ -1211,19 +1211,38 @@ $(".dot_number_next").click(function(event ){
            dataType: 'json',
            data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
             success:function(result){
+				var dd = result.physical_address;
+				var res = dd.split(',');
+				var city = dd.split(' ');
+				console.log(city);
+				 var city_a=city[0];
+				 var city_b=city[1];
+				 var city_c=city[2];
+				 var city_d=city[3];
+				 var city_e=city[4];
+				 var city_f=city[5];
+				 var res_address = city_a+" "+city_b+" "+city_c;
+				 var zip=res[1].split(' ');
+				console.log(zip); 
+				 var zip_a=zip[1];
+				 var zip_c=zip[2];
 			$("body").css("cursor", "default");
 			$(".overlay").hide();
               if(result==0){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
 				$(".dot_alert_valid").show(); 
-				}else{
+				}else{ 
+				alert('hello');
 					$(".dot_alert_valid").hide(); 
 					$(".searchedNumber").removeClass('is-invalid'); 
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
 					$(".dot").val(result.usdot_number);
 					$("#Contact_Insured_Mailing").val(result.m_postal);
-					$("#Financial_Home_address").val(result.physical_address);
+					$("#Financial_Home_address").val(res_address);
+					
+					$("#Financial_City").val(city_e);
+					$("#Financial_zipcode").val(zip_c);
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
 					$("#Contact_Insured_City").val(result.m_city);
 					$('#Contact_Insured_State').val(result.m_state);
@@ -1955,26 +1974,33 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
 		if(vehicle_type==3){
+			alert('show');
 			var gZip=$(".last_vehicle_graging_zip").val();
 			$(".C2VehicleDetails_GaragingZIPCode").val(gZip);
 			$(".vehicle_Gross_weight_div").hide();
 			$(".vehicle_Longest_tip_div").hide();
 			$(".vehicle_Destination_City_div").hide();
 			$(".vehicle_Destination_City_div").hide();
+			$(".C2VehicleDetails_Vehicle_Trailer").show();
 			$(".body_div_select_body_style").hide();
 			$(".Radius_div_select").hide();
+			$(".Radius_div_select_Vehicle").hide();
 			$(".make_div").hide();
 			$(".model_div_select").hide();
 			$(".make_div_select").hide();
 			$(".model_div").hide();
 			$(".body_div_select").hide();
 			$(".Trailer_div_select").show();
+				
 		}else{
+			alert('hide');
 			$(".C2VehicleDetails_GaragingZIPCode").val(' ');
 			$(".vehicle_Gross_weight_div").show();
 			$(".vehicle_Longest_tip_div").show();
 			$(".vehicle_Destination_City_div").show();
+			$(".C2VehicleDetails_Vehicle_Trailer").hide();
 			$(".Radius_div_select").show();
+			$(".Radius_div_select_Vehicle").show();
 			$(".Trailer_div_select").hide();
 			$(".trailer_value_div_select").hide();
 			$(".body_div_select_body_style").show();
@@ -2529,6 +2555,28 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		 $("#vehicle_Gross_weight").removeClass('is-invalid');
 	}
 	
+	if($("#C2VehicleDetails_Vehicle_v").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_Vehicle_v").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#C2VehicleDetails_Vehicle_v").removeClass('is-invalid');
+	}
+	if($("#C2VehicleDetails_Vehicle_Trailer").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_Vehicle_Trailer").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#C2VehicleDetails_Vehicle_Trailer").removeClass('is-invalid');
+	}
+	
+	
+	
+	
+	
+	
 	
 	if($("#vehicle_Destination_City").val()==''){
 		d=0;
@@ -2538,6 +2586,10 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		d=1;
 		 $("#vehicle_Destination_City").removeClass('is-invalid');
 	}
+	
+
+
+	
 	if($("#vehicle_VIN").val()==''){
 		d=0;
 			event.preventDefault();
@@ -2546,7 +2598,8 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		d=1;
 		 $("#vehicle_VIN").removeClass('is-invalid');
 	}
-	if($("#C2VehicleDetails_make").val()=='' || $("#C2VehicleDetails_make_name").val()==''){
+
+if($("#C2VehicleDetails_make").val()=='' || $("#C2VehicleDetails_make_name").val()==''){
 		d=0;
 			event.preventDefault();
 			$("#C2VehicleDetails_make").addClass('is-invalid');
@@ -2731,7 +2784,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 				if(result!=''){
 					$("input[name='vahicle_type'][value='"+result.vehicle_type+"']").attr('checked','checked').trigger('change');
 					// $(".vahicle_type").val(result[0].vehicle_type).trigger('change');
-					console.log(result.category);
+					console.log(result);
 					
 					  //$("#C2VehicleDetails_category_edit").val(cid).trigger('change');
 					  
@@ -2745,11 +2798,14 @@ $(document).on("click", ".edit_vehicles", function(event){
 					 $('#current_selected_year').html('currently selected :'+result.year);
 					  
 					 if(result.vehicle_type=='Trailer'){
+					
 						$(".C2VehicleDetails_Trailer").val(result.trailer_type).trigger('changed');
 						$(".vehicle_Gross_weight_div").hide();
 						$(".vehicle_Longest_tip_div").hide();
 						$(".vehicle_Destination_City_div").hide();
 						$(".Radius_div_select").hide();
+						$(".Radius_div_select_Vehicle").hide();
+						$(".C2VehicleDetails_Vehicle_Trailer").show();
 						$(".make_div").hide();
 						$(".model_div_select").hide();
 						$(".make_div_select").hide();
@@ -2761,6 +2817,8 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$("#C2VehicleDetails_make_edit").val(' ');
 						$("#C2VehicleDetails_model_edit").val(' ');
 						$("#C2VehicleDetails_Radius_edit").val(' ');
+						$("#C2VehicleDetails_Vehicle_v_edit").val(' ');
+						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(' ');
 						if(result.trailer_type=='non-owned'){
 							$(".trailer_value_div_select").show();
 							$(".trailer_value").val(result.non_owned_value);
@@ -2770,19 +2828,25 @@ $(document).on("click", ".edit_vehicles", function(event){
 						}
 						
 					}else{
+						
 						$(".vehicle_Gross_weight_div").show();
 						$(".vehicle_Longest_tip_div").show();
 						$(".vehicle_Destination_City_div").show();
 						$(".Radius_div_select").show();
+						$(".Radius_div_select_Vehicle").show();
 						$(".Trailer_div_select").hide();
 						$("#vehicle_Gross_weight_edit").val(result.gross_weight);
 						$("#vehicle_Destination_City_edit").val(result.city_of_destination);
 						$("#C2VehicleDetails_make_edit").val(result.make);
 						$("#C2VehicleDetails_model_edit").val(result.made);
 						$("#C2VehicleDetails_Radius_edit").val(result.radius);
+						$("#C2VehicleDetails_Vehicle_v_edit").val(result.vehicle_number);
+					
 					}
 					 
 					$("#vehicle_VIN_edit").val(result.vin);
+					$("#Trailer_v_edit").val();
+					$("#Vehicle_v_edit").val();
 					$("#C2VehicleDetails_year_edit").val(result.year);
 					
 					$("#C2VehicleDetails_Loss").val(result.loss_payee);
@@ -2820,6 +2884,18 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 		 d=1;
 		 $("#vehicle_VIN_edit").removeClass('is-invalid');
 	}
+	
+	if($("#Trailer_v_edit").val()==''){
+		 d=0;
+			event.preventDefault();
+			$("#Trailer_v_edit").addClass('is-invalid');
+	}else{
+		 d=1;
+		 $("#Trailer_v_edit").removeClass('is-invalid');
+	}
+	
+	
+	
 	if($("#vehicle_Gross_weight_edit").val()==''){
 		 d=0;
 			event.preventDefault();
@@ -2844,6 +2920,27 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 		d=1;
 		 $("#C2VehicleDetails_category_edit").removeClass('is-invalid');
 	}
+	if($("#C2VehicleDetails_Vehicle_v_edit").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_Vehicle_v_edit").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#C2VehicleDetails_Vehicle_v_edit").removeClass('is-invalid');
+	}
+	
+	if($("#C2VehicleDetails_Vehicle_Trailer_edit").val()==''){
+		d=0;
+			event.preventDefault();
+			$("#C2VehicleDetails_Vehicle_Trailer_edit").addClass('is-invalid');
+	}else{
+		d=1;
+		 $("#C2VehicleDetails_Vehicle_Trailer_edit").removeClass('is-invalid');
+	}
+	
+	
+	
+	
 	if($("#C2VehicleDetails_year_edit").val()==''){
 		d=0;
 			event.preventDefault();
@@ -3328,10 +3425,10 @@ $(document).on("change", ".select_Non_trucks", function(event){
 	var d=$(this).find(':selected').val();
 	$('#auto_Liability_div').removeClass('auto_Liability_none');
 	if(d=='None'){
-		$('#auto_Liability_div').addClass('auto_Liability_none');
-	
-	}else{
 		$('#auto_Liability_div').removeClass('auto_Liability_none');
+		}else{
+		$('#auto_Liability_div').addClass('auto_Liability_none');
+		
 	}
 
 });

@@ -701,7 +701,7 @@ $handleFunctionsObject = new handleFunctions;
 					<input type="text" class="form-control previous_industry_employment" id='previous_industry_employment' value=""  name='previous_industry_employment'> 
 					</div>
 				</div>
-				<div class="form-row">
+				<!--div class="form-row">
 					<div class="form-holder w-100">
 					<label>What types of filings do you require?</label>	
 					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
@@ -726,7 +726,7 @@ $handleFunctionsObject = new handleFunctions;
 				</div>
 				<div class="form-row customer_state_div_value" style='display:none;'>
 					
-				</div>
+				</div-->
 				</div>
 			
 			
@@ -797,13 +797,13 @@ And do you have middle initial?</h2>
 					<div class="form-holder w-100 ">
 					<label>Date of Birth:</label>
 					<input type="text" class="form-control datepickerDOB" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
-					<label>Designate Spouse as a Named Insured?</label>
-					<div class='radio'>
+					<!--label>Designate Spouse as a Named Insured?</label-->
+					<!--div class='radio'>
 						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
 					</div>
 					<div class='radio'>	
 						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
-					</div>
+					</div-->
 					</div>
 				</div>
 			</div>
@@ -1591,6 +1591,41 @@ And do you have middle initial?</h2>
 			<div class='main_field_div'>
 				<h2 class="fs-title">Filing Types</h2>
 			<h3 class="fs-subtitle"></h3>
+			
+			
+			<div class="form-row">
+					<div class="form-holder w-100">
+					<label>What types of filings do you require?</label>	
+					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
+					<option  value='' selected='selected'>Select Filing</option> 
+					<option  value='Federal'>Federal</option> 
+					<option  value='State'>State</option> 
+					<option  value='Both'>Both</option> 
+					<option  value='Other'>Other</option> 
+					</select>
+					</div>
+				</div>
+				<div class="form-row customer_in_div" style='display:none;'>
+					<div class="form-holder w-100">
+					<label>Select State</label>	
+					<select class="form-control List_Filing_state" id='List_Filing_state' name='List_Filing_state'>
+					<option  value='' selected='selected'>Select State</option> 
+					<option  value='CA'>CA</option> 
+					<option  value='TX'>TX</option> 
+					</select>
+					
+					</div>
+				</div>
+				<div class="form-row customer_state_div_value" style='display:none;'>
+					
+				</div>
+			
+			
+			
+			
+			
+			
+			
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Federal:</label>
@@ -1964,9 +1999,7 @@ And do you have middle initial?</h2>
 <fieldset class='twelve'>
 	<h2 class="fs-title">Let me collect some information with your operation.</h2>
 		<h3 class="fs-subtitle"></h3>
-		<div class='main_form'>
-		<div class='row'>
-		<div class='col-md-6'>
+		<div class='col-md-12'>
 			<h2 class="fs-title">What percentage of your loads is in</h2>
 				
 				<div class="form-row">
@@ -1991,7 +2024,7 @@ And do you have middle initial?</h2>
 			</div>
 			
 		
-		<div class='col-md-6'>
+		 <!--div class='col-md-6'>
 				<h2 class="fs-title">Estimates</h2>	
 				<div class="form-row">
 					<div class="form-holder w-100">
@@ -2013,10 +2046,9 @@ And do you have middle initial?</h2>
 					</div>
 				</div>
 								
-			</div>	
+			</div--> 
 		
-		</div>	
-		</div>	
+			
 			
 		
 		<div class='main_form'>
@@ -2859,7 +2891,7 @@ And do you have middle initial?</h2>
 					<?php }
 						?>
 					  </div>
-					<div class="form-group">
+				<div class="form-group">
 					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
 					  <input type="text" class="form-control" id="vehicle_VIN" name="vehicle_VIN" value="" required="">
 					  <span class="help-block"></span>
@@ -2949,6 +2981,18 @@ And do you have middle initial?</h2>
 						
 						</select>
 					</div>
+					  <div class="form-group Radius_div_select_Vehicle">
+					  <label for="Vehicle_v" class="control-label">What is the value of Vehicle?</label>
+					  <input type="text" class="form-control C2VehicleDetails_Vehicle_v" id="C2VehicleDetails_Vehicle_v" name="C2VehicleDetails_Vehicle_v" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
+					 <div class="form-group C2VehicleDetails_Vehicle_Trailer">
+					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer:</label>
+					  <input type="text" class="form-control C2VehicleDetails_Vehicle_Trailer" id="C2VehicleDetails_Vehicle_Trailer" name="C2VehicleDetails_Vehicle_Trailer" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
 					<div class="form-group Trailer_div_select" style='display:none'>
 					  <label for="Radius" class="control-label">Trailer Type</label>
 						<select name="C2VehicleDetails_Trailer" id="C2VehicleDetails_Trailer" class="form-control C2VehicleDetails_Trailer">
@@ -3089,7 +3133,11 @@ And do you have middle initial?</h2>
 					<?php }
 						?>
 					  </div>
-					
+					<!--div class="form-group">
+					  <label for="Trailer_v" class="control-label">What is the value of the Trailer?</label>
+					  <input type="text" class="form-control" id="Trailer_v_edit" name="Trailer_v_edit" value="" required="">
+					  <span class="help-block"></span>
+					</div-->
 					<div class="form-group">
 					  <label for="VIN" class="control-label">What is the Full VIN Number?</label>
 					  <input type="text" class="form-control" id="vehicle_VIN_edit" name="vehicle_VIN" value="" required="">
@@ -3106,6 +3154,8 @@ And do you have middle initial?</h2>
 					  <input type="text" class="form-control" id="vehicle_Destination_City_edit" name="vehicle_Destination_City" value="" required="">
 					  <span class="help-block"></span>
 					</div>
+					 
+					
 					
 					
 					<div class="form-group">
@@ -3178,6 +3228,18 @@ And do you have middle initial?</h2>
 						
 						</select>
 					</div>
+					<div class="form-group Radius_div_select_Vehicle">
+					  <label for="Vehicle_v" class="control-label">What is the value of Vehicle?</label>
+					  <input type="text" class="form-control C2VehicleDetails_Vehicle_v_edit" id="C2VehicleDetails_Vehicle_v_edit" name="C2VehicleDetails_Vehicle_v_edit" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
+					 <div class="form-group C2VehicleDetails_Vehicle_Trailer_edit">
+					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer:</label>
+					  <input type="text" class="form-control C2VehicleDetails_Vehicle_Trailer_edit" id="C2VehicleDetails_Vehicle_Trailer_edit" name="C2VehicleDetails_Vehicle_Trailer" value="" required="">
+					  <span class="help-block"></span>
+					</div>
+					
 					<div class="form-group Trailer_div_select" style='display:none'>
 					  <label for="Radius" class="control-label">Trailer Type</label>
 						<select name="C2VehicleDetails_Trailer" id="C2VehicleDetails_Trailer" class="form-control C2VehicleDetails_Trailer">

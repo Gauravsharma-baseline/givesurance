@@ -257,12 +257,12 @@ error_reporting(0);
 		}
 		if($data['vahicle_type']=='Trailer'){
 			$query = "INSERT INTO public.contact_vehicles(
-		contact_id, vehicle_type, vin, category, year, garaging_zip_code, is_business, is_comprehensive, value, loss_payee, trailer_type, non_owned_value, name, address,need_modification)
-		VALUES('".$contact_id."', '".$data['vahicle_type']."','".$data['vehicle_VIN']."', '".$category."','".$data['C2VehicleDetails_year']."','".trim($data['C2VehicleDetails_GaragingZIPCode'])."','".trim($data['vehicle_used_for'])."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['C2VehicleDetails_Trailer']."','".$data['trailer_value']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."','".trim($data['add_any_modification'])."') RETURNING *";
+		contact_id, vehicle_type,trailer_number, vin, category, year, garaging_zip_code, is_business, is_comprehensive, value, loss_payee, trailer_type, non_owned_value, name, address,need_modification)
+		VALUES('".$contact_id."', '".$data['vahicle_type']."','".$data['C2VehicleDetails_Vehicle_Trailer']."','".$data['vehicle_VIN']."', '".$category."','".$data['C2VehicleDetails_year']."','".trim($data['C2VehicleDetails_GaragingZIPCode'])."','".trim($data['vehicle_used_for'])."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['C2VehicleDetails_Trailer']."','".$data['trailer_value']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."','".trim($data['add_any_modification'])."') RETURNING *";
 		}else{
 		 $query = "INSERT INTO public.contact_vehicles(
-		contact_id, vehicle_type, vin, gross_weight, city_of_destination, category, year, make, model, body_style, garaging_zip_code, radius, is_business, is_comprehensive, value, loss_payee, name, address,need_modification)
-		VALUES('".$contact_id."', '".$data['vahicle_type']."', '".$data['vehicle_VIN']."','".$data['vehicle_Gross_weight']."','".$data['vehicle_Destination_City']."','".$category."','".$data['C2VehicleDetails_year']."','".$make."','".$model."','".$data['C2VehicleDetails_body']."','".$data['C2VehicleDetails_GaragingZIPCode']."','".$data['C2VehicleDetails_Radius']."','".$data['vehicle_used_for']."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."','".trim($data['add_any_modification'])."') RETURNING *";
+		contact_id, vehicle_type,vehicle_number, vin, gross_weight, city_of_destination, category, year, make, model, body_style, garaging_zip_code, radius, is_business, is_comprehensive, value, loss_payee, name, address,need_modification)
+		VALUES('".$contact_id."', '".$data['vahicle_type']."', '".$data['C2VehicleDetails_Vehicle_v']."','".$data['vehicle_VIN']."','".$data['vehicle_Gross_weight']."','".$data['vehicle_Destination_City']."','".$category."','".$data['C2VehicleDetails_year']."','".$make."','".$model."','".$data['C2VehicleDetails_body']."','".$data['C2VehicleDetails_GaragingZIPCode']."','".$data['C2VehicleDetails_Radius']."','".$data['vehicle_used_for']."','".trim($data['vehicle_used_comprehensive'])."','".trim($data['vehicle_modifications'])."','".$data['C2VehicleDetails_Loss']."','".$data['loss_payee_full_name']."','".trim($data['loss_payee_address'])."','".trim($data['add_any_modification'])."') RETURNING *";
 		}
 		$result = pg_query($query); 
 					
@@ -311,10 +311,10 @@ error_reporting(0);
 			
 			if(!empty($category) && $data['C2VehicleDetails_year']!='' && !empty($model)){
 		   $query = "UPDATE  public.contact_vehicles SET
-			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."',  city_of_destination='".$data['vehicle_Destination_City']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', make='".$make."', model='".$model."', body_style='".$data['C2VehicleDetails_body']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."' ,need_modification='".trim($data['add_any_modification'])."' WHERE id=".$data['vehicle_id_to_update']."";
+			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."',vehicle_number='".$data['C2VehicleDetails_Vehicle_v']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."',  city_of_destination='".$data['vehicle_Destination_City']."', category='".$category."', year='".$data['C2VehicleDetails_year']."', make='".$make."', model='".$model."', body_style='".$data['C2VehicleDetails_body']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."' ,need_modification='".trim($data['add_any_modification'])."' WHERE id=".$data['vehicle_id_to_update']."";
 			}else{
 				$query = "UPDATE  public.contact_vehicles SET
-			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', city_of_destination='".$data['vehicle_Destination_City']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',need_modification='".trim($data['add_any_modification'])."' WHERE id=".$data['vehicle_id_to_update']."";
+			contact_id='".$contact_id."', vehicle_type='".$data['vahicle_type']."',vehicle_number='".$data['C2VehicleDetails_Vehicle_v']."', vin='".$data['vehicle_VIN']."', gross_weight='".$data['vehicle_Gross_weight']."', city_of_destination='".$data['vehicle_Destination_City']."', garaging_zip_code='".$data['C2VehicleDetails_GaragingZIPCode']."', radius='".$data['C2VehicleDetails_Radius']."', is_business='".trim($data['vehicle_used_for'])."', is_comprehensive='".trim($data['vehicle_used_comprehensive'])."', value='".trim($data['vehicle_modifications'])."', loss_payee='".$data['C2VehicleDetails_Loss']."',name='".$data['loss_payee_full_name']."', address='".$data['loss_payee_address']."',need_modification='".trim($data['add_any_modification'])."' WHERE id=".$data['vehicle_id_to_update']."";
 			}
 			
 		}	
@@ -692,21 +692,31 @@ error_reporting(0);
 					}  */
 					
 					$zipcode_Physical = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $physical_address, $zipcode_physical_zip);
-					$pZip=preg_replace("/[^0-9]/", "", $zipcode_physical_zip[0] );
+					
+					$p_Zip=preg_replace("/[^0-9]/", "", $zipcode_physical_zip[0] );
 					$p_state=preg_replace('/[0-9]+/', '', $zipcode_physical_zip[0]);
 					 $zipcode_mailing = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $mailing_address, $zipcode_mailing_zip);
 					
-					 $mZip=preg_replace("/[^0-9]/", "", $zipcode_mailing_zip[0] );
-					   $m_state=preg_replace('/[0-9]+/', '', $zipcode_mailing_zip[0]);
-					 $street_address_p=explode(',',$physical_address);
-					 $street_address_p=$street_address_p[0];
-					  $street_address_m=explode(',',$mailing_address);
-					 $street_address_m=$street_address_m[0];
+					$mZip=preg_replace("/[^0-9]/", "", $zipcode_mailing_zip[0] );
+					$m_state=preg_replace('/[0-9]+/', '', $zipcode_mailing_zip[0]);
+					$street_address_p=explode(',',$physical_address);
+					file_put_contents('text4.txt',print_r($street_address_p,true));
+					$street_address_e=$street_address_p[0];
+					$street_zip_p=$street_address_p[1];
+					$street_address_m=explode(',',$mailing_address);
+					//$street_address_m=explode(',',$physical_address);
+					$street_address_m=$street_address_m[0];
 					$madd=preg_split('#(?<=\d )(?=[a-z])#i', $street_address_m);
+					
 					$m_postal=$madd[0];
 					$m_city=$madd[1];
-					 
-					 
+					
+					
+	//second address value 					
+						
+			
+
+
 				/* 	,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main)
 					  */
 					
