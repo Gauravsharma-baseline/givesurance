@@ -1233,7 +1233,7 @@ $(".dot_number_next").click(function(event ){
 				$(".searchedNumber").addClass('is-invalid'); 
 				$(".dot_alert_valid").show(); 
 				}else{ 
-				alert('hello');
+				
 					$(".dot_alert_valid").hide(); 
 					$(".searchedNumber").removeClass('is-invalid'); 
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
@@ -1974,7 +1974,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
 		if(vehicle_type==3){
-			alert('show');
+			
 			var gZip=$(".last_vehicle_graging_zip").val();
 			$(".C2VehicleDetails_GaragingZIPCode").val(gZip);
 			$(".vehicle_Gross_weight_div").hide();
@@ -1993,7 +1993,7 @@ var vehicle_type=$(this).data("id");
 			$(".Trailer_div_select").show();
 				
 		}else{
-			alert('hide');
+			
 			$(".C2VehicleDetails_GaragingZIPCode").val(' ');
 			$(".vehicle_Gross_weight_div").show();
 			$(".vehicle_Longest_tip_div").show();
