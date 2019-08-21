@@ -1,5 +1,4 @@
 $(document).ready( function () {
-
 $(".previous_phone").click(function(){
 	$(".phoneli").removeClass("active");
 	$(".zeroli").addClass("active");
@@ -1220,10 +1219,14 @@ $(".dot_number_next").click(function(event ){
 				 var city_c=city[2];
 				 var city_d=city[3];
 				 var city_e=city[4];
+				 var city_main= city_d+" "+city_e;
+				 var c_final= city_main.split(',');
 				 var city_f=city[5];
+				 
 				 var res_address = city_a+" "+city_b+" "+city_c;
 				 var zip=res[1].split(' ');
-				console.log(zip); 
+				console.log(c_final); 
+				var finallcity=c_final[0];
 				 var zip_a=zip[1];
 				 var zip_c=zip[2];
 			$("body").css("cursor", "default");
@@ -1240,8 +1243,8 @@ $(".dot_number_next").click(function(event ){
 					$(".dot").val(result.usdot_number);
 					$("#Contact_Insured_Mailing").val(result.m_postal);
 					$("#Financial_Home_address").val(res_address);
-					
-					$("#Financial_City").val(city_e);
+					$("#Financial_State").val(city_f);
+					$("#Financial_City").val(finallcity);
 					$("#Financial_zipcode").val(zip_c);
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
 					$("#Contact_Insured_City").val(result.m_city);
@@ -1880,7 +1883,7 @@ $(document).on("click", "#new_drive_add_button", function(event){
 					var licence=d[4];
 					
 					
-					 $('#Driver_add_modal').modal('toggle');
+					$('#Driver_add_modal').modal('toggle');
 					var i=$('#dtDriverTable >tbody >tr').length;
 					console.log(i);
 					if(i>1){
@@ -1974,7 +1977,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
 		if(vehicle_type==3){
-			alert('show');
+			
 			var gZip=$(".last_vehicle_graging_zip").val();
 			$(".C2VehicleDetails_GaragingZIPCode").val(gZip);
 			$(".vehicle_Gross_weight_div").hide();
@@ -1986,7 +1989,6 @@ var vehicle_type=$(this).data("id");
 			$(".Radius_div_select").hide();
 			$(".Radius_div_select_Vehicle").hide();
 			$(".make_div").hide();
-			$(".trailer_value_div_select_one").show();
 			$(".model_div_select").hide();
 			$(".make_div_select").hide();
 			$(".model_div").hide();
@@ -1994,13 +1996,12 @@ var vehicle_type=$(this).data("id");
 			$(".Trailer_div_select").show();
 				
 		}else{
-			alert('hide');
+			
 			$(".C2VehicleDetails_GaragingZIPCode").val(' ');
 			$(".vehicle_Gross_weight_div").show();
 			$(".vehicle_Longest_tip_div").show();
 			$(".vehicle_Destination_City_div").show();
 			$(".C2VehicleDetails_Vehicle_Trailer").hide();
-			$(".trailer_value_div_select_one").hide();
 			$(".Radius_div_select").show();
 			$(".Radius_div_select_Vehicle").show();
 			$(".Trailer_div_select").hide();
@@ -2565,7 +2566,7 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		 d=1;
 		 $("#C2VehicleDetails_Vehicle_v").removeClass('is-invalid');
 	}
-	 if($("#C2VehicleDetails_Vehicle_Trailer").val()==''){
+	if($("#C2VehicleDetails_Vehicle_Trailer").val()==''){
 		 d=0;
 			event.preventDefault();
 			$("#C2VehicleDetails_Vehicle_Trailer").addClass('is-invalid');
@@ -2573,7 +2574,7 @@ $(document).on("click", "#vehicles_add_button", function(event){
 		 d=1;
 		 $("#C2VehicleDetails_Vehicle_Trailer").removeClass('is-invalid');
 	}
-	 
+	
 	
 	
 	
@@ -2800,7 +2801,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 					 $('#current_selected_year').html('currently selected :'+result.year);
 					  
 					 if(result.vehicle_type=='Trailer'){
-					alert('hello');
+					
 						$(".C2VehicleDetails_Trailer").val(result.trailer_type).trigger('changed');
 						$(".vehicle_Gross_weight_div").hide();
 						$(".vehicle_Longest_tip_div").hide();
@@ -2821,31 +2822,23 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$("#C2VehicleDetails_Radius_edit").val(' ');
 						$("#C2VehicleDetails_Vehicle_v_edit").val(' ');
 						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(' ');
-						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(result.trailer_number);
-						
+						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(trailer_number);
 						if(result.trailer_type=='non-owned'){
-							alert('non-owned');
 							$(".trailer_value_div_select").show();
-							$(".trailer_value_div_select_one").hide();
 							$(".trailer_value").val(result.non_owned_value);
 						}else{
-							alert('owned');
 							$(".trailer_value_div_select").hide();
-							$(".trailer_value_div_select_one").show();
-							$(".trailer_value").val(result.owned_value);
 							$(".trailer_value").val(' ');
 						}
 						
 					}else{
-						alert('bye');
+						
 						$(".vehicle_Gross_weight_div").show();
 						$(".vehicle_Longest_tip_div").show();
 						$(".vehicle_Destination_City_div").show();
 						$(".Radius_div_select").show();
 						$(".Radius_div_select_Vehicle").show();
 						$(".Trailer_div_select").hide();
-						$(".C2VehicleDetails_Vehicle_Trailer").hide();
-						$(".C2VehicleDetails_Vehicle_Trailer_edit").hide();
 						$("#vehicle_Gross_weight_edit").val(result.gross_weight);
 						$("#vehicle_Destination_City_edit").val(result.city_of_destination);
 						$("#C2VehicleDetails_make_edit").val(result.make);
@@ -3233,6 +3226,15 @@ if(losspayee =='None' || losspayee =='Associated Bank'){
 
 
 
+/* $(".datepicker").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		showButtonPanel: true,
+		dateFormat: 'mm/dd/yy',
+		yearRange: '-9:+100'
+		
+}); */
+
 $(".datepicker").datepicker({
 		changeMonth: true,
 		changeYear: true,
@@ -3243,8 +3245,6 @@ $(".datepicker").datepicker({
 		yearRange: '-9:+100'
 		
 });
-
-
 $(".datepickerDOB").datepicker({
 		changeMonth: true,
 		changeYear: true,
@@ -3275,12 +3275,10 @@ $(document).on("change", "#Insured_DOB", function(event){
 $(document).on("change", ".C2VehicleDetails_Trailer", function(event){
 	var d=$(this).find(':selected').val();
 	if(d=='owned'){
-		$('.trailer_value_div_select_one').show();
 		$('.trailer_value_div_select').hide();
 		$('.trailer_value').val(' ');
 		
 	}else{
-		$('.trailer_value_div_select_one').hide();
 		$('.trailer_value_div_select').show();
 	}
 
@@ -3438,10 +3436,20 @@ $(document).on("change", ".enter_the_limit_required_motor", function(event){
 		$('.enter_the_limit_required_motor_other_div').hide();
 	}
 
-});		
-$(document).on("change", ".select_Non_trucks", function(event){
+});
+
+$(document).ready(function(){
+    $("select.country").change(function(){
+        var selectedCountry = $(this).children("option:selected").val();
+        //alert("You have selected the country - " + selectedCountry);
+    });
+});
+
+
+		
+ $(document).on("change", ".select_Non_trucks", function(event){
 	var d=$(this).find(':selected').val();
-	$('#auto_Liability_div').removeClass('auto_Liability_none');
+	//$('#auto_Liability_div').removeClass('auto_Liability_none');
 	if(d=='None'){
 		$('#auto_Liability_div').removeClass('auto_Liability_none');
 		}else{
@@ -3450,7 +3458,7 @@ $(document).on("change", ".select_Non_trucks", function(event){
 	}
 
 });
-
+ 
 $(document).on("click", ".quick_quote_for_insurance", function(event){
 	var d=$("input[name='quick_quote_for_insurance']:checked").val();
 	if(d=='No'){
@@ -3541,6 +3549,33 @@ $(document).on('click', '.is_violation', function(){
 	$("#Violation_Table").show();
 });
 
+
+					var i=$('#dtDriverTable >tbody >tr').length;
+					console.log(i);
+					if(i>1){
+						var index= parseInt(i)+parseInt(1);
+					} else{
+						var index=i;
+					}
+					var dtDriverTable=$('#dtDriverTable').DataTable();
+						dtDriverTable.row.add(
+							[
+							index,
+							"<button class='edit_drivers btn' data-id='test' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test',
+							'test'
+							]
+						).draw();
 });	
 
 

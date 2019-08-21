@@ -1,9 +1,10 @@
+<!DOCTYPE html> 
+<html>
+<head>
  <?php
 include('functions.php');
 $handleFunctionsObject = new handleFunctions;
 ?>
-<html>
-<head>
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="css/style2.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -19,14 +20,19 @@ $handleFunctionsObject = new handleFunctions;
 <!-- jQuery easing plugin --> 
 <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
     rel="stylesheet" type="text/css" />
-<script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+<script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
 <script src="js/jquery.easing.min.js" type="text/javascript"></script> 
 <script src="js/script.js" type="text/javascript"></script> 
 <title>Customer with DOt</title>
+<script>
+function myFunction() {
+  document.getElementById("select_Non_trucks").selectedIndex = "1";
+}
+</script>
 </head>
-<body>
+<body onload="myFunction()">
 
-<h1 style="margin-top:20px" align="center">Givesurance Fleetsured</h1>
+<h1 style="margin-top:20px" align="center">Givesurance Data Collection Beta V1</h1>
 <!-- multistep form -->
 <form id="msform">
 <!-- progressbar -->
@@ -489,7 +495,7 @@ $handleFunctionsObject = new handleFunctions;
 					<input type="text" class="form-control  Policy_Effective_datee" id='Policy_Effective' name='Policy_Effective' readonly>
 					</div>
 				</div>
-				<div class="form-row">
+				<!--div class="form-row">
 					<div class="form-holder w-100">
 					<label>Is the customer currently insured with Progressive Commercial Auto?</label>
 					 <div class='radio'>
@@ -498,6 +504,19 @@ $handleFunctionsObject = new handleFunctions;
 						</div>
 						 <div class='radio'>
 						<input type="radio" name="customer_Progressive_Commercial" checked class='customer_Progressive_Commercial'  value='No'>
+						<label>No</label>
+						</div>
+					</div>	
+				</div-->	
+				<div class="form-row">
+					<div class="form-holder w-100">
+					<label>We write insurance with several insurance companies. Just Quick Question, are you currently insured with Progressive?</label>
+					 <div class='radio'>
+						<input type="radio" name="customer_Progressive_Commercial" class='customer_Progressive_Commercial'  value='Yes'>
+						<label>Yes</label>
+						</div>
+						 <div class='radio'>
+						<input type="radio" name="customer_Progressive_Commercial" checked class='customer_Progressive_Commercial'  value='No' checked="checked">
 						<label>No</label>
 						</div>
 					</div>	
@@ -1222,11 +1241,12 @@ And do you have middle initial?</h2>
 	<div class='main_form'>
 		<div class='col-md-6 left'>
 			<div class='main_field_div'>
-			<h2 class="fs-title">Proof of Prior Insurance</h2>
+			<h2 class="fs-title">Proof of Prior Insurance:</h2>
 			<h3 class="fs-subtitle"></h3>
 				<div class="form-row">
 					<div class="form-holder w-100">
-					<label>Are you currently insured?</label>
+					<label>I am going to ask you some basic underwriting questions</label>
+					
 					 <div class='radio'>
 						<input type="radio" name="currently_insured" class="currently_insured" value="Yes"><label>Yes</label>
 					</div>
@@ -1374,7 +1394,21 @@ And do you have middle initial?</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>What is your Current Liability Limit?</label>
-					<input type="text" class="form-control Current_Liability_limit " name="Current_Liability_limit">
+					<select class='form-control Current_Liability_limit ' name='Current_Liability_limit'>
+					<option value="Phys Dam Only">Phys Dam Only</option>
+					<option value="Non Truck Liab">Non Truck Liab</option>
+					<option value="State Min">State Min</option>
+					<option value="25/50">25/50</option>
+					<option value="50/100">50/100</option>
+					<option value="100 CSL">100 CSL</option>
+					<option value="100/300">100/300</option>
+					<option value="300 CSL">300 CSL</option>
+					<option value="350 CSL">350 CSL</option>
+					<option value="250/500">250/500</option>
+					<option value="500 CSL">500 CSL</option>
+					<option value="750 CSL">750 CSL</option>
+					<option selected="selected" value="1 Million CSL">1 Million CSL</option>
+					</select>
 					</div>
 				</div>
 				<div class="form-row">
@@ -1593,7 +1627,7 @@ And do you have middle initial?</h2>
 			<h3 class="fs-subtitle"></h3>
 			
 			
-			<div class="form-row">
+			<!--div class="form-row">
 					<div class="form-holder w-100">
 					<label>What types of filings do you require?</label>	
 					<select class="form-control List_Filing" id='List_Filing' name='List_Filing'>
@@ -1618,7 +1652,7 @@ And do you have middle initial?</h2>
 				</div>
 				<div class="form-row customer_state_div_value" style='display:none;'>
 					
-				</div>
+				</div-->
 			
 			
 			
@@ -1667,14 +1701,7 @@ And do you have middle initial?</h2>
 				<option value=" ">Select State</option>
 				<option value="0">0</option>
 				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
+				
 				</select>
 					</div>
 				</div>
@@ -1752,15 +1779,15 @@ And do you have middle initial?</h2>
 					<div class="form-holder w-100">	
 				<label>Do you need non-trucking insurance? If yes, how much do you need?</label>
 				<select class="form-control select_Non_trucks" id="select_Non_trucks" name="select_Non_trucks">
-  				<option value="None" Selected='selected'>None</option>
-  				<option value="100k">100k</option>
+  				<option value="None" selected>None</option>
+				<option value="100k">100k</option>
 				<option value="200k">200k</option>
 				<option value="250k">250k</option>
 				<option value="500k">500k</option>
 				<option value="750k">750k</option>
 				<option value="1million">1million</option>
 				
-				</select>
+			</select>
 				</div>
 			</div>
 				
@@ -1783,7 +1810,7 @@ And do you have middle initial?</h2>
 					</div>
 				</div>
 				
-				<div class="form-row">
+				<!--div class="form-row">
 					<div class="form-holder w-100">
 					 <label>Do you need $1,000,000 Combined Single Limit for Auto Liability?</label>	
 					<div class='radio'>
@@ -1793,7 +1820,7 @@ And do you have middle initial?</h2>
 						<input type="radio" name="Combined_Single_Limit" class="Combined_Single_Limit" value='No'><label>No</label>
 					</div>
 					</div>
-				</div>
+				</div-->
 				
 				<div class="form-row">
 					<div class="form-holder w-100">
@@ -2631,7 +2658,6 @@ And do you have middle initial?</h2>
 							</select>
 							</div>
 							
-							
 							<div class="form-group">
 								<label for="username" class="control-label">Is an SR22 required?</label>
 								<div class='radio'>
@@ -2644,6 +2670,18 @@ And do you have middle initial?</h2>
 								</div>
 					
 							</div>
+							<!--div class="form-group">
+								<label for="username" class="control-label">Is an SR22 required?</label>
+								<div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" value='Yes'>
+									<label>Yes</label>
+								</div>
+								 <div class='radio'>
+									<input type="radio" name="new_driver_SR22" class="form-control new_driver_SR22" checked value='No'>
+									<label>No</label>
+								</div>
+					
+							</div-->
 							<!--div class="form-group" id='driver_case_no'>
 								<label for="username" class="control-label">Case Number</label>
 								<input type="text" class="form-control" name="driver_case_no">
@@ -2987,7 +3025,7 @@ And do you have middle initial?</h2>
 					  <span class="help-block"></span>
 					</div>
 					
-					 <div class="form-group C2VehicleDetails_Vehicle_Trailer">
+					 <div class="form-group C2VehicleDetails_Vehicle_Trailer" style='display:none'>
 					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer:</label>
 					  <input type="text" class="form-control C2VehicleDetails_Vehicle_Trailer" id="C2VehicleDetails_Vehicle_Trailer" name="C2VehicleDetails_Vehicle_Trailer" value="" required="">
 					  <span class="help-block"></span>
@@ -3000,6 +3038,10 @@ And do you have middle initial?</h2>
 						<option  value="non-owned">Non-owned</option>
 						
 						</select>
+					</div>
+					<div class="form-group trailer_value_div_select_one" style='display:none'>
+					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the owned trailer?</label>
+						<input type='text' name="trailer_value" id="trailer_value" class="form-control trailer_value"/>
 					</div>
 					<div class="form-group trailer_value_div_select" style='display:none'>
 					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the non-owned trailer?</label>
@@ -3248,10 +3290,15 @@ And do you have middle initial?</h2>
 						
 						</select>
 					</div>
+					<div class="form-group trailer_value_div_select_one" style='display:none'>
+					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the owned trailer?</label>
+						<input type='text' name="trailer_value" id="trailer_value" class="form-control trailer_value"/>
+					</div>
 					<div class="form-group trailer_value_div_select" style='display:none'>
 					  <label for="Trailer_Value_div" class="control-label">What is the value needed for the non-owned trailer?</label>
 						<input type='text' name="trailer_value" id="trailer_value" class="form-control trailer_value"/>
 					</div>
+					
 					<div class="form-group body_vehicle_used" >
 					  <label for="Vehicle Sub-Type" class="control-label">Is this vehicle used for business, personal or both?</label>
 					  <div class='radio'>
