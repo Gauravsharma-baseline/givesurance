@@ -1210,7 +1210,7 @@ $(".dot_number_next").click(function(event ){
             type: "POST", 
            dataType: 'json',
            data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
-            success:function(result){
+       /*      success:function(result){
 				var dd = result.physical_address;
 				var res = dd.split(',');
 				var city = dd.split(' ');
@@ -1242,6 +1242,50 @@ $(".dot_number_next").click(function(event ){
 					$("#Financial_Home_address").val(res_address);
 					
 					$("#Financial_City").val(city_e);
+					$("#Financial_zipcode").val(zip_c);
+					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
+					$("#Contact_Insured_City").val(result.m_city);
+					$('#Contact_Insured_State').val(result.m_state);
+					console.log(result.m_state);
+					$('#Contact_Insured_State [value='+result.m_state+']').attr('selected', 'selected');
+					
+					$("#Contact_Insured_ZIP_code").val(result.mailing_zip); */
+					            success:function(result){
+				var dd = result.physical_address;
+				var res = dd.split(',');
+				var city = dd.split(' ');
+				console.log(city);
+				 var city_a=city[0];
+				 var city_b=city[1];
+				 var city_c=city[2];
+				 var city_d=city[3];
+				 var city_e=city[4];
+				 var city_main= city_d+" "+city_e;
+				 var c_final= city_main.split(',');
+				 var city_f=city[5];
+				 
+				 var res_address = city_a+" "+city_b+" "+city_c;
+				 var zip=res[1].split(' ');
+				console.log(c_final); 
+				var finallcity=c_final[0];
+				 var zip_a=zip[1];
+				 var zip_c=zip[2];
+			$("body").css("cursor", "default");
+			$(".overlay").hide();
+              if(result==0){
+				event.preventDefault();
+				$(".searchedNumber").addClass('is-invalid'); 
+				$(".dot_alert_valid").show(); 
+				}else{ 
+				
+					$(".dot_alert_valid").hide(); 
+					$(".searchedNumber").removeClass('is-invalid'); 
+					$("#mc_number").val(result.mc_mx_ff_nmumber);
+					$(".dot").val(result.usdot_number);
+					$("#Contact_Insured_Mailing").val(result.m_postal);
+					$("#Financial_Home_address").val(res_address);
+					$("#Financial_State").val(city_f);
+					$("#Financial_City").val(finallcity);
 					$("#Financial_zipcode").val(zip_c);
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
 					$("#Contact_Insured_City").val(result.m_city);
