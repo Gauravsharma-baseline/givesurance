@@ -3347,7 +3347,7 @@ And do you have middle initial?</h2>
 					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all the equipments... *Is it between less than 2000 or more than 2000?*</label>
 						<div class='radio'>
 									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
-									<label>$0 to $2,000</label>
+									<label>less than $2000</label>
 						</div>
 						<div class='radio'>
 									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='More than $2,000'>
