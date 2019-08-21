@@ -2018,7 +2018,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 $(document).on("change", ".vahicle_type", function(event){
 var vehicle_type=$(this).data("id");
 		if(vehicle_type==3){
-			alert('show');
+			
 			var gZip=$(".last_vehicle_graging_zip").val();
 			$(".C2VehicleDetails_GaragingZIPCode").val(gZip);
 			$(".vehicle_Gross_weight_div").hide();
@@ -2038,7 +2038,7 @@ var vehicle_type=$(this).data("id");
 			$(".Trailer_div_select").show();
 				
 		}else{
-			alert('hide');
+			
 			$(".C2VehicleDetails_GaragingZIPCode").val(' ');
 			$(".vehicle_Gross_weight_div").show();
 			$(".vehicle_Longest_tip_div").show();
@@ -2844,7 +2844,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 					 $('#current_selected_year').html('currently selected :'+result.year);
 					  
 					 if(result.vehicle_type=='Trailer'){
-					alert('hello');
+					
 						$(".C2VehicleDetails_Trailer").val(result.trailer_type).trigger('changed');
 						$(".vehicle_Gross_weight_div").hide();
 						$(".vehicle_Longest_tip_div").hide();
@@ -2868,12 +2868,12 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(result.trailer_number);
 						
 						if(result.trailer_type=='non-owned'){
-							alert('non-owned');
+							
 							$(".trailer_value_div_select").show();
 							$(".trailer_value_div_select_one").hide();
 							$(".trailer_value").val(result.non_owned_value);
 						}else{
-							alert('owned');
+							
 							$(".trailer_value_div_select").hide();
 							$(".trailer_value_div_select_one").show();
 							$(".trailer_value").val(result.owned_value);
@@ -2881,7 +2881,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 						}
 						
 					}else{
-						alert('bye');
+						
 						$(".vehicle_Gross_weight_div").show();
 						$(".vehicle_Longest_tip_div").show();
 						$(".vehicle_Destination_City_div").show();
