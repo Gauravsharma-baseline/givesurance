@@ -699,13 +699,26 @@ $(document).on("click", ".phone_number_next", function(event){
 					$('.is_driver_or_not').val('0');
 					var current = 1;
 					$.each(driversdata, function(index, element) {
-					if(element.DOB_Age_MaritalStatus_Points_LicenceNo!==null){
-					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
-					var dob = moment(d[0]).format('MM/DD/YYYY');
-					var age = d[1];
-					var merital=d[2];
-					var points=d[3];
-					var licence=d[4];
+					if(element.Name1!==null){
+						if(element.DOB_Age_MaritalStatus_Points_LicenceNo!==null){
+						var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
+						var dob = moment(d[0]).format('MM/DD/YYYY');
+						var age = d[1];
+						var merital=d[2];
+						var points=d[3];
+						var licence=d[4];
+						}else{
+						var dob = '';
+						var age = '';
+						var merital='';
+						var points='';
+						var licence='';	
+						}
+					if(element.Hire_Date!==null){
+					var hiredate=moment(element.Hire_Date).format('MM/DD/YYYY');
+					}else{
+					var hiredate='';	
+					}
 						drivertable.row.add(
 							[
 							current,
@@ -717,7 +730,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							licence,
 							element.License_State,
 							element.Experience_Years,
-							moment(element.Hire_Date).format('MM/DD/YYYY'),
+							hiredate,
 							element.Back_up_Driver,
 							element.Owner_Driver,
 							element.SR22,
@@ -1184,11 +1197,19 @@ $(".Intro_next").click(function(event ){
 var contactId=$(".contactId").val();
 var When_do_you_need_policy=$(".When_do_you_need_policy").val();
 $("#Policy_Effective").val(When_do_you_need_policy);
-
+	var contact_first_name=$(".contact_first_name").val();
+	var contact_last_name=$(".contact_last_name").val();
 	var driver_is = $('.is_driver_or_not').val();
 	var owner_is = $('.Is_the_owner_driver').val();
 	if(driver_is == '1' && owner_is == 'Yes'){
-			var i=$('#dtDriverTable >tbody >tr').length;
+		$.ajax({
+            url:"ajaxRequest.php", 
+            type: "POST", 
+           dataType: 'json',
+           data: ({is_owner_driver_add: "success",contactId:contactId,contact_first_name:contact_first_name,contact_last_name:contact_last_name}),
+            success:function(result){
+				if(result!=0){
+				var i=$('#dtDriverTable >tbody >tr').length;
 						console.log(i);
 						if(i>1){
 							var index= parseInt(i)+parseInt(1);
@@ -1199,10 +1220,8 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 							dtDriverTable.row.add(
 								[
 								index,
-								"<button class='edit_drivers btn' data-id='111111' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
-								'afa',
-								'',
-								'afa',
+								"<button class='edit_drivers btn' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+								contact_first_name+' '+contact_last_name,
 								'',
 								'',
 								'',
@@ -1212,8 +1231,18 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 								'',
 								'',
 								'',
+								'',
+								'',
+								''
 								]
-							).draw();
+							).draw(); 
+								 
+			}	
+           }
+         });
+		
+		
+			
 		
 	}
 
@@ -2488,14 +2517,21 @@ $(document).on("click", "#update_driver_button", function(event){  /// update dr
 					if(driversdata!=''){
 					$.each(driversdata, function(index, element) {
 					//var a = element.DOB_Age_MaritalStatus_Points_LicenceNo;
-					if(element.DOB_Age_MaritalStatus_Points_LicenceNo){
-					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
-					var dob = moment(d[0]).format('MM/DD/YYYY');
-					var age = d[1];
-					var merital=d[2];
-					var points=d[3];
-					var licence=d[4];
-					
+					if(element.Name1){
+						if(element.DOB_Age_MaritalStatus_Points_LicenceNo!==null){
+						var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
+						var dob = moment(d[0]).format('MM/DD/YYYY');
+						var age = d[1];
+						var merital=d[2];
+						var points=d[3];
+						var licence=d[4];
+						}else{
+						var dob = '';
+						var age = '';
+						var merital='';
+						var points='';
+						var licence='';	
+						}
 						
 						drivertable.row.add(
 							[

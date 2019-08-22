@@ -1279,3 +1279,48 @@ if(ISSET($_POST['update_vehicle']) && $_POST['update_vehicle']=='success'){
 				echo json_encode($zohoResponse);
 			} 
 	}
+	
+	
+	
+	if(ISSET($_POST['is_owner_driver_add']) && $_POST['is_owner_driver_add']=='success'){
+		$contacturl = "Contacts/".$_POST['contactId'];
+		$data = "";
+		$drivername = $_POST['contact_first_name']. ' '.$_POST['contact_last_name'];
+		$new_array=array(
+		"Name1"=>$drivername
+		) ;
+		$driversData[]=$new_array;
+			$dd=json_encode($driversData);
+			  $Contactdata = '{
+			"data": [{
+           "Drivers1":'.$dd.'
+            
+			}]}';
+			@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token); 
+			
+			if(ISSET($zohoResponse['code']) && $zohoResponse['code'] == "INVALID_TOKEN"){
+				$url = "token";
+				$data = array("refresh_token"=>$refresh_token,"client_id"=>"".$zoho_client_id."","client_secret"=>"".$zoho_client_secret."","grant_type"=>"refresh_token");
+				$get_new_token = $handleFunctionsObject-> zoho_auth($url,"POST",$data);
+				if(isset($get_new_token['access_token'])){
+					file_put_contents("access_token.txt",$get_new_token['access_token']);
+				}
+				if(isset($get_new_token['refresh_token'])){
+					file_put_contents("refresh_token.txt",$get_new_token['refresh_token']);
+				}
+				$old_access_token = file_get_contents("access_token.txt");
+				@$zohoResponse =  $handleFunctionsObject->zoho_curl($contacturl,"PUT",$Contactdata,$old_access_token);
+				if($zohoResponse['data'][0]['code'] == "SUCCESS"){
+				echo json_encode($zohoResponse);
+				}
+			}elseif(($zohoResponse) && $zohoResponse['data'][0]['code'] == "SUCCESS"){
+					$id=$zohoResponse['data'][0]['details']['id'];
+				$new_array['driverId'] = $id;
+			echo json_encode($new_array);
+			}else{
+				echo 0;
+			}
+			
+			
+	}
+	
