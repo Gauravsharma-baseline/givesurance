@@ -1256,94 +1256,46 @@ $(".dot_number_next").click(function(event ){
 	 $("body").css("cursor", "progress");
 	$(".overlay").show();
 	if(d=='Yes' && check_id_dot_already==''){
-		 $.ajax({
+$.ajax({
             url:"ajaxRequest.php", 
             type: "POST", 
            dataType: 'json',
            data: ({getSaferData: "success", searchedNumber: searchedNumber,contactId:contactId}),
-       /*      success:function(result){
-				var dd = result.physical_address;
-				var res = dd.split(',');
-				var city = dd.split(' ');
-				console.log(city);
-				 var city_a=city[0];
-				 var city_b=city[1];
-				 var city_c=city[2];
-				 var city_d=city[3];
-				 var city_e=city[4];
-				 var city_f=city[5];
-				 var res_address = city_a+" "+city_b+" "+city_c;
-				 var zip=res[1].split(' ');
-				console.log(zip); 
-				 var zip_a=zip[1];
-				 var zip_c=zip[2];
+		success:function(result){
 			$("body").css("cursor", "default");
 			$(".overlay").hide();
               if(result==0){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
 				$(".dot_alert_valid").show(); 
-				}else{ 
-				
+				}else{
 					$(".dot_alert_valid").hide(); 
 					$(".searchedNumber").removeClass('is-invalid'); 
 					$("#mc_number").val(result.mc_mx_ff_nmumber);
 					$(".dot").val(result.usdot_number);
-					$("#Contact_Insured_Mailing").val(result.m_postal);
-					$("#Financial_Home_address").val(res_address);
-					
-					$("#Financial_City").val(city_e);
-					$("#Financial_zipcode").val(zip_c);
+					$("#Contact_Insured_Mailing").val(result.m_street_address);
+					$("#Financial_Home_address").val(result.p_street_address);
+					if(result.p_state!==null){
+					$('#Financial_State [value='+result.p_state+']').attr('selected', 'selected');
+					}else{
+					$('#Financial_State [value=' ']').attr('selected', 'selected');
+					}
+					if(result.p_city!==null){
+					$("#Financial_City").val(result.p_city);
+					}
+					if(result.physical_zip!==null){
+					$("#Financial_zipcode").val(result.physical_zip);
+					}
+					if(result.physical_address!==null){
 					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
+					}
+					if(result.m_city!==null){
 					$("#Contact_Insured_City").val(result.m_city);
+					}
+					if(result.m_state!==null){
 					$('#Contact_Insured_State').val(result.m_state);
-					console.log(result.m_state);
 					$('#Contact_Insured_State [value='+result.m_state+']').attr('selected', 'selected');
-					
-					$("#Contact_Insured_ZIP_code").val(result.mailing_zip); */
-					            success:function(result){
-				var dd = result.physical_address;
-				var res = dd.split(',');
-				var city = dd.split(' ');
-				console.log(city);
-				 var city_a=city[0];
-				 var city_b=city[1];
-				 var city_c=city[2];
-				 var city_d=city[3];
-				 var city_e=city[4];
-				 var city_main= city_d+" "+city_e;
-				 var c_final= city_main.split(',');
-				 var city_f=city[5];
-				 
-				 var res_address = city_a+" "+city_b+" "+city_c;
-				 var zip=res[1].split(' ');
-				console.log(c_final); 
-				var finallcity=c_final[0];
-				 var zip_a=zip[1];
-				 var zip_c=zip[2];
-			$("body").css("cursor", "default");
-			$(".overlay").hide();
-              if(result==0){
-				event.preventDefault();
-				$(".searchedNumber").addClass('is-invalid'); 
-				$(".dot_alert_valid").show(); 
-				}else{ 
-				
-					$(".dot_alert_valid").hide(); 
-					$(".searchedNumber").removeClass('is-invalid'); 
-					$("#mc_number").val(result.mc_mx_ff_nmumber);
-					$(".dot").val(result.usdot_number);
-					$("#Contact_Insured_Mailing").val(result.m_postal);
-					$("#Financial_Home_address").val(res_address);
-					$("#Financial_State").val(city_f);
-					$("#Financial_City").val(finallcity);
-					$("#Financial_zipcode").val(zip_c);
-					$("#USDOT_Assigned_to").val(result.legal_name +', '+result.physical_address);
-					$("#Contact_Insured_City").val(result.m_city);
-					$('#Contact_Insured_State').val(result.m_state);
-					console.log(result.m_state);
-					$('#Contact_Insured_State [value='+result.m_state+']').attr('selected', 'selected');
-					
+					}
 					$("#Contact_Insured_ZIP_code").val(result.mailing_zip);
 					/*$(".physical_street").val(result.p_street_address);
 					$(".mailing_street").val(result.m_street_address);
@@ -1375,24 +1327,6 @@ $(".dot_number_next").click(function(event ){
            }
          });
 	
-		}else if(d=='Yes' && check_id_dot_already!=''){
-			$.ajax({
-            url:"ajaxRequest.php", 
-            type: "POST", 
-           dataType: 'json',
-           data: ({getMcData: "success", mc: mc_number,contactId:contactId,searchedNumber:searchedNumber,already:1}),
-            success:function(result){
-			$("body").css("cursor", "default");
-			$(".overlay").hide();
-					$(".dotLi").removeClass("active");
-					$(".MCLi").addClass("active");
-					$(".second").hide();
-					$(".first_2").show(); 
-					//$(".physicalLi").addClass("active");
-				
-           }
-         });
-			
 		}else{
 		$(".overlay").show();	
 		$.ajax({

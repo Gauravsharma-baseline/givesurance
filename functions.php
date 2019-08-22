@@ -691,25 +691,68 @@ error_reporting(0);
 					   }
 					}  */
 					
-					$zipcode_Physical = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $physical_address, $zipcode_physical_zip);
-					
-					$p_Zip=preg_replace("/[^0-9]/", "", $zipcode_physical_zip[0] );
-					$p_state=preg_replace('/[0-9]+/', '', $zipcode_physical_zip[0]);
-					 $zipcode_mailing = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $mailing_address, $zipcode_mailing_zip);
-					
-					$mZip=preg_replace("/[^0-9]/", "", $zipcode_mailing_zip[0] );
-					$m_state=preg_replace('/[0-9]+/', '', $zipcode_mailing_zip[0]);
 					$street_address_p=explode(',',$physical_address);
-					file_put_contents('text4.txt',print_r($street_address_p,true));
+					
 					$street_address_e=$street_address_p[0];
 					$street_zip_p=$street_address_p[1];
-					$street_address_m=explode(',',$mailing_address);
-					//$street_address_m=explode(',',$physical_address);
-					$street_address_m=$street_address_m[0];
-					$madd=preg_split('#(?<=\d )(?=[a-z])#i', $street_address_m);
 					
-					$m_postal=$madd[0];
-					$m_city=$madd[1];
+					
+					$pp = $this->extract_zipcode($physical_address);
+					$p_add=explode(" ",$pp);
+					$pZip=$p_add[1] ;
+					$p_state=$p_add[0] ;
+					$pd=explode(",",$physical_address);
+					$pdd=explode(" ",$pd[0]);
+					
+					$cities_array=
+					array('Phenix City','Casa Grande','Sierra Vista','Window Rock','Arkansas Post','Forrest City','Fort Smith','Hot Springs','Little Rock','Pine Bluff','PALM SPRINGS','West Memphis','Van Buren','Gila Bend','Beverly Hills','Buena Park','Arkansas Post','El Dorado','Forrest City','Fort Smith','Little Rock','Pine Bluff','Van Buren','West Memphis','Beverly Hills','Buena Park','Chula Vista','Costa Mesa','Culver City','Daly City','El Centro','El Cerrito','El Monte','Garden Grove','Huntington Beach','La Habra','Laguna Beach','Long Beach','Los Angeles','Menlo Park','Mountain View','Newport Beach','Pacific Grove','Palm Springs','Palo Alto','Port Hueneme','Rancho Cucamonga','Red Bluff','Redondo Beach','Redwood City','San Bernardino','San Clemente','San Diego','San Fernando','San Francisco','San Gabriel','San Jose','San Leandro','San Marino','San Mateo','San Pedro','San Rafael','San Simeon','Santa Ana','Santa Barbara','Santa Clara','Santa Clarita','Santa Cruz','Santa Monica','Santa Rosa','Simi Valley','Thousand Oaks','Walnut Creek','West Covina','Yorba Linda','Yuba City','Canon City','Central City','Colorado Springs','Cripple Creek','Estes Park','Fort Collins','Fort Morgan','Glenwood Springs','Grand Junction','La Junta','Pagosa Springs','Steamboat Springs','East Hartford','East Haven','New Britain','New Haven','New London','North Haven','Old Saybrook','West Hartford','West Haven','Windsor Locks','New Castle','Belle Glade','Boca Raton','Cocoa Beach','Coral Gables','Cocoa-Rockledge','Coral Gables','Daytona Beach','Hill City');
+					foreach ($cities_array as $city){
+					if (strpos($pd[0], $city) !== false) {
+						$pd1=explode(" ",$pd[0]);
+						 $v=array_slice($pd1, -2, 2, true);
+						
+						 $p_city=implode(" ",$v);
+						 array_splice($pd1, count($pd1) - 2, 2);
+						$street_address_p= implode(" ",$pd1);
+						
+					}
+					else{
+					 $pd1=explode(" ",$pd[0]);
+						end($pd1);        
+					 $key = key($pd1);
+					$p_city= $pd1[$key];
+					array_pop($pd1);
+					$street_address_p= implode(" ",$pd1);
+					}
+					}
+					
+					
+					
+					
+					
+					$mm = $this->extract_zipcode($mailing_address);
+					$m_add=explode(" ",$mm);
+					$mZip=$m_add[1] ;
+					$m_state=$m_add[0] ;
+					$md=explode(",",$mailing_address);
+					foreach ($cities_array as $city){
+					if (strpos($md[0], $city) !== false) {
+						$md1=explode(" ",$md[0]);
+						 $v=array_slice($md1, -2, 2, true);
+						
+						 $m_city=implode(" ",$v);
+						 array_splice($md1, count($md1) - 2, 2);
+						$street_address_m= implode(" ",$md1);
+						
+					}else{
+					 $md1=explode(" ",$md[0]);
+						end($md1);        
+					 $key = key($md1);
+					$m_city= $md1[$key];
+					array_pop($md1);
+					$street_address_m= implode(" ",$md1);
+					}
+					}
 					
 					
 	//second address value 					
@@ -720,9 +763,7 @@ error_reporting(0);
 				/* 	,'state_carrier_ID_Number'=>$state_carrier_ID_Number,'duns_Number'=>$duns_Number,'power_units'=>$power_units,'drivers'=>$drivers, 'MCS_150_Form_Date'=>$MCS_150_Form_Date, 'MCS_150_Mileage_year'=>$MCS_150_Mileage_year,'Operation_Classification'=>implode(",",$Operation_Classification_main),'Carrier_Operation'=>implode(",",$Carrier_Operation_main),'Cargo_Carried'=>implode(",",$Cargo_Carried_main)
 					  */
 					
-					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'physical_zip'=>$pZip,'mailing_zip'=>$mZip,'p_street_address'=>$street_address_p,'m_street_address'=>$street_address_m,'phone'=>$phone,'mailing_address'=>$mailing_address,'m_postal'=>$m_postal,'m_city'=>$m_city,'p_state'=>$p_state,'m_state'=>$m_state,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber);
-					
-					
+					return $saferData[]= array('Entity_Type'=>$Entity_Type,'operating_status'=>$operating_status,'Out_of_Service_date'=>$Out_of_Service_date, 'legal_name'=>$legal_name,'dba_name'=>$dba_name,'physical_address'=>$physical_address,'physical_zip'=>$pZip,'mailing_zip'=>$mZip,'p_street_address'=>$street_address_p,'m_street_address'=>$street_address_m,'phone'=>$phone,'mailing_address'=>$mailing_address,'m_postal'=>$m_postal,'m_city'=>$m_city,'p_city'=>$p_city,'p_state'=>$p_state,'m_state'=>$m_state,'usdot_number'=>$usdot_number,'mc_mx_ff_nmumber'=>$mc_mx_ff_nmumber);
 					
 					
 			}
@@ -902,6 +943,11 @@ error_reporting(0);
 		return $response;
 	}
 		
+	function extract_zipcode($address) {
+    $zipcode = preg_match("/\b[A-Z]{2}\s+\d{5}(-\d{4})?\b/", $address, $matches);
+	 return $matches[0];
+	
+	}
 }
 		
 
