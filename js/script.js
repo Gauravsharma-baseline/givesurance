@@ -555,6 +555,9 @@ $(document).on("click", ".phone_number_next", function(event){
 					  $('#dtDriverTable tbody').empty();
 					}
 				$("#msform select").val(" ").trigger('change');	
+				$('select').each(function(){
+					$(this).find('option:first').prop('selected', 'selected');
+				});
 				$(".phoneNumber").val(phone);
 				$(".contactId").val(result.contactId);
 				$("body").css("cursor", "default");
@@ -566,6 +569,8 @@ $(document).on("click", ".phone_number_next", function(event){
 				else{
 					$(".contact_first_name").val(contact_first_name);
 					$(".contact_last_name").val(contact_last_name);
+					$("#Insured_first_name").val(contact_first_name);
+					$("#Insured_Last_name").val(contact_last_name);
 					
 				var Vehiclestable=$('#dtVehiclesTable').DataTable({ "scrollX": true});
 				var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true}); 
@@ -1200,7 +1205,7 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 	var contact_first_name=$(".contact_first_name").val();
 	var contact_last_name=$(".contact_last_name").val();
 	var driver_is = $('.is_driver_or_not').val();
-	var owner_is = $('.Is_the_owner_driver').val();
+	var owner_is = $("input[name='Is_the_owner_driver']:checked").val();
 	if(driver_is == '1' && owner_is == 'Yes'){
 		$.ajax({
             url:"ajaxRequest.php", 
@@ -1236,7 +1241,7 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 								''
 								]
 							).draw(); 
-								 
+					$('.is_driver_or_not').val('0');			 
 			}	
            }
          });
