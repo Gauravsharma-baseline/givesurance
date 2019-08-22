@@ -184,10 +184,11 @@ function myFunction() {
 			<div class="form-holder w-100">
 			<label>Is the owner also the driver?</label>
 			 <div class='radio'>
+				<input type="hidden" name="is_driver_or_not" class='is_driver_or_not'  value=''>
 				<input type="radio" name="Is_the_owner_driver" class='Is_the_owner_driver'  value='Yes'>
 				<label>Yes</label>
 				</div>
-				 <div class='radio'>
+				<div class='radio'>
 				<input type="radio" name="Is_the_owner_driver"  class='Is_the_owner_driver'  value='No'>
 				<label>No</label>
 				</div>
@@ -495,7 +496,7 @@ function myFunction() {
 					<input type="text" class="form-control  Policy_Effective_datee" id='Policy_Effective' name='Policy_Effective' readonly>
 					</div>
 				</div>
-				<!--div class="form-row">
+				<div class="form-row">
 					<div class="form-holder w-100">
 					<label>Is the customer currently insured with Progressive Commercial Auto?</label>
 					 <div class='radio'>
@@ -504,19 +505,6 @@ function myFunction() {
 						</div>
 						 <div class='radio'>
 						<input type="radio" name="customer_Progressive_Commercial" checked class='customer_Progressive_Commercial'  value='No'>
-						<label>No</label>
-						</div>
-					</div>	
-				</div-->	
-				<div class="form-row">
-					<div class="form-holder w-100">
-					<label>We write insurance with several insurance companies. Just Quick Question, are you currently insured with Progressive?</label>
-					 <div class='radio'>
-						<input type="radio" name="customer_Progressive_Commercial" class='customer_Progressive_Commercial'  value='Yes'>
-						<label>Yes</label>
-						</div>
-						 <div class='radio'>
-						<input type="radio" name="customer_Progressive_Commercial" checked class='customer_Progressive_Commercial'  value='No' checked="checked">
 						<label>No</label>
 						</div>
 					</div>	
@@ -625,23 +613,19 @@ function myFunction() {
 				
 			</div>
 			<div class='main_field_div'>	
-						
 				<h2 class="fs-title">Business Organization Structure</h2>
 				<div class="form-row">
 					<div class="form-holder w-100">	
 					  <label>Is this Individual, Partnership or Corporation?</label>
 						<div class='radio'>
-						
 						 <input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Individual/Sole Proprietor' checked>
 						 <label>Individual/Sole Proprietor</label>
-						 </div>
-						 <div class='radio'>
-						 
+						</div>
+						<div class='radio'>
 						<input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Partnership'>
 						<label>Partnership</label>
 						</div>
 						 <div class='radio'>
-						 
 						<input type="radio" name="Business_Organization_Structure" class='Business_Organization_Structure' value='Corporation or LLC'>
 						<label>Corporation or LLC</label>
 						</div>
@@ -651,12 +635,10 @@ function myFunction() {
 				   <div class="form-holder w-100">
 					<label>Do you have a DBA?</label>
 					<div class='radio'>
-					
-					<input type="radio" name="have_DBA" class='have_DBA'  value='Yes'>
-					<label>Yes</label>
+						<input type="radio" name="have_DBA" class='have_DBA'  value='Yes'>
+						<label>Yes</label>
 					</div>
 					<div class='radio'>
-					
 						<input type="radio" name="have_DBA" class='have_DBA' value='No'>
 						<label>No</label>
 					</div>
@@ -668,9 +650,6 @@ function myFunction() {
 					<input type="text" class="form-control DBA_NAME"  name='DBA_NAME' >  
 					</div>
 				</div>
-
-
-
 			</div>
 			<div class='main_field_div' id='US_Department_of_Transportation'>	
 				 <h2 class="fs-title">US Department of Transportation (USDOT) Registration</h2>
@@ -786,48 +765,77 @@ function myFunction() {
 				</div>
 			</div>
 			<div class='main_field_div'>
-				<h2 class="fs-title">Who's gonna be in this insurance? Can you give me the first and last name?
-And do you have middle initial?</h2>
-				<div class="form-row">
-					<div class="form-holder w-100">
-						<label>First Name:</label>
-							<input type="text" class="form-control" name="Insured_first_name" placeholder="First Name.." id='Insured_first_name'>
-						<label>Middle Initial:</label>
-							<input type="text" class="form-control" name="Insured_Middle_name" placeholder="Middle Initial:.." id='Insured_Middle_name'>
-						<label>Last Name:</label>
-							<input type="text" class="form-control" name="Insured_Last_name" placeholder="Last Name:." id='Insured_Last_name'>
-						</div>	
-				</div>	
-				<div class="form-row">
-					<div class="form-holder w-100 ">
-						<label>Suffix:</label>
-						<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
-						  <option selected value="none">--None--</option>
-						  <option value="jr">jr</option>
-						  <option value="Sr">Sr</option>
-						  <option value="|">|</option>
-						  <option value="||">||</option>
-						  <option value="|||">|||</option>
-						  <option value="|V">|V</option>
-						</select>
+				<h2 class="fs-title"> Who's gonna be in this insurance? Can you give me the first and last name?And do you have middle initial? </h2>
+				<div id="is-individual-business">
+					<div class="form-row">
+						<div class="form-holder w-100">
+							<label>First Name:</label>
+								<input type="text" class="form-control" name="Insured_first_name" placeholder="First Name.." id='Insured_first_name'>
+							<label>Middle Initial:</label>
+								<input type="text" class="form-control" name="Insured_Middle_name" placeholder="Middle Initial:.." id='Insured_Middle_name'>
+							<label>Last Name:</label>
+								<input type="text" class="form-control" name="Insured_Last_name" placeholder="Last Name:." id='Insured_Last_name'>
+							</div>	
+					</div>	
+					<div class="form-row">
+						<div class="form-holder w-100 ">
+							<label>Suffix:</label>
+							<select class="form-control" id='Insured_Suffix' name='Insured_Suffix'>
+							  <option selected value="none">--None--</option>
+							  <option value="jr">jr</option>
+							  <option value="Sr">Sr</option>
+							  <option value="|">|</option>
+							  <option value="||">||</option>
+							  <option value="|||">|||</option>
+							  <option value="|V">|V</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-holder w-100 ">
+						<label>Date of Birth:</label>
+						<input type="text" class="form-control datepickerDOB" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
+						<!--label>Designate Spouse as a Named Insured?</label-->
+						<!--div class='radio'>
+							<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
+						</div>
+						<div class='radio'>	
+							<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
+						</div-->
+						</div>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="form-holder w-100 ">
-					<label>Date of Birth:</label>
-					<input type="text" class="form-control datepickerDOB" name="Insured_DOB" id='Insured_DOB' value='<?php echo date('m/d/Y');?>' placeholder='<?php echo date('m/d/Y');?>'>
-					<!--label>Designate Spouse as a Named Insured?</label-->
-					<!--div class='radio'>
-						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='Yes'><label>Yes</label>
-					</div>
-					<div class='radio'>	
-						<input type="radio" name="Insured_Designate_Spouse" class='Insured_Designate_Spouse' value='No'checked><label>No</label>
-					</div-->
+				<div id="is-partner_cop-business"  style='display:none;'>
+					<div class="form-row">
+						<div class="form-holder w-100">
+							<label>Business Name:</label>
+							<input type="text" class="form-control" name="business_name" placeholder="Business Name" id='business_name'>
+							<input type="text" class="form-control" name="business_name1" placeholder="" id='business_name1'>
+							<label>EIN:</label>
+							<input type="text" class="form-control" name="ein" placeholder="EIN.." id='ein'>
+						</div>	
+					</div>	
+					<div class="form-row">		
+						<div class="form-holder w-100">
+							<label>Do you have a DBA?</label>
+							<div class='radio'>
+								<input type="radio" name="have_DBA_partner_cop" class='have_DBA_partner_cop'  value='Yes'>
+								<label>Yes</label>
+							</div>
+							<div class='radio'>
+								<input type="radio" name="have_DBA_partner_cop" class='have_DBA_partner_cop' value='No'>
+								<label>No</label>
+							</div>
+						</div>
+					</div>  
+					<div class="form-row" id='partner_cop_DBA' style='display:none'>	
+						<div class="form-holder w-100">
+							<label>DBA</label>
+							<input type="text" class="form-control DBA_NAME"  name='partner_cop_DBA_NAME' id="partner_cop_DBA_NAME" >  
+						</div>
 					</div>
 				</div>
 			</div>
-			
-			
 				<div class='main_field_div'>
 				 <h2 class='fs-title'>Contact Information</h2>
 				 <h3 class='fs-subtitle' ></h3>
@@ -926,7 +934,7 @@ And do you have middle initial?</h2>
 			</div>
 			<div class='main_field_div'>
 			<h2 class='fs-title'>Who's going to be responsible for the insurance bills? </h2>			
-				<h3 class="fs-subtitle">President/CEO</h3>	
+				<h3 class="fs-subtitle business-select-rediobtn">President/CEO</h3>	
 			<div class="form-row">
 				  <div class="form-holder w-100">
 				 		

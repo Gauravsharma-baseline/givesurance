@@ -327,9 +327,12 @@ $refresh_token = file_get_contents("refresh_token.txt");
             "Yrs_in_business"=>  "".trim($form_data['Yrs_in_business'])."" ,
             "If_New_Venture_Please_list_previous_industry_emplo"=>  "".trim($form_data['previous_industry_employment'])."" ,
             "List_Filing"=>  "".trim($form_data['List_Filing'])."",
-            "Filing_State"=>  "".trim($form_data['List_Filing_state']).""
-            
-			
+            "Filing_State"=>  "".trim($form_data['List_Filing_state'])."",
+            "Business_Name_1"=>  "".trim($form_data['business_name'])."",
+            "Business_Name_2"=>  "".trim($form_data['business_name1'])."",
+            "EIN"=>  "".trim($form_data['ein'])."",
+            "DBA_Partnership_Corporation"=>  "".trim($form_data['have_DBA_partner_cop'])."",
+            "DBA_Name_Partner_cop"=>  "".trim($form_data['partner_cop_DBA_NAME']).""
 		);
 		
 			  $Contactdata = '{

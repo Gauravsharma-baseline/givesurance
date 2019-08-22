@@ -693,12 +693,12 @@ $(document).on("click", ".phone_number_next", function(event){
 				console.log(driversdata);
 				console.log(driversdata.length);
 				var driverlength= driversdata.length;
+				$('.is_driver_or_not').val('0');
 				if(driverlength != 0){
 					console.log('driver inside');
-					
+					$('.is_driver_or_not').val('0');
 					var current = 1;
 					$.each(driversdata, function(index, element) {
-					
 					if(element.DOB_Age_MaritalStatus_Points_LicenceNo!==null){
 					var d = element.DOB_Age_MaritalStatus_Points_LicenceNo.split(',');
 					var dob = moment(d[0]).format('MM/DD/YYYY');
@@ -726,14 +726,14 @@ $(document).on("click", ".phone_number_next", function(event){
 						).draw();
 						current++;
 						};	
-
 					});	
-					}else{
+				}else{
+						$('.is_driver_or_not').val('1');
 						console.log('driver outside');
 						//var drivertable=$('#dtDriverTable').DataTable({ "scrollX": true});
-					}
+				}
 					
-									/*FMCSA*/
+					/*FMCSA*/
 					/* $('#Form_one').val(conatctData.Form);
 					$('#Type_one').val(conatctData.Type);
 					$('#Posted_Date').val(conatctData.Posted_Date);
@@ -743,10 +743,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					$('#To_id').val(conatctData.To);
 					$('#Cancellation_id').val(conatctData.Cancellation_Date);
 					$('#Insurence_id').val(conatctData.Insurance_Carrier); */
-					
-					
-						/*operation Qualification*/
-						
+					/*operation Qualification*/
 					$('#percentage_two_one').val(conatctData.Radious_0_50_miles);
 					$('#percentage_two_id').val(conatctData.Radious_50_200_miles);
 					$('#percentage_three_id').val(conatctData.Radious_200_miles);
@@ -1062,7 +1059,29 @@ $(document).on("click", ".phone_number_next", function(event){
 					$("input[name='is_vehicles_placard'][value='"+conatctData.listed_vehicles_or_the_load_require_a_placard+"']").attr('checked','checked');
 					}
 					if(conatctData.Structure!==null){
-					$("input[name='Business_Organization_Structure'][value='"+conatctData.Structure+"']").attr('checked','checked');
+						$("input[name='Business_Organization_Structure'][value='"+conatctData.Structure+"']").attr('checked','checked').trigger('click');
+						if(conatctData.Structure == 'Individual/Sole Proprietor'){
+							$('.business-select-rediobtn').text('Company Owner Information');
+							$("#is_DBA").show();
+							$("#is-individual-business").show();
+							$("#is-partner_cop-business").hide();
+						}else if(conatctData.Structure == 'Corporation or LLC' || conatctData.Structure == 'Partnership'){
+							$("#is_DBA").hide();
+							$("#is-individual-business").hide();
+							$("#is-partner_cop-business").show();
+							$("#business_name").val(conatctData.Business_Name_1);
+							$("#business_name1").val(conatctData.Business_Name_2);
+							$("#ein").val(conatctData.EIN);
+							$("input[name='have_DBA_partner_cop'][value='"+conatctData.DBA_Partnership_Corporation+"']").attr('checked','checked').trigger('click');
+							if(conatctData.DBA_Partnership_Corporation == 'Yes'){
+								$("#partner_cop_DBA_NAME").val(conatctData.DBA_Name_Partner_cop);
+							}
+							if(conatctData.Structure == 'Partnership'){
+								$('.business-select-rediobtn').text('Partner responsible for management of business');
+							}else{
+								$('.business-select-rediobtn').text('President/CEO');
+							}
+						}
 					}
 					if(conatctData.Do_you_have_a_DBA!==null){
 						$("input[name='have_DBA'][value='"+conatctData.Do_you_have_a_DBA+"']").attr('checked','checked').trigger('click');
@@ -1151,6 +1170,7 @@ $(document).on("click", ".phone_number_next", function(event){
 					
 				}	else{
 					console.log('working outside');
+					$('.is_driver_or_not').val('1');
 				}
 			}
            }
@@ -1165,6 +1185,37 @@ var contactId=$(".contactId").val();
 var When_do_you_need_policy=$(".When_do_you_need_policy").val();
 $("#Policy_Effective").val(When_do_you_need_policy);
 
+	var driver_is = $('.is_driver_or_not').val();
+	var owner_is = $('.Is_the_owner_driver').val();
+	if(driver_is == '1' && owner_is == 'Yes'){
+			var i=$('#dtDriverTable >tbody >tr').length;
+						console.log(i);
+						if(i>1){
+							var index= parseInt(i)+parseInt(1);
+						} else{
+							var index=i;
+						}
+						var dtDriverTable=$('#dtDriverTable').DataTable();
+							dtDriverTable.row.add(
+								[
+								index,
+								"<button class='edit_drivers btn' data-id='111111' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
+								'afa',
+								'',
+								'afa',
+								'',
+								'',
+								'',
+								'',
+								'',
+								'',
+								'',
+								'',
+								'',
+								]
+							).draw();
+		
+	}
 
 	var dataform=	$('.first_1').find('select, textarea, input').serialize();
 	$(".overlay").show();
@@ -1475,8 +1526,6 @@ $(".general_data_next").click(function(event ){
 					$(".vehiclesLI").addClass("active");
 					$(".sixth").hide();
 					$(".seventh").show(); 
-								 
-				
            }
          });
 });
@@ -3584,7 +3633,36 @@ $(document).on('click', '.is_violation', function(){
 	var d=$("input[name='is_violation']:checked").val();
 	$("#Violation_Table").show();
 });
+// Code for Business Organization Structure conditions 
+	$(document).on("click", ".Business_Organization_Structure", function(event){
+		var businessType = $(this).val();
+		if(businessType == 'Individual/Sole Proprietor'){
+			$('.business-select-rediobtn').text('Company Owner Information');
+			$("#is_DBA").show();
+			$("#is-individual-business").show();
+			$("#is-partner_cop-business").hide();
+		}else if(businessType == 'Corporation or LLC' || businessType == 'Partnership'){
+			$("#is_DBA").hide();
+			$("#is-individual-business").hide();
+			$("#is-partner_cop-business").show();
+			if(businessType == 'Partnership'){
+				$('.business-select-rediobtn').text('Partner responsible for management of business');
+			}else{
+				$('.business-select-rediobtn').text('President/CEO');
+			}
+		}
+	});
+	$(document).on("click", ".have_DBA_partner_cop", function(event){
+		var PartnerCopDBA = $(this).val();
+		console.log(PartnerCopDBA);
+		if(PartnerCopDBA == 'Yes'){
+			$("#partner_cop_DBA").show();
+		}else{
+			$("#partner_cop_DBA").hide();
+		}
+	});
 
 });	
+
 
 
