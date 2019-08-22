@@ -1278,7 +1278,7 @@ $.ajax({
 					if(result.p_state!==null){
 					$('#Financial_State [value='+result.p_state+']').attr('selected', 'selected');
 					}else{
-					$('#Financial_State [value=' ']').attr('selected', 'selected');
+					$('#Financial_State [value=" "]').attr('selected', 'selected');
 					}
 					if(result.p_city!==null){
 					$("#Financial_City").val(result.p_city);
