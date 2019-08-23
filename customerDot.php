@@ -3034,7 +3034,7 @@ function myFunction() {
 					</div>
 					
 					 <div class="form-group C2VehicleDetails_Vehicle_Trailer" style='display:none'>
-					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer:</label>
+					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer?</label>
 					  <input type="text" class="form-control C2VehicleDetails_Vehicle_Trailer" id="C2VehicleDetails_Vehicle_Trailer" name="C2VehicleDetails_Vehicle_Trailer" value="" required="">
 					  <span class="help-block"></span>
 					</div>
@@ -3102,7 +3102,7 @@ function myFunction() {
 					
 					
 					
-					<div class="form-group body_modifications" >
+					<div class="form-group body_modifications" style='display:none;'>
 					  <label for="Vehicle Sub-Type" class="control-label">What is the total value of all the equipments... *Is it between less than 2000 or more than 2000?* </label>
 						<div class='radio'>
 									<input type="radio" name="vehicle_modifications" class="form-control vehicle_modifications" value='$0 to $2,000' checked>
@@ -3176,8 +3176,8 @@ function myFunction() {
 						$response_vehicles= $handleFunctionsObject->vehicle_type();
 						foreach($response_vehicles as $responsedata){?>
 					 <div class='radio'>
-						<input type="radio" name="vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>' id ='<?php echo $responsedata['category_type'];?>'
-							data-id="<?php echo $responsedata['id'];?>" <?php if($responsedata['id']==1){echo 'checked';}?>>
+						<input type="radio" name="vahicle_type" class="vahicle_type" value='<?php echo $responsedata['category_type'];?>' id ='<?php echo $responsedata['id'];?>'
+							data-id="<?php echo $responsedata['id'];?>">
 						<label><?php echo $responsedata['category_type'];?></label>
 					</div>
 					<?php }
@@ -3284,8 +3284,8 @@ function myFunction() {
 					  <span class="help-block"></span>
 					</div>
 					
-					 <div class="form-group C2VehicleDetails_Vehicle_Trailer_edit">
-					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer:</label>
+					 <div class="form-group C2VehicleDetails_Vehicle_Trailer">
+					  <label for="Vehicle_Trailer" class="control-label">What is the value of the Trailer?</label>
 					  <input type="text" class="form-control C2VehicleDetails_Vehicle_Trailer_edit" id="C2VehicleDetails_Vehicle_Trailer_edit" name="C2VehicleDetails_Vehicle_Trailer" value="" required="">
 					  <span class="help-block"></span>
 					</div>

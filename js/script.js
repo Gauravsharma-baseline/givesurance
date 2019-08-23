@@ -431,10 +431,13 @@ $(".CommoditiesLI").click(function(){
 				}else{
 					$("#Commodities_data_div").html("<div class='col-sm-4'><label>No Commodities Hauled!</label></div>");
 				}
+			$("fieldset").hide();
 			$("#progressbar li").removeClass("active");
 			$(".CommoditiesLI").addClass("active");
-			$("fieldset").hide();
-			$(".fourteen_s").show(); 
+			$(".Fourteen_s").show(); 
+			
+			//
+			
 		}
 		 })
 	}	
@@ -578,6 +581,8 @@ $(document).on("click", ".phone_number_next", function(event){
 				$("#Contact_Insured_phone").val(phone);
 				$("#Contact_Insured_phone_hidden").val(phone);
 				$(".contactId").val(result.contactId);
+				$("input[name='quick_quote_for_insurance'][value='Yes']").attr('checked','checked').trigger('click');
+				
 				if(result.Dot !==null){
 					if(result.Dot=='9999999999'){
 						$("input[name='have_DOT_number'][value='No']").attr('checked','checked').trigger('click');
@@ -653,8 +658,10 @@ $(document).on("click", ".phone_number_next", function(event){
 						var i=index+1;
 						if(element.vehicle_type=='Trailer'){
 								var year_make_model=element.year+',-,-';
+								var value=element.non_owned_value;
 							}else{
 								var year_make_model=element.year+','+element.make+','+element.model;
+								var value=element.vehicle_number;
 							}
 						
 						Vehiclestable.row.add(
@@ -665,7 +672,7 @@ $(document).on("click", ".phone_number_next", function(event){
 							element.vin,
 							element.category,
 							element.radius,
-							element.value,
+							value,
 							element.loss_payee,
 							element.gross_weight,
 							element.longest_trip,
@@ -2043,6 +2050,7 @@ var vehicle_type=$(this).data("id");
 			$(".vehicle_Destination_City_div").hide();
 			$(".vehicle_Destination_City_div").hide();
 			$(".C2VehicleDetails_Vehicle_Trailer").show();
+			$(".C2VehicleDetails_Vehicle_Trailer_edit").show();
 			$(".body_div_select_body_style").hide();
 			$(".Radius_div_select").hide();
 			$(".Radius_div_select_Vehicle").hide();
@@ -2053,6 +2061,7 @@ var vehicle_type=$(this).data("id");
 			$(".model_div").hide();
 			$(".body_div_select").hide();
 			$(".Trailer_div_select").show();
+			$(".body_modifications").show();
 				
 		}else{
 			
@@ -2067,6 +2076,8 @@ var vehicle_type=$(this).data("id");
 			$(".Trailer_div_select").hide();
 			$(".trailer_value_div_select").hide();
 			$(".body_div_select_body_style").show();
+			$(".body_modifications").hide();
+			$(".C2VehicleDetails_Vehicle_Trailer_edit").hide();
 			
 		}
 		$(".C2VehicleDetails_category").html('<option value="" selected>updating....</option>');
@@ -2732,8 +2743,10 @@ if($("#C2VehicleDetails_make").val()=='' || $("#C2VehicleDetails_make_name").val
 					var Vehiclestable=$('#dtVehiclesTable').DataTable();
 					if(result.vehicle_type=='Trailer'){
 						var year_make_model=result.year+',-,-';
+						var value=result.non_owned_value;
 					}else{
 						var year_make_model=result.year+','+result.make+','+result.model;
+						var value=result.vehicle_number;
 					}
 						Vehiclestable.row.add(
 							[
@@ -2743,7 +2756,7 @@ if($("#C2VehicleDetails_make").val()=='' || $("#C2VehicleDetails_make_name").val
 							result.vin,
 							result.category,
 							result.radius,
-							result.value,
+							value,
 							result.loss_payee,
 							result.gross_weight,
 							result.city_of_destination
@@ -2858,7 +2871,15 @@ $(document).on("click", ".edit_vehicles", function(event){
            data: ({get_vehicle: "success",contactId:contactId,vehicleid:id}),
             success:function(result){
 				if(result!=''){
-					$("input[name='vahicle_type'][value='"+result.vehicle_type+"']").attr('checked','checked').trigger('change');
+					$("#vehicle_Edit_modal input[name='vahicle_type'][value='"+result.vehicle_type+"']").attr('checked','checked').trigger('change');
+					
+					if(result.vehicle_type=='Trailer'){
+					$("#vehicle_Edit_modal #3").attr('checked','checked');
+					}else if(result.vehicle_type=='1980 or older vehicle'){
+						$("#vehicle_Edit_modal #2").attr('checked','checked');
+					}else{
+						$("#vehicle_Edit_modal #1").attr('checked','checked');
+					}
 					// $(".vahicle_type").val(result[0].vehicle_type).trigger('change');
 					console.log(result);
 					
@@ -2882,6 +2903,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$(".Radius_div_select").hide();
 						$(".Radius_div_select_Vehicle").hide();
 						$(".C2VehicleDetails_Vehicle_Trailer").show();
+						$(".body_modifications").show();
 						$(".make_div").hide();
 						$(".model_div_select").hide();
 						$(".make_div_select").hide();
@@ -2894,8 +2916,8 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$("#C2VehicleDetails_model_edit").val(' ');
 						$("#C2VehicleDetails_Radius_edit").val(' ');
 						$("#C2VehicleDetails_Vehicle_v_edit").val(' ');
-						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(' ');
 						$("#C2VehicleDetails_Vehicle_Trailer_edit").val(result.trailer_number);
+						$("#C2VehicleDetails_Vehicle_Trailer_edit").show();
 						
 						if(result.trailer_type=='non-owned'){
 							
@@ -2906,7 +2928,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 							
 							$(".trailer_value_div_select").hide();
 							$(".trailer_value_div_select_one").show();
-							$(".trailer_value").val(result.owned_value);
+							$(".trailer_value").val(result.non_owned_value);
 							$(".trailer_value").val(' ');
 						}
 						
@@ -2926,6 +2948,8 @@ $(document).on("click", ".edit_vehicles", function(event){
 						$("#C2VehicleDetails_model_edit").val(result.made);
 						$("#C2VehicleDetails_Radius_edit").val(result.radius);
 						$("#C2VehicleDetails_Vehicle_v_edit").val(result.vehicle_number);
+						$(".body_modifications").hide();
+						
 						
 					
 					}
@@ -2935,7 +2959,7 @@ $(document).on("click", ".edit_vehicles", function(event){
 					$("#Vehicle_v_edit").val();
 					$("#C2VehicleDetails_year_edit").val(result.year);
 					
-					$("#C2VehicleDetails_Loss").val(result.loss_payee);
+					$("#C2VehicleDetails_Loss_edit").val(result.loss_payee);
 					if(result.loss_payee=='None' || result.loss_payee=='Associated Bank' ){
 						$(".loss_payee_yes").hide();
 						$(".loss_payee_full_name").val(' '); 
@@ -3081,8 +3105,10 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 						var i=index+1;
 						if(element.vehicle_type=='Trailer'){
 								var year_make_model=element.year+',-,-';
+								var value=element.non_owned_value;
 							}else{
 								var year_make_model=element.year+','+element.make+','+element.model;
+								var value=element.vehicle_number;
 							}
 						
 						Vehiclestable.row.add(
@@ -3093,7 +3119,7 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 							element.vin,
 							element.category,
 							element.radius,
-							element.value,
+							value,
 							element.loss_payee,
 							element.gross_weight,
 							element.city_of_destination
@@ -3122,7 +3148,8 @@ $(document).on("click", "#vehicles_update_button", function(event){  /// update 
 $(document).on("change", "#C2VehicleDetails_year_edit", function(event){
 var vehicle_cat= $("#C2VehicleDetails_category_edit").find(':selected').attr('data-id');
 var vehicle_subcat= $("#C2VehicleDetails_subcategory_edit").find(':selected').attr('data-id');
-var vehicle_type= $("input[name='vahicle_type']:checked").val();
+var vehicle_type= $("#vehicle_Edit_modal input[name='vahicle_type']:checked").val();
+console.log(vehicle_type);
 	$("#C2VehicleDetails_make_edit").html('<option value="" selected>updating....</option>');
 	$("#C2VehicleDetails_model_edit").html('<option value="" selected>updating....</option>');
 	$.ajax({
@@ -3169,7 +3196,7 @@ var vehicle_type= $("input[name='vahicle_type']:checked").val();
 
 
 $(document).on("change", "#C2VehicleDetails_subcategory_edit", function(event){
-var vehicle_type= $("input[name='vahicle_type']:checked").val();
+var vehicle_type= $("#vehicle_Edit_modal input[name='vahicle_type']:checked").val();
 var vehicle_sub= $(this).find(':selected').attr('data-id');
 var C2VehicleDetails_year=$("#C2VehicleDetails_year_edit").find(':selected').attr('data-id');
 var vehicle_cat=$("#C2VehicleDetails_category_edit").find(':selected').attr('data-id');
