@@ -1285,7 +1285,7 @@ if(ISSET($_POST['update_vehicle']) && $_POST['update_vehicle']=='success'){
 	if(ISSET($_POST['is_owner_driver_add']) && $_POST['is_owner_driver_add']=='success'){
 		$contacturl = "Contacts/".$_POST['contactId'];
 		$data = "";
-		$drivername = $_POST['contact_first_name']. ' '.$_POST['contact_last_name'];
+		$drivername = $_POST['contact_first_name']. ' '.' '.$_POST['contact_last_name'];
 		$new_array=array(
 		"Name1"=>$drivername
 		) ;

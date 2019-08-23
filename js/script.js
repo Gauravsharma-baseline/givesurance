@@ -1226,7 +1226,7 @@ $("#Policy_Effective").val(When_do_you_need_policy);
 								[
 								index,
 								"<button class='edit_drivers btn' data-id='"+result.driverId+"' type='button' data-toggle='modal' data-target='#Driver_Edit_modal'>Edit</button>",
-								contact_first_name+' '+contact_last_name,
+								contact_first_name+'  '+contact_last_name,
 								'',
 								'',
 								'',
@@ -1298,7 +1298,7 @@ $.ajax({
 		success:function(result){
 			$("body").css("cursor", "default");
 			$(".overlay").hide();
-              if(result==0){
+              if(result==0 || result.usdot_number==null){
 				event.preventDefault();
 				$(".searchedNumber").addClass('is-invalid'); 
 				$(".dot_alert_valid").show(); 
@@ -1312,7 +1312,7 @@ $.ajax({
 					if(result.p_state!==null){
 					$('#Financial_State [value='+result.p_state+']').attr('selected', 'selected');
 					}else{
-					$('#Financial_State [value=" "]').attr('selected', 'selected');
+					$('#Financial_State').find('option:first').prop('selected', 'selected');
 					}
 					if(result.p_city!==null){
 					$("#Financial_City").val(result.p_city);
@@ -2424,9 +2424,15 @@ var owner = $(this).closest("tr").find('td:eq(11)').text();
 var sr22 = $(this).closest("tr").find('td:eq(12)').text();
 var points = $(this).closest("tr").find('td:eq(13)').text();
  var n=name.split(' ');
+ if(n[2]){
 	$("#edit_driver_first").val(n[0]);
 	$("#edit_driver_middle").val(n[1]);
 	$("#edit_driver_last").val(n[2]);
+ }else{
+	 $("#edit_driver_first").val(n[0]);
+	//$("#edit_driver_middle").val(n[1]);
+	$("#edit_driver_last").val(n[1]);
+ }
 	$("#edit_driver_dob").val(dob);
 	$("#edit_driver_licence").val(licence);
 
